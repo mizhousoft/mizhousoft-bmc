@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/components/*": [
+                "./src/components/*"
+            ],
+            "@/config/*": [
+                "./src/config/*"
+            ],
+            "@/constants/*": [
+                "./src/constants/*"
+            ],
+            "@/session/*": [
+                "./src/session/*"
+            ],
+            "@/static/*": [
+                "./src/static/*"
+            ],
+            "@/utils/*": [
+                "./src/utils/*"
+            ],
+            "@/views/*": [
+                "./src/views/*"
+            ]
+        }
+    }
+}

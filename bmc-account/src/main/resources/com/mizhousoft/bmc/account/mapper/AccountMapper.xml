@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mizhousoft.bmc.account.mapper.AccountMapper">
+	
+	<resultMap type="com.mizhousoft.bmc.account.domain.Account" id="AccountMap">
+		<id property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="status" column="status" />
+		<result property="phoneNumber" column="phoneNumber" />
+		<result property="firstLogin" column="isFirstLogin" />
+		<result property="lockTime" column="lockTime" />
+		<result property="lastAccessTime" column="lastAccessTime" />
+		<result property="lastAccessIpAddr" column="lastAccessIpAddr" />
+	</resultMap>
+	
+	<resultMap type="com.mizhousoft.bmc.account.domain.AuthAccount" id="AuthAccountMap" extends="AccountMap">
+		<result property="password" column="password" />
+		<result property="salt" column="salt" />
+	</resultMap>
+	
+	<resultMap type="com.mizhousoft.bmc.account.domain.AccountInfo" id="accountInfoMap" extends="AccountMap">
+		
+	</resultMap>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into bmc_account (name, type, password, salt, status, phoneNumber, isFirstLogin)
+		values(#{name}, #{type}, #{password}, #{salt}, #{status}, #{phoneNumber}, #{firstLogin})
+	</insert>
+	
+	<delete id="delete">
+		delete from bmc_account 
+		where id = #{id}
+	</delete>
+	
+	<update id="updateAccountStatus">
+		update bmc_account set status = #{status} 
+		where id = #{id}
+	</update>
+			
+	<update id="updatePassword">
+		update bmc_account set password = #{password} 
+		where id = #{id}	
+	</update>
+	
+	<update id="updateLastAccess">
+		update bmc_account set 
+		lastAccessTime = #{lastAccessTime},
+		lastAccessIpAddr = #{lastAccessIpAddr}
+		where id = #{id}
+	</update>
+	
+	<update id="updateFirstLogin">
+		update bmc_account set isFirstLogin = #{isFirstLogin} 
+		where id = #{id}	
+	</update>
+	
+	<update id="updatePhoneNumber">
+		update bmc_account set phoneNumber = #{phoneNumber} 
+		where id = #{id}	
+	</update>
+	
+	<update id="lockAccount">
+		update bmc_account set status = #{status}, lockTime = #{lockTime}  
+		where id = #{id}
+	</update>
+	
+	<update id="unlockAccount">
+		update bmc_account set status = #{status}, lockTime = null 
+		where id = #{id}
+	</update>
+		
+	<select id="findById" resultMap="AccountMap">
+		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		from bmc_account
+		where id = #{id}
+	</select>
+	
+	<select id="findByName" resultMap="AccountMap">
+		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		from bmc_account
+		where name = #{name}
+	</select>
+	
+	<select id="findAuthAccount" resultMap="AuthAccountMap">
+		select id, name, type, password, salt, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		from bmc_account
+		where name = #{name}
+	</select>
+	
+	<select id="countAccounts" resultType="Long" useCache="false">
+		select count(id) from bmc_account
+		<where>
+			<if test="request.status != 0">
+	    		status = #{request.status} 
+	    	</if>	
+		</where>
+	</select>
+
+	<select id="findAccountInfos" parameterType="java.util.Map" resultMap="accountInfoMap" useCache="false">
+		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		from bmc_account
+		<where>
+			<if test="request.status != 0">
+	    		status = #{request.status} 
+	    	</if>	
+		</where> 
+		limit #{rowOffset}, #{request.pageSize}		
+	</select>
+	
+</mapper>

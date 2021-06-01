@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mizhousoft.bmc.role.mapper.RoleMapper">
+	
+	<resultMap type="com.mizhousoft.bmc.role.domain.Role" id="RoleMap">
+		<id property="id" column="id" />
+		<result property="type" column="type" />
+		<result property="srvId" column="srvId" />
+		<result property="name" column="name" />
+		<result property="displayNameCN" column="displayNameCN" />
+		<result property="displayNameUS" column="displayNameUS" />
+		<result property="descriptionCN" column="descriptionCN" />
+		<result property="descriptionUS" column="descriptionUS" />
+	</resultMap>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into bmc_role (type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS)
+		values(#{type}, #{srvId}, #{name}, #{displayNameCN}, #{displayNameUS}, #{descriptionCN}, #{descriptionUS})
+	</insert>
+	
+	<update id="update">
+		update bmc_role set displayNameCN = #{displayNameCN}, displayNameUS = #{displayNameUS},
+		descriptionCN = #{descriptionCN}
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from bmc_role where id = #{id}
+	</delete>
+	
+	<select id="findById" resultMap="RoleMap">
+		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
+		from bmc_role 
+		where id = #{id}
+	</select>
+		
+	<select id="findByName" resultMap="RoleMap">
+		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
+		from bmc_role 
+		where displayNameCN = #{name}
+	</select>
+
+	<select id="findOneByName" resultMap="RoleMap">
+		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
+		from bmc_role 
+		where name = #{name} limit 1
+	</select>
+	
+	<select id="countTotal" resultType="Long">
+		select count(id) from bmc_role
+		<where>
+			<if test="request.name != null">
+				<bind name="pattern" value="'%' + request.name + '%'" />
+				displayNameCN like #{pattern} 
+			</if>
+		</where>
+	</select>
+
+	<select id="findPageData" parameterType="java.util.Map" resultMap="RoleMap">
+		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
+		from bmc_role 
+		<where>
+			<if test="request.name != null">
+				<bind name="pattern" value="'%' + request.name + '%'" />
+				displayNameCN like #{pattern} 
+			</if>
+		</where>
+		limit #{rowOffset}, #{request.pageSize}
+	</select>
+	
+</mapper>

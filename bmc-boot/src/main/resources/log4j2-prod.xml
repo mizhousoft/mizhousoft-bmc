@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<Properties>
+		<Property name="run.basedir" value="/opt/mizhousoft/logs/run/bmc" />
+		<Property name="rolling.basedir" value="/opt/mizhousoft/logs/rolling/bmc" />
+	</Properties>
+
+	<appenders>
+		<RollingFile name="ROOT_LOG_FILE" fileName="${run.basedir}/root.log"
+			filePattern="${rolling.basedir}/root-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%t|%c{5}.%L|%msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+
+		<RollingFile name="3RD_LOG_FILE" fileName="${run.basedir}/3rdparty.log"
+			filePattern="${rolling.basedir}/3rdparty-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%t|%c{5}.%L|%msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingFile>
+
+		<RollingFile name="DEFAULT_LOG_FILE" fileName="${run.basedir}/bmc.log"
+			filePattern="${rolling.basedir}/bmc-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}|%-5level|%t|%c{5}.%L|%msg%xEx%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="20 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+
+	</appenders>
+
+	<loggers>
+		<Logger name="com.mizhousoft" level="info" additivity="false">
+			<AppenderRef ref="DEFAULT_LOG_FILE" />
+		</Logger>
+
+		<Logger name="org.mybatis" level="info" additivity="false">
+			<AppenderRef ref="3RD_LOG_FILE" />
+		</Logger>
+
+		<Logger name="org.springframework" level="info" additivity="false">
+			<AppenderRef ref="3RD_LOG_FILE" />
+		</Logger>
+
+		<Logger name="org.apache" level="info" additivity="false">
+			<AppenderRef ref="3RD_LOG_FILE" />
+		</Logger>
+
+		<Logger name="com.zaxxer" level="info" additivity="false">
+			<AppenderRef ref="3RD_LOG_FILE" />
+		</Logger>
+
+		<Logger name="net.sf.ehcache" level="info" additivity="false">
+			<AppenderRef ref="3RD_LOG_FILE" />
+		</Logger>
+
+		<root level="info">
+			<appender-ref ref="ROOT_LOG_FILE" />
+		</root>
+	</loggers>
+
+</configuration>

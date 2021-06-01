@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mizhousoft.bmc.account.mapper.AccountRoleMapper">
+
+	<resultMap type="com.mizhousoft.bmc.account.domain.AccountRole" id="AccountRoleMap">
+		<id property="id" column="id" />
+		<result property="accountId" column="accountId" />
+		<result property="roleId" column="roleId" />
+	</resultMap>
+	
+	<insert id="save">
+		insert into bmc_account_role (accountId, roleId) values(#{accountId}, #{roleId})
+	</insert>
+
+	<delete id="deleteByRoleId">
+		delete from bmc_account_role where roleId = #{roleId}
+	</delete>
+
+	<delete id="deleteByAccountId">
+		delete from bmc_account_role where accountId = #{accountId}
+	</delete>
+	
+	<select id="findByAccountId" parameterType="java.util.Map" resultMap="AccountRoleMap">
+		select id, accountId, roleId
+		from bmc_account_role 		
+		where accountId = #{accountId}
+	</select>
+	
+</mapper>
