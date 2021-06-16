@@ -95,17 +95,21 @@ div.ant-input-number {
     margin: 0 12px;
 }
 
+.header-menu.ant-menu-horizontal {
+    border-bottom: none;
+}
+
 .header-menu.ant-menu-horizontal > .ant-menu-item {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item > a {
+.header-menu.ant-menu-horizontal > .ant-menu-item a {
     color: hsla(0, 0%, 100%, 0.55);
     font-weight: 500;
     font-size: 15px;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-selected > a {
+.header-menu.ant-menu-horizontal > .ant-menu-item-selected a {
     color: #fff;
     font-weight: 500;
 }
@@ -126,7 +130,7 @@ div.ant-input-number {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-selected a::after {
+.header-menu.ant-menu-horizontal > .ant-menu-item-selected::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
@@ -147,6 +151,14 @@ div.ant-input-number {
 .header-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
+}
+
+.ant-layout-sider-light .ant-menu-item .anticon {
+    margin-right: 8px;
+}
+
+.ant-layout-sider-light .ant-menu-submenu-title .anticon {
+    margin-right: 6px;
 }
 
 .input-addon-button .ant-input-group-addon {

@@ -13,7 +13,7 @@ export function getTableLocale(fetchStatus) {
     return locale;
 }
 
-export function PageLoading({ tip }) {
+export function PageLoading({ tip = '数据加载中' }) {
     return (
         <div className='mz-page-loading'>
             <div className='spin'>
