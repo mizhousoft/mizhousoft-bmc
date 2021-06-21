@@ -110,7 +110,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 		// 查询帐号
 		AuthAccount authAccount = queryAuthAccount(account, accountStrategy);
 
-		boolean twoFactorAuthcPassed = false;
+		AccountDetails accountDetails = null;
 
 		try
 		{
@@ -135,18 +135,33 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 			cleanAuthFailedAccount(account);
 
 			// 构建认证帐号信息
-			AccountImpl accountImpl = buildAccountImpl(authAccount, host);
-
-			twoFactorAuthcPassed = accountImpl.isTwoFactorAuthcPassed();
-
-			return accountImpl;
+			accountDetails = buildAccountImpl(authAccount, host);
+			return accountDetails;
 		}
 		finally
 		{
+			updateLastAccess(accountDetails, host);
+		}
+	}
+
+	private void updateLastAccess(AccountDetails accountDetails, String host)
+	{
+		try
+		{
+			if (null == accountDetails)
+			{
+				return;
+			}
+
+			boolean twoFactorAuthcPassed = accountDetails.isTwoFactorAuthcPassed();
 			if (null == twoFactorAuthenticationService || !twoFactorAuthenticationService.isEnable() || twoFactorAuthcPassed)
 			{
-				accountMapper.updateLastAccess(authAccount.getId(), new Date(), host);
+				accountMapper.updateLastAccess(accountDetails.getAccountId(), new Date(), host);
 			}
+		}
+		catch (Throwable e)
+		{
+			LOG.error("Update last access failed.", e);
 		}
 	}
 
