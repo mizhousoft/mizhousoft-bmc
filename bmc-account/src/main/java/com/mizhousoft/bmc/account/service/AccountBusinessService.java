@@ -36,6 +36,14 @@ public interface AccountBusinessService
 	void deleteAccount(Account account) throws BMCException;
 
 	/**
+	 * 启用帐号
+	 * 
+	 * @param account
+	 * @throws BMCException
+	 */
+	void enableAccount(Account account) throws BMCException;
+
+	/**
 	 * 根据帐号ID获取角色
 	 * 
 	 * @param accountId

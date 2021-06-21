@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountRequest;
+import com.mizhousoft.bmc.account.service.AccountBusinessService;
 import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
@@ -34,6 +35,9 @@ public class AccountEnableController extends BaseAuditController
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private AccountBusinessService accountBusinessService;
+
 	@RequestMapping(value = "/account/enableAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ActionResponse enableAccount(@RequestBody AccountRequest request)
 	{
@@ -45,7 +49,7 @@ public class AccountEnableController extends BaseAuditController
 			Account account = accountService.loadById(request.getId());
 			if (null != account)
 			{
-				accountService.enableAccount(account);
+				accountBusinessService.enableAccount(account);
 				String detail = "Enable " + account.getName() + " account.";
 				operLog = buildOperLog(AuditLogResult.Success, detail, account.toString());
 			}

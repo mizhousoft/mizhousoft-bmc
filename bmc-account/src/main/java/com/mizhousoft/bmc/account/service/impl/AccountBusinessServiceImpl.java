@@ -1,7 +1,9 @@
 package com.mizhousoft.bmc.account.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +34,8 @@ import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
+import com.mizhousoft.bmc.system.domain.AccountStrategy;
+import com.mizhousoft.bmc.system.service.AccountStrategyService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
 import com.mizhousoft.commons.data.util.PageUtils;
@@ -65,6 +69,9 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 
 	@Autowired
 	private ApplicationEventPublisher eventPublisher;
+
+	@Autowired
+	private AccountStrategyService accountStrategyService;
 
 	/**
 	 * {@inheritDoc}
@@ -110,6 +117,36 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 		accountRoleSerivce.deleteByAccountId(account.getId());
 
 		historyPasswordService.delete(account.getId());
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	@Override
+	public synchronized void enableAccount(Account account) throws BMCException
+	{
+		accountService.enableAccount(account);
+
+		Date lastAccessTime = account.getLastAccessTime();
+		if (null != lastAccessTime)
+		{
+			AccountStrategy accountStrategy = accountStrategyService.queryAccountStrategy();
+			int unusedDay = accountStrategy.getAccountUnusedDay();
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(lastAccessTime);
+			cal.add(Calendar.DAY_OF_MONTH, unusedDay);
+
+			Date nowDate = new Date();
+			if (nowDate.after(cal.getTime()))
+			{
+				account.setLastAccessTime(null);
+				account.setLastAccessIpAddr(null);
+
+				accountService.modifyLastAccess(account);
+			}
+		}
 	}
 
 	/**
