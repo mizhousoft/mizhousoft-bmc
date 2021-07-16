@@ -73,7 +73,7 @@ class Idletimeout extends Component {
                         ]}
                         noStyle
                     >
-                        <InputNumber min={1} max={120} />
+                        <InputNumber min={1} max={1440} />
                     </FormItem>
                     <span>&nbsp; 分钟</span>
                 </Form.Item>

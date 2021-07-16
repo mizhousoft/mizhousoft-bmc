@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Range;
 public class IdleTimeoutRequest
 {
 	// 超时时间
-	@Range(min = 1, max = 120, message = "{bmc.idletimeout.timeout.range.error}")
+	@Range(min = 1, max = 1440, message = "{bmc.idletimeout.timeout.range.error}")
 	private int timeout;
 
 	/**

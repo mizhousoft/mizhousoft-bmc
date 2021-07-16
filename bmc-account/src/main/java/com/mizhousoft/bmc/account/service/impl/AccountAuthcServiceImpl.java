@@ -42,8 +42,10 @@ import com.mizhousoft.bmc.security.service.AccountAuthcService;
 import com.mizhousoft.bmc.security.service.TwoFactorAuthenticationService;
 import com.mizhousoft.bmc.system.constant.AccountStrategyConstants;
 import com.mizhousoft.bmc.system.domain.AccountStrategy;
+import com.mizhousoft.bmc.system.domain.IdleTimeout;
 import com.mizhousoft.bmc.system.domain.PasswordStrategy;
 import com.mizhousoft.bmc.system.service.AccountStrategyService;
+import com.mizhousoft.bmc.system.service.IdleTimeoutService;
 import com.mizhousoft.bmc.system.service.PasswordStrategyService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
@@ -76,6 +78,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 
 	@Autowired
 	private ApplicationContext applicationContext;
+
+	@Autowired
+	private IdleTimeoutService idleTimeoutService;
 
 	// 认证失败帐号集合
 	private Map<String, AuthFaildAccount> authFailedAccountMap = new ConcurrentHashMap<String, AuthFaildAccount>(1000);
@@ -282,6 +287,8 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 			grantedAuthorities.add(grantedAuthority);
 		}
 
+		IdleTimeout idleTimeout = idleTimeoutService.queryIdleTimeout(authAccount.getId());
+
 		AccountImpl accountImpl = new AccountImpl();
 		accountImpl.setAccountId(authAccount.getId());
 		accountImpl.setAccountName(authAccount.getName());
@@ -289,6 +296,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 		accountImpl.setFirstLogin(authAccount.isFirstLogin());
 		accountImpl.setSuperAdmin(AccountUtils.isSuperAdmin(authAccount.getType()));
 		accountImpl.setLoginIpAddr(host);
+		accountImpl.setSessionIdleTimeout(idleTimeout.getTimeout());
 
 		// 初始化帐号凭证选项
 		initAccountCredentialOptions(accountImpl);
