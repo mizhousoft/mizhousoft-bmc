@@ -32,11 +32,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.mizhousoft.boot</groupId>
-			<artifactId>ehcache-spring-boot-starter</artifactId>
-			<version>${mizhousoft.boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mizhousoft.boot</groupId>
 			<artifactId>restclient-spring-boot-starter</artifactId>
 			<version>${mizhousoft.boot.version}</version>
 		</dependency>
@@ -48,10 +43,6 @@
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mybatis.caches</groupId>
-			<artifactId>mybatis-ehcache</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>

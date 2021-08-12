@@ -1,7 +1,6 @@
 package com.mizhousoft.bmc.role.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -16,12 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
-import com.mizhousoft.bmc.role.domain.PermResource;
 import com.mizhousoft.bmc.role.domain.Permission;
-import com.mizhousoft.bmc.role.mapper.PermResourceMapper;
 import com.mizhousoft.bmc.role.mapper.PermissionMapper;
+import com.mizhousoft.bmc.role.service.PermResourceService;
 import com.mizhousoft.bmc.role.service.PermissionService;
 
 /**
@@ -30,17 +30,19 @@ import com.mizhousoft.bmc.role.service.PermissionService;
  * @version
  */
 @Service
-public class PermissionServiceImpl implements PermissionService
+@Order(1)
+public class PermissionServiceImpl implements PermissionService, CommandLineRunner
 {
 	private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
-	// 权限持久层业务服务
 	@Autowired
 	private PermissionMapper permissionMapper;
 
-	// 权限资源持久层Mapper
 	@Autowired
-	private PermResourceMapper permResourceMapper;
+	private PermResourceService permResourceService;
+
+	// Map<Permission Name, Permission>
+	private Map<String, Permission> permissionMap = new HashMap<>(0);
 
 	/**
 	 * {@inheritDoc}
@@ -49,7 +51,6 @@ public class PermissionServiceImpl implements PermissionService
 	public List<String> queryAuthcRequestPaths()
 	{
 		List<String> authcPaths = new ArrayList<String>(10);
-		Map<String, List<String>> permMaps = queryPermResourceMap();
 
 		List<Permission> allPerms = queryAllPermissions();
 		allPerms.forEach(perm -> {
@@ -58,7 +59,7 @@ public class PermissionServiceImpl implements PermissionService
 				return;
 			}
 
-			List<String> paths = permMaps.get(perm.getName());
+			List<String> paths = permResourceService.queryByPermission(perm.getName());
 			if (CollectionUtils.isNotEmpty(paths))
 			{
 				paths.forEach(path -> {
@@ -77,7 +78,6 @@ public class PermissionServiceImpl implements PermissionService
 	public List<String> queryAuthzRequestPaths()
 	{
 		List<String> authzPaths = new ArrayList<String>(10);
-		Map<String, List<String>> permMaps = queryPermResourceMap();
 
 		List<Permission> allPerms = queryAllPermissions();
 		allPerms.forEach(perm -> {
@@ -86,7 +86,7 @@ public class PermissionServiceImpl implements PermissionService
 				return;
 			}
 
-			List<String> paths = permMaps.get(perm.getName());
+			List<String> paths = permResourceService.queryByPermission(perm.getName());
 			if (CollectionUtils.isNotEmpty(paths))
 			{
 				paths.forEach(path -> {
@@ -104,7 +104,13 @@ public class PermissionServiceImpl implements PermissionService
 	@Override
 	public Permission queryByRequestPath(String path)
 	{
-		return permissionMapper.findByRequestPath(path);
+		String permName = permResourceService.getPermissionByPath(path);
+		if (null == permName)
+		{
+			return null;
+		}
+
+		return permissionMap.get(permName);
 	}
 
 	/**
@@ -113,8 +119,9 @@ public class PermissionServiceImpl implements PermissionService
 	@Override
 	public List<Permission> queryAllPermissions()
 	{
-		List<Permission> permissions = permissionMapper.findAll();
-		return Collections.unmodifiableList(permissions);
+		List<Permission> list = new ArrayList<>(permissionMap.values());
+
+		return list;
 	}
 
 	/**
@@ -171,30 +178,6 @@ public class PermissionServiceImpl implements PermissionService
 	}
 
 	/**
-	 * 查询权限资源
-	 * 
-	 * @return
-	 */
-	private Map<String, List<String>> queryPermResourceMap()
-	{
-		Map<String, List<String>> permMaps = new HashMap<>();
-
-		List<PermResource> permReses = permResourceMapper.findAll();
-		permReses.forEach(permRes -> {
-			List<String> list = permMaps.get(permRes.getPermName());
-			if (null == list)
-			{
-				list = new ArrayList<String>();
-				permMaps.put(permRes.getPermName(), list);
-			}
-
-			list.add(permRes.getPath());
-		});
-
-		return permMaps;
-	}
-
-	/**
 	 * 递归获取父权限
 	 * 
 	 * @param perm
@@ -223,5 +206,21 @@ public class PermissionServiceImpl implements PermissionService
 		}
 
 		return parents;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void run(String... args) throws Exception
+	{
+		List<Permission> permissions = permissionMapper.findAll();
+
+		Map<String, Permission> permissionMap = new HashMap<>(100);
+		permissions.forEach(item -> permissionMap.put(item.getName(), item));
+
+		this.permissionMap = permissionMap;
+
+		LOG.info("Load permission size is {}.", permissions.size());
 	}
 }

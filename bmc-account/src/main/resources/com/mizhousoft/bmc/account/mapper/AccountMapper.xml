@@ -89,7 +89,7 @@
 		where name = #{name}
 	</select>
 	
-	<select id="countAccounts" resultType="Long" useCache="false">
+	<select id="countAccounts" resultType="Long">
 		select count(id) from bmc_account
 		<where>
 			<if test="request.status != 0">
@@ -98,7 +98,7 @@
 		</where>
 	</select>
 
-	<select id="findAccountInfos" parameterType="java.util.Map" resultMap="accountInfoMap" useCache="false">
+	<select id="findAccountInfos" parameterType="java.util.Map" resultMap="accountInfoMap">
 		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
 		from bmc_account
 		<where>

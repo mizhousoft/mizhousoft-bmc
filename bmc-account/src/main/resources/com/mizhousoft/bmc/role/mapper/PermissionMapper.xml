@@ -3,8 +3,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mizhousoft.bmc.role.mapper.PermissionMapper">
 	
-	<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
-	
 	<resultMap type="com.mizhousoft.bmc.role.domain.Permission" id="PermissionMap">
 		<id property="id" column="id" />
 		<result property="srvId" column="srvId" />
@@ -18,15 +16,10 @@
 		<result property="descriptionUS" column="descriptionUS" />
 	</resultMap>
 	
-	<select id="findAll" resultMap="PermissionMap" useCache="true">
-		select p.id, p.srvId, p.type, p.name, p.parentName, p.displayNameCN, p.displayNameUS, p.isAuthz, p.descriptionCN, p.descriptionUS
-		from bmc_permission p
-	</select>
-	
-	<select id="findByRequestPath" resultMap="PermissionMap" useCache="true">
-		select p.id, p.srvId, p.type, p.name, p.parentName, p.displayNameCN, p.displayNameUS, p.isAuthz, p.descriptionCN, p.descriptionUS
-		from bmc_permission p, bmc_perm_resource r
-		where p.name = r.permName and r.path = #{path}
+	<select id="findAll" resultMap="PermissionMap">
+		select id, srvId, type, name, parentName, displayNameCN, displayNameUS, isAuthz, 
+		descriptionCN, descriptionUS
+		from bmc_permission
 	</select>
 		
 </mapper>

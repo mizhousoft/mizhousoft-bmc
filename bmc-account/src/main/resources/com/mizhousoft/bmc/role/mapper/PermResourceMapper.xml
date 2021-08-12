@@ -3,17 +3,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mizhousoft.bmc.role.mapper.PermResourceMapper">
 	
-	<cache type="org.mybatis.caches.ehcache.EhcacheCache" />
-	
 	<resultMap type="com.mizhousoft.bmc.role.domain.PermResource" id="PermResourceMap">
 		<id property="id" column="id" />
 		<result property="permName" column="permName" />
 		<result property="path" column="path" />
 	</resultMap>
 	
-	<select id="findAll" resultMap="PermResourceMap" useCache="true">
-		select p.id, p.permName, p.path
-		from bmc_perm_resource p
+	<select id="findAll" resultMap="PermResourceMap">
+		select id, permName, path from bmc_perm_resource
 	</select>
 
 </mapper>

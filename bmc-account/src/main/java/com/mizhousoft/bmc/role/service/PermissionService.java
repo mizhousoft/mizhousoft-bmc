@@ -3,7 +3,6 @@ package com.mizhousoft.bmc.role.service;
 import java.util.List;
 import java.util.Set;
 
-import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.role.domain.Permission;
 
 /**
@@ -54,7 +53,6 @@ public interface PermissionService
 	 * 
 	 * @param ids
 	 * @return
-	 * @throws BMCException
 	 */
 	List<Permission> queryPermissionsWithParentByIds(Set<Integer> ids);
 }
