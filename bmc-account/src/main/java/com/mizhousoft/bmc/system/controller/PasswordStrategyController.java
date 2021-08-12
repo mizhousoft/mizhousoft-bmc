@@ -39,7 +39,7 @@ public class PasswordStrategyController extends BaseAuditController
 	private PasswordStrategyService passwordStrategyService;
 
 	@RequestMapping(value = "/system/fetchPasswordStrategy.action", method = RequestMethod.GET)
-	public ModelMap fetch()
+	public ModelMap fetchPasswordStrategy()
 	{
 		ModelMap map = new ModelMap();
 
@@ -50,7 +50,7 @@ public class PasswordStrategyController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/system/modifyPasswordStrategy.action", method = RequestMethod.POST)
-	public ActionResponse modify(@Valid @RequestBody PasswordStrategyReqesut request, BindingResult result)
+	public ActionResponse modifyPasswordStrategy(@Valid @RequestBody PasswordStrategyReqesut request, BindingResult result)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

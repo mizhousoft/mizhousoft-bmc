@@ -27,10 +27,7 @@ public class ObjectIdentityGeneratorImpl implements ObjectIdentityGenerator
 	private ServerNodeProvider serverNodeProvider;
 
 	/**
-	 * 生成资源ID
-	 * 
-	 * @param name
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
 	@Override

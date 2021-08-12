@@ -39,7 +39,7 @@ public class AccountStrategyController extends BaseAuditController
 	private AccountStrategyService accountStrategyService;
 
 	@RequestMapping(value = "/system/fetchAccountStrategy.action", method = RequestMethod.GET)
-	public ModelMap fetch()
+	public ModelMap fetchAccountStrategy()
 	{
 		ModelMap map = new ModelMap();
 
@@ -50,7 +50,7 @@ public class AccountStrategyController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/system/modifyAccountStrategy.action", method = RequestMethod.POST)
-	public ActionResponse modify(@Valid @RequestBody AccountStrategyRequest request, BindingResult result)
+	public ActionResponse modifyAccountStrategy(@Valid @RequestBody AccountStrategyRequest request, BindingResult result)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

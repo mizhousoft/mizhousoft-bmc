@@ -22,7 +22,6 @@ import com.mizhousoft.commons.data.util.PageUtils;
 @Service
 public class SecurityLogServiceImpl implements SecurityLogService
 {
-
 	@Autowired
 	private SecurityLogMapper securityLogMapper;
 
