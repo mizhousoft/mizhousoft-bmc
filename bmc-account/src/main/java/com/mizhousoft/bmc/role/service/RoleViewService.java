@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @version
  */
-public interface RoleFindService
+public interface RoleViewService
 {
 	/**
 	 * 根据请求路径获取角色

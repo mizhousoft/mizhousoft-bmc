@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mizhousoft.bmc.role.service.RoleFindService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.bmc.security.service.AccessControlService;
 
 /**
@@ -17,7 +17,7 @@ import com.mizhousoft.bmc.security.service.AccessControlService;
 public class AccessControlServiceImpl implements AccessControlService
 {
 	@Autowired
-	private RoleFindService roleFindService;
+	private RoleViewService roleViewService;
 
 	/**
 	 * {@inheritDoc}
@@ -25,6 +25,6 @@ public class AccessControlServiceImpl implements AccessControlService
 	@Override
 	public List<String> getRolesByPath(String requestPath)
 	{
-		return roleFindService.getRoleNamesByPath(requestPath);
+		return roleViewService.getRoleNamesByPath(requestPath);
 	}
 }

@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.service.PermissionService;
-import com.mizhousoft.bmc.role.service.RoleFindService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 
 /**
- * 角色查询服务
+ * 角色视图服务
  *
  * @version
  */
 @Service
-public class RoleFindServiceImpl implements RoleFindService
+public class RoleViewServiceImpl implements RoleViewService
 {
 	@Autowired
 	private RolePermissionService rolePermissionService;
@@ -39,13 +39,7 @@ public class RoleFindServiceImpl implements RoleFindService
 			return Collections.emptyList();
 		}
 
-		List<String> roleNames = queryRoleByPermName(perm.getName());
-		return roleNames;
-	}
-
-	public List<String> queryRoleByPermName(String permName)
-	{
-		List<RolePermission> rps = rolePermissionService.queryByPermName(permName);
+		List<RolePermission> rps = rolePermissionService.queryByPermName(perm.getName());
 
 		List<String> roleNames = new ArrayList<String>(rps.size());
 		rps.forEach(item -> roleNames.add(item.getRoleName()));
