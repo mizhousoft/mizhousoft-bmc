@@ -33,10 +33,10 @@ public interface RoleService
 	/**
 	 * 删除角色
 	 * 
-	 * @param role
+	 * @param id
 	 * @throws BMCException
 	 */
-	void deleteRole(Role role) throws BMCException;
+	Role deleteRole(int id) throws BMCException;
 
 	/**
 	 * 根据角色ID查找角色

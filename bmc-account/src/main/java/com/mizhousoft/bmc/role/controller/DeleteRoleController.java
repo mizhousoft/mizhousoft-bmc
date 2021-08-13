@@ -18,7 +18,7 @@ import com.mizhousoft.bmc.auditlog.domain.OperationLog;
 import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleDeleteRequest;
-import com.mizhousoft.bmc.role.service.RoleService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -34,7 +34,7 @@ public class DeleteRoleController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteRoleController.class);
 
 	@Autowired
-	private RoleService roleService;
+	private RoleViewService roleViewService;
 
 	@RequestMapping(value = "/role/deleteRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ActionResponse deleteRole(@Valid @RequestBody RoleDeleteRequest request)
@@ -44,10 +44,9 @@ public class DeleteRoleController extends BaseAuditController
 
 		try
 		{
-			Role role = roleService.getById(request.getId());
+			Role role = roleViewService.deleteRole(request.getId());
 			if (null != role)
 			{
-				roleService.deleteRole(role);
 				operLog = buildOperLog(AuditLogResult.Success, role.toString(), null);
 			}
 			else

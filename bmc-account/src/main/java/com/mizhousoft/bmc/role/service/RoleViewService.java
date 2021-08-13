@@ -32,6 +32,14 @@ public interface RoleViewService
 	void modifyRole(Role role, List<Permission> perms) throws BMCException;
 
 	/**
+	 * 删除角色
+	 * 
+	 * @param id
+	 * @throws BMCException
+	 */
+	Role deleteRole(int id) throws BMCException;
+
+	/**
 	 * 根据请求路径获取角色
 	 * 
 	 * @param requestPath

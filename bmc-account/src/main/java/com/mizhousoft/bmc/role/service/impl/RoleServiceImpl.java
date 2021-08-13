@@ -8,20 +8,13 @@ import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.BMCRuntimeException;
-import com.mizhousoft.bmc.account.service.AccountRoleSerivce;
 import com.mizhousoft.bmc.role.constant.RoleType;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.event.RoleDeleteEvent;
 import com.mizhousoft.bmc.role.mapper.RoleMapper;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
-import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
@@ -35,18 +28,8 @@ import com.mizhousoft.commons.data.util.PageUtils;
 @Service
 public class RoleServiceImpl implements RoleService
 {
-	// 角色持久层业务接口
 	@Autowired
 	private RoleMapper roleMapper;
-
-	@Autowired
-	private RolePermissionService rolePermissionService;
-
-	@Autowired
-	private AccountRoleSerivce accountRoleSerivce;
-
-	@Autowired
-	private ApplicationEventPublisher eventPublisher;
 
 	/**
 	 * {@inheritDoc}
@@ -86,30 +69,23 @@ public class RoleServiceImpl implements RoleService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public void deleteRole(Role role) throws BMCException
+	public Role deleteRole(int id) throws BMCException
 	{
+		Role role = getById(id);
+		if (null == role)
+		{
+			return null;
+		}
+
 		if (role.getType() == RoleType.AdministratorRole.getValue())
 		{
 			throw new BMCException("bmc.role.administrator.can.not.delete.error", "Administrator Role can not delete.");
 		}
 
-		try
-		{
-			RoleDeleteEvent event = new RoleDeleteEvent(role);
-			eventPublisher.publishEvent(event);
-		}
-		catch (BMCRuntimeException e)
-		{
-			throw new BMCException(e.getErrorCode(), e.getCodeParams(), e.getMessage(), e);
-		}
-
 		roleMapper.delete(role.getId());
 
-		rolePermissionService.deleteByRoleName(role.getName());
-
-		accountRoleSerivce.deleteByRoleId(role.getId());
+		return role;
 	}
 
 	/**
