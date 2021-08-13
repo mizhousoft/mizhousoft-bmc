@@ -67,14 +67,6 @@ public interface RoleService
 	Role getById(int id);
 
 	/**
-	 * 根据角色名查询角色
-	 * 
-	 * @param name
-	 * @return
-	 */
-	Role getByRoleName(String name);
-
-	/**
 	 * 分页查找角色
 	 * 
 	 * @param request

@@ -41,12 +41,6 @@
 		where displayNameCN = #{name}
 	</select>
 
-	<select id="findOneByName" resultMap="RoleMap">
-		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
-		from bmc_role 
-		where name = #{name} limit 1
-	</select>
-	
 	<select id="countTotal" resultType="Long">
 		select count(id) from bmc_role
 		<where>

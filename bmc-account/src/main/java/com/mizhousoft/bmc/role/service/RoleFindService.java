@@ -2,8 +2,6 @@ package com.mizhousoft.bmc.role.service;
 
 import java.util.List;
 
-import com.mizhousoft.bmc.role.domain.Role;
-
 /**
  * 角色查询服务
  *
@@ -12,10 +10,10 @@ import com.mizhousoft.bmc.role.domain.Role;
 public interface RoleFindService
 {
 	/**
-	 * 根据权限名称查询角色
+	 * 根据请求路径获取角色
 	 * 
-	 * @param permName
+	 * @param requestPath
 	 * @return
 	 */
-	List<Role> queryRoleByPermName(String permName);
+	List<String> getRoleNamesByPath(String requestPath);
 }

@@ -187,15 +187,6 @@ public class RoleServiceImpl implements RoleService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Role getByRoleName(String name)
-	{
-		return roleMapper.findOneByName(name);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Page<Role> queryRoles(RolePageRequest request)
 	{
 		long total = roleMapper.countTotal(request);
