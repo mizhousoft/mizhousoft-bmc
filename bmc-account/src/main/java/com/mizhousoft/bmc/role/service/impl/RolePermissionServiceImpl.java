@@ -53,17 +53,8 @@ public class RolePermissionServiceImpl implements RolePermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<RolePermission> queryByRoleName(String roleName)
+	public List<RolePermission> queryAll()
 	{
-		return rolePermissionMapper.findByRoleName(roleName);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<RolePermission> queryByPermName(String permName)
-	{
-		return rolePermissionMapper.findByPermName(permName);
+		return rolePermissionMapper.findAll();
 	}
 }

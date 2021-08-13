@@ -1,11 +1,11 @@
 package com.mizhousoft.bmc.account.service.impl;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mizhousoft.bmc.role.service.RoleViewService;
+import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.security.service.AccessControlService;
 
 /**
@@ -17,14 +17,14 @@ import com.mizhousoft.bmc.security.service.AccessControlService;
 public class AccessControlServiceImpl implements AccessControlService
 {
 	@Autowired
-	private RoleViewService roleViewService;
+	private RoleCacheService roleCacheService;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> getRolesByPath(String requestPath)
+	public Set<String> getRolesByPath(String requestPath)
 	{
-		return roleViewService.getRoleNamesByPath(requestPath);
+		return roleCacheService.getRoleNamesByPath(requestPath);
 	}
 }

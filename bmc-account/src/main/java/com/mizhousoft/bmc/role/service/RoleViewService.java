@@ -38,12 +38,4 @@ public interface RoleViewService
 	 * @throws BMCException
 	 */
 	Role deleteRole(int id) throws BMCException;
-
-	/**
-	 * 根据请求路径获取角色
-	 * 
-	 * @param requestPath
-	 * @return
-	 */
-	List<String> getRoleNamesByPath(String requestPath);
 }

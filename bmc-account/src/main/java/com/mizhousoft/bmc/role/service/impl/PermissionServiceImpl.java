@@ -10,13 +10,13 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.role.domain.Permission;
@@ -30,8 +30,7 @@ import com.mizhousoft.bmc.role.service.PermissionService;
  * @version
  */
 @Service
-@Order(1)
-public class PermissionServiceImpl implements PermissionService, CommandLineRunner
+public class PermissionServiceImpl implements PermissionService
 {
 	private static final Logger LOG = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
@@ -119,9 +118,7 @@ public class PermissionServiceImpl implements PermissionService, CommandLineRunn
 	@Override
 	public List<Permission> queryAllPermissions()
 	{
-		List<Permission> list = new ArrayList<>(permissionMap.values());
-
-		return list;
+		return permissionMapper.findAll();
 	}
 
 	/**
@@ -208,11 +205,8 @@ public class PermissionServiceImpl implements PermissionService, CommandLineRunn
 		return parents;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) throws Exception
+	@PostConstruct
+	public void initialize()
 	{
 		List<Permission> permissions = permissionMapper.findAll();
 

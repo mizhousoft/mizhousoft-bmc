@@ -38,18 +38,9 @@ public interface RolePermissionService
 	List<Permission> queryPermissionsByRoleName(String roleName);
 
 	/**
-	 * 根据角色名查询角色权限
+	 * 查询所有
 	 * 
-	 * @param roleName
 	 * @return
 	 */
-	List<RolePermission> queryByRoleName(String roleName);
-
-	/**
-	 * 根据权限名查询角色权限
-	 * 
-	 * @param permName
-	 * @return
-	 */
-	List<RolePermission> queryByPermName(String permName);
+	List<RolePermission> queryAll();
 }

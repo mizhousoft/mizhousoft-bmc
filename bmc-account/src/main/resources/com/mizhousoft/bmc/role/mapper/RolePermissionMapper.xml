@@ -30,23 +30,15 @@
 	<delete id="deleteByRoleName">
 		delete from bmc_role_permission where roleName = #{roleName}
 	</delete>
-	
-	<select id="findByPermName" resultMap="RolePermissionMap">
-		select id, permName ,roleName
-		from bmc_role_permission 
-		where permName = #{permName}
-	</select>
-	
-	<select id="findByRoleName" resultMap="RolePermissionMap">
-		select id, permName ,roleName
-		from bmc_role_permission 
-		where roleName = #{roleName}
-	</select>
 		
 	<select id="findPermissionByRoleName" resultMap="PermissionMap">
 		select p.id, p.srvId, p.type, p.name, p.parentName, p.displayNameCN, p.displayNameUS, p.isAuthz, p.descriptionCN, p.descriptionUS
 		from bmc_permission p, bmc_role_permission rp
 		where p.name = rp.permName and rp.roleName = #{roleName}
+	</select>
+	
+	<select id="findAll" resultMap="RolePermissionMap">
+		select id, permName, roleName from bmc_role_permission
 	</select>
 	
 </mapper>

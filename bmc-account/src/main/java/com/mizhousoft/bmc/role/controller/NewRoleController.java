@@ -31,6 +31,7 @@ import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleRequest;
 import com.mizhousoft.bmc.role.service.PermissionService;
+import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.json.JSONException;
@@ -55,6 +56,9 @@ public class NewRoleController extends BaseAuditController
 
 	@Autowired
 	private RoleViewService roleViewService;
+
+	@Autowired
+	private RoleCacheService roleCacheService;
 
 	@RequestMapping(value = "/role/newRole.action", method = RequestMethod.GET)
 	public ModelMap newRole()
@@ -115,6 +119,8 @@ public class NewRoleController extends BaseAuditController
 				List<Permission> permissions = permissionService.queryPermissionsWithParentByIds(ids);
 
 				roleViewService.addRole(role, permissions);
+
+				roleCacheService.addRolePermissions(role.getName(), permissions);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

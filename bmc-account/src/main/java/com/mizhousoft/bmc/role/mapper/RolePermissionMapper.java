@@ -27,20 +27,4 @@ public interface RolePermissionMapper extends CrudMapper<RolePermission, Integer
 	 * @return
 	 */
 	List<Permission> findPermissionByRoleName(String roleName);
-
-	/**
-	 * 根据角色名称查询权限
-	 * 
-	 * @param roleName
-	 * @return
-	 */
-	List<RolePermission> findByRoleName(String roleName);
-
-	/**
-	 * 根据权限名查询
-	 * 
-	 * @param permName
-	 * @return
-	 */
-	List<RolePermission> findByPermName(String permName);
 }

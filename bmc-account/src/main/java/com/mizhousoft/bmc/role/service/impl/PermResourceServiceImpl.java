@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.commons.collections4.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.role.domain.PermResource;
@@ -24,8 +24,7 @@ import com.mizhousoft.bmc.role.service.PermResourceService;
  * @version
  */
 @Service
-@Order(1)
-public class PermResourceServiceImpl implements PermResourceService, CommandLineRunner
+public class PermResourceServiceImpl implements PermResourceService
 {
 	private static final Logger LOG = LoggerFactory.getLogger(PermResourceServiceImpl.class);
 
@@ -58,18 +57,15 @@ public class PermResourceServiceImpl implements PermResourceService, CommandLine
 		return resourcePermMap.get(path);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) throws Exception
+	@PostConstruct
+	public void initialize()
 	{
 		Map<String, List<String>> permResourceMap = new HashMap<>(100);
 		Map<String, String> resourcePermMap = new HashMap<>(100);
 
 		List<PermResource> permReses = permResourceMapper.findAll();
 		permReses.forEach(permRes -> {
-			resourcePermMap.put(permRes.getPath(), permRes.getPath());
+			resourcePermMap.put(permRes.getPath(), permRes.getPermName());
 
 			List<String> list = permResourceMap.get(permRes.getPermName());
 			if (null == list)
@@ -84,7 +80,7 @@ public class PermResourceServiceImpl implements PermResourceService, CommandLine
 		this.permResourceMap = permResourceMap;
 		this.resourcePermMap = resourcePermMap;
 
-		LOG.info("Load permission size is {}.", permResourceMap.size());
-		LOG.info("Load resource path size is {}.", resourcePermMap.size());
+		LOG.info("Load permission size is {}.", this.permResourceMap.size());
+		LOG.info("Load resource path size is {}.", this.resourcePermMap.size());
 	}
 }

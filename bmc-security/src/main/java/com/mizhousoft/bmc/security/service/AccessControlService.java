@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.security.service;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * 访问控制服务
@@ -15,5 +15,5 @@ public interface AccessControlService
 	 * @param requestPath
 	 * @return
 	 */
-	List<String> getRolesByPath(String requestPath);
+	Set<String> getRolesByPath(String requestPath);
 }

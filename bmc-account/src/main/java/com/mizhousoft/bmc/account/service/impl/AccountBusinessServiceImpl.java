@@ -31,8 +31,7 @@ import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountStatus18nUtils;
 import com.mizhousoft.bmc.account.util.AccountUtils;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.domain.RolePermission;
-import com.mizhousoft.bmc.role.service.RolePermissionService;
+import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.system.domain.AccountStrategy;
 import com.mizhousoft.bmc.system.service.AccountStrategyService;
@@ -62,7 +61,7 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 	private RoleService roleService;
 
 	@Autowired
-	private RolePermissionService rolePermissionService;
+	private RoleCacheService roleCacheService;
 
 	@Autowired
 	private HistoryPasswordService historyPasswordService;
@@ -187,8 +186,8 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 		List<Role> roles = getRoleByAccountId(accountId);
 		for (Role role : roles)
 		{
-			List<RolePermission> rps = rolePermissionService.queryByRoleName(role.getName());
-			rps.forEach(rp -> perms.add(rp.getPermName()));
+			Set<String> list = roleCacheService.queryPermissionByRoleName(role.getName());
+			perms.addAll(list);
 		}
 
 		return perms;
@@ -200,10 +199,10 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 	@Override
 	public boolean hasPermission(Set<String> authorities, String permissionName)
 	{
-		List<RolePermission> list = rolePermissionService.queryByPermName(permissionName);
-		for (RolePermission item : list)
+		Set<String> roleNames = roleCacheService.queryRoleByPermName(permissionName);
+		for (String roleName : roleNames)
 		{
-			if (authorities.contains(item.getRoleName()))
+			if (authorities.contains(roleName))
 			{
 				return true;
 			}

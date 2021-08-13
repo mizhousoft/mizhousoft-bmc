@@ -33,6 +33,7 @@ import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleRequest;
 import com.mizhousoft.bmc.role.service.PermissionService;
+import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
@@ -64,6 +65,9 @@ public class EditRoleController extends BaseAuditController
 
 	@Autowired
 	private RoleViewService roleViewService;
+
+	@Autowired
+	private RoleCacheService roleCacheService;
 
 	@RequestMapping(value = "/role/editRole.action", method = RequestMethod.GET)
 	public ModelMap editRole(@RequestParam(name = "id") Integer id)
@@ -136,6 +140,8 @@ public class EditRoleController extends BaseAuditController
 				List<Permission> permissions = permissionService.queryPermissionsWithParentByIds(ids);
 
 				roleViewService.modifyRole(role, permissions);
+
+				roleCacheService.refreshRolePermissions(role.getName(), permissions);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

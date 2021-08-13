@@ -1,7 +1,7 @@
 package com.mizhousoft.bmc.security.filter.authz;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -45,7 +45,7 @@ public class AccessAuthorizationFilter extends RolesAuthorizationFilter
 
 		try
 		{
-			List<String> roles = accessControlService.getRolesByPath(requestPath);
+			Set<String> roles = accessControlService.getRolesByPath(requestPath);
 			if (CollectionUtils.isEmpty(roles))
 			{
 				LOG.error("Request path is not in any role, request path is " + requestPath + ".");
