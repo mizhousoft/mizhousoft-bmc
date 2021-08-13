@@ -3,7 +3,6 @@ package com.mizhousoft.bmc.role.service;
 import java.util.List;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
 import com.mizhousoft.commons.data.domain.Page;
@@ -19,19 +18,17 @@ public interface RoleService
 	 * 增加角色
 	 * 
 	 * @param role
-	 * @param perms
 	 * @throws BMCException
 	 */
-	void addRole(Role role, List<Permission> perms) throws BMCException;
+	void addRole(Role role) throws BMCException;
 
 	/**
 	 * 修改角色
 	 * 
 	 * @param role
-	 * @param perms
 	 * @throws BMCException
 	 */
-	void modifyRole(Role role, List<Permission> perms) throws BMCException;
+	void modifyRole(Role role) throws BMCException;
 
 	/**
 	 * 删除角色

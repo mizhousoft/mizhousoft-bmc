@@ -17,9 +17,7 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.BMCRuntimeException;
 import com.mizhousoft.bmc.account.service.AccountRoleSerivce;
 import com.mizhousoft.bmc.role.constant.RoleType;
-import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.event.RoleDeleteEvent;
 import com.mizhousoft.bmc.role.mapper.RoleMapper;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
@@ -53,9 +51,8 @@ public class RoleServiceImpl implements RoleService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public void addRole(Role role, List<Permission> perms) throws BMCException
+	public void addRole(Role role) throws BMCException
 	{
 		List<Role> dbRoles = roleMapper.findByName(role.getDisplayNameCN());
 		if (dbRoles.size() > 0)
@@ -64,22 +61,13 @@ public class RoleServiceImpl implements RoleService
 		}
 
 		roleMapper.save(role);
-
-		for (Permission perm : perms)
-		{
-			RolePermission rp = new RolePermission();
-			rp.setRoleName(role.getName());
-			rp.setPermName(perm.getName());
-			rolePermissionService.addRolePermission(rp);
-		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public void modifyRole(Role role, List<Permission> perms) throws BMCException
+	public void modifyRole(Role role) throws BMCException
 	{
 		List<Role> dbRoles = roleMapper.findByName(role.getDisplayNameCN());
 		for (Role dbRole : dbRoles)
@@ -93,16 +81,6 @@ public class RoleServiceImpl implements RoleService
 		}
 
 		roleMapper.update(role);
-
-		rolePermissionService.deleteByRoleName(role.getName());
-
-		for (Permission perm : perms)
-		{
-			RolePermission rp = new RolePermission();
-			rp.setRoleName(role.getName());
-			rp.setPermName(perm.getName());
-			rolePermissionService.addRolePermission(rp);
-		}
 	}
 
 	/**
