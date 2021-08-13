@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.domain.RolePermission;
-import com.mizhousoft.bmc.role.service.RoleBusinessService;
+import com.mizhousoft.bmc.role.service.RoleFindService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 
 /**
- * 角色业务服务
+ * 角色查询服务
  *
  * @version
  */
 @Service
-public class RoleBusinessServiceImpl implements RoleBusinessService
+public class RoleFindServiceImpl implements RoleFindService
 {
 	@Autowired
 	private RolePermissionService rolePermissionService;

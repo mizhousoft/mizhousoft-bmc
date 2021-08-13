@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.service.PermissionService;
-import com.mizhousoft.bmc.role.service.RoleBusinessService;
+import com.mizhousoft.bmc.role.service.RoleFindService;
 import com.mizhousoft.bmc.security.service.AccessControlService;
 
 /**
@@ -25,7 +25,7 @@ public class AccessControlServiceImpl implements AccessControlService
 	private PermissionService permissionService;
 
 	@Autowired
-	private RoleBusinessService roleBusinessService;
+	private RoleFindService roleFindService;
 
 	/**
 	 * {@inheritDoc}
@@ -39,7 +39,7 @@ public class AccessControlServiceImpl implements AccessControlService
 			return Collections.emptyList();
 		}
 
-		List<Role> roles = roleBusinessService.queryRoleByPermName(perm.getName());
+		List<Role> roles = roleFindService.queryRoleByPermName(perm.getName());
 
 		List<String> roleNames = new ArrayList<String>();
 		roles.forEach(role -> roleNames.add(role.getName()));

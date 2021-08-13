@@ -5,11 +5,11 @@ import java.util.List;
 import com.mizhousoft.bmc.role.domain.Role;
 
 /**
- * 角色业务服务
+ * 角色查询服务
  *
  * @version
  */
-public interface RoleBusinessService
+public interface RoleFindService
 {
 	/**
 	 * 根据权限名称查询角色
