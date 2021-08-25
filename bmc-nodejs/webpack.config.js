@@ -82,14 +82,12 @@ module.exports = {
         ]
     },
     devServer: {
-        contentBase: path.join(__dirname, "public"),
         host: "0.0.0.0",
         port: 8080,
         hot: true,
-        inline: true,
         compress: true,
-        disableHostCheck: true,
-        publicPath: "/assets/",
+        open: false,
+        allowedHosts: "all",
         historyApiFallback: {
             disableDotRule: false
         },
