@@ -13,15 +13,17 @@ class MainHeader extends PureComponent {
         const { selectedTopMenuId } = this.props;
 
         return (
-            <Header className='header' style={{ width: '100%', backgroundColor: '#051E37', padding: 0 }}>
+            <Header
+                style={{ width: '100%', backgroundColor: '#051E37', padding: 0, height: '60px', lineHeight: '60px' }}
+            >
                 <Row>
                     <Col xxl={3} xl={4} lg={5} md={6}>
                         <Logo />
                     </Col>
-                    <Col xxl={17} xl={15} lg={13} md={11}>
+                    <Col xxl={18} xl={16} lg={14} md={12}>
                         <AuthNavigationMenu selectedTopMenuId={selectedTopMenuId} topMemus={GLOBAL_MENUS} />
                     </Col>
-                    <Col xxl={4} xl={5} lg={6} md={7} style={{ textAlign: 'right' }}>
+                    <Col xxl={3} xl={4} lg={5} md={6} style={{ textAlign: 'right' }}>
                         <AccountAvatar isActive={selectedTopMenuId === ''} />
                         <Logout />
                     </Col>

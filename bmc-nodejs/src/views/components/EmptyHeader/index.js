@@ -7,7 +7,9 @@ const { Header } = Layout;
 class EmptyHeader extends PureComponent {
     render() {
         return (
-            <Header className='header' style={{ width: '100%', backgroundColor: '#2a303c', padding: 0 }}>
+            <Header
+                style={{ width: '100%', backgroundColor: '#2a303c', padding: 0, height: '60px', lineHeight: '60px' }}
+            >
                 <Row>
                     <Col xxl={4} xl={5} lg={6} md={7}>
                         <Logo />
