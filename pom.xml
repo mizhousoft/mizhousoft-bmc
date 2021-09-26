@@ -6,20 +6,20 @@
 	<parent>
 		<groupId>com.mizhousoft</groupId>
 		<artifactId>mizhousoft</artifactId>
-		<version>1.4.0</version>
+		<version>1.5.0-SNAPSHOT</version>
 	</parent>
 
 	<groupId>com.mizhousoft.bmc</groupId>
 	<artifactId>bmc-parent</artifactId>
-	<version>1.4.0</version>
+	<version>1.5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>bmc-parent</name>
 	<description>Business Management Cloud Platform</description>
 
 	<properties>
-		<commons.version>1.3.0</commons.version>
-		<mizhousoft.boot.version>1.3.0</mizhousoft.boot.version>
-		<bmc.version>1.4.0</bmc.version>
+		<commons.version>1.4.0-SNAPSHOT</commons.version>
+		<mizhousoft.boot.version>1.4.0-SNAPSHOT</mizhousoft.boot.version>
+		<bmc.version>1.5.0-SNAPSHOT</bmc.version>
 	</properties>
 
 	<modules>
