@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.identity.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.mizhousoft.bmc.identity.domain.ObjectIdentity;
 import com.mizhousoft.commons.mapper.CrudMapper;
 
@@ -10,7 +8,6 @@ import com.mizhousoft.commons.mapper.CrudMapper;
  *
  * @version
  */
-@Mapper
 public interface ObjectIdentityMapper extends CrudMapper<ObjectIdentity, String>
 {
 

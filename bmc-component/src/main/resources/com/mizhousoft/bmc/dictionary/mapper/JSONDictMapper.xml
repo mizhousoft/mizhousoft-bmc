@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mizhousoft.bmc.dictionary.mapper.JSONDictMapper">
+
+	<resultMap type="com.mizhousoft.bmc.dictionary.domain.JSONDict" id="JSONDictMap">
+		<id property="id" column="id" />
+		<result property="key" column="key" />
+		<result property="value" column="value" />
+		<result property="utime" column="utime" />
+		<result property="ctime" column="ctime" />
+	</resultMap>
+	
+	<insert id="save" useGeneratedKeys="true" keyProperty="id">
+		insert into bmc_dict_json (key, value, utime, ctime)
+		values(#{key}, #{value}, #{utime}, #{ctime})
+	</insert>
+	
+	<update id="update">
+		update bmc_dict_json set value = #{value}, utime = #{utime} where id = #{id} 
+	</update>
+	
+	<delete id="delete">
+		delete from bmc_dict_json 
+		where id = #{id}
+	</delete>
+	
+	<select id="findAll" resultMap="JSONDictMap">
+		select id, key, value, utime, ctime
+		from bmc_dict_json
+	</select>
+	
+</mapper>
