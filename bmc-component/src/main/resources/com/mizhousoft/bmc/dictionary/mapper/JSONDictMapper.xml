@@ -5,14 +5,14 @@
 
 	<resultMap type="com.mizhousoft.bmc.dictionary.domain.JSONDict" id="JSONDictMap">
 		<id property="id" column="id" />
-		<result property="key" column="key" />
+		<result property="key" column="key_x" />
 		<result property="value" column="value" />
 		<result property="utime" column="utime" />
 		<result property="ctime" column="ctime" />
 	</resultMap>
 	
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_dict_json (key, value, utime, ctime)
+		insert into bmc_dict_json (key_x, value, utime, ctime)
 		values(#{key}, #{value}, #{utime}, #{ctime})
 	</insert>
 	
@@ -26,9 +26,9 @@
 	</delete>
 	
 	<select id="findByKey" resultMap="JSONDictMap">
-		select id, key, value, utime, ctime
+		select id, key_x, value, utime, ctime
 		from bmc_dict_json
-		where key = #{key}
+		where key_x = #{key}
 		limit 1
 	</select>
 	

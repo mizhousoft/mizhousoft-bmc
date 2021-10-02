@@ -186,16 +186,16 @@ INSERT INTO `bmc_account_role` (`accountId`, `roleId`)
 VALUES ((select id from bmc_account where name = 'admin'), (select id from bmc_role where name = 'Administrator'));
 
 -- Security data
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('account-strategy', 'accountUnusedDay', 90, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('account-strategy', 'timeLimitPeriod', 10, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('account-strategy', 'loginLimitNumber', 5, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('account-strategy', 'lockTimeStrategy', 1, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('account-strategy', 'accountLockTime', 10, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('account-strategy', 'accountUnusedDay', 90, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('account-strategy', 'timeLimitPeriod', 10, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('account-strategy', 'loginLimitNumber', 5, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('account-strategy', 'lockTimeStrategy', 1, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('account-strategy', 'accountLockTime', 10, now(), now());
 
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('password-strategy', 'historyRepeatSize', 3, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('password-strategy', 'charAppearSize', 2, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('password-strategy', 'modifyTimeInterval', 5, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('password-strategy', 'validDay', 360, now(), now());
-insert into bmc_dict_field(domain, key, value, utime, ctime) values('password-strategy', 'reminderModifyDay', 15, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('password-strategy', 'historyRepeatSize', 3, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('password-strategy', 'charAppearSize', 2, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('password-strategy', 'modifyTimeInterval', 5, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('password-strategy', 'validDay', 360, now(), now());
+insert into bmc_dict_field(domain, key_x, value, utime, ctime) values('password-strategy', 'reminderModifyDay', 15, now(), now());
 
 COMMIT;
