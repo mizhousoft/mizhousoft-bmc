@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `bmc_dict_json` (
   `value` TEXT NULL,
   `utime` DATETIME NOT NULL,
   `ctime` DATETIME NOT NULL,
-  PRIMARY KEY (`id`))
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `key_UNIQUE` (`key` ASC))
 ENGINE = InnoDB;
 
 insert into bmc_dict_field(domain, key, value, utime, ctime) select 'account-strategy', 'accountUnusedDay', accountUnusedDay, now(), now() from bmc_account_strategy limit 1;

@@ -2,17 +2,14 @@ package com.mizhousoft.bmc.dictionary.service.impl;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import javax.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.mizhousoft.bmc.dictionary.domain.FieldDict;
 import com.mizhousoft.bmc.dictionary.mapper.FieldDictMapper;
 import com.mizhousoft.bmc.dictionary.service.FieldDictService;
@@ -25,26 +22,19 @@ import com.mizhousoft.bmc.dictionary.service.FieldDictService;
 @Service
 public class FieldDictServiceImpl implements FieldDictService
 {
-	private static final Logger LOG = LoggerFactory.getLogger(FieldDictServiceImpl.class);
-
 	@Autowired
 	private FieldDictMapper dictMapper;
 
-	// 缓存 <domain-key, FieldDict>
-	private Map<String, FieldDict> dictMap = new ConcurrentHashMap<>(100);
+	// 缓存 <key, FieldDict>，10分钟内有效
+	private Cache<String, FieldDict> cache = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void putValue(String domain, String key, Object value)
+	public synchronized void putValue(String domain, String key, Object value)
 	{
-		String mapKey = buildMapKey(domain, key);
-		FieldDict fieldDict = dictMap.get(mapKey);
-		if (null == fieldDict)
-		{
-			throw new IllegalArgumentException("Field dict not found, domain is " + domain + ", key is " + key);
-		}
+		FieldDict fieldDict = getFieldDict(domain, key);
 
 		String v = (value == null ? null : value.toString());
 
@@ -62,6 +52,9 @@ public class FieldDictServiceImpl implements FieldDictService
 
 		fieldDict.setValue(v);
 		fieldDict.setUtime(new Date());
+
+		String cacheKey = buildCaceKey(domain, key);
+		cache.put(cacheKey, fieldDict);
 	}
 
 	/**
@@ -70,12 +63,7 @@ public class FieldDictServiceImpl implements FieldDictService
 	@Override
 	public int getIntValue(String domain, String key)
 	{
-		String mapKey = buildMapKey(domain, key);
-		FieldDict fieldDict = dictMap.get(mapKey);
-		if (null == fieldDict)
-		{
-			throw new IllegalArgumentException("Field dict not found, domain is " + domain + ", key is " + key);
-		}
+		FieldDict fieldDict = getFieldDict(domain, key);
 
 		return Integer.valueOf(fieldDict.getValue());
 	}
@@ -86,12 +74,7 @@ public class FieldDictServiceImpl implements FieldDictService
 	@Override
 	public long getLongValue(String domain, String key)
 	{
-		String mapKey = buildMapKey(domain, key);
-		FieldDict fieldDict = dictMap.get(mapKey);
-		if (null == fieldDict)
-		{
-			throw new IllegalArgumentException("Field dict not found, domain is " + domain + ", key is " + key);
-		}
+		FieldDict fieldDict = getFieldDict(domain, key);
 
 		return Long.valueOf(fieldDict.getValue());
 	}
@@ -102,12 +85,7 @@ public class FieldDictServiceImpl implements FieldDictService
 	@Override
 	public boolean getBooleanValue(String domain, String key)
 	{
-		String mapKey = buildMapKey(domain, key);
-		FieldDict fieldDict = dictMap.get(mapKey);
-		if (null == fieldDict)
-		{
-			throw new IllegalArgumentException("Field dict not found, domain is " + domain + ", key is " + key);
-		}
+		FieldDict fieldDict = getFieldDict(domain, key);
 
 		return Boolean.valueOf(fieldDict.getValue());
 	}
@@ -118,34 +96,37 @@ public class FieldDictServiceImpl implements FieldDictService
 	@Override
 	public String getValue(String domain, String key)
 	{
-		String mapKey = buildMapKey(domain, key);
-		FieldDict fieldDict = dictMap.get(mapKey);
+		FieldDict fieldDict = getFieldDict(domain, key);
+
+		return fieldDict.getValue();
+	}
+
+	private synchronized FieldDict getFieldDict(String domain, String key)
+	{
+		String cacheKey = buildCaceKey(domain, key);
+
+		FieldDict fieldDict = cache.getIfPresent(cacheKey);
+		if (null == fieldDict)
+		{
+			List<FieldDict> list = dictMapper.findByDomain(domain);
+			for (FieldDict item : list)
+			{
+				String k = buildCaceKey(item.getDomain(), item.getKey());
+				cache.put(k, item);
+			}
+
+			fieldDict = cache.getIfPresent(cacheKey);
+		}
+
 		if (null == fieldDict)
 		{
 			throw new IllegalArgumentException("Field dict not found, domain is " + domain + ", key is " + key);
 		}
 
-		return fieldDict.getValue();
+		return fieldDict;
 	}
 
-	@PostConstruct
-	public void init()
-	{
-		List<FieldDict> list = dictMapper.findAll();
-
-		Map<String, FieldDict> dictMap = new ConcurrentHashMap<>(100);
-		for (FieldDict item : list)
-		{
-			String mapKey = buildMapKey(item.getDomain(), item.getKey());
-			dictMap.put(mapKey, item);
-		}
-
-		this.dictMap = dictMap;
-
-		LOG.info("Load field dict successfully, size is {}.", dictMap.size());
-	}
-
-	private String buildMapKey(String domain, String key)
+	private String buildCaceKey(String domain, String key)
 	{
 		return domain + "-" + key;
 	}

@@ -16,9 +16,10 @@
 		update bmc_dict_field set value = #{value}, utime = #{utime} where id = #{id} 
 	</update>
 	
-	<select id="findAll" resultMap="FieldDictMap">
+	<select id="findByDomain" resultMap="FieldDictMap">
 		select id, domain, key, value, utime, ctime
 		from bmc_dict_field
+		where domain = #{domain}
 	</select>
 	
 </mapper>

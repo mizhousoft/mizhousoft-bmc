@@ -25,9 +25,11 @@
 		where id = #{id}
 	</delete>
 	
-	<select id="findAll" resultMap="JSONDictMap">
+	<select id="findByKey" resultMap="JSONDictMap">
 		select id, key, value, utime, ctime
 		from bmc_dict_json
+		where key = #{key}
+		limit 1
 	</select>
 	
 </mapper>

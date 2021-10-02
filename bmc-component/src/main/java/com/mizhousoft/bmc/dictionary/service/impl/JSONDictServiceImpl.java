@@ -1,17 +1,13 @@
 package com.mizhousoft.bmc.dictionary.service.impl;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
-import javax.annotation.PostConstruct;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.mizhousoft.bmc.dictionary.domain.JSONDict;
 import com.mizhousoft.bmc.dictionary.mapper.JSONDictMapper;
 import com.mizhousoft.bmc.dictionary.service.JSONDictService;
@@ -26,19 +22,17 @@ import com.mizhousoft.commons.json.JSONUtils;
 @Service
 public class JSONDictServiceImpl implements JSONDictService
 {
-	private static final Logger LOG = LoggerFactory.getLogger(JSONDictServiceImpl.class);
-
 	@Autowired
 	private JSONDictMapper dictMapper;
 
-	// 缓存 <key, JSONDict>
-	private Map<String, JSONDict> dictMap = new ConcurrentHashMap<>(100);
+	// 缓存 <key, JSONDict>，10分钟内有效
+	private Cache<String, JSONDict> cache = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized void putValue(String key, Object object) throws JSONException
+	public void putValue(String key, Object object) throws JSONException
 	{
 		String value = null;
 		if (null != object)
@@ -46,29 +40,36 @@ public class JSONDictServiceImpl implements JSONDictService
 			value = JSONUtils.toJSONString(object);
 		}
 
-		JSONDict jsonDict = dictMap.get(key);
-		if (null == jsonDict)
+		synchronized (this)
 		{
-			JSONDict newDict = new JSONDict();
-			newDict.setKey(key);
-			newDict.setValue(value);
-			newDict.setUtime(new Date());
-			newDict.setCtime(newDict.getUtime());
-			dictMapper.save(newDict);
+			JSONDict jsonDict = getJSONDict(key);
+			if (null == jsonDict)
+			{
+				JSONDict newDict = new JSONDict();
+				newDict.setKey(key);
+				newDict.setValue(value);
+				newDict.setUtime(new Date());
+				newDict.setCtime(newDict.getUtime());
+				dictMapper.save(newDict);
 
-			dictMap.put(key, newDict);
-		}
-		else
-		{
-			// 防止更新数据库失败，改了内存数据
-			JSONDict newDict = new JSONDict();
-			newDict.setId(jsonDict.getId());
-			newDict.setValue(value);
-			newDict.setUtime(new Date());
-			dictMapper.update(newDict);
+				cache.put(key, newDict);
+			}
+			else
+			{
+				// 防止更新数据库失败，改了内存数据
+				JSONDict newDict = new JSONDict();
+				newDict.setId(jsonDict.getId());
+				newDict.setKey(key);
+				newDict.setValue(value);
+				newDict.setUtime(new Date());
+				newDict.setCtime(jsonDict.getCtime());
+				dictMapper.update(newDict);
 
-			jsonDict.setValue(value);
-			jsonDict.setUtime(new Date());
+				jsonDict.setValue(value);
+				jsonDict.setUtime(new Date());
+
+				cache.put(key, jsonDict);
+			}
 		}
 	}
 
@@ -78,7 +79,7 @@ public class JSONDictServiceImpl implements JSONDictService
 	@Override
 	public <T> T getValue(String key, Class<T> clazz) throws JSONException
 	{
-		JSONDict jsonDict = dictMap.get(key);
+		JSONDict jsonDict = getJSONDict(key);
 		if (null != jsonDict)
 		{
 			String value = jsonDict.getValue();
@@ -97,26 +98,27 @@ public class JSONDictServiceImpl implements JSONDictService
 	@Override
 	public void delete(String key)
 	{
-		JSONDict jsonDict = dictMap.remove(key);
+		JSONDict jsonDict = cache.getIfPresent(key);
 		if (null != jsonDict)
 		{
+			cache.invalidate(key);
+
 			dictMapper.delete(jsonDict.getId());
 		}
 	}
 
-	@PostConstruct
-	public void init()
+	private synchronized JSONDict getJSONDict(String key)
 	{
-		List<JSONDict> list = dictMapper.findAll();
-
-		Map<String, JSONDict> dictMap = new ConcurrentHashMap<>(100);
-		for (JSONDict item : list)
+		JSONDict jsonDict = cache.getIfPresent(key);
+		if (null == jsonDict)
 		{
-			dictMap.put(item.getKey(), item);
+			jsonDict = dictMapper.findByKey(key);
+			if (null != jsonDict)
+			{
+				cache.put(key, jsonDict);
+			}
 		}
 
-		this.dictMap = dictMap;
-
-		LOG.info("Load json dict successfully, size is {}.", dictMap.size());
+		return jsonDict;
 	}
 }

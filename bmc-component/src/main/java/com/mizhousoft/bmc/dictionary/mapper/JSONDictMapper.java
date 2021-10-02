@@ -10,5 +10,11 @@ import com.mizhousoft.commons.mapper.CrudMapper;
  */
 public interface JSONDictMapper extends CrudMapper<JSONDict, Integer>
 {
-
+	/**
+	 * 根据key查询
+	 * 
+	 * @param key
+	 * @return
+	 */
+	JSONDict findByKey(String key);
 }
