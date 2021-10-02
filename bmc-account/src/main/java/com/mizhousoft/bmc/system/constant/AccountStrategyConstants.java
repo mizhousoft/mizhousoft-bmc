@@ -7,6 +7,24 @@ package com.mizhousoft.bmc.system.constant;
  */
 public interface AccountStrategyConstants
 {
+	// domain
+	String DOMAIN = "account-strategy";
+
+	// 帐号连续未使用天数
+	String ACCOUNTUNUSEDDAY = "accountUnusedDay";
+
+	// 限定时间段长度
+	String TIMELIMITPERIOD = "timeLimitPeriod";
+
+	// 限定时间段内连续登录次数
+	String LOGINLIMITNUMBER = "loginLimitNumber";
+
+	// 帐号锁定时间策略
+	String LOCKTIMESTRATEGY = "lockTimeStrategy";
+
+	// 帐号锁定时长
+	String ACCOUNTLOCKTIME = "accountLockTime";
+
 	// 帐号连续未使用天数
 	int ACCOUNT_UNUSED_DAY = 90;
 

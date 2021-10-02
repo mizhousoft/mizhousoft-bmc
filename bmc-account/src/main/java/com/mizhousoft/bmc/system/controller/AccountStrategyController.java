@@ -43,7 +43,7 @@ public class AccountStrategyController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		AccountStrategy accountStrategy = accountStrategyService.queryAccountStrategy();
+		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
 		map.put("strategy", accountStrategy);
 
 		return map;

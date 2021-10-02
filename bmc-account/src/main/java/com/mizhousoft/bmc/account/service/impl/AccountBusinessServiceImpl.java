@@ -130,7 +130,7 @@ public class AccountBusinessServiceImpl implements AccountBusinessService
 		Date lastAccessTime = account.getLastAccessTime();
 		if (null != lastAccessTime)
 		{
-			AccountStrategy accountStrategy = accountStrategyService.queryAccountStrategy();
+			AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
 			int unusedDay = accountStrategy.getAccountUnusedDay();
 
 			Calendar cal = Calendar.getInstance();

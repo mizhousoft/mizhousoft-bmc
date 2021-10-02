@@ -174,7 +174,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 			throw new BMCException("bmc.account.password.char.illegal", "Password does not contain a-z or A-Z or 0-9 or ~!@#$%^&*()_-+=.");
 		}
 
-		PasswordStrategy passwdStrategy = passwordStrategyService.queryPasswordStrategy();
+		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy();
 
 		// 检验密码同一个字符出现的次数
 		int charAppearSize = passwdStrategy.getCharAppearSize();
@@ -208,7 +208,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	@Override
 	public int calcPasswordExpiringDays(long accountId)
 	{
-		PasswordStrategy passwordStrategy = passwordStrategyService.queryPasswordStrategy();
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountId, 1);
 		if (CollectionUtils.isNotEmpty(historyPasswords))
@@ -243,7 +243,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	 */
 	private void checkHistoryPassword(long id, String newPassword) throws BMCException
 	{
-		PasswordStrategy passwdStrategy = passwordStrategyService.queryPasswordStrategy();
+		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy();
 		int repeatSize = passwdStrategy.getHistoryRepeatSize();
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(id, repeatSize);

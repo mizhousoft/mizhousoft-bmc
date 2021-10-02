@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,11 @@ public class FieldDictServiceImpl implements FieldDictService
 		}
 
 		String v = (value == null ? null : value.toString());
+
+		if (StringUtils.equals(v, fieldDict.getValue()))
+		{
+			return;
+		}
 
 		// 防止更新数据库失败，改了内存数据
 		FieldDict newDict = new FieldDict();

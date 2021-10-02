@@ -43,7 +43,7 @@ public class PasswordStrategyController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		PasswordStrategy passwordStrategy = passwordStrategyService.queryPasswordStrategy();
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
 		map.put("strategy", passwordStrategy);
 
 		return map;

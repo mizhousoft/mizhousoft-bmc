@@ -15,7 +15,7 @@ public interface AccountStrategyService
 	 * 
 	 * @return
 	 */
-	AccountStrategy queryAccountStrategy();
+	AccountStrategy getAccountStrategy();
 
 	/**
 	 * 修改帐号策略

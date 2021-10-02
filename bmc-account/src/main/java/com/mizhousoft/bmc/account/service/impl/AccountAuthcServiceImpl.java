@@ -110,7 +110,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 
 	private AccountDetails doAuthenticate(String account, char[] passwd, String host) throws AuthenticationException
 	{
-		AccountStrategy accountStrategy = accountStrategyService.queryAccountStrategy();
+		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
 
 		// 查询帐号
 		AuthAccount authAccount = queryAuthAccount(account, accountStrategy);
@@ -317,7 +317,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 		boolean remindModifyPasswd = false;
 
 		// 判断密码是否过期
-		PasswordStrategy passwordStrategy = passwordStrategyService.queryPasswordStrategy();
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
 
 		int validDay = passwordStrategy.getValidDay();
 		int reminderModifyDay = passwordStrategy.getReminderModifyDay();

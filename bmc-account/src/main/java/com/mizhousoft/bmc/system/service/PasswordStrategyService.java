@@ -15,7 +15,7 @@ public interface PasswordStrategyService
 	 * 
 	 * @return
 	 */
-	PasswordStrategy queryPasswordStrategy();
+	PasswordStrategy getPasswordStrategy();
 
 	/**
 	 * 修改密码策略
