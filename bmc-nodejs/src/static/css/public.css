@@ -43,7 +43,6 @@
 }
 
 .notification .ant-badge-count {
-    -webkit-box-shadow: none;
     box-shadow: none;
 }
 
@@ -54,7 +53,7 @@
 
 .mz-layout-sider {
     height: calc(100vh - 60px);
-    padding: 10px 15px 0 15px;
+    padding: 10px 15px 0;
     background: #f0f2f5;
 }
 
@@ -88,7 +87,7 @@
 
 .mz-page-content {
     margin-bottom: 10px;
-    padding: 0 0;
+    padding: 0;
 }
 
 .mz-page-content-body {
@@ -113,8 +112,8 @@
     top: calc((100vh - 400px) / 2);
     left: calc((100vw - 420px) / 2);
     width: 420px;
-    padding: 20px 20px;
-    background: hsla(0, 0%, 100%, 0.8);
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
     border: none;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.12);
 }
@@ -150,8 +149,8 @@
 
 .mz-note-list-head li {
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
+    display: box;
+    display: flexbox;
     display: flex;
     align-items: center;
     color: #999;
@@ -183,13 +182,13 @@
 }
 
 .mz-page-empty {
-    margin: 0 0 0 0;
+    margin: 0;
     padding: 20px 0;
     background-color: white;
 }
 
 .mz-modal-empty {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0;
     padding: 20px 0;
     background-color: white;
 }
@@ -290,7 +289,7 @@
 }
 
 .header-avatar {
-    color: hsla(0, 0%, 100%, 0.55);
+    color: rgba(255, 255, 255, 0.55);
     font-weight: 500;
     font-size: 14px;
     vertical-align: middle;
@@ -311,7 +310,6 @@
     height: 3px;
     background: #2f88ff;
     border-radius: 2px;
-    -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
     content: '';
 }

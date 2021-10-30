@@ -7,7 +7,6 @@
     'printWidth': 120,
     'proseWrap': 'never',
     'jsxSingleQuote': true,
-    'jsxBracketSameLine' : false,
     'arrowParens': 'always',
     'overrides': [
         {

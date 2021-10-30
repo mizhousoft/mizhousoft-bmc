@@ -27,6 +27,7 @@ module.exports = {
             '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
             'no-unused-expressions': 'off',
             '@typescript-eslint/no-unused-expressions': 2,
+            'class-methods-use-this': 0,
         },
     }],
     rules: {
