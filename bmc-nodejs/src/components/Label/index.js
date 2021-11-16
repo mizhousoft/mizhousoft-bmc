@@ -33,7 +33,7 @@ class Label extends React.Component {
         this.state = {
             selectedValue: props.defaultValue,
 
-            isExtendMore: false,
+            isExtendMore: props.extendMoreHidden === undefined ? false : props.extendMoreHidden,
         };
     }
 
