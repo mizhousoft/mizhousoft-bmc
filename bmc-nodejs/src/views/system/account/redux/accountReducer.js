@@ -10,9 +10,7 @@ const INIT_STATE = {
     },
 };
 
-function accountReducer(state = INIT_STATE, action) {
-    const { type, payload, filter } = action;
-
+function accountReducer(state = INIT_STATE, { type, payload, filter } = {}) {
     switch (type) {
         case ACCOUNT.FETCH_LIST:
             return { ...state, filter, fetchStatus: LOADING_FETCH_STATUS };

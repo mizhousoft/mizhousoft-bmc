@@ -45,7 +45,8 @@ class Sidebar extends Component {
             return (
                 <Menu.Item key={menu.id}>
                     <Link to={menu.path} replace>
-                        <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em' }} /> {menu.name}
+                        <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />{' '}
+                        {menu.name}
                     </Link>
                 </Menu.Item>
             );
@@ -69,7 +70,10 @@ class Sidebar extends Component {
                     key={siderMenu.id}
                     title={
                         <span>
-                            <FontIcon type={siderMenu.iconFont} style={{ fontSize: '1.2em' }} />
+                            <FontIcon
+                                type={siderMenu.iconFont}
+                                style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }}
+                            />
                             {siderMenu.name}
                         </span>
                     }

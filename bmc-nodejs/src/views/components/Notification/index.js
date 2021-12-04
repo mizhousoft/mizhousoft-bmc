@@ -89,31 +89,29 @@ class Notification extends Component {
         });
 
         return (
-            <>
-                <Popover
-                    content={content}
-                    trigger='click'
-                    placement='bottomLeft'
-                    className='notification'
-                    visible={this.state.visible}
-                    onVisibleChange={this.handleClickChange}
+            <Popover
+                content={content}
+                trigger='click'
+                placement='bottomLeft'
+                className='notification'
+                visible={this.state.visible}
+                onVisibleChange={this.handleClickChange}
+            >
+                <Badge
+                    count={badgeCount}
+                    onClick={this.showPopover}
+                    showZero
+                    size='default'
+                    style={{ backgroundColor: '#006eff', color: '#fff', cursor: 'pointer' }}
+                    offset={[8, 0]}
                 >
-                    <Badge
-                        count={badgeCount}
+                    <FontIcon
                         onClick={this.showPopover}
-                        showZero
-                        size='default'
-                        style={{ backgroundColor: '#006eff', color: '#fff', cursor: 'pointer' }}
-                        offset={[8, 0]}
-                    >
-                        <FontIcon
-                            onClick={this.showPopover}
-                            type='anticon-notification'
-                            style={{ fontSize: '1.2em', cursor: 'pointer' }}
-                        />
-                    </Badge>
-                </Popover>
-            </>
+                        type='anticon-notification'
+                        style={{ fontSize: '1.2em', cursor: 'pointer' }}
+                    />
+                </Badge>
+            </Popover>
         );
     }
 }

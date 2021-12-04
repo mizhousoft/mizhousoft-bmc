@@ -83,10 +83,8 @@ class RunningLog extends Component {
             },
         ];
 
-        const extraActions = <></>;
-
         return (
-            <Tabs hideAdd onChange={this.onChange} activeKey={activeLogname} tabBarExtraContent={extraActions}>
+            <Tabs hideAdd onChange={this.onChange} activeKey={activeLogname}>
                 {lognames.map((logname) => (
                     <TabPane tab={logname} key={logname}>
                         <Table

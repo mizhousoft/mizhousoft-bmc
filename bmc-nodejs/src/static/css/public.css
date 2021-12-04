@@ -194,6 +194,7 @@
 }
 
 .mz-grey-button {
+    color: #555;
     background-color: #fafafa;
 }
 
@@ -288,6 +289,28 @@
     color: #999;
 }
 
+.mz-button-tags .ant-radio-button-wrapper {
+    margin-left: 20px;
+    color: #555;
+    background: #f2f2f6;
+    border: 1px solid #f2f2f6 !important;
+    border-color: #f2f2f6 !important;
+}
+
+.mz-button-tags .ant-radio-button-wrapper-checked {
+    background: #f2f2f6 !important;
+    border: 1px solid #f2f2f6 !important;
+}
+
+.mz-button-tags .ant-radio-button-wrapper:not(:first-child)::before {
+    background: #f2f2f6 !important;
+    border: 1px solid #f2f2f6 !important;
+}
+
+.mz-button-tags .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+    box-shadow: none;
+}
+
 .header-avatar {
     color: rgba(255, 255, 255, 0.55);
     font-weight: 500;
@@ -312,4 +335,18 @@
     border-radius: 2px;
     transform: translateX(-50%);
     content: '';
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(50, 50, 50, 0.2);
+    border-radius: 40px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
 }

@@ -35,8 +35,9 @@ div.ant-input-number {
     border-radius: 0;
 }
 
-.ant-modal-content {
-    border-radius: 0;
+.ant-modal-content,
+.ant-modal-header {
+    border-radius: 5px;
 }
 
 .ant-alert {
@@ -89,6 +90,12 @@ div.ant-input-number {
 
 .ant-view-form .ant-form-item {
     margin-bottom: 7px;
+}
+
+.ant-form-item-extra {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .ant-divider {
