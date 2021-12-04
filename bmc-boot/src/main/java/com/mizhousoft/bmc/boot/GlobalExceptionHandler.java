@@ -39,7 +39,7 @@ public class GlobalExceptionHandler
 
 		LOG.error("Service error, request path is {}, account id is {}.", path, accountId, e);
 
-		String error = I18nUtils.getMessage("rlp.system.internal.error");
+		String error = I18nUtils.getMessage("bmc.system.internal.error");
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
 	}

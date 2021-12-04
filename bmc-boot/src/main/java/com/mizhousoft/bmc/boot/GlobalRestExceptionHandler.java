@@ -42,7 +42,7 @@ public class GlobalRestExceptionHandler
 
 		LOG.error("Service error, request path is {}, account id is {}.", path, accountId, e);
 
-		String error = I18nUtils.getMessage("rlp.system.internal.error");
+		String error = I18nUtils.getMessage("bmc.system.internal.error");
 
 		ActionResponse response = ActionRespBuilder.buildFailedResp(error);
 
