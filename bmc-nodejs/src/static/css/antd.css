@@ -109,6 +109,10 @@ div.ant-input-number {
     border-radius: 4px !important;
 }
 
+.list-ant-tag .ant-tag {
+    margin-bottom: 14px !important;
+}
+
 .header-menu.ant-menu-horizontal {
     border-bottom: none;
 }
