@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mizhousoft.bmc.account.service.AccountBusinessService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.authentication.response.AccountResource;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
@@ -24,7 +24,7 @@ import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 public class MyAccountDetailFetchController
 {
 	@Autowired
-	private AccountBusinessService accountBusinessService;
+	private AccountViewService accountBusinessService;
 
 	@RequestMapping(value = "/account/fetchMyAccountDetail.action", method = RequestMethod.GET)
 	public ModelMap fetchMyAccountDetail()

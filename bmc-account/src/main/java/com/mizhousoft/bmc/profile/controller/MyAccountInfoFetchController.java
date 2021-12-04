@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
-import com.mizhousoft.bmc.account.service.AccountBusinessService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.boot.authentication.Authentication;
@@ -31,7 +31,7 @@ public class MyAccountInfoFetchController
 	private static final Logger LOG = LoggerFactory.getLogger(MyAccountInfoFetchController.class);
 
 	@Autowired
-	private AccountBusinessService accountBusinessService;
+	private AccountViewService accountBusinessService;
 
 	@Autowired
 	private AccountService accountService;

@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.AuthAccount;
 import com.mizhousoft.bmc.account.request.AccountNewRequest;
-import com.mizhousoft.bmc.account.service.AccountBusinessService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
 import com.mizhousoft.bmc.account.validator.AccountRequestValidator;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
@@ -51,7 +51,7 @@ public class AccountAddController extends BaseAuditController
 	private RoleService roleService;
 
 	@Autowired
-	private AccountBusinessService accountBusinessService;
+	private AccountViewService accountViewService;
 
 	@Autowired
 	private AccountPasswdService accountPasswdService;
@@ -97,7 +97,7 @@ public class AccountAddController extends BaseAuditController
 				account.setStatus(request.getStatus());
 				account.setPhoneNumber(request.getPhoneNumber());
 
-				accountBusinessService.addAccount(account, roles);
+				accountViewService.addAccount(account, roles);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

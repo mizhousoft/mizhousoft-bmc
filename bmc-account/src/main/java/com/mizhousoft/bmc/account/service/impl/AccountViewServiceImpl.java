@@ -24,7 +24,7 @@ import com.mizhousoft.bmc.account.domain.AuthAccount;
 import com.mizhousoft.bmc.account.event.AccountDeleteEvent;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
 import com.mizhousoft.bmc.account.request.AccountPageRequest;
-import com.mizhousoft.bmc.account.service.AccountBusinessService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountRoleSerivce;
 import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.account.service.HistoryPasswordService;
@@ -46,7 +46,7 @@ import com.mizhousoft.commons.lang.DateUtils;
  * @version
  */
 @Service
-public class AccountBusinessServiceImpl implements AccountBusinessService
+public class AccountViewServiceImpl implements AccountViewService
 {
 	@Autowired
 	private AccountMapper accountMapper;

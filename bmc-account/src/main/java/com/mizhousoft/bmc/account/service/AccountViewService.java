@@ -16,7 +16,7 @@ import com.mizhousoft.commons.data.domain.Page;
  *
  * @version
  */
-public interface AccountBusinessService
+public interface AccountViewService
 {
 	/**
 	 * 增加帐号

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.account.domain.AccountInfo;
 import com.mizhousoft.bmc.account.request.AccountPageRequest;
-import com.mizhousoft.bmc.account.service.AccountBusinessService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.commons.data.domain.Page;
 
 /**
@@ -20,14 +20,14 @@ import com.mizhousoft.commons.data.domain.Page;
 public class AccountInfoListFetchController
 {
 	@Autowired
-	private AccountBusinessService accountBusinessService;
+	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/account/fetchAccountInfoList.action", method = RequestMethod.GET)
 	public ModelMap fetchAccountInfoList(AccountPageRequest request)
 	{
 		ModelMap map = new ModelMap();
 
-		Page<AccountInfo> page = accountBusinessService.queryAccountInfos(request);
+		Page<AccountInfo> page = accountViewService.queryAccountInfos(request);
 		map.addAttribute("dataPage", page);
 
 		return map;
