@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.account.service.AccountViewService;
-import com.mizhousoft.bmc.authentication.response.AccountResource;
+import com.mizhousoft.bmc.authentication.model.AccountResource;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;

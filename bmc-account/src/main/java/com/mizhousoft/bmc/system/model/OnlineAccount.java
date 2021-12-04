@@ -1,4 +1,4 @@
-package com.mizhousoft.bmc.system.response;
+package com.mizhousoft.bmc.system.model;
 
 /**
  * 在线帐号

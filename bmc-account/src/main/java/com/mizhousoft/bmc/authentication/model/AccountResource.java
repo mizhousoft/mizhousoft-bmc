@@ -1,4 +1,4 @@
-package com.mizhousoft.bmc.authentication.response;
+package com.mizhousoft.bmc.authentication.model;
 
 import java.util.Set;
 

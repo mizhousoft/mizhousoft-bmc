@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.system.response.OnlineAccount;
+import com.mizhousoft.bmc.system.model.OnlineAccount;
 import com.mizhousoft.bmc.system.service.OnlineAccountService;
 import com.mizhousoft.boot.authentication.AccountDetails;
 import com.mizhousoft.boot.authentication.GrantedAuthority;

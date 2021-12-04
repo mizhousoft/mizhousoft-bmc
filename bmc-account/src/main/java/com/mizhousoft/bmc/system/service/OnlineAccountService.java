@@ -3,7 +3,7 @@ package com.mizhousoft.bmc.system.service;
 import org.apache.shiro.session.Session;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.system.response.OnlineAccount;
+import com.mizhousoft.bmc.system.model.OnlineAccount;
 import com.mizhousoft.boot.authentication.AccountDetails;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.domain.Pageable;
