@@ -21,9 +21,12 @@
 			<version>${bmc.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>com.mizhousoft.bmc</groupId>
-			<artifactId>bmc-component</artifactId>
-			<version>${bmc.version}</version>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

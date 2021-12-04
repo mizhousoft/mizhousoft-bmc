@@ -22,6 +22,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.mizhousoft.bmc</groupId>
+			<artifactId>bmc-generic-service</artifactId>
+			<version>${bmc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.mizhousoft.bmc</groupId>
 			<artifactId>bmc-security</artifactId>
 			<version>${bmc.version}</version>
 		</dependency>
