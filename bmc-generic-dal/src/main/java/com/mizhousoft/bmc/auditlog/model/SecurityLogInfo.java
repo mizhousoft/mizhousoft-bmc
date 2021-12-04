@@ -1,18 +1,18 @@
-package com.mizhousoft.bmc.auditlog.response;
+package com.mizhousoft.bmc.auditlog.model;
 
-import com.mizhousoft.bmc.auditlog.domain.OperationLog;
+import com.mizhousoft.bmc.auditlog.domain.SecurityLog;
 
 /**
- * 操作日志信息
+ * 安全日志信息
  *
  * @version
  */
-public class OperationLogInfo extends OperationLog
+public class SecurityLogInfo extends SecurityLog
 {
 	// 创建时间
 	private String creationTimeStr;
 
-	// 结果
+	// 結果
 	private String resultStr;
 
 	/**

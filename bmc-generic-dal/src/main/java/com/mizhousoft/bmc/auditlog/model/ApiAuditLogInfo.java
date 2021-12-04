@@ -1,13 +1,13 @@
-package com.mizhousoft.bmc.auditlog.response;
+package com.mizhousoft.bmc.auditlog.model;
 
-import com.mizhousoft.bmc.auditlog.domain.SystemLog;
+import com.mizhousoft.bmc.auditlog.domain.ApiAuditLog;
 
 /**
- * 系统日志信息
+ * API日志信息
  *
  * @version
  */
-public class SystemLogInfo extends SystemLog
+public class ApiAuditLogInfo extends ApiAuditLog
 {
 	// 创建时间
 	private String creationTimeStr;

@@ -1,13 +1,13 @@
-package com.mizhousoft.bmc.auditlog.response;
+package com.mizhousoft.bmc.auditlog.model;
 
-import com.mizhousoft.bmc.auditlog.domain.SecurityLog;
+import com.mizhousoft.bmc.auditlog.domain.SystemLog;
 
 /**
- * 安全日志信息
+ * 系统日志信息
  *
  * @version
  */
-public class SecurityLogInfo extends SecurityLog
+public class SystemLogInfo extends SystemLog
 {
 	// 创建时间
 	private String creationTimeStr;

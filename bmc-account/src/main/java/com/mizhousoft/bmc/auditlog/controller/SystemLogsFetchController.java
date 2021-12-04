@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.auditlog.domain.SystemLog;
+import com.mizhousoft.bmc.auditlog.model.SystemLogInfo;
 import com.mizhousoft.bmc.auditlog.request.AuditLogPageRequest;
-import com.mizhousoft.bmc.auditlog.response.SystemLogInfo;
 import com.mizhousoft.bmc.auditlog.service.SystemLogService;
 import com.mizhousoft.bmc.auditlog.util.AuditLogI18nUtils;
 import com.mizhousoft.bmc.auditlog.util.AuditLogRequestUtils;
