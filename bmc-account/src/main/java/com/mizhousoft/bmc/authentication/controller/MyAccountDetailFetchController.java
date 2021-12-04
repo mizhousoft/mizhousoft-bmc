@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.account.service.AccountBusinessService;
 import com.mizhousoft.bmc.authentication.response.AccountResource;
-import com.mizhousoft.bmc.security.Authentication;
-import com.mizhousoft.bmc.security.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.Authentication;
+import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 /**

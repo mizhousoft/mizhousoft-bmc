@@ -30,16 +30,6 @@ import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.domain.SecurityLog;
 import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.security.AccountDetails;
-import com.mizhousoft.bmc.security.GrantedAuthority;
-import com.mizhousoft.bmc.security.SimpleGrantedAuthority;
-import com.mizhousoft.bmc.security.exception.AccountDisabledException;
-import com.mizhousoft.bmc.security.exception.AccountLockedException;
-import com.mizhousoft.bmc.security.exception.AuthenticationException;
-import com.mizhousoft.bmc.security.exception.BadCredentialsException;
-import com.mizhousoft.bmc.security.impl.AccountImpl;
-import com.mizhousoft.bmc.security.service.AccountAuthcService;
-import com.mizhousoft.bmc.security.service.TwoFactorAuthenticationService;
 import com.mizhousoft.bmc.system.constant.AccountStrategyConstants;
 import com.mizhousoft.bmc.system.domain.AccountStrategy;
 import com.mizhousoft.bmc.system.domain.IdleTimeout;
@@ -47,6 +37,17 @@ import com.mizhousoft.bmc.system.domain.PasswordStrategy;
 import com.mizhousoft.bmc.system.service.AccountStrategyService;
 import com.mizhousoft.bmc.system.service.IdleTimeoutService;
 import com.mizhousoft.bmc.system.service.PasswordStrategyService;
+import com.mizhousoft.boot.authentication.AccountDetails;
+import com.mizhousoft.boot.authentication.GrantedAuthority;
+import com.mizhousoft.boot.authentication.SimpleGrantedAuthority;
+import com.mizhousoft.boot.authentication.configuration.AuthenticationProperties;
+import com.mizhousoft.boot.authentication.exception.AccountDisabledException;
+import com.mizhousoft.boot.authentication.exception.AccountLockedException;
+import com.mizhousoft.boot.authentication.exception.AuthenticationException;
+import com.mizhousoft.boot.authentication.exception.BadCredentialsException;
+import com.mizhousoft.boot.authentication.impl.AccountImpl;
+import com.mizhousoft.boot.authentication.service.AccountAuthcService;
+import com.mizhousoft.boot.authentication.service.TwoFactorAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -81,6 +82,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 
 	@Autowired
 	private IdleTimeoutService idleTimeoutService;
+
+	@Autowired
+	private AuthenticationProperties authenticationProperties;
 
 	// 认证失败帐号集合
 	private Map<String, AuthFaildAccount> authFailedAccountMap = new ConcurrentHashMap<String, AuthFaildAccount>(1000);
@@ -159,7 +163,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 			}
 
 			boolean twoFactorAuthcPassed = accountDetails.isTwoFactorAuthcPassed();
-			if (null == twoFactorAuthenticationService || !twoFactorAuthenticationService.isEnable() || twoFactorAuthcPassed)
+			if (null == twoFactorAuthenticationService || !authenticationProperties.isTwoFactorAuthcEnable() || twoFactorAuthcPassed)
 			{
 				accountMapper.updateLastAccess(accountDetails.getAccountId(), new Date(), host);
 			}

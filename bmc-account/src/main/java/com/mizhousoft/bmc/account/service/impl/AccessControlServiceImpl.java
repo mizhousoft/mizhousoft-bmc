@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.role.service.RoleCacheService;
-import com.mizhousoft.bmc.security.service.AccessControlService;
+import com.mizhousoft.boot.authentication.service.AccessControlService;
 
 /**
  * 访问控制服务

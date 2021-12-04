@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.mizhousoft.bmc.security.Authentication;
-import com.mizhousoft.bmc.security.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.Authentication;
+import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 import com.mizhousoft.commons.web.util.WebUtils;
 

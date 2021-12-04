@@ -25,9 +25,7 @@
 	<modules>
 		<module>bmc-generic-dal</module>
 		<module>bmc-generic-service</module>
-		<module>bmc-auditlog</module>
 		<module>bmc-account</module>
-		<module>bmc-security</module>
 		<module>bmc-boot</module>
 	</modules>
 

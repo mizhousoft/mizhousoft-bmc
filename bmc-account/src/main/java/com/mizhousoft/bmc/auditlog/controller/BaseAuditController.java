@@ -5,8 +5,8 @@ import java.util.Date;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogLevel;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
-import com.mizhousoft.bmc.security.Authentication;
-import com.mizhousoft.bmc.security.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.Authentication;
+import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 /**

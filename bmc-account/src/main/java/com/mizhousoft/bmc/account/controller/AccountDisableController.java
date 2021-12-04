@@ -23,7 +23,7 @@ import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
 import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
-import com.mizhousoft.bmc.security.AccountDetails;
+import com.mizhousoft.boot.authentication.AccountDetails;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;

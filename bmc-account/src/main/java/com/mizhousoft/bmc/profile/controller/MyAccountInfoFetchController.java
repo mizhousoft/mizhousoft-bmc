@@ -15,8 +15,8 @@ import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.service.AccountBusinessService;
 import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.security.Authentication;
-import com.mizhousoft.bmc.security.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.Authentication;
+import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
