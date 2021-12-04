@@ -24,9 +24,9 @@ import com.mizhousoft.bmc.account.domain.AuthAccount;
 import com.mizhousoft.bmc.account.event.AccountDeleteEvent;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
 import com.mizhousoft.bmc.account.request.AccountPageRequest;
-import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountRoleSerivce;
 import com.mizhousoft.bmc.account.service.AccountService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountStatus18nUtils;
 import com.mizhousoft.bmc.account.util.AccountUtils;
@@ -191,24 +191,6 @@ public class AccountViewServiceImpl implements AccountViewService
 		}
 
 		return perms;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean hasPermission(Set<String> authorities, String permissionName)
-	{
-		Set<String> roleNames = roleCacheService.queryRoleByPermName(permissionName);
-		for (String roleName : roleNames)
-		{
-			if (authorities.contains(roleName))
-			{
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**

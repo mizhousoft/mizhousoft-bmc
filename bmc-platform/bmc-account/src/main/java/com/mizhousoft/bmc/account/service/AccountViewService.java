@@ -60,15 +60,6 @@ public interface AccountViewService
 	Set<String> getPermByAccountId(long accountId);
 
 	/**
-	 * 是否有权限
-	 * 
-	 * @param authorities
-	 * @param permissionName
-	 * @return
-	 */
-	boolean hasPermission(Set<String> authorities, String permissionName);
-
-	/**
 	 * 查询帐号信息
 	 * 
 	 * @param request

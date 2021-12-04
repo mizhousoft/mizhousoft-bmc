@@ -9,12 +9,9 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.account.constant.AccountStatus;
@@ -58,7 +55,7 @@ import com.mizhousoft.commons.web.i18n.util.I18nUtils;
  * @version
  */
 @Service
-public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLineRunner
+public class AccountAuthcServiceImpl implements AccountAuthcService
 {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountAuthcServiceImpl.class);
 
@@ -78,18 +75,16 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 	private AccountViewService accountViewService;
 
 	@Autowired
-	private ApplicationContext applicationContext;
-
-	@Autowired
 	private IdleTimeoutService idleTimeoutService;
 
 	@Autowired
 	private AuthenticationProperties authenticationProperties;
 
+	@Autowired
+	private TwoFactorAuthenticationService twoFactorAuthenticationService;
+
 	// 认证失败帐号集合
 	private Map<String, AuthFaildAccount> authFailedAccountMap = new ConcurrentHashMap<String, AuthFaildAccount>(1000);
-
-	private TwoFactorAuthenticationService twoFactorAuthenticationService;
 
 	/**
 	 * {@inheritDoc}
@@ -163,7 +158,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 			}
 
 			boolean twoFactorAuthcPassed = accountDetails.isTwoFactorAuthcPassed();
-			if (null == twoFactorAuthenticationService || !authenticationProperties.isTwoFactorAuthcEnable() || twoFactorAuthcPassed)
+			if (!authenticationProperties.isTwoFactorAuthcEnable() || twoFactorAuthcPassed)
 			{
 				accountMapper.updateLastAccess(accountDetails.getAccountId(), new Date(), host);
 			}
@@ -305,12 +300,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 		// 初始化帐号凭证选项
 		initAccountCredentialOptions(accountImpl);
 
-		if (null != twoFactorAuthenticationService)
-		{
-			boolean twoFactorAuthcPassed = twoFactorAuthenticationService.determineInternalAuthcPass(accountImpl,
-			        authAccount.getLastAccessIpAddr(), authAccount.getLastAccessTime());
-			accountImpl.setTwoFactorAuthcPassed(twoFactorAuthcPassed);
-		}
+		boolean twoFactorAuthcPassed = twoFactorAuthenticationService.determineInternalAuthcPass(accountImpl,
+		        authAccount.getLastAccessIpAddr(), authAccount.getLastAccessTime());
+		accountImpl.setTwoFactorAuthcPassed(twoFactorAuthcPassed);
 
 		return accountImpl;
 	}
@@ -464,29 +456,5 @@ public class AccountAuthcServiceImpl implements AccountAuthcService, CommandLine
 		}
 
 		AuditLogUtils.addSecurityLog(securityLog);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) throws Exception
-	{
-		Map<String, TwoFactorAuthenticationService> map = applicationContext.getBeansOfType(TwoFactorAuthenticationService.class);
-		if (!MapUtils.isEmpty(map))
-		{
-			TwoFactorAuthenticationService twoFactorAuthenticationService = map.entrySet().iterator().next().getValue();
-
-			this.twoFactorAuthenticationService = twoFactorAuthenticationService;
-		}
-
-		if (null == this.twoFactorAuthenticationService)
-		{
-			LOG.info("Two-factor authentication is not configured.");
-		}
-		else
-		{
-			LOG.info("Two-factor authentication loaded successfully.");
-		}
 	}
 }
