@@ -106,3 +106,10 @@ bmc.idletimeout.timeout.range.error=帐号闲置时间不能小于{min}，且不
 bmc.profile.source=我的
 bmc.profile.phonenumber.modify.operation=修改手机号
 
+#Audit Log
+bmc.auditlog.result.successful=成功
+bmc.auditlog.result.failure=失败
+bmc.auditlog.result.partsuccessful=部分成功
+bmc.auditlog.loglevel.info=一般
+bmc.auditlog.loglevel.warn=警告
+bmc.auditlog.loglevel.risk=危险
