@@ -23,7 +23,7 @@ public class PermissionOpenServiceImpl implements PermissionOpenService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean hasPermission(Set<String> authorities, String permissionName)
+	public boolean hasPermission(String srvId, Set<String> authorities, String permissionName)
 	{
 		Set<String> roleNames = roleCacheService.queryRoleByPermName(permissionName);
 		for (String roleName : roleNames)

@@ -129,19 +129,6 @@ public class PermissionServiceImpl implements PermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Permission> queryAllPermissions(String srvId)
-	{
-		List<Permission> list = permissionMapper.findAll();
-
-		list = list.stream().filter(item -> item.getSrvId().equals(srvId)).collect(Collectors.toList());
-
-		return list;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public List<Permission> queryAuthzPermissions(String srvId)
 	{
 		List<Permission> permissions = queryAllPermissions(srvId);
@@ -163,7 +150,7 @@ public class PermissionServiceImpl implements PermissionService
 
 		for (Integer id : ids)
 		{
-			Permission perm = permissions.stream().filter(p -> p.getId() == id).findFirst().get();
+			Permission perm = permissions.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
 			if (null == perm)
 			{
 				continue;
@@ -221,6 +208,15 @@ public class PermissionServiceImpl implements PermissionService
 		}
 
 		return parents;
+	}
+
+	private List<Permission> queryAllPermissions(String srvId)
+	{
+		List<Permission> list = permissionMapper.findAll();
+
+		list = list.stream().filter(item -> item.getSrvId().equals(srvId)).collect(Collectors.toList());
+
+		return list;
 	}
 
 	@PostConstruct

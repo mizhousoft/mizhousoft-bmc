@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.request.RolePageRequest;
 import com.mizhousoft.commons.data.domain.Page;
+import com.mizhousoft.commons.data.domain.PageRequest;
 
 /**
  * 角色服务接口
@@ -69,5 +69,5 @@ public interface RoleService
 	 * @param request
 	 * @return
 	 */
-	Page<Role> queryPageData(RolePageRequest request);
+	Page<Role> queryPageData(PageRequest request);
 }

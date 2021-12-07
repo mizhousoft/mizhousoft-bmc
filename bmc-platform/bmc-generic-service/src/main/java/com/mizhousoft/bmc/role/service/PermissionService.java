@@ -47,14 +47,6 @@ public interface PermissionService
 	Permission getByName(String srvId, String name);
 
 	/**
-	 * 查询所有权限
-	 * 
-	 * @param srvId
-	 * @return
-	 */
-	List<Permission> queryAllPermissions(String srvId);
-
-	/**
 	 * 查询要鉴权的权限
 	 * 
 	 * @param srvId

@@ -12,9 +12,10 @@ public interface PermissionOpenService
 	/**
 	 * 是否有权限
 	 * 
+	 * @param srvId
 	 * @param authorities
 	 * @param permissionName
 	 * @return
 	 */
-	boolean hasPermission(Set<String> authorities, String permissionName);
+	boolean hasPermission(String srvId, Set<String> authorities, String permissionName);
 }
