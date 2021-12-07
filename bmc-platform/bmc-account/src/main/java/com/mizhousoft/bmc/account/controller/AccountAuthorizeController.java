@@ -27,6 +27,7 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
 import com.mizhousoft.bmc.role.service.RoleService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
@@ -46,6 +47,9 @@ public class AccountAuthorizeController extends BaseAuditController
 	private RoleService roleService;
 
 	@Autowired
+	private RoleViewService roleViewService;
+
+	@Autowired
 	private AccountService accountService;
 
 	@Autowired
@@ -59,7 +63,7 @@ public class AccountAuthorizeController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		Page<Role> page = roleService.queryPageData(request);
+		Page<Role> page = roleViewService.queryPageData(request);
 		map.addAttribute("dataPage", page);
 
 		return map;

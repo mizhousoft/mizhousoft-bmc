@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.AuthAccount;
 import com.mizhousoft.bmc.account.request.AccountNewRequest;
-import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.validator.AccountRequestValidator;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
@@ -32,6 +32,7 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
 import com.mizhousoft.bmc.role.service.RoleService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
@@ -48,6 +49,9 @@ public class AccountAddController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(AccountAddController.class);
 
 	@Autowired
+	private RoleViewService roleViewService;
+
+	@Autowired
 	private RoleService roleService;
 
 	@Autowired
@@ -61,7 +65,7 @@ public class AccountAddController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		Page<Role> page = roleService.queryPageData(pageRequest);
+		Page<Role> page = roleViewService.queryPageData(pageRequest);
 		map.addAttribute("dataPage", page);
 
 		return map;
