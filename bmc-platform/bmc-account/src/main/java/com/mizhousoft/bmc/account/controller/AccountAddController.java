@@ -61,7 +61,7 @@ public class AccountAddController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		Page<Role> page = roleService.queryRoles(pageRequest);
+		Page<Role> page = roleService.queryPageData(pageRequest);
 		map.addAttribute("dataPage", page);
 
 		return map;

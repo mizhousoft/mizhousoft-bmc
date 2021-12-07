@@ -3,7 +3,6 @@ package com.mizhousoft.bmc.role.service;
 import java.util.List;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.RolePermission;
 
 /**
@@ -35,7 +34,7 @@ public interface RolePermissionService
 	 * @param roleName
 	 * @return
 	 */
-	List<Permission> queryPermissionsByRoleName(String roleName);
+	List<RolePermission> queryByRoleName(String roleName);
 
 	/**
 	 * 查询所有

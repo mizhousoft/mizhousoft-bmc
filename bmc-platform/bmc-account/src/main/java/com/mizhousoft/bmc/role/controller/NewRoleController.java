@@ -1,10 +1,8 @@
 package com.mizhousoft.bmc.role.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -26,14 +24,12 @@ import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
 import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
-import com.mizhousoft.bmc.role.constant.RoleType;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleRequest;
-import com.mizhousoft.bmc.role.service.PermissionService;
+import com.mizhousoft.bmc.role.service.PermissionViewService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
-import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
 import com.mizhousoft.commons.web.ActionRespBuilder;
@@ -52,7 +48,7 @@ public class NewRoleController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(NewRoleController.class);
 
 	@Autowired
-	private PermissionService permissionService;
+	private PermissionViewService permissionViewService;
 
 	@Autowired
 	private RoleViewService roleViewService;
@@ -67,7 +63,7 @@ public class NewRoleController extends BaseAuditController
 
 		try
 		{
-			List<Permission> permissions = permissionService.queryAuthzPermissions();
+			List<Permission> permissions = permissionViewService.queryAuthzPermissions();
 
 			List<TreeNode> treeNodes = buildTreeNodes(permissions);
 			String treeData = JSONUtils.toJSONString(treeNodes);
@@ -100,25 +96,9 @@ public class NewRoleController extends BaseAuditController
 		{
 			try
 			{
-				Role role = new Role();
+				Role role = roleViewService.addRole(request);
 
-				String name = RandomGenerator.genHexString(16, true);
-				role.setType(RoleType.GeneralRole.getValue());
-				role.setSrvId("BusinessCustomization");
-				role.setName(name);
-				role.setDisplayNameCN(request.getName());
-				role.setDisplayNameUS(request.getName());
-				role.setDescriptionCN(request.getDescription());
-
-				Set<Integer> ids = new HashSet<Integer>();
-				String[] permIds = request.getPermIds();
-				for (String permId : permIds)
-				{
-					ids.add(Integer.parseInt(permId));
-				}
-				List<Permission> permissions = permissionService.queryPermissionsWithParentByIds(ids);
-
-				roleViewService.addRole(role, permissions);
+				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
 
 				roleCacheService.addRolePermissions(role.getName(), permissions);
 
@@ -127,7 +107,7 @@ public class NewRoleController extends BaseAuditController
 			}
 			catch (BMCException e)
 			{
-				LOG.error("New role failed, message: {}", e.getMessage());
+				LOG.error("New role failed.", e);
 
 				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
 				response = ActionRespBuilder.buildFailedResp(error);

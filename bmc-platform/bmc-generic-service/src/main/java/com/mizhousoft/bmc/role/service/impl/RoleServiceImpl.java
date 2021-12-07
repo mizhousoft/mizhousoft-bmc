@@ -1,10 +1,7 @@
 package com.mizhousoft.bmc.role.service.impl;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,18 +96,7 @@ public class RoleServiceImpl implements RoleService
 			return Collections.emptyList();
 		}
 
-		Set<Integer> idset = new HashSet<>(ids);
-
-		List<Role> roles = new ArrayList<Role>(idset.size());
-		idset.forEach(id -> {
-			Role role = getById(id);
-			if (null != role)
-			{
-				roles.add(role);
-			}
-		});
-
-		return roles;
+		return roleMapper.findByIds(ids);
 	}
 
 	/**
@@ -141,13 +127,13 @@ public class RoleServiceImpl implements RoleService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Page<Role> queryRoles(RolePageRequest request)
+	public Page<Role> queryPageData(RolePageRequest request)
 	{
 		long total = roleMapper.countTotal(request);
 		long rowOffset = PageUtils.calcRowOffset(request, total);
 
-		List<Role> roles = roleMapper.findPageData(rowOffset, request);
-		Page<Role> page = PageBuilder.build(roles, request, total);
+		List<Role> list = roleMapper.findPageData(rowOffset, request);
+		Page<Role> page = PageBuilder.build(list, request, total);
 
 		return page;
 	}

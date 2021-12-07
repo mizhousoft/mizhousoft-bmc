@@ -3,32 +3,36 @@ package com.mizhousoft.bmc.role.service;
 import java.util.List;
 
 import com.mizhousoft.bmc.BMCException;
+import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RolePageRequest;
+import com.mizhousoft.bmc.role.request.RoleRequest;
 import com.mizhousoft.commons.data.domain.Page;
 
 /**
- * 角色服务接口
- * 
+ * 角色查询服务
+ *
  * @version
  */
-public interface RoleService
+public interface RoleViewService
 {
 	/**
 	 * 增加角色
 	 * 
-	 * @param role
+	 * @param request
+	 * @return
 	 * @throws BMCException
 	 */
-	void addRole(Role role) throws BMCException;
+	Role addRole(RoleRequest request) throws BMCException;
 
 	/**
 	 * 修改角色
 	 * 
-	 * @param role
+	 * @param request
+	 * @return
 	 * @throws BMCException
 	 */
-	void modifyRole(Role role) throws BMCException;
+	Role modifyRole(RoleRequest request) throws BMCException;
 
 	/**
 	 * 删除角色
@@ -39,29 +43,12 @@ public interface RoleService
 	Role deleteRole(int id) throws BMCException;
 
 	/**
-	 * 根据角色ID查找角色
+	 * 根据角色名查询权限
 	 * 
-	 * @param ids
+	 * @param roleName
 	 * @return
 	 */
-	List<Role> queryByIds(List<Integer> ids);
-
-	/**
-	 * 根据角色id查找角色，查找不到，抛出异常
-	 * 
-	 * @param id
-	 * @return
-	 * @throws BMCException
-	 */
-	Role loadById(int id) throws BMCException;
-
-	/**
-	 * 根据角色ID查找角色
-	 * 
-	 * @param id
-	 * @return
-	 */
-	Role getById(int id);
+	List<Permission> queryPermissionsByRoleName(String roleName);
 
 	/**
 	 * 分页查找角色

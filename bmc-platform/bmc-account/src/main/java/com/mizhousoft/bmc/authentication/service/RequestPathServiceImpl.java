@@ -24,25 +24,25 @@ public class RequestPathServiceImpl implements RequestPathService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthcRequestPaths()
+	public List<String> queryAuthcRequestPaths(String serviceId)
 	{
-		return permissionService.queryAuthcRequestPaths();
+		return permissionService.queryAuthcRequestPaths(serviceId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthzRequestPaths()
+	public List<String> queryAuthzRequestPaths(String serviceId)
 	{
-		return permissionService.queryAuthzRequestPaths();
+		return permissionService.queryAuthzRequestPaths(serviceId);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryLoginAuditRequestPaths()
+	public List<String> queryLoginAuditRequestPaths(String serviceId)
 	{
 		List<String> requestPaths = new ArrayList<>(10);
 
@@ -59,7 +59,7 @@ public class RequestPathServiceImpl implements RequestPathService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryNonUpdateAccessTimeRequestPaths()
+	public List<String> queryNonUpdateAccessTimeRequestPaths(String serviceId)
 	{
 		return new ArrayList<>(0);
 	}

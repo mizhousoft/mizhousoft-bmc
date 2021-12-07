@@ -59,7 +59,7 @@ public class AccountAuthorizeController extends BaseAuditController
 	{
 		ModelMap map = new ModelMap();
 
-		Page<Role> page = roleService.queryRoles(request);
+		Page<Role> page = roleService.queryPageData(request);
 		map.addAttribute("dataPage", page);
 
 		return map;

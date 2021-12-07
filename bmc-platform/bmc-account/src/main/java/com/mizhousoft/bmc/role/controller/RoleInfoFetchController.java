@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
+import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
 import com.mizhousoft.commons.web.ActionRespBuilder;
@@ -39,7 +39,7 @@ public class RoleInfoFetchController
 	private RoleService roleService;
 
 	@Autowired
-	private RolePermissionService rolePermissionService;
+	private RoleViewService roleViewService;
 
 	@RequestMapping(value = "/role/fetchRoleInfo.action", method = RequestMethod.GET)
 	public ModelMap fetchRoleInfo(@RequestParam(name = "id") Integer id)
@@ -51,7 +51,7 @@ public class RoleInfoFetchController
 			Role role = roleService.loadById(id);
 			map.put("role", role);
 
-			List<Permission> rolePerms = rolePermissionService.queryPermissionsByRoleName(role.getName());
+			List<Permission> rolePerms = roleViewService.queryPermissionsByRoleName(role.getName());
 
 			List<TreeNode> treeNodes = buildTreeNodes(rolePerms);
 			String treeData = JSONUtils.toJSONString(treeNodes);

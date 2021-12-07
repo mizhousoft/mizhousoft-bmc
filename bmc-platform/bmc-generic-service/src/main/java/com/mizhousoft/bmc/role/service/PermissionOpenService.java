@@ -3,11 +3,11 @@ package com.mizhousoft.bmc.role.service;
 import java.util.Set;
 
 /**
- * 角色开放服务
+ * 权限开放服务
  *
  * @version
  */
-public interface RoleOpenService
+public interface PermissionOpenService
 {
 	/**
 	 * 是否有权限

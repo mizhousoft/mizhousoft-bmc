@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -40,18 +39,18 @@ public class PermissionServiceImpl implements PermissionService
 	@Autowired
 	private PermResourceService permResourceService;
 
-	// Map<Permission Name, Permission>
-	private Map<String, Permission> permissionMap = new HashMap<>(0);
+	// Map<SrvId, Map<Permission Name, Permission>>
+	private Map<String, Map<String, Permission>> srvPermMap = new HashMap<>(0);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthcRequestPaths()
+	public List<String> queryAuthcRequestPaths(String srvId)
 	{
 		List<String> authcPaths = new ArrayList<String>(10);
 
-		List<Permission> allPerms = queryAllPermissions();
+		List<Permission> allPerms = queryAllPermissions(srvId);
 		allPerms.forEach(perm -> {
 			if (perm.isAuthz())
 			{
@@ -59,12 +58,7 @@ public class PermissionServiceImpl implements PermissionService
 			}
 
 			List<String> paths = permResourceService.queryByPermission(perm.getName());
-			if (CollectionUtils.isNotEmpty(paths))
-			{
-				paths.forEach(path -> {
-					authcPaths.add(path);
-				});
-			}
+			authcPaths.addAll(paths);
 		});
 
 		return authcPaths;
@@ -74,11 +68,11 @@ public class PermissionServiceImpl implements PermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthzRequestPaths()
+	public List<String> queryAuthzRequestPaths(String srvId)
 	{
 		List<String> authzPaths = new ArrayList<String>(10);
 
-		List<Permission> allPerms = queryAllPermissions();
+		List<Permission> allPerms = queryAllPermissions(srvId);
 		allPerms.forEach(perm -> {
 			if (!perm.isAuthz())
 			{
@@ -86,12 +80,7 @@ public class PermissionServiceImpl implements PermissionService
 			}
 
 			List<String> paths = permResourceService.queryByPermission(perm.getName());
-			if (CollectionUtils.isNotEmpty(paths))
-			{
-				paths.forEach(path -> {
-					authzPaths.add(path);
-				});
-			}
+			authzPaths.addAll(paths);
 		});
 
 		return authzPaths;
@@ -101,11 +90,19 @@ public class PermissionServiceImpl implements PermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Permission queryByRequestPath(String path)
+	public Permission getByRequestPath(String srvId, String path)
 	{
+		Map<String, Permission> permissionMap = srvPermMap.get(srvId);
+		if (null == permissionMap)
+		{
+			LOG.warn("Service id {} not found", srvId);
+			return null;
+		}
+
 		String permName = permResourceService.getPermissionByPath(path);
 		if (null == permName)
 		{
+			LOG.warn("Permission not found, path is {}.", path);
 			return null;
 		}
 
@@ -116,18 +113,39 @@ public class PermissionServiceImpl implements PermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Permission> queryAllPermissions()
+	public Permission getByName(String srvId, String name)
 	{
-		return permissionMapper.findAll();
+		Map<String, Permission> permissionMap = srvPermMap.get(srvId);
+		if (null == permissionMap)
+		{
+			LOG.warn("Service id {} not found", srvId);
+			return null;
+		}
+
+		return permissionMap.get(name);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Permission> queryAuthzPermissions()
+	public List<Permission> queryAllPermissions(String srvId)
 	{
-		List<Permission> permissions = queryAllPermissions();
+		List<Permission> list = permissionMapper.findAll();
+
+		list = list.stream().filter(item -> item.getSrvId().equals(srvId)).collect(Collectors.toList());
+
+		return list;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Permission> queryAuthzPermissions(String srvId)
+	{
+		List<Permission> permissions = queryAllPermissions(srvId);
+
 		List<Permission> authzPerms = permissions.stream().filter(perm -> perm.isAuthz()).collect(Collectors.toList());
 
 		return authzPerms;
@@ -137,9 +155,9 @@ public class PermissionServiceImpl implements PermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Permission> queryPermissionsWithParentByIds(Set<Integer> ids)
+	public List<Permission> queryPermissionsByIds(Set<Integer> ids, boolean withParent)
 	{
-		List<Permission> permissions = queryAllPermissions();
+		List<Permission> permissions = permissionMapper.findAll();
 
 		Map<Integer, Permission> permMap = new HashMap<Integer, Permission>(10);
 
@@ -153,7 +171,7 @@ public class PermissionServiceImpl implements PermissionService
 
 			permMap.put(perm.getId(), perm);
 
-			if (null != perm.getParentName())
+			if (withParent && null != perm.getParentName())
 			{
 				Set<Permission> parents = recursiveCollectParents(perm, permissions);
 				parents.forEach(parent -> permMap.put(parent.getId(), parent));
@@ -210,10 +228,20 @@ public class PermissionServiceImpl implements PermissionService
 	{
 		List<Permission> permissions = permissionMapper.findAll();
 
-		Map<String, Permission> permissionMap = new HashMap<>(100);
-		permissions.forEach(item -> permissionMap.put(item.getName(), item));
+		Map<String, Map<String, Permission>> srvPermMap = new HashMap<>(5);
+		for (Permission permission : permissions)
+		{
+			Map<String, Permission> permissionMap = srvPermMap.get(permission.getSrvId());
+			if (null == permissionMap)
+			{
+				permissionMap = new HashMap<>(100);
+				srvPermMap.put(permission.getSrvId(), permissionMap);
+			}
 
-		this.permissionMap = permissionMap;
+			permissionMap.put(permission.getName(), permission);
+		}
+
+		this.srvPermMap = srvPermMap;
 
 		LOG.info("Load permission size is {}.", permissions.size());
 	}

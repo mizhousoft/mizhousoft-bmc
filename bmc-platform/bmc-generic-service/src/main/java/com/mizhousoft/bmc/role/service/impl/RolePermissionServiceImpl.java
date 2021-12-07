@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.mapper.RolePermissionMapper;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
@@ -44,9 +43,9 @@ public class RolePermissionServiceImpl implements RolePermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Permission> queryPermissionsByRoleName(String roleName)
+	public List<RolePermission> queryByRoleName(String roleName)
 	{
-		return rolePermissionMapper.findPermissionByRoleName(roleName);
+		return rolePermissionMapper.findByRoleName(roleName);
 	}
 
 	/**

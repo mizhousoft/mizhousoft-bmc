@@ -54,8 +54,9 @@ public interface RoleCacheService
 	/**
 	 * 根据请求路径获取角色
 	 * 
+	 * @param srvId
 	 * @param requestPath
 	 * @return
 	 */
-	Set<String> getRoleNamesByPath(String requestPath);
+	Set<String> getRoleNamesByPath(String srvId, String requestPath);
 }

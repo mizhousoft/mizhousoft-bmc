@@ -2,7 +2,6 @@ package com.mizhousoft.bmc.role.mapper;
 
 import java.util.List;
 
-import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.commons.mapper.CrudMapper;
 
@@ -26,5 +25,5 @@ public interface RolePermissionMapper extends CrudMapper<RolePermission, Integer
 	 * @param roleName
 	 * @return
 	 */
-	List<Permission> findPermissionByRoleName(String roleName);
+	List<RolePermission> findByRoleName(String roleName);
 }

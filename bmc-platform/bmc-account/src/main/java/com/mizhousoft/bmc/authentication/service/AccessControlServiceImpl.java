@@ -23,8 +23,8 @@ public class AccessControlServiceImpl implements AccessControlService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<String> getRolesByPath(String requestPath)
+	public Set<String> getRolesByPath(String serviceId, String requestPath)
 	{
-		return roleCacheService.getRoleNamesByPath(requestPath);
+		return roleCacheService.getRoleNamesByPath(serviceId, requestPath);
 	}
 }

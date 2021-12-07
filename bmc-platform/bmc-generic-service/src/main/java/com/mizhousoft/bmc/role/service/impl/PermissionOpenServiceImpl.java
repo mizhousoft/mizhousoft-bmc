@@ -5,16 +5,16 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mizhousoft.bmc.role.service.PermissionOpenService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
-import com.mizhousoft.bmc.role.service.RoleOpenService;
 
 /**
- * TODO
+ * 权限开放服务
  *
  * @version
  */
 @Service
-public class RoleOpenServiceImpl implements RoleOpenService
+public class PermissionOpenServiceImpl implements PermissionOpenService
 {
 	@Autowired
 	private RoleCacheService roleCacheService;

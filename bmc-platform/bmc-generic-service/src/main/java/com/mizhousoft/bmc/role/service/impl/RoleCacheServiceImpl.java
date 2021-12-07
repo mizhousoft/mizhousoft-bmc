@@ -115,9 +115,9 @@ public class RoleCacheServiceImpl implements RoleCacheService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<String> getRoleNamesByPath(String requestPath)
+	public Set<String> getRoleNamesByPath(String srvId, String requestPath)
 	{
-		Permission perm = permissionService.queryByRequestPath(requestPath);
+		Permission perm = permissionService.getByRequestPath(srvId, requestPath);
 		if (null == perm)
 		{
 			return Collections.emptySet();

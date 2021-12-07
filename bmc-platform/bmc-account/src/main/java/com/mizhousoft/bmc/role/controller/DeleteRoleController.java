@@ -64,7 +64,7 @@ public class DeleteRoleController extends BaseAuditController
 		}
 		catch (BMCException e)
 		{
-			LOG.error("Delete role failed, role id is " + request.getId() + '.');
+			LOG.error("Delete role failed, role id is " + request.getId() + '.', e);
 
 			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
 			response = ActionRespBuilder.buildFailedResp(error);

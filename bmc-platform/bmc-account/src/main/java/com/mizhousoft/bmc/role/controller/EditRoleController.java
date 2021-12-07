@@ -32,9 +32,8 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleRequest;
-import com.mizhousoft.bmc.role.service.PermissionService;
+import com.mizhousoft.bmc.role.service.PermissionViewService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
-import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.json.JSONException;
@@ -58,10 +57,7 @@ public class EditRoleController extends BaseAuditController
 	private RoleService roleService;
 
 	@Autowired
-	private PermissionService permissionService;
-
-	@Autowired
-	private RolePermissionService rolePermissionService;
+	private PermissionViewService permissionViewService;
 
 	@Autowired
 	private RoleViewService roleViewService;
@@ -79,9 +75,9 @@ public class EditRoleController extends BaseAuditController
 			Role role = roleService.loadById(id);
 			map.put("role", role);
 
-			List<Permission> rolePerms = rolePermissionService.queryPermissionsByRoleName(role.getName());
+			List<Permission> rolePerms = roleViewService.queryPermissionsByRoleName(role.getName());
 
-			List<Permission> authzPerms = permissionService.queryAuthzPermissions();
+			List<Permission> authzPerms = permissionViewService.queryAuthzPermissions();
 
 			Set<String> checkedIds = new HashSet<String>(10);
 			Set<Integer> halfCheckedIds = new HashSet<Integer>(10);
@@ -126,20 +122,9 @@ public class EditRoleController extends BaseAuditController
 		{
 			try
 			{
-				Role role = roleService.loadById(request.getId());
-				role.setDisplayNameCN(request.getName());
-				role.setDisplayNameUS(request.getName());
-				role.setDescriptionCN(request.getDescription());
+				Role role = roleViewService.modifyRole(request);
 
-				Set<Integer> ids = new HashSet<Integer>();
-				String[] permIds = request.getPermIds();
-				for (String permId : permIds)
-				{
-					ids.add(Integer.parseInt(permId));
-				}
-				List<Permission> permissions = permissionService.queryPermissionsWithParentByIds(ids);
-
-				roleViewService.modifyRole(role, permissions);
+				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
 
 				roleCacheService.refreshRolePermissions(role.getName(), permissions);
 
@@ -148,7 +133,7 @@ public class EditRoleController extends BaseAuditController
 			}
 			catch (BMCException e)
 			{
-				LOG.error("Modify role failed, message: {}", e.getMessage());
+				LOG.error("Modify role failed.", e);
 
 				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
 				response = ActionRespBuilder.buildFailedResp(error);

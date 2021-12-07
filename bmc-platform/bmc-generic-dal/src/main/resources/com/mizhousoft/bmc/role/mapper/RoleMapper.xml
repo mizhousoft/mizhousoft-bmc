@@ -34,7 +34,16 @@
 		from bmc_role 
 		where id = #{id}
 	</select>
-		
+	
+	<select id="findByIds" parameterType="java.util.Map" resultMap="RoleMap">
+        select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
+		from bmc_role 
+        where id in
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    
 	<select id="findByName" resultMap="RoleMap">
 		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
 		from bmc_role 
@@ -48,6 +57,12 @@
 				<bind name="pattern" value="'%' + request.name + '%'" />
 				displayNameCN like #{pattern} 
 			</if>
+			<if test="request.srvIds.size > 0">
+				and srvId in
+				<foreach collection="request.srvIds" item="srvId" open="(" close=")" separator=",">
+		            #{srvId}
+		        </foreach>
+			</if>
 		</where>
 	</select>
 
@@ -58,6 +73,12 @@
 			<if test="request.name != null">
 				<bind name="pattern" value="'%' + request.name + '%'" />
 				displayNameCN like #{pattern} 
+			</if>
+			<if test="request.srvIds.size > 0">
+				and srvId in
+				<foreach collection="request.srvIds" item="srvId" open="(" close=")" separator=",">
+		            #{srvId}
+		        </foreach>
 			</if>
 		</where>
 		limit #{rowOffset}, #{request.pageSize}
