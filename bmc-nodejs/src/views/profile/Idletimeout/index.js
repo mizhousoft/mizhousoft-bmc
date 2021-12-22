@@ -1,30 +1,24 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Form, InputNumber, Button, message, Alert } from 'antd';
 import FormFlex from '@/constants/flex';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException } from '@/components/UIComponent';
+import { PageComponent, PageLoading, PageException } from '@/components/UIComponent';
 import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
 
 const FormItem = Form.Item;
 
-class Idletimeout extends Component {
-    formRef = React.createRef();
+export default function Idletimeout() {
+    const formRef = useRef();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
+    const [pageStatus, setPageStatus] = useState(LOADING_FETCH_STATUS);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [idleTimeoutObj, setIdleTimeout] = useState(undefined);
 
-            idleTimeout: undefined,
-            confirmLoading: false,
-        };
-    }
-
-    onFinish = (values) => {
-        this.setState({ confirmLoading: true });
+    const onFinish = (values) => {
+        setConfirmLoading(true);
 
         modifyIdletimeout(values).then(({ fetchStatus }) => {
-            this.setState({ confirmLoading: false });
+            setConfirmLoading(false);
 
             if (fetchStatus.okey) {
                 message.success('修改闲置超时时间成功。');
@@ -34,27 +28,23 @@ class Idletimeout extends Component {
         });
     };
 
-    componentDidMount() {
+    useEffect(() => {
         fetchIdletimeout().then(({ fetchStatus, idleTimeout }) => {
-            this.setState({
-                fetchStatus,
-                idleTimeout,
-            });
+            setIdleTimeout(idleTimeout);
+            setPageStatus(fetchStatus);
         });
+    }, []);
+
+    if (pageStatus.loading) {
+        return <PageLoading />;
+    }
+    if (!pageStatus.okey) {
+        return <PageException fetchStatus={pageStatus} />;
     }
 
-    renderBody = () => {
-        const { fetchStatus, idleTimeout, confirmLoading } = this.state;
-
-        if (fetchStatus.loading) {
-            return <PageLoading />;
-        }
-        if (!fetchStatus.okey) {
-            return <PageException fetchStatus={fetchStatus} />;
-        }
-
-        return (
-            <Form onFinish={this.onFinish} ref={this.formRef} initialValues={{ timeout: idleTimeout.timeout }}>
+    return (
+        <PageComponent title='闲时时间设置'>
+            <Form onFinish={onFinish} ref={formRef} initialValues={{ timeout: idleTimeoutObj.timeout }}>
                 <Alert
                     message='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
                     type='info'
@@ -84,22 +74,6 @@ class Idletimeout extends Component {
                     </Button>
                 </FormItem>
             </Form>
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>闲时时间设置</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>{this.renderBody()}</div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default Idletimeout;

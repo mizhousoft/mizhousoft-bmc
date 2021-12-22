@@ -82,3 +82,17 @@ export function SafeLink({ to, style, children }) {
         </Link>
     );
 }
+
+export function PageComponent(props) {
+    return (
+        <>
+            <div className='mz-page-head'>
+                <div className='title'>{props.title}</div>
+            </div>
+
+            <div className='mz-page-content'>
+                <div className='mz-page-content-body'>{props.children}</div>
+            </div>
+        </>
+    );
+}
