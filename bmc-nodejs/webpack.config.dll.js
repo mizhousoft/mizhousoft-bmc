@@ -9,7 +9,6 @@ const vendors = [
     'react-dom',
     'react-redux',
     'react-router-dom',
-    'react-router-redux',
     'redux',
     'redux-saga',
     'moment',
