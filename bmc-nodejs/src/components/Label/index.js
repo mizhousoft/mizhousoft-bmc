@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import './index.less';
 
 const LabelContext = React.createContext({
@@ -6,88 +6,58 @@ const LabelContext = React.createContext({
     onClickLabel: undefined,
 });
 
-class LabelItem extends React.PureComponent {
-    render() {
-        const { value } = this.props;
+function LabelItem({ value, children }) {
+    return (
+        <LabelContext.Consumer>
+            {({ selectedValue, onClickLabel }) => {
+                const selectedClass = selectedValue === value ? 'selected' : '';
 
-        return (
-            <LabelContext.Consumer>
-                {({ selectedValue, onClickLabel }) => {
-                    const selectedClass = selectedValue === value ? 'selected' : '';
-
-                    return (
-                        <span className={`label-item ${selectedClass}`} onClick={(e) => onClickLabel(value)}>
-                            {this.props.children}
-                        </span>
-                    );
-                }}
-            </LabelContext.Consumer>
-        );
-    }
+                return (
+                    <span className={`label-item ${selectedClass}`} onClick={(e) => onClickLabel(value)}>
+                        {children}
+                    </span>
+                );
+            }}
+        </LabelContext.Consumer>
+    );
 }
 
-class Label extends React.Component {
-    constructor(props) {
-        super(props);
+function Label({ defaultValue, title, extendMoreHidden = false, children, onChange }) {
+    const [selectedValue, setSelectedValue] = useState(defaultValue);
+    const [isExtendMore, setExtendMore] = useState(extendMoreHidden);
 
-        this.state = {
-            selectedValue: props.defaultValue,
-
-            isExtendMore: props.extendMoreHidden === undefined ? false : props.extendMoreHidden,
-        };
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        const { defaultValue } = nextProps;
-        const { selectedValue } = prevState;
-
-        if (defaultValue !== selectedValue) {
-            return {
-                selectedValue: defaultValue,
-            };
-        }
-
-        return null;
-    }
-
-    clickLabelEvent = (value) => {
-        const { onChange } = this.props;
-
-        this.setState({ selectedValue: value });
+    const clickLabelEvent = (value) => {
+        setSelectedValue(value);
 
         if (onChange) {
             onChange(value);
         }
     };
 
-    extendMore = () => {
-        this.setState({ isExtendMore: true });
+    const extendMore = () => {
+        setExtendMore(true);
     };
 
-    render() {
-        const { title } = this.props;
+    const value = {
+        selectedValue,
+        onClickLabel: clickLabelEvent,
+    };
 
-        const value = {
-            selectedValue: this.state.selectedValue,
-            onClickLabel: this.clickLabelEvent,
-        };
+    const extendClass = isExtendMore ? 'expand-label' : '';
 
-        const extendClass = this.state.isExtendMore ? 'expand-label' : '';
-
-        return (
-            <div className='mz-label'>
-                <span className='title'>{title}</span>
-                <div className={`collection ${extendClass}`}>
-                    <LabelContext.Provider value={value}>{this.props.children}</LabelContext.Provider>
-                </div>
-                {!this.state.isExtendMore && (
-                    <span className='expand-all-text' onClick={this.extendMore}>
-                        展开更多
-                    </span>
-                )}
+    return (
+        <div className='mz-label'>
+            <span className='title'>{title}</span>
+            <div className={`collection ${extendClass}`}>
+                <LabelContext.Provider value={value}>{children}</LabelContext.Provider>
             </div>
-        );
-    }
+            {!isExtendMore && (
+                <span className='expand-all-text' onClick={extendMore}>
+                    展开更多
+                </span>
+            )}
+        </div>
+    );
 }
 
 Label.Item = LabelItem;

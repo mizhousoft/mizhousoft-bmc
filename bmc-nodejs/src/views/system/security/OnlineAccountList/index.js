@@ -1,121 +1,110 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { message, Table, Popconfirm } from 'antd';
-import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
-import { getTableLocale } from '@/components/UIComponent';
+import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/constants/common';
+import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { fetchOnlineAccounts, logoffOnlineAccount } from '../redux/securityService';
 
-class OnlineAccountList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
-            dataSource: DEFAULT_DATA_PAGE,
-        };
-    }
+export default function OnlineAccountList() {
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
 
-    logoff = (record) => {
-        this.setState({ fetchStatus: LOADING_FETCH_STATUS });
-
-        logoffOnlineAccount(record).then(({ fetchStatus }) => {
-            if (fetchStatus.okey) {
-                message.success('退出帐号成功。');
-                this.refreshList();
-            } else {
-                message.error(fetchStatus.message);
-                this.setState({ fetchStatus });
-            }
-        });
-    };
-
-    refreshList = () => {
-        const { dataSource } = this.state;
-
-        this.fetchList(dataSource.pageNumber, dataSource.pageSize);
-    };
-
-    fetchList = (pageNumber, pageSize) => {
+    const fetchList = (pageNumber, pageSize) => {
         const body = {
             pageNumber,
             pageSize,
         };
 
-        this.setState({ fetchStatus: LOADING_FETCH_STATUS });
+        setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchOnlineAccounts(body).then(({ fetchStatus, dataPage }) => {
-            this.setState({
-                fetchStatus,
-                dataSource: dataPage ?? DEFAULT_DATA_PAGE,
-            });
+        fetchOnlineAccounts(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            setDataSource(dataPage);
+            setFetchStatus(fetchStatus);
         });
     };
 
-    componentDidMount() {
-        this.refreshList();
-    }
+    const refreshList = () => {
+        fetchList(dataSource.pageNumber, dataSource.pageSize);
+    };
 
-    renderTable = () => {
-        const { fetchStatus, dataSource } = this.state;
+    const logoff = (record) => {
+        setFetchStatus(LOADING_FETCH_STATUS);
 
-        const columns = [
-            {
-                title: '帐号名',
-                dataIndex: 'name',
-                key: 'name',
+        logoffOnlineAccount(record).then(({ fetchStatus }) => {
+            if (fetchStatus.okey) {
+                message.success('退出帐号成功。');
+                refreshList();
+            } else {
+                setFetchStatus(SUCCEED_FETCH_STATUS);
+                message.error(fetchStatus.message);
+            }
+        });
+    };
+
+    useEffect(() => {
+        refreshList();
+    }, []);
+
+    const columns = [
+        {
+            title: '帐号名',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: 'IP地址',
+            dataIndex: 'ipAddress',
+            key: 'ipAddress',
+        },
+        {
+            title: '登录时间',
+            dataIndex: 'loginTime',
+            key: 'loginTime',
+        },
+        {
+            title: '角色',
+            dataIndex: 'role',
+            key: 'role',
+        },
+        {
+            title: '操作',
+            key: 'action',
+            width: 110,
+            className: 'mz-a-group',
+            render: (text, record) => {
+                if (record.currentAccount) {
+                    return null;
+                }
+
+                return (
+                    <span>
+                        <Popconfirm title='你确定要退出帐号吗？' onConfirm={() => logoff(record)}>
+                            <a>退出帐号</a>
+                        </Popconfirm>
+                    </span>
+                );
             },
-            {
-                title: 'IP地址',
-                dataIndex: 'ipAddress',
-                key: 'ipAddress',
-            },
-            {
-                title: '登录时间',
-                dataIndex: 'loginTime',
-                key: 'loginTime',
-            },
-            {
-                title: '角色',
-                dataIndex: 'role',
-                key: 'role',
-            },
-            {
-                title: '操作',
-                key: 'action',
-                width: 130,
-                className: 'center-action-button',
-                render: (text, record) => {
-                    if (record.currentAccount) {
-                        return null;
-                    }
+        },
+    ];
 
-                    return (
-                        <span>
-                            <Popconfirm title='你确定要退出帐号吗？' onConfirm={() => this.logoff(record)}>
-                                <a>退出帐号</a>
-                            </Popconfirm>
-                        </span>
-                    );
-                },
-            },
-        ];
+    const pagination = {
+        size: 'middle',
+        total: dataSource.totalNumber,
+        pageSize: dataSource.pageSize,
+        current: dataSource.pageNumber,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '30', '40', '50'],
+        showTotal: (total) => `总条数： ${total} `,
+        onChange: (page, pageSize) => fetchList(page, pageSize),
+        position: ['bottomLeft'],
+    };
 
-        const pagination = {
-            size: 'middle',
-            total: dataSource.totalNumber,
-            pageSize: dataSource.pageSize,
-            current: dataSource.pageNumber,
-            showQuickJumper: true,
-            showSizeChanger: true,
-            pageSizeOptions: ['10', '20', '30', '40', '50'],
-            showTotal: (total) => `总条数： ${total} `,
-            onChange: (page, pageSize) => this.fetchList(page, pageSize),
-            position: ['bottomLeft'],
-        };
+    const locale = getTableLocale(uFetchStatus);
 
-        const locale = getTableLocale(fetchStatus);
-
-        return (
+    return (
+        <PageComponent title='在线帐号'>
             <Table
-                loading={fetchStatus.loading}
+                loading={uFetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}
@@ -124,22 +113,6 @@ class OnlineAccountList extends Component {
                 bordered
                 locale={locale}
             />
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>在线帐号</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>{this.renderTable()}</div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default OnlineAccountList;

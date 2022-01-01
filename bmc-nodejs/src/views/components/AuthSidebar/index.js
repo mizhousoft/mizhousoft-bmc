@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import SessionStore from '@/session/SessionStore';
 
-class AuthSidebar extends PureComponent {
-    filterAuthMenus = (siderMenus) => {
-        const menus = JSON.parse(JSON.stringify(siderMenus));
+export default function AuthSidebar({ siderMenus, path, ...others }) {
+    const filterAuthMenus = (menus) => {
+        const newMenus = JSON.parse(JSON.stringify(menus));
 
         const authMenus = [];
-        for (let i = 0; i < menus.length; ++i) {
-            const menu = menus[i];
+        for (let i = 0; i < newMenus.length; ++i) {
+            const menu = newMenus[i];
             if (!SessionStore.hasPermission(menu.id)) {
                 continue;
             }
@@ -28,13 +28,7 @@ class AuthSidebar extends PureComponent {
         return authMenus;
     };
 
-    render() {
-        const { siderMenus, path, ...others } = this.props;
+    const authMenus = filterAuthMenus(siderMenus);
 
-        const authMenus = this.filterAuthMenus(siderMenus);
-
-        return <Sidebar siderMenus={authMenus} path={path} {...others} />;
-    }
+    return <Sidebar siderMenus={authMenus} path={path} {...others} />;
 }
-
-export default AuthSidebar;

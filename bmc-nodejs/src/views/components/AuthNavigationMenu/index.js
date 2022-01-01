@@ -1,14 +1,14 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import NavigationMenu from '@/components/NavigationMenu';
 import SessionStore from '@/session/SessionStore';
 
-class AuthNavigationMenu extends PureComponent {
-    filterAuthMenus = (topMemus) => {
-        const menus = JSON.parse(JSON.stringify(topMemus));
+export default function AuthNavigationMenu({ topMemus, ...others }) {
+    const filterAuthMenus = (memus) => {
+        const newMenus = JSON.parse(JSON.stringify(memus));
 
         const authMenus = [];
-        for (let i = 0; i < menus.length; ++i) {
-            const menu = menus[i];
+        for (let i = 0; i < newMenus.length; ++i) {
+            const menu = newMenus[i];
             if (SessionStore.hasPermission(menu.id)) {
                 authMenus.push(menu);
             }
@@ -17,13 +17,7 @@ class AuthNavigationMenu extends PureComponent {
         return authMenus;
     };
 
-    render() {
-        const { topMemus, ...others } = this.props;
+    const authTopMenus = filterAuthMenus(topMemus);
 
-        const authTopMenus = this.filterAuthMenus(topMemus);
-
-        return <NavigationMenu topMemus={authTopMenus} {...others} />;
-    }
+    return <NavigationMenu topMemus={authTopMenus} {...others} />;
 }
-
-export default AuthNavigationMenu;

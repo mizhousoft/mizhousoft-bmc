@@ -1,5 +1,5 @@
-import React, { PureComponent, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { useLocation, Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import RouteRender from '@/components/RouteRender';
@@ -12,42 +12,36 @@ import AuthSidebar from '@/views/components/AuthSidebar';
 
 const { Content } = Layout;
 
-class BasicLayout extends PureComponent {
-    render() {
-        const { route, location } = this.props;
+export default function BasicLayout({ route }) {
+    const location = useLocation();
 
-        const topMenuId = getTopMenuId(route.siderMenuId);
-        const SIDER_MENUS = getTopSubMenus(topMenuId);
+    const topMenuId = getTopMenuId(route.siderMenuId);
+    const SIDER_MENUS = getTopSubMenus(topMenuId);
 
-        return (
-            <Layout>
-                <MainHeader selectedTopMenuId={topMenuId} />
-                <Layout className='mz-layout'>
-                    <AuthSidebar siderMenus={SIDER_MENUS} selectedMenuId={route.siderMenuId} path={location.pathname} />
-                    <Content className='mz-layout-content'>
-                        <Suspense fallback={<PageLoading />}>
-                            <Switch>
-                                {route.component && (
-                                    <RouteRender
-                                        path={route.path}
-                                        authz={route.authz}
-                                        exact={route.exact}
-                                        component={route.component}
-                                        meta={route.meta}
-                                    />
-                                )}
-                                {route.routes &&
-                                    route.routes.map((subRoute, i) => (
-                                        <RouteRender key={subRoute.path} {...subRoute} />
-                                    ))}
-                                <Route component={() => <Redirect push to={SessionStore.getHomePath()} />} />
-                            </Switch>
-                        </Suspense>
-                    </Content>
-                </Layout>
+    return (
+        <Layout>
+            <MainHeader selectedTopMenuId={topMenuId} />
+            <Layout className='mz-layout'>
+                <AuthSidebar siderMenus={SIDER_MENUS} selectedMenuId={route.siderMenuId} path={location.pathname} />
+                <Content className='mz-layout-content'>
+                    <Suspense fallback={<PageLoading />}>
+                        <Switch>
+                            {route.component && (
+                                <RouteRender
+                                    path={route.path}
+                                    authz={route.authz}
+                                    exact={route.exact}
+                                    component={route.component}
+                                    meta={route.meta}
+                                />
+                            )}
+                            {route.routes &&
+                                route.routes.map((subRoute, i) => <RouteRender key={subRoute.path} {...subRoute} />)}
+                            <Route component={() => <Redirect push to={SessionStore.getHomePath()} />} />
+                        </Switch>
+                    </Suspense>
+                </Content>
             </Layout>
-        );
-    }
+        </Layout>
+    );
 }
-
-export default BasicLayout;

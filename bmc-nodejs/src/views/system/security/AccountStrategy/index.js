@@ -1,41 +1,32 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, InputNumber, Button, Radio, Row, Col, message } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException } from '@/components/UIComponent';
+import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import { fetchAccountStrategy, modifyAccountStrategy } from '../redux/securityService';
 
 const FormItem = Form.Item;
 
-class AccountStrategy extends Component {
-    formRef = React.createRef();
+export default function AccountStrategy() {
+    const [form] = Form.useForm();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
-            confirmLoading: false,
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [uStrategy, setStrategy] = useState(undefined);
 
-            strategy: undefined,
-        };
-    }
+    const changeLockTimeStrategy = (e) => {
+        uStrategy.lockTimeStrategy = e.target.value;
 
-    changeLockTimeStrategy = (e) => {
-        const { strategy } = this.state;
-
-        strategy.lockTimeStrategy = e.target.value;
-
-        this.setState({ strategy });
+        const newStrategy = { ...uStrategy };
+        setStrategy(newStrategy);
     };
 
-    onFinish = (values) => {
-        const { strategy } = this.state;
+    const onFinish = (values) => {
+        setConfirmLoading(true);
 
-        this.setState({ confirmLoading: true });
-
-        const body = { id: strategy.id, lockTimeStrategy: strategy.lockTimeStrategy, ...values };
+        const body = { id: uStrategy.id, lockTimeStrategy: uStrategy.lockTimeStrategy, ...values };
 
         modifyAccountStrategy(body).then(({ fetchStatus }) => {
-            this.setState({ confirmLoading: false });
+            setConfirmLoading(false);
 
             if (fetchStatus.okey) {
                 message.success('修改帐号策略成功。');
@@ -45,38 +36,36 @@ class AccountStrategy extends Component {
         });
     };
 
-    componentDidMount() {
+    useEffect(() => {
         fetchAccountStrategy().then(({ fetchStatus, strategy }) => {
-            this.setState({
-                fetchStatus,
-                strategy,
-            });
+            setStrategy(strategy);
+            setFetchStatus(fetchStatus);
         });
+    }, []);
+
+    const pageTitle = '帐号策略';
+
+    if (uFetchStatus.loading) {
+        return <PageLoading title={pageTitle} />;
+    }
+    if (!uFetchStatus.okey) {
+        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
     }
 
-    renderBody = () => {
-        const { fetchStatus, strategy, confirmLoading } = this.state;
+    const PermanentLockChecked = uStrategy.lockTimeStrategy === 2;
+    const lockTimeChecked = !PermanentLockChecked;
 
-        if (fetchStatus.loading) {
-            return <PageLoading />;
-        }
-        if (!fetchStatus.okey) {
-            return <PageException fetchStatus={fetchStatus} />;
-        }
-
-        const PermanentLockChecked = strategy.lockTimeStrategy === 2;
-        const lockTimeChecked = !PermanentLockChecked;
-
-        return (
+    return (
+        <PageComponent title={pageTitle}>
             <Form
-                onFinish={this.onFinish}
-                ref={this.formRef}
+                onFinish={onFinish}
+                form={form}
                 initialValues={{
-                    accountUnusedDay: strategy.accountUnusedDay,
-                    timeLimitPeriod: strategy.timeLimitPeriod,
-                    loginLimitNumber: strategy.loginLimitNumber,
+                    accountUnusedDay: uStrategy.accountUnusedDay,
+                    timeLimitPeriod: uStrategy.timeLimitPeriod,
+                    loginLimitNumber: uStrategy.loginLimitNumber,
                     lockTime: 1,
-                    accountLockTime: strategy.accountLockTime,
+                    accountLockTime: uStrategy.accountLockTime,
                     permanentLock: 2,
                 }}
             >
@@ -151,7 +140,7 @@ class AccountStrategy extends Component {
                 <Row>
                     <Col xxl={3} xl={4} lg={5} style={{ textAlign: 'right', paddingLeft: '10px' }}>
                         <FormItem name='lockTime' noStyle>
-                            <Radio checked={lockTimeChecked} onChange={this.changeLockTimeStrategy}>
+                            <Radio checked={lockTimeChecked} onChange={changeLockTimeStrategy}>
                                 锁定时长（分钟）
                             </Radio>
                         </FormItem>
@@ -165,7 +154,7 @@ class AccountStrategy extends Component {
                 <Row>
                     <Col xxl={3} xl={4} lg={5} style={{ textAlign: 'right', paddingRight: '55px' }}>
                         <FormItem name='permanentLock' noStyle>
-                            <Radio checked={PermanentLockChecked} onChange={this.changeLockTimeStrategy}>
+                            <Radio checked={PermanentLockChecked} onChange={changeLockTimeStrategy}>
                                 永久锁定
                             </Radio>
                         </FormItem>
@@ -182,22 +171,6 @@ class AccountStrategy extends Component {
                     </Row>
                 </FormItem>
             </Form>
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>帐号策略</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>{this.renderBody()}</div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default AccountStrategy;

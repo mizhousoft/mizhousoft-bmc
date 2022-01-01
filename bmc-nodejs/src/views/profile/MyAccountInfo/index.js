@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Table, Space } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException } from '@/components/UIComponent';
+import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import FormFlex from '@/constants/flex';
 import PhoneNumberEdit from './PhoneNumberEdit';
 import { fetchMyAccountInfo } from '../profileService';
@@ -22,53 +22,45 @@ const columns = [
     },
 ];
 
-class MyAccountInfo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
+export default function MyAccountInfo() {
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [uAccount, setAccount] = useState(undefined);
+    const [uRoles, setRoles] = useState([]);
 
-            account: undefined,
-            roles: [],
-        };
-    }
+    const fetchPageData = () => {
+        setFetchStatus(LOADING_FETCH_STATUS);
 
-    fetchPageData = () => {
-        this.setState({ fetchStatus: LOADING_FETCH_STATUS });
-
-        fetchMyAccountInfo().then(({ fetchStatus, account, roles }) => {
-            this.setState({
-                fetchStatus,
-                account,
-                roles: roles ?? [],
-            });
+        fetchMyAccountInfo().then(({ fetchStatus, account, roles = [] }) => {
+            setRoles(roles);
+            setAccount(account);
+            setFetchStatus(fetchStatus);
         });
     };
 
-    componentDidMount() {
-        this.fetchPageData();
+    useEffect(() => {
+        fetchPageData();
+    }, []);
+
+    const pageTitle = '我的帐号';
+
+    if (uFetchStatus.loading) {
+        return <PageLoading title={pageTitle} />;
+    }
+    if (!uFetchStatus.okey) {
+        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
     }
 
-    renderBody() {
-        const { fetchStatus, account, roles } = this.state;
-
-        if (fetchStatus.loading) {
-            return <PageLoading />;
-        }
-        if (!fetchStatus.okey) {
-            return <PageException fetchStatus={fetchStatus} />;
-        }
-
-        return (
+    return (
+        <PageComponent title={pageTitle}>
             <Form labelAlign='left'>
                 <FormItem {...FormFlex.w100_lg4_required} label='帐号名'>
-                    {account.name}
+                    {uAccount.name}
                 </FormItem>
                 <FormItem {...FormFlex.w100_lg4_required} label='手机号'>
                     <Space>
-                        <span>{account.phoneNumber}</span>
+                        <span>{uAccount.phoneNumber}</span>
 
-                        <PhoneNumberEdit account={account} fetchPageData={this.fetchPageData} />
+                        <PhoneNumberEdit account={uAccount} fetchPageData={fetchPageData} />
                     </Space>
                 </FormItem>
 
@@ -77,29 +69,13 @@ class MyAccountInfo extends Component {
                     <Table
                         size='middle'
                         columns={columns}
-                        dataSource={roles}
+                        dataSource={uRoles}
                         rowKey={(record) => record.id}
                         pagination={false}
                         bordered
                     />
                 </FormItem>
             </Form>
-        );
-    }
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>我的帐号</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>{this.renderBody()}</div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default MyAccountInfo;

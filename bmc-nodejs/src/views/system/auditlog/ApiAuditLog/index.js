@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Form, Input, Button, DatePicker, Row, Col } from 'antd';
 import moment from 'moment';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
-import { getTableLocale } from '@/components/UIComponent';
+import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import FormFlex from '@/constants/flex';
 import ViewApiLog from './ViewApiLog';
 import { fetchApiAuditLogs } from '../redux/auditLogService';
@@ -10,51 +10,42 @@ import { fetchApiAuditLogs } from '../redux/auditLogService';
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
 
-class ApiAuditLog extends Component {
-    formRef = React.createRef();
+export default function ApiAuditLog() {
+    const [form] = Form.useForm();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
-            dataSource: DEFAULT_DATA_PAGE,
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
+    const [uSearchFilter, setSearchFilter] = useState({
+        beginTime: undefined,
+        endTime: undefined,
+        operation: undefined,
+        terminal: undefined,
+        source: undefined,
+    });
+    const [uTableFilter, setTableFilter] = useState({
+        logLevels: [],
+        results: [],
+    });
 
-            searchFilter: {
-                beginTime: undefined,
-                endTime: undefined,
-                operation: undefined,
-                terminal: undefined,
-                source: undefined,
-            },
-
-            tableFilter: {
-                logLevels: [],
-                results: [],
-            },
+    const fetchList = (pageNumber, pageSize, searchFilter, tableFilter) => {
+        const body = {
+            pageNumber,
+            pageSize,
+            ...searchFilter,
+            ...tableFilter,
         };
-    }
 
-    fetchList = (page, searchFilter, tableFilter) => {
-        page = page ?? {
-            pageNumber: this.state.dataSource.pageNumber,
-            pageSize: this.state.dataSource.pageSize,
-        };
-        searchFilter = searchFilter ?? this.state.searchFilter;
-        tableFilter = tableFilter ?? this.state.tableFilter;
+        setSearchFilter(searchFilter);
+        setTableFilter(tableFilter);
+        setFetchStatus(LOADING_FETCH_STATUS);
 
-        const body = { ...page, ...searchFilter, ...tableFilter };
-
-        this.setState({ fetchStatus: LOADING_FETCH_STATUS, searchFilter, tableFilter });
-
-        fetchApiAuditLogs(body).then(({ fetchStatus, dataPage }) => {
-            this.setState({
-                fetchStatus,
-                dataSource: dataPage ?? DEFAULT_DATA_PAGE,
-            });
+        fetchApiAuditLogs(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            setDataSource(dataPage);
+            setFetchStatus(fetchStatus);
         });
     };
 
-    handleTableChange = (pagination, filters, sorter, extra) => {
+    const handleTableChange = (pagination, filters, sorter, extra) => {
         const tableFilter = {
             logLevels: [],
             results: [],
@@ -68,16 +59,11 @@ class ApiAuditLog extends Component {
             tableFilter.results = filters.results;
         }
 
-        const page = {
-            pageNumber: pagination.current,
-            pageSize: pagination.pageSize,
-        };
-
-        this.fetchList(page, undefined, tableFilter);
+        fetchList(pagination.current, pagination.pageSize, uSearchFilter, tableFilter);
     };
 
-    search = () => {
-        const fieldsValue = this.formRef.current.getFieldsValue();
+    const search = () => {
+        const fieldsValue = form.getFieldsValue();
 
         const searchFilter = { ...fieldsValue };
 
@@ -88,21 +74,16 @@ class ApiAuditLog extends Component {
         searchFilter.beginTime = beginTime?.format('YYYY-MM-DD HH:mm');
         searchFilter.endTime = endTime?.format('YYYY-MM-DD HH:mm');
 
-        this.fetchList(undefined, searchFilter, undefined);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, searchFilter, uTableFilter);
     };
 
-    clearFilterForm = () => {
-        this.formRef.current.setFieldsValue({
+    const clearFilterForm = () => {
+        form.setFieldsValue({
             operation: undefined,
             terminal: undefined,
             source: undefined,
             timePeriod: undefined,
         });
-
-        const page = {
-            pageNumber: DEFAULT_DATA_PAGE.pageNumber,
-            pageSize: DEFAULT_DATA_PAGE.pageSize,
-        };
 
         const searchFilter = {
             beginTime: undefined,
@@ -117,32 +98,116 @@ class ApiAuditLog extends Component {
             results: [],
         };
 
-        this.fetchList(page, searchFilter, tableFilter);
+        fetchList(1, DEFAULT_DATA_PAGE.pageSize, searchFilter, tableFilter);
     };
 
-    componentDidMount() {
-        this.fetchList(undefined, undefined, undefined);
+    useEffect(() => {
+        fetchList(dataSource.pageNumber, dataSource.pageSize, uSearchFilter, uTableFilter);
+    }, []);
+
+    const columns = [
+        {
+            title: '操作名称',
+            dataIndex: 'operation',
+            key: 'operation',
+        },
+        {
+            title: '级别',
+            dataIndex: 'logLevel',
+            key: 'logLevels',
+            filters: [
+                {
+                    text: '一般',
+                    value: 'Info',
+                },
+                {
+                    text: '警告',
+                    value: 'Warn',
+                },
+                {
+                    text: '危险',
+                    value: 'Risk',
+                },
+            ],
+            filteredValue: uTableFilter.logLevels.length > 0 ? uTableFilter.logLevels : [],
+        },
+        {
+            title: '操作时间',
+            dataIndex: 'creationTimeStr',
+            key: 'creationTimeStr',
+            width: '150px',
+        },
+        {
+            title: '来源',
+            dataIndex: 'source',
+            key: 'source',
+        },
+        {
+            title: '操作终端',
+            dataIndex: 'terminal',
+            key: 'terminal',
+        },
+        {
+            title: '操作结果',
+            dataIndex: 'resultStr',
+            key: 'results',
+            filters: [
+                {
+                    text: '成功',
+                    value: '1',
+                },
+                {
+                    text: '失败',
+                    value: '2',
+                },
+                {
+                    text: '部分成功',
+                    value: '3',
+                },
+            ],
+            filteredValue: uTableFilter.results.length > 0 ? uTableFilter.results : [],
+        },
+        {
+            title: '详细信息',
+            dataIndex: 'detail',
+            key: 'detail',
+            render: (text, record, index) => <ViewApiLog apiLog={record} />,
+            width: '20%',
+            ellipsis: true,
+        },
+    ];
+
+    const pagination = {
+        size: 'middle',
+        total: dataSource.totalNumber,
+        pageSize: dataSource.pageSize,
+        current: dataSource.pageNumber,
+        showQuickJumper: true,
+        showSizeChanger: true,
+        pageSizeOptions: ['10', '20', '30', '40', '50'],
+        showTotal: (total) => `总条数： ${total} `,
+        position: ['bottomLeft'],
+    };
+
+    const locale = getTableLocale(uFetchStatus);
+
+    let timePeriod = [undefined, undefined];
+    if (uSearchFilter.beginTime !== undefined && uSearchFilter.endTime !== undefined) {
+        const dateFormat = 'YYYY-MM-DD HH:mm';
+        timePeriod = [moment(uSearchFilter.beginTime, dateFormat), moment(uSearchFilter.endTime, dateFormat)];
     }
 
-    renderHeader = () => {
-        const { searchFilter } = this.state;
-
-        let timePeriod = [undefined, undefined];
-        if (searchFilter.beginTime !== undefined && searchFilter.endTime !== undefined) {
-            const dateFormat = 'YYYY-MM-DD HH:mm';
-            timePeriod = [moment(searchFilter.beginTime, dateFormat), moment(searchFilter.endTime, dateFormat)];
-        }
-
-        return (
+    return (
+        <PageComponent title='系统日志'>
             <Form
-                ref={this.formRef}
+                form={form}
                 layout='horizontal'
                 labelAlign='left'
                 className='mz-filter-form mz-table-header'
                 initialValues={{
-                    operation: searchFilter.operation,
-                    terminal: searchFilter.terminal,
-                    source: searchFilter.source,
+                    operation: uSearchFilter.operation,
+                    terminal: uSearchFilter.terminal,
+                    source: uSearchFilter.source,
                     timePeriod,
                 }}
                 {...FormFlex.w100_md6_required}
@@ -172,108 +237,16 @@ class ApiAuditLog extends Component {
                         </FormItem>
                     </Col>
                     <Col span={8} className='mz-button-group'>
-                        <Button onClick={this.search} className='mz-grey-button'>
+                        <Button onClick={search} className='mz-grey-button'>
                             查询
                         </Button>
-                        <Button onClick={this.clearFilterForm}>清理过滤</Button>
+                        <Button onClick={clearFilterForm}>清理过滤</Button>
                     </Col>
                 </Row>
             </Form>
-        );
-    };
 
-    renderTable = () => {
-        const { fetchStatus, dataSource, tableFilter } = this.state;
-
-        const columns = [
-            {
-                title: '操作名称',
-                dataIndex: 'operation',
-                key: 'operation',
-            },
-            {
-                title: '级别',
-                dataIndex: 'logLevel',
-                key: 'logLevels',
-                filters: [
-                    {
-                        text: '一般',
-                        value: 'Info',
-                    },
-                    {
-                        text: '警告',
-                        value: 'Warn',
-                    },
-                    {
-                        text: '危险',
-                        value: 'Risk',
-                    },
-                ],
-                filteredValue: tableFilter.logLevels.length > 0 ? tableFilter.logLevels : undefined,
-            },
-            {
-                title: '操作时间',
-                dataIndex: 'creationTimeStr',
-                key: 'creationTimeStr',
-                width: '150px',
-            },
-            {
-                title: '来源',
-                dataIndex: 'source',
-                key: 'source',
-            },
-            {
-                title: '操作终端',
-                dataIndex: 'terminal',
-                key: 'terminal',
-            },
-            {
-                title: '操作结果',
-                dataIndex: 'resultStr',
-                key: 'results',
-                filters: [
-                    {
-                        text: '成功',
-                        value: '1',
-                    },
-                    {
-                        text: '失败',
-                        value: '2',
-                    },
-                    {
-                        text: '部分成功',
-                        value: '3',
-                    },
-                ],
-                filteredValue: tableFilter.results.length > 0 ? tableFilter.results : undefined,
-            },
-            {
-                title: '详细信息',
-                dataIndex: 'detail',
-                key: 'detail',
-                render: (text, record, index) => <ViewApiLog apiLog={record} />,
-                width: '20%',
-                ellipsis: true,
-            },
-        ];
-
-        const pagination = {
-            size: 'middle',
-            total: dataSource.totalNumber,
-            pageSize: dataSource.pageSize,
-            current: dataSource.pageNumber,
-            showQuickJumper: true,
-            showSizeChanger: true,
-            pageSizeOptions: ['10', '20', '30', '40', '50'],
-            showTotal: (total) => `总条数： ${total} `,
-            position: ['bottomLeft'],
-        };
-
-        const locale = getTableLocale(fetchStatus);
-
-        return (
             <Table
-                loading={fetchStatus.loading}
+                loading={uFetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}
@@ -281,28 +254,8 @@ class ApiAuditLog extends Component {
                 size='middle'
                 bordered
                 locale={locale}
-                onChange={this.handleTableChange}
+                onChange={handleTableChange}
             />
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>系统日志</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>
-                        {this.renderHeader()}
-
-                        {this.renderTable()}
-                    </div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default ApiAuditLog;

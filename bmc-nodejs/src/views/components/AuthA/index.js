@@ -1,18 +1,13 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import SessionStore from '@/session/SessionStore';
 
-class AuthA extends PureComponent {
-    render() {
-        const { authId, childrenVisible = false, ...others } = this.props;
-
-        if (SessionStore.hasPermission(authId)) {
-            return <a {...others} />;
-        }
-        if (childrenVisible) {
-            return this.props.children;
-        }
-        return null;
+export default function AuthA({ authId, childrenVisible = false, children, ...others }) {
+    if (SessionStore.hasPermission(authId)) {
+        return <a {...others}>{children}</a>;
     }
-}
+    if (childrenVisible) {
+        return children;
+    }
 
-export default AuthA;
+    return null;
+}

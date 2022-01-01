@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Modal } from 'antd';
 import LogoutImg from '@/static/images/logout.png';
 import { logout } from '@/session/sessionService';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { AButton } from '@/components/UIComponent';
 
-class Logout extends PureComponent {
-    logout = () => {
+export default function Logout() {
+    const onLogout = () => {
         Modal.confirm({
             title: '退出帐号',
             content: <div>你确定要退出帐号吗？</div>,
@@ -25,13 +25,9 @@ class Logout extends PureComponent {
         });
     };
 
-    render() {
-        return (
-            <AButton onClick={this.logout} style={{ marginRight: '15px' }}>
-                <img width='28px' height='28px' alt='退出' src={LogoutImg} style={{ verticalAlign: 'middle' }} />
-            </AButton>
-        );
-    }
+    return (
+        <AButton onClick={onLogout} style={{ marginRight: '15px' }}>
+            <img width='28px' height='28px' alt='退出' src={LogoutImg} style={{ verticalAlign: 'middle' }} />
+        </AButton>
+    );
 }
-
-export default Logout;

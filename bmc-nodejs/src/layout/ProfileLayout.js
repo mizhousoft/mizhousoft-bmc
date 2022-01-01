@@ -1,5 +1,5 @@
-import React, { PureComponent, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { useLocation, Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import Sidebar from '@/components/Sidebar';
@@ -36,39 +36,33 @@ const SIDER_MENUS = [
     },
 ];
 
-class ProfileLayout extends PureComponent {
-    render() {
-        const { route, location } = this.props;
+export default function ProfileLayout({ route }) {
+    const location = useLocation();
 
-        return (
-            <Layout>
-                <MainHeader selectedTopMenuId='' />
-                <Layout className='mz-layout'>
-                    <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={route.siderMenuId} path={location.pathname} />
-                    <Content className='mz-layout-content'>
-                        <Suspense fallback={<PageLoading />}>
-                            <Switch>
-                                {route.component && (
-                                    <RouteRender
-                                        path={route.path}
-                                        authz={route.authz}
-                                        exact={route.exact}
-                                        component={route.component}
-                                        meta={route.meta}
-                                    />
-                                )}
-                                {route.routes &&
-                                    route.routes.map((subRoute, i) => (
-                                        <RouteRender key={subRoute.path} {...subRoute} />
-                                    ))}
-                                <Route component={() => <Redirect push to={SessionStore.getHomePath()} />} />
-                            </Switch>
-                        </Suspense>
-                    </Content>
-                </Layout>
+    return (
+        <Layout>
+            <MainHeader selectedTopMenuId='' />
+            <Layout className='mz-layout'>
+                <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={route.siderMenuId} path={location.pathname} />
+                <Content className='mz-layout-content'>
+                    <Suspense fallback={<PageLoading />}>
+                        <Switch>
+                            {route.component && (
+                                <RouteRender
+                                    path={route.path}
+                                    authz={route.authz}
+                                    exact={route.exact}
+                                    component={route.component}
+                                    meta={route.meta}
+                                />
+                            )}
+                            {route.routes &&
+                                route.routes.map((subRoute, i) => <RouteRender key={subRoute.path} {...subRoute} />)}
+                            <Route component={() => <Redirect push to={SessionStore.getHomePath()} />} />
+                        </Switch>
+                    </Suspense>
+                </Content>
             </Layout>
-        );
-    }
+        </Layout>
+    );
 }
-
-export default ProfileLayout;

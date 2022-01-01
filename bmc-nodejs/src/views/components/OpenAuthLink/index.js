@@ -1,19 +1,18 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import SessionStore from '@/session/SessionStore';
 
-class OpenAuthLink extends PureComponent {
-    render() {
-        const { authId, to, childrenVisible = false, ...others } = this.props;
-
-        if (SessionStore.hasPermission(authId)) {
-            return <Link to={to} {...others} target='_blank' rel='opener' />;
-        }
-        if (childrenVisible) {
-            return this.props.children;
-        }
-        return null;
+export default function OpenAuthLink({ authId, to, childrenVisible = false, children, ...others }) {
+    if (SessionStore.hasPermission(authId)) {
+        return (
+            <Link to={to} {...others} target='_blank' rel='opener'>
+                {children}
+            </Link>
+        );
     }
-}
+    if (childrenVisible) {
+        return children;
+    }
 
-export default OpenAuthLink;
+    return null;
+}

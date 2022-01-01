@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import FontIcon from '@/components/FontIcon';
@@ -7,40 +7,15 @@ import { findSiderMenuId, findOpenMenuKeys } from '@/utils/MenuUtils';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-class Sidebar extends Component {
-    constructor(props) {
-        super(props);
-
-        const { siderMenus, path } = props;
-        let { selectedMenuId } = props;
-
-        if (selectedMenuId === null) {
-            selectedMenuId = findSiderMenuId(path, siderMenus);
-        }
-
-        const selectedKeys = selectedMenuId ? [selectedMenuId] : [];
-        const openKeys = findOpenMenuKeys(selectedMenuId, siderMenus);
-
-        this.state = {
-            selectedKeys,
-            openKeys,
-        };
+export default function Sidebar({ siderMenus, path, selectedMenuId, height = '100%' }) {
+    if (selectedMenuId === null) {
+        selectedMenuId = findSiderMenuId(path, siderMenus);
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        const { selectedMenuId } = nextProps;
-        const { selectedKeys } = prevState;
+    const [selectedKeys, setSelectedKeys] = useState(() => (selectedMenuId ? [selectedMenuId] : []));
+    const [openKeys, setOpenKeys] = useState(() => findOpenMenuKeys(selectedMenuId, siderMenus));
 
-        if (!selectedKeys?.includes(selectedMenuId)) {
-            const openKeys = findOpenMenuKeys(selectedMenuId, nextProps.siderMenus);
-            return {
-                selectedKeys: [selectedMenuId],
-                openKeys,
-            };
-        }
-    }
-
-    renderMenuItem = (menu) => {
+    const renderMenuItem = (menu) => {
         if (menu.iconFont) {
             return (
                 <Menu.Item key={menu.id}>
@@ -60,9 +35,9 @@ class Sidebar extends Component {
         );
     };
 
-    renderSiderMenu = (siderMenu) => {
+    const renderSiderMenu = (siderMenu) => {
         if (undefined === siderMenu.subMenus) {
-            return this.renderMenuItem(siderMenu);
+            return renderMenuItem(siderMenu);
         }
         if (siderMenu.iconFont) {
             return (
@@ -78,15 +53,13 @@ class Sidebar extends Component {
                         </span>
                     }
                 >
-                    {siderMenu.subMenus.map((subMenu, index) => this.renderSiderMenu(subMenu))}
+                    {siderMenu.subMenus.map((subMenu, index) => renderSiderMenu(subMenu))}
                 </SubMenu>
             );
         }
     };
 
-    getParentMenuKeys = () => {
-        const { siderMenus } = this.props;
-
+    const getParentMenuKeys = () => {
         const subMenuKeys = [];
         siderMenus.forEach((item) => {
             subMenuKeys.push(item.id);
@@ -104,48 +77,41 @@ class Sidebar extends Component {
         return subMenuKeys;
     };
 
-    onOpenChange = (keys) => {
-        const { openKeys } = this.state;
-        const subMenuKeys = this.getParentMenuKeys();
+    const onOpenChange = (keys) => {
+        const subMenuKeys = getParentMenuKeys();
 
         const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
         if (subMenuKeys.indexOf(latestOpenKey) === -1) {
-            this.setState({ openKeys: keys });
+            setOpenKeys(keys);
         } else if (undefined === latestOpenKey) {
-            this.setState({ openKeys: [] });
+            setOpenKeys([]);
         } else {
-            const resultKeys = findOpenMenuKeys(latestOpenKey, this.props.siderMenus);
-            this.setState({ openKeys: [...resultKeys, latestOpenKey] });
+            const resultKeys = findOpenMenuKeys(latestOpenKey, siderMenus);
+            setOpenKeys([...resultKeys, latestOpenKey]);
         }
     };
 
-    onSelect = (item) => {
+    const onSelect = (item) => {
         const selectKey = item.key;
-        const openKeys = findOpenMenuKeys(selectKey, this.props.siderMenus);
+        const openMenuKeys = findOpenMenuKeys(selectKey, siderMenus);
 
-        this.setState({ selectedKeys: [selectKey], openKeys });
+        setSelectedKeys([selectKey]);
+        setOpenKeys(openMenuKeys);
     };
 
-    render() {
-        const { siderMenus } = this.props;
-        const { height = '100%' } = this.props;
-
-        return (
-            <Sider width={210} className='mz-layout-sider' theme='light'>
-                <Menu
-                    mode='inline'
-                    selectedKeys={this.state.selectedKeys}
-                    defaultSelectedKeys={this.state.selectedKeys}
-                    openKeys={this.state.openKeys}
-                    onOpenChange={this.onOpenChange}
-                    onSelect={this.onSelect}
-                    style={{ height, borderRight: 'none' }}
-                >
-                    {siderMenus.map((siderMenu, index) => this.renderSiderMenu(siderMenu))}
-                </Menu>
-            </Sider>
-        );
-    }
+    return (
+        <Sider width={210} className='mz-layout-sider' theme='light'>
+            <Menu
+                mode='inline'
+                selectedKeys={selectedKeys}
+                defaultSelectedKeys={selectedKeys}
+                openKeys={openKeys}
+                onOpenChange={onOpenChange}
+                onSelect={onSelect}
+                style={{ height, borderRight: 'none' }}
+            >
+                {siderMenus.map((siderMenu, index) => renderSiderMenu(siderMenu))}
+            </Menu>
+        </Sider>
+    );
 }
-
-export default Sidebar;

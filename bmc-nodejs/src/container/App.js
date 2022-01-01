@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { BrowserRouter, Switch, Redirect } from 'react-router-dom';
 import { ConfigProvider, message } from 'antd';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
@@ -12,21 +12,17 @@ import '@/static/css/style.css';
 
 message.config({ top: 120, duration: 2 });
 
-class App extends PureComponent {
-    render() {
-        return (
-            <ConfigProvider locale={zhCN}>
-                <BrowserRouter basename={BASENAME} forceRefresh={false}>
-                    <Switch>
-                        {routes.map((route, i) => (
-                            <RouteRender key={route.path} {...route} />
-                        ))}
-                        <RouteRender component={() => <Redirect push to={SessionStore.getHomePath()} />} />
-                    </Switch>
-                </BrowserRouter>
-            </ConfigProvider>
-        );
-    }
+export default function App() {
+    return (
+        <ConfigProvider locale={zhCN}>
+            <BrowserRouter basename={BASENAME} forceRefresh={false}>
+                <Switch>
+                    {routes.map((route, i) => (
+                        <RouteRender key={route.path} {...route} />
+                    ))}
+                    <RouteRender component={() => <Redirect push to={SessionStore.getHomePath()} />} />
+                </Switch>
+            </BrowserRouter>
+        </ConfigProvider>
+    );
 }
-
-export default App;

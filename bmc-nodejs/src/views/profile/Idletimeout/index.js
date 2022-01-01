@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, InputNumber, Button, message, Alert } from 'antd';
 import FormFlex from '@/constants/flex';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
@@ -8,11 +8,9 @@ import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
 const FormItem = Form.Item;
 
 export default function Idletimeout() {
-    const formRef = useRef();
-
-    const [pageStatus, setPageStatus] = useState(LOADING_FETCH_STATUS);
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [idleTimeoutObj, setIdleTimeout] = useState(undefined);
+    const [uIdleTimeOut, setIdleTimeout] = useState(undefined);
 
     const onFinish = (values) => {
         setConfirmLoading(true);
@@ -31,20 +29,22 @@ export default function Idletimeout() {
     useEffect(() => {
         fetchIdletimeout().then(({ fetchStatus, idleTimeout }) => {
             setIdleTimeout(idleTimeout);
-            setPageStatus(fetchStatus);
+            setFetchStatus(fetchStatus);
         });
     }, []);
 
-    if (pageStatus.loading) {
-        return <PageLoading />;
+    const pageTitle = '闲时时间设置';
+
+    if (uFetchStatus.loading) {
+        return <PageLoading title={pageTitle} />;
     }
-    if (!pageStatus.okey) {
-        return <PageException fetchStatus={pageStatus} />;
+    if (!uFetchStatus.okey) {
+        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
     }
 
     return (
-        <PageComponent title='闲时时间设置'>
-            <Form onFinish={onFinish} ref={formRef} initialValues={{ timeout: idleTimeoutObj.timeout }}>
+        <PageComponent title={pageTitle}>
+            <Form onFinish={onFinish} initialValues={{ timeout: uIdleTimeOut.timeout }}>
                 <Alert
                     message='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
                     type='info'

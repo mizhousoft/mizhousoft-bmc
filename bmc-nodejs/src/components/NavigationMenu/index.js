@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import SessionStore from '@/session/SessionStore';
 
-class NavigationMenu extends Component {
-    getTopMenuFirstPath = (topMenu) => {
+export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
+    const getTopMenuFirstPath = (topMenu) => {
         if (topMenu.path) {
             return topMenu.path;
         }
@@ -39,8 +39,8 @@ class NavigationMenu extends Component {
         return null;
     };
 
-    renderMenu = (topMenu) => {
-        const path = this.getTopMenuFirstPath(topMenu);
+    const renderMenu = (topMenu) => {
+        const path = getTopMenuFirstPath(topMenu);
 
         return (
             <Menu.Item key={topMenu.id}>
@@ -51,21 +51,16 @@ class NavigationMenu extends Component {
         );
     };
 
-    render() {
-        const { selectedTopMenuId, topMemus } = this.props;
-        const selectedKeys = [selectedTopMenuId];
+    const selectedKeys = [selectedTopMenuId];
 
-        return (
-            <Menu
-                mode='horizontal'
-                defaultSelectedKeys={selectedKeys}
-                style={{ backgroundColor: '#051E37' }}
-                className='header-menu'
-            >
-                {topMemus.map((topMemu, index) => this.renderMenu(topMemu))}
-            </Menu>
-        );
-    }
+    return (
+        <Menu
+            mode='horizontal'
+            defaultSelectedKeys={selectedKeys}
+            style={{ backgroundColor: '#051E37' }}
+            className='header-menu'
+        >
+            {topMemus.map((topMemu, index) => renderMenu(topMemu))}
+        </Menu>
+    );
 }
-
-export default NavigationMenu;

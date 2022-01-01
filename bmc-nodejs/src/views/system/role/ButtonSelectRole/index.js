@@ -1,146 +1,126 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Table, Button, Modal } from 'antd';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 import { getTableLocale } from '@/components/UIComponent';
 
-class ButtonSelectRole extends Component {
-    constructor(props) {
-        super(props);
+export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onChange }) {
+    const [visible, setVisible] = useState(false);
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [dataSource, setDataSource] = useState([]);
+    const [uSelectedRoles, setSelectedRoles] = useState([]);
 
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
-            dataSource: [],
-
-            visible: false,
-
-            selectedRoles: [],
-        };
-    }
-
-    showModal = () => {
-        const { selectedRoles } = this.props;
-
-        this.setState({ visible: true, selectedRoles: selectedRoles ?? [] });
-
-        const { dataSource } = this.state;
-        this.fetchList(dataSource.pageNumber, dataSource.pageSize);
-    };
-
-    hideModal = () => {
-        this.setState({ visible: false });
-    };
-
-    fetchList = (pageNumber, pageSize) => {
-        const { fetchAction } = this.props;
-
+    const fetchList = (pageNumber, pageSize) => {
         const body = {
             pageSize,
             pageNumber,
         };
 
-        this.setState({ fetchStatus: LOADING_FETCH_STATUS });
+        setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchAction(body).then(({ fetchStatus, dataPage }) => {
-            this.setState({
-                fetchStatus,
-                dataSource: dataPage ?? DEFAULT_DATA_PAGE,
-            });
+        fetchAction(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            setDataSource(dataPage);
+            setFetchStatus(fetchStatus);
         });
     };
 
-    onFinish = () => {
-        const { onChange } = this.props;
+    const showModal = () => {
+        setSelectedRoles(selectedRoles);
+        setVisible(true);
 
-        this.hideModal();
-
-        onChange(this.state.selectedRoles);
+        fetchList(dataSource.pageNumber, dataSource.pageSize);
     };
 
-    renderModal = () => {
-        const { fetchStatus, dataSource, visible, selectedRoles } = this.state;
+    const onFinish = () => {
+        setVisible(false);
 
-        if (!visible) {
-            return null;
-        }
+        onChange(uSelectedRoles);
+    };
 
-        const selectedRoleIds = selectedRoles.map((role, key, roles) => role.id);
+    const columns = [
+        {
+            title: '角色名',
+            dataIndex: 'displayNameCN',
+            key: 'displayNameCN',
+            width: 200,
+        },
+        {
+            title: '描述',
+            dataIndex: 'descriptionCN',
+            key: 'descriptionCN',
+        },
+    ];
 
-        const columns = [
-            {
-                title: '角色名',
-                dataIndex: 'displayNameCN',
-                key: 'displayNameCN',
-                width: 200,
-            },
-            {
-                title: '描述',
-                dataIndex: 'descriptionCN',
-                key: 'descriptionCN',
-            },
-        ];
+    const pagination = {
+        size: 'middle',
+        total: dataSource.totalNumber,
+        pageSize: dataSource.pageSize,
+        current: dataSource.pageNumber,
+        showQuickJumper: true,
+        showTotal: (total) => `总条数： ${total} `,
+        onChange: (page, pageSize) => fetchList(page, pageSize),
+        position: ['bottomLeft'],
+    };
 
-        const pagination = {
-            size: 'middle',
-            total: dataSource.totalNumber,
-            pageSize: dataSource.pageSize,
-            current: dataSource.pageNumber,
-            showQuickJumper: true,
-            showTotal: (total) => `总条数： ${total} `,
-            onChange: (page, pageSize) => this.fetchList(page, pageSize),
-            position: ['bottomLeft'],
-        };
+    const selectedRoleIds = uSelectedRoles.map((role, key, roles) => role.id);
 
-        const rowSelection = {
-            onSelect: (record, selected, selectedRows) => {
-                let roles = [...selectedRoles];
-                if (selected) {
-                    roles.push(record);
-                } else {
-                    roles = roles.filter((item) => item.id !== record.id);
-                }
+    const rowSelection = {
+        onSelect: (record, selected, selectedRows) => {
+            let roles = [...uSelectedRoles];
+            if (selected) {
+                roles.push(record);
+            } else {
+                roles = roles.filter((item) => item.id !== record.id);
+            }
 
-                this.setState({ selectedRoles: roles });
-            },
-            onSelectAll: (selected, selectedRows, changeRows) => {
-                let roles = [...selectedRoles];
+            setSelectedRoles(roles);
+        },
+        onSelectAll: (selected, selectedRows, changeRows) => {
+            let roles = [...uSelectedRoles];
 
-                if (selected) {
-                    changeRows.forEach((row) => {
-                        const matchList = roles.filter((item) => item.id === row.id);
-                        if (matchList.length === 0) {
-                            roles.push(row);
-                        }
-                    });
-                } else {
-                    changeRows.forEach((row) => {
-                        const matchList = roles.filter((item) => item.id === row.id);
-                        if (matchList.length > 0) {
-                            roles = roles.filter((item) => item.id !== row.id);
-                        }
-                    });
-                }
+            if (selected) {
+                changeRows.forEach((row) => {
+                    const matchList = roles.filter((item) => item.id === row.id);
+                    if (matchList.length === 0) {
+                        roles.push(row);
+                    }
+                });
+            } else {
+                changeRows.forEach((row) => {
+                    const matchList = roles.filter((item) => item.id === row.id);
+                    if (matchList.length > 0) {
+                        roles = roles.filter((item) => item.id !== row.id);
+                    }
+                });
+            }
 
-                this.setState({ selectedRoles: roles });
-            },
-            selectedRowKeys: selectedRoleIds,
-        };
+            setSelectedRoles(roles);
+        },
+        selectedRowKeys: selectedRoleIds,
+    };
 
-        const locale = getTableLocale(fetchStatus);
+    const locale = getTableLocale(uFetchStatus);
 
-        return (
+    return (
+        <>
+            <div style={{ marginBottom: '15px' }}>
+                <Button onClick={showModal}>选择所属角色</Button>
+            </div>
+
             <Modal
                 title='选择角色'
-                visible
+                visible={visible}
                 closable={false}
                 maskClosable={false}
-                onCancel={this.hideModal}
+                onCancel={() => setVisible(false)}
                 width='50%'
                 footer={null}
                 centered
+                destroyOnClose
                 className='mz-modal'
+                bodyStyle={{ minHeight: '100px' }}
             >
                 <Table
-                    loading={fetchStatus.loading}
+                    loading={uFetchStatus.loading}
                     columns={columns}
                     dataSource={dataSource.content}
                     pagination={pagination}
@@ -151,26 +131,12 @@ class ButtonSelectRole extends Component {
                     locale={locale}
                 />
                 <div className='mz-button-group center'>
-                    <Button type='primary' onClick={this.onFinish}>
+                    <Button type='primary' onClick={onFinish}>
                         确认
                     </Button>
-                    <Button onClick={this.hideModal}>取消</Button>
+                    <Button onClick={() => setVisible(false)}>取消</Button>
                 </div>
             </Modal>
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div style={{ marginBottom: '15px' }}>
-                    <Button onClick={this.showModal}>选择所属角色</Button>
-                </div>
-
-                {this.renderModal()}
-            </>
-        );
-    }
+        </>
+    );
 }
-
-export default ButtonSelectRole;

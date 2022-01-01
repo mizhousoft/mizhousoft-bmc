@@ -1,25 +1,19 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Switch } from 'antd';
 import SessionStore from '@/session/SessionStore';
 
-class AuthSwitch extends PureComponent {
-    render() {
-        const { authId, defaultChecked, checkedChildren, unCheckedChildren, ...others } = this.props;
-
-        if (SessionStore.hasPermission(authId)) {
-            return (
-                <Switch
-                    checkedChildren={checkedChildren}
-                    unCheckedChildren={unCheckedChildren}
-                    defaultChecked={defaultChecked}
-                    {...others}
-                />
-            );
-        }
-
-        const children = defaultChecked ? checkedChildren : unCheckedChildren;
-        return children;
+export default function AuthSwitch({ authId, defaultChecked, checkedChildren, unCheckedChildren, ...others }) {
+    if (SessionStore.hasPermission(authId)) {
+        return (
+            <Switch
+                checkedChildren={checkedChildren}
+                unCheckedChildren={unCheckedChildren}
+                defaultChecked={defaultChecked}
+                {...others}
+            />
+        );
     }
-}
 
-export default AuthSwitch;
+    const children = defaultChecked ? checkedChildren : unCheckedChildren;
+    return children;
+}

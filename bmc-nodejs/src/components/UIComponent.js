@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Empty, Button, Spin } from 'antd';
+import { Empty, Button, Spin, Modal } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import Exception from '@/components/Exception';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 export function getTableLocale(fetchStatus) {
     let locale = {};
@@ -13,7 +16,7 @@ export function getTableLocale(fetchStatus) {
     return locale;
 }
 
-export function PageLoading({ tip = '数据加载中' }) {
+export function FullPageLoading({ tip = '数据加载中' }) {
     return (
         <div className='mz-page-loading'>
             <div className='spin'>
@@ -23,7 +26,7 @@ export function PageLoading({ tip = '数据加载中' }) {
     );
 }
 
-export function PageException({ fetchStatus, goBack }) {
+export function FullPageException({ fetchStatus, goBack }) {
     if (!fetchStatus.okey && fetchStatus.statusCode !== 200) {
         return <Exception type={fetchStatus.statusCode} />;
     }
@@ -33,6 +36,42 @@ export function PageException({ fetchStatus, goBack }) {
             {undefined !== goBack && <Button onClick={goBack}>返回</Button>}
         </Empty>
     );
+}
+
+export function PageComponent({ title, children }) {
+    return (
+        <>
+            <div className='mz-page-head'>
+                <div className='title'>{title}</div>
+            </div>
+
+            <div className='mz-page-content'>
+                <div className='mz-page-content-body'>{children}</div>
+            </div>
+        </>
+    );
+}
+
+export function PageLoading({ title, tip = '数据加载中' }) {
+    if (undefined !== title) {
+        return (
+            <PageComponent title={title}>
+                <FullPageLoading tip={tip} />
+            </PageComponent>
+        );
+    }
+    return <FullPageLoading tip={tip} />;
+}
+
+export function PageException({ title, fetchStatus, goBack }) {
+    if (undefined !== title) {
+        return (
+            <PageComponent title={title}>
+                <FullPageException fetchStatus={fetchStatus} goBack={goBack} />
+            </PageComponent>
+        );
+    }
+    return <FullPageException fetchStatus={fetchStatus} goBack={goBack} />;
 }
 
 export function ModalLoading({ tip }) {
@@ -83,16 +122,21 @@ export function SafeLink({ to, style, children }) {
     );
 }
 
-export function PageComponent(props) {
+export default function ActionLoading({ visible, content }) {
     return (
-        <>
-            <div className='mz-page-head'>
-                <div className='title'>{props.title}</div>
+        <Modal
+            width='300px'
+            centered
+            maskClosable={false}
+            footer={null}
+            visible={visible}
+            destroyOnClose
+            closable={false}
+        >
+            <div style={{ textAlign: 'center' }}>
+                <Spin indicator={antIcon} style={{ marginRight: '30px' }} />
+                {content}
             </div>
-
-            <div className='mz-page-content'>
-                <div className='mz-page-content-body'>{props.children}</div>
-            </div>
-        </>
+        </Modal>
     );
 }

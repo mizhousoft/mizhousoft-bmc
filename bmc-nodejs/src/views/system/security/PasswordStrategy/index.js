@@ -1,34 +1,28 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, InputNumber, Button, Row, Col, message } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException } from '@/components/UIComponent';
+import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import { fetchPasswordStrategy, modifyPasswordStrategy } from '../redux/securityService';
 
 const FormItem = Form.Item;
 
-class PasswordStrategy extends Component {
-    formRef = React.createRef();
+export default function PasswordStrategy() {
+    const [form] = Form.useForm();
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            fetchStatus: LOADING_FETCH_STATUS,
-            confirmLoading: false,
+    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [uStrategy, setStrategy] = useState(undefined);
 
-            strategy: undefined,
-        };
-    }
-
-    onFinish = (values) => {
-        this.setState({ confirmLoading: true });
+    const onFinish = (values) => {
+        setConfirmLoading(true);
 
         const body = {
-            id: this.state.id,
+            id: uStrategy.id,
             ...values,
         };
 
         modifyPasswordStrategy(body).then(({ fetchStatus }) => {
-            this.setState({ confirmLoading: false });
+            setConfirmLoading(false);
 
             if (fetchStatus.okey) {
                 message.success('修改密码策略成功。');
@@ -38,35 +32,33 @@ class PasswordStrategy extends Component {
         });
     };
 
-    componentDidMount() {
+    useEffect(() => {
         fetchPasswordStrategy().then(({ fetchStatus, strategy }) => {
-            this.setState({
-                fetchStatus,
-                strategy,
-            });
+            setStrategy(strategy);
+            setFetchStatus(fetchStatus);
         });
+    }, []);
+
+    const pageTitle = '密码策略';
+
+    if (uFetchStatus.loading) {
+        return <PageLoading title={pageTitle} />;
+    }
+    if (!uFetchStatus.okey) {
+        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
     }
 
-    renderBody = () => {
-        const { fetchStatus, strategy, confirmLoading } = this.state;
-
-        if (fetchStatus.loading) {
-            return <PageLoading />;
-        }
-        if (!fetchStatus.okey) {
-            return <PageException fetchStatus={fetchStatus} />;
-        }
-
-        return (
+    return (
+        <PageComponent title={pageTitle}>
             <Form
-                onFinish={this.onFinish}
-                ref={this.formRef}
+                onFinish={onFinish}
+                form={form}
                 initialValues={{
-                    historyRepeatSize: strategy.historyRepeatSize,
-                    charAppearSize: strategy.charAppearSize,
-                    modifyTimeInterval: strategy.modifyTimeInterval,
-                    validDay: strategy.validDay,
-                    reminderModifyDay: strategy.reminderModifyDay,
+                    historyRepeatSize: uStrategy.historyRepeatSize,
+                    charAppearSize: uStrategy.charAppearSize,
+                    modifyTimeInterval: uStrategy.modifyTimeInterval,
+                    validDay: uStrategy.validDay,
+                    reminderModifyDay: uStrategy.reminderModifyDay,
                 }}
             >
                 <FormItem>
@@ -187,22 +179,6 @@ class PasswordStrategy extends Component {
                     </Row>
                 </FormItem>
             </Form>
-        );
-    };
-
-    render() {
-        return (
-            <>
-                <div className='mz-page-head'>
-                    <div className='title'>密码策略</div>
-                </div>
-
-                <div className='mz-page-content'>
-                    <div className='mz-page-content-body'>{this.renderBody()}</div>
-                </div>
-            </>
-        );
-    }
+        </PageComponent>
+    );
 }
-
-export default PasswordStrategy;

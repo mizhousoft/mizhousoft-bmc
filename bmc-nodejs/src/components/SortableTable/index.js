@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import { Table } from 'antd';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -48,59 +48,47 @@ const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => 
     );
 };
 
-class SortableTable extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            dataSource: props.dataSource,
-        };
-    }
+function SortableTable(props, ref) {
+    const { columns, title, dataSource } = props;
+
+    const [uDataSource, setDataSource] = useState(dataSource);
 
     moveRow = (dragIndex, hoverIndex) => {
-        const { dataSource } = this.state;
-
-        const newValues = [...dataSource];
+        const newValues = [...uDataSource];
 
         const items = newValues.splice(dragIndex, 1);
         newValues.splice(hoverIndex, 0, items[0]);
 
-        this.setState({ dataSource: newValues });
+        setDataSource(newValues);
     };
 
-    getDataSource = () => {
-        const { dataSource } = this.state;
+    useImperativeHandle(ref, () => ({
+        getDataSource: () => uDataSource,
+    }));
 
-        return dataSource;
-    };
-
-    render() {
-        const { columns, title } = this.props;
-        const { dataSource } = this.state;
-
-        return (
-            <DndProvider backend={HTML5Backend}>
-                <Table
-                    title={title}
-                    id='table-drag-sorting'
-                    size='middle'
-                    columns={columns}
-                    dataSource={dataSource}
-                    rowKey={(record) => `index-${record.id}`}
-                    pagination={false}
-                    bordered
-                    components={{
-                        body: {
-                            row: DragableBodyRow,
-                        },
-                    }}
-                    onRow={(record, index) => ({
-                        index,
-                        moveRow: this.moveRow,
-                    })}
-                />
-            </DndProvider>
-        );
-    }
+    return (
+        <DndProvider backend={HTML5Backend}>
+            <Table
+                title={title}
+                id='table-drag-sorting'
+                size='middle'
+                columns={columns}
+                dataSource={uDataSource}
+                rowKey={(record) => `index-${record.id}`}
+                pagination={false}
+                bordered
+                components={{
+                    body: {
+                        row: DragableBodyRow,
+                    },
+                }}
+                onRow={(record, index) => ({
+                    index,
+                    moveRow,
+                })}
+            />
+        </DndProvider>
+    );
 }
 
-export default SortableTable;
+export default React.forwardRef(SortableTable);
