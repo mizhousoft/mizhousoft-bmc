@@ -16,7 +16,7 @@ routes.forEach((route) => {
         route.children.forEach((child) => {
             const { element } = child;
 
-            if (undefined === element.authz || element.authz) {
+            if (undefined === child.authz || child.authz) {
                 child.element = (
                     <RequireAuth>
                         <Suspense fallback={<PageLoading />}>{element}</Suspense>
