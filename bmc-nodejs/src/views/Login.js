@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Alert, Card } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import BMC from '@/utils/BMC';
@@ -10,7 +10,7 @@ import SessionStore from '@/session/SessionStore';
 const FormItem = Form.Item;
 
 export default function Login() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [uError, setError] = useState('');
 
@@ -21,15 +21,15 @@ export default function Login() {
         userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
                 if (firstLogin) {
-                    history.push('/login/first');
+                    navigate('/login/first');
                 } else if (credentialsExpired) {
-                    history.push('/password/expired');
+                    navigate('/password/expired');
                 } else if (remindModifyPasswd) {
-                    history.push('/password/expiring');
+                    navigate('/password/expiring');
                 } else {
                     SessionStore.initAccountInfo(() => {
                         const homePath = SessionStore.getHomePath();
-                        history.push(homePath);
+                        navigate(homePath);
                     });
                 }
             } else {

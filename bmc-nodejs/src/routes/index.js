@@ -1,7 +1,41 @@
+import React, { Suspense } from 'react';
+import { useRoutes, Navigate } from 'react-router-dom';
+
+import { PageLoading } from '@/components/UIComponent';
+import SessionStore from '@/session/SessionStore';
+import RequireAuth from './RequireAuth';
+
 import loginRoute from './loginRoute';
 import profileRoute from './profileRoute';
 import accoutRoutes from './accountRoute';
 
-const routes = [...loginRoute, ...profileRoute, ...accoutRoutes];
+const routes = [...loginRoute, ...accoutRoutes, ...profileRoute];
 
-export default routes;
+routes.forEach((route) => {
+    if (route.children) {
+        route.children.forEach((child) => {
+            const { element } = child;
+
+            if (undefined === element.authz || element.authz) {
+                child.element = (
+                    <RequireAuth>
+                        <Suspense fallback={<PageLoading />}>{element}</Suspense>
+                    </RequireAuth>
+                );
+            } else {
+                child.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
+            }
+        });
+    }
+});
+
+routes.push({
+    path: '*',
+    element: <Navigate to={SessionStore.getHomePath()} replace />,
+});
+
+export default function AppRoutes() {
+    const routing = useRoutes(routes);
+
+    return routing;
+}

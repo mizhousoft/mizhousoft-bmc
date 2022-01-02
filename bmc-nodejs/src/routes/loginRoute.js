@@ -11,30 +11,40 @@ const PasswordExpiring = React.lazy(() => import('@/views/profile/PasswordExpiri
 const routes = [
     {
         path: '/login/first',
-        layout: PureLayout,
-        component: FirstLogin,
-        authz: false,
-        exact: true,
+        element: <PureLayout />,
+        children: [
+            {
+                path: '',
+                element: <FirstLogin />,
+                authz: false,
+            },
+        ],
     },
     {
         path: '/password/expired',
-        layout: PureLayout,
-        component: PasswordExpired,
-        authz: false,
-        exact: true,
+        element: <PureLayout />,
+        children: [
+            {
+                path: '',
+                element: <PasswordExpired />,
+                authz: false,
+            },
+        ],
     },
     {
         path: '/password/expiring',
-        layout: PureLayout,
-        component: PasswordExpiring,
-        authz: false,
-        exact: true,
+        element: <PureLayout />,
+        children: [
+            {
+                path: '',
+                element: <PasswordExpiring />,
+                authz: false,
+            },
+        ],
     },
     {
         path: '/login',
-        component: Login,
-        authz: false,
-        exact: true,
+        element: <Login />,
     },
 ];
 

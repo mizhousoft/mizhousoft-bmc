@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Tree, Form, Button, Input, message } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
@@ -13,7 +13,7 @@ const { TextArea } = Input;
 export default function NewRole() {
     const [form] = Form.useForm();
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function NewRole() {
     const [uTreeData, setTreeData] = useState(undefined);
 
     const gotoList = () => {
-        history.push('/role/list');
+        navigate('/role/list');
     };
 
     const onCheck = (checkedKeys) => {

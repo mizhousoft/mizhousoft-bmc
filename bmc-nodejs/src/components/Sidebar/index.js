@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 import FontIcon from '@/components/FontIcon';
@@ -98,6 +98,11 @@ export default function Sidebar({ siderMenus, path, selectedMenuId, height = '10
         setSelectedKeys([selectKey]);
         setOpenKeys(openMenuKeys);
     };
+
+    useEffect(() => {
+        const menuIds = selectedMenuId ? [selectedMenuId] : [];
+        setSelectedKeys(menuIds);
+    }, [selectedMenuId]);
 
     return (
         <Sider width={210} className='mz-layout-sider' theme='light'>

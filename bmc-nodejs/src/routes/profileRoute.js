@@ -8,25 +8,37 @@ const Idletimeout = React.lazy(() => import('@/views/profile/Idletimeout'));
 
 const routes = [
     {
-        siderMenuId: 'bmc.setting.myaccount',
         path: '/profile/account',
-        layout: ProfileLayout,
-        component: MyAccountInfo,
-        exact: true,
+        element: <ProfileLayout siderMenuId='bmc.setting.myaccount' />,
+        children: [
+            {
+                path: '',
+                element: <MyAccountInfo />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.setting.password',
         path: '/profile/password',
-        layout: ProfileLayout,
-        component: AccountPassword,
-        exact: true,
+        element: <ProfileLayout siderMenuId='bmc.setting.password' />,
+        children: [
+            {
+                path: '',
+                element: <AccountPassword />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.setting.idletimeout',
         path: '/profile/idletimeout',
-        layout: ProfileLayout,
-        component: Idletimeout,
-        exact: true,
+        element: <ProfileLayout siderMenuId='bmc.setting.idletimeout' />,
+        children: [
+            {
+                path: '',
+                element: <Idletimeout />,
+                authz: true,
+            },
+        ],
     },
 ];
 

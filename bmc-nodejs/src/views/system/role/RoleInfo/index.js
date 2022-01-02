@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link, useParams } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { Tree, Form, Button } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
@@ -10,7 +10,7 @@ const FormItem = Form.Item;
 const { TreeNode } = Tree;
 
 export default function RoleInfo() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
@@ -18,7 +18,7 @@ export default function RoleInfo() {
     const [uTreeData, setTreeData] = useState(undefined);
 
     const gotoList = () => {
-        history.push('/role/list');
+        navigate('/role/list');
     };
 
     const renderTreeNodes = (data) =>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button, message, Row, Col, Input, Table, Form } from 'antd';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
@@ -11,7 +11,8 @@ import { fetchRoles, deleteRole } from '../redux/roleService';
 export default function RoleList() {
     const [form] = Form.useForm();
 
-    const history = useHistory();
+    const navigate = useNavigate();
+
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState([]);
     const [uFilter, setFilter] = useState({
@@ -19,7 +20,7 @@ export default function RoleList() {
     });
 
     const gotoNew = () => {
-        history.push('/role/new');
+        navigate('/role/new');
     };
 
     const fetchList = (pageNumber, pageSize) => {

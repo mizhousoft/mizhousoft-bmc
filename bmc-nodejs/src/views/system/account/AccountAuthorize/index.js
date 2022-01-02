@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Button, Popconfirm, message, Table } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
@@ -10,7 +10,7 @@ import { fetchRolesOnAuthorize, fetchAccountRolesOnAuthorize, authorizeAccount }
 const FormItem = Form.Item;
 
 export default function AccountAuthorize() {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { id } = useParams();
 
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
@@ -19,7 +19,7 @@ export default function AccountAuthorize() {
     const [uSelectedRoles, setSelectedRoles] = useState([]);
 
     const gotoList = () => {
-        history.push('/account/list');
+        navigate('/account/list');
     };
 
     const deleteRole = (rid, name) => {

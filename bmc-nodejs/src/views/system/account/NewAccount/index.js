@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Steps } from 'antd';
 import { PageComponent } from '@/components/UIComponent';
 import InputAccountInfo from './InputAccountInfo';
@@ -9,7 +9,7 @@ import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
 const { Step } = Steps;
 
 export default function NewAccount() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [current, setCurrent] = useState(0);
     const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ export default function NewAccount() {
     };
 
     const gotoList = () => {
-        history.push('/account/list');
+        navigate('/account/list');
     };
 
     return (

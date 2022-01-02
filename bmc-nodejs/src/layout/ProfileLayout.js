@@ -1,12 +1,8 @@
-import React, { Suspense } from 'react';
-import { useLocation, Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { useLocation, Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
 
 import Sidebar from '@/components/Sidebar';
-import { PageLoading } from '@/components/UIComponent';
-import RouteRender from '@/components/RouteRender';
-import SessionStore from '@/session/SessionStore';
-
 import MainHeader from '@/views/components/MainHeader';
 
 const { Content } = Layout;
@@ -36,31 +32,16 @@ const SIDER_MENUS = [
     },
 ];
 
-export default function ProfileLayout({ route }) {
+export default function ProfileLayout({ siderMenuId }) {
     const location = useLocation();
 
     return (
         <Layout>
             <MainHeader selectedTopMenuId='' />
             <Layout className='mz-layout'>
-                <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={route.siderMenuId} path={location.pathname} />
+                <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={siderMenuId} path={location.pathname} />
                 <Content className='mz-layout-content'>
-                    <Suspense fallback={<PageLoading />}>
-                        <Switch>
-                            {route.component && (
-                                <RouteRender
-                                    path={route.path}
-                                    authz={route.authz}
-                                    exact={route.exact}
-                                    component={route.component}
-                                    meta={route.meta}
-                                />
-                            )}
-                            {route.routes &&
-                                route.routes.map((subRoute, i) => <RouteRender key={subRoute.path} {...subRoute} />)}
-                            <Route component={() => <Redirect push to={SessionStore.getHomePath()} />} />
-                        </Switch>
-                    </Suspense>
+                    <Outlet />
                 </Content>
             </Layout>
         </Layout>

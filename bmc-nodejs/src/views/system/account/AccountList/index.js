@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { message, Row, Col, Radio, Table } from 'antd';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import AuthButton from '@/views/components/AuthButton';
@@ -12,14 +12,14 @@ import { disableAccount, enableAccount, unlockAccount, deleteAccount } from '../
 
 export default function AccountList() {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const uFetchStatus = useSelector((state) => state.accounts.fetchStatus);
     const dataSource = useSelector((state) => state.accounts.dataSource);
     const uFilter = useSelector((state) => state.accounts.filter);
 
     const gotoNew = () => {
-        history.push('/account/new');
+        navigate('/account/new');
     };
 
     const fetchList = (pageNumber, pageSize) => {

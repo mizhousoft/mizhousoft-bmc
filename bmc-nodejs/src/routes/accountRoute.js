@@ -23,106 +23,139 @@ const OnlineAccount = React.lazy(() => import('@/views/system/security/OnlineAcc
 
 const routes = [
     {
-        siderMenuId: 'bmc.account.list',
         path: '/account',
-        layout: BasicLayout,
-        routes: [
+        element: <BasicLayout siderMenuId='bmc.account.list' />,
+        children: [
             {
-                path: '/account/list',
-                component: AccountList,
-                exact: true,
+                path: 'list',
+                element: <AccountList />,
+                authz: true,
             },
             {
-                path: '/account/new',
-                component: NewAccount,
-                exact: true,
+                path: 'new',
+                element: <NewAccount />,
+                authz: true,
             },
             {
-                path: '/account/authorize/:id',
-                component: AccountAuthorize,
+                path: 'authorize/:id',
+                element: <AccountAuthorize />,
+                authz: true,
             },
         ],
     },
     {
-        siderMenuId: 'bmc.role.list',
         path: '/role',
-        layout: BasicLayout,
-        routes: [
+        element: <BasicLayout siderMenuId='bmc.role.list' />,
+        children: [
             {
-                path: '/role/list',
-                component: RoleList,
-                exact: true,
+                path: 'list',
+                element: <RoleList />,
+                authz: true,
             },
             {
-                path: '/role/new',
-                component: NewRole,
-                exact: true,
+                path: 'new',
+                element: <NewRole />,
+                authz: true,
             },
             {
-                path: '/role/edit/:id',
-                component: EditRole,
+                path: 'edit/:id',
+                element: <EditRole />,
+                authz: true,
             },
             {
-                path: '/role/view/:id',
-                component: RoleInfo,
+                path: 'view/:id',
+                element: <RoleInfo />,
+                authz: true,
             },
         ],
     },
     {
-        siderMenuId: 'bmc.auditlog.operation',
-        path: '/auditlog/operate/list',
-        layout: BasicLayout,
-        component: OperationLog,
-        exact: true,
+        path: '/auditlog/operate',
+        element: <BasicLayout siderMenuId='bmc.auditlog.operation' />,
+        children: [
+            {
+                path: 'list',
+                element: <OperationLog />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.auditlog.security',
-        path: '/auditlog/security/list',
-        layout: BasicLayout,
-        component: SecurityLog,
-        exact: true,
+        path: '/auditlog/security',
+        element: <BasicLayout siderMenuId='bmc.auditlog.security' />,
+        children: [
+            {
+                path: 'list',
+                element: <SecurityLog />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.auditlog.system',
-        path: '/auditlog/system/list',
-        layout: BasicLayout,
-        component: SystemLog,
-        exact: true,
+        path: '/auditlog/system',
+        element: <BasicLayout siderMenuId='bmc.auditlog.system' />,
+        children: [
+            {
+                path: 'list',
+                element: <SystemLog />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.auditlog.api',
-        path: '/auditlog/api/list',
-        layout: BasicLayout,
-        component: ApiAuditLog,
-        exact: true,
+        path: '/auditlog/api',
+        element: <BasicLayout siderMenuId='bmc.auditlog.api' />,
+        children: [
+            {
+                path: 'list',
+                element: <ApiAuditLog />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.running.log',
-        path: '/running/log/list',
-        layout: BasicLayout,
-        component: RunningLog,
-        exact: true,
+        path: '/running/log',
+        element: <BasicLayout siderMenuId='bmc.running.log' />,
+        children: [
+            {
+                path: 'list',
+                element: <RunningLog />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.account.strategy',
         path: '/saccount/strategy',
-        layout: BasicLayout,
-        component: AccountStrategy,
-        exact: true,
+        element: <BasicLayout siderMenuId='bmc.account.strategy' />,
+        children: [
+            {
+                path: '',
+                element: <AccountStrategy />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.password.strategy',
         path: '/password/strategy',
-        layout: BasicLayout,
-        component: PasswordStrategy,
-        exact: true,
+        element: <BasicLayout siderMenuId='bmc.password.strategy' />,
+        children: [
+            {
+                path: '',
+                element: <PasswordStrategy />,
+                authz: true,
+            },
+        ],
     },
     {
-        siderMenuId: 'bmc.account.online',
         path: '/online/account',
-        layout: BasicLayout,
-        component: OnlineAccount,
-        exact: true,
+        element: <BasicLayout siderMenuId='bmc.account.online' />,
+        children: [
+            {
+                path: '',
+                element: <OnlineAccount />,
+                authz: true,
+            },
+        ],
     },
 ];
 
