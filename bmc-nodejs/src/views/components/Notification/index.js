@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Tabs, Popover, List, Badge } from 'antd';
 import FontIcon from '@/components/FontIcon';
 import NotificationStore from '@/store/notificationStore';
@@ -8,14 +8,14 @@ import { AButton } from '@/components/UIComponent';
 const { TabPane } = Tabs;
 
 export default function Notification() {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [visible, setVisible] = useState(false);
     const [uTodos, setTodos] = useState(() => NotificationStore.getTodos());
 
     const rediectUrl = (entity) => {
         setVisible(false);
-        history.push(entity.viewPath);
+        navigate(entity.viewPath);
     };
 
     const fetchNotifications = () => {

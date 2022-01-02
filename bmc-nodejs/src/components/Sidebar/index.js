@@ -102,6 +102,9 @@ export default function Sidebar({ siderMenus, path, selectedMenuId, height = '10
     useEffect(() => {
         const menuIds = selectedMenuId ? [selectedMenuId] : [];
         setSelectedKeys(menuIds);
+
+        const keys = findOpenMenuKeys(selectedMenuId, siderMenus);
+        setOpenKeys(keys);
     }, [selectedMenuId]);
 
     return (
