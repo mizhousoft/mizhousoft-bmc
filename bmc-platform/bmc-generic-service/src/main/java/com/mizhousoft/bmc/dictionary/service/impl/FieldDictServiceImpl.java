@@ -25,8 +25,8 @@ public class FieldDictServiceImpl implements FieldDictService
 	@Autowired
 	private FieldDictMapper dictMapper;
 
-	// 缓存 <key, FieldDict>，10分钟内有效
-	private Cache<String, FieldDict> cache = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
+	// 缓存 <key, FieldDict>，5分钟内有效
+	private Cache<String, FieldDict> cache = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}

@@ -25,8 +25,8 @@ public class JSONDictServiceImpl implements JSONDictService
 	@Autowired
 	private JSONDictMapper dictMapper;
 
-	// 缓存 <key, JSONDict>，10分钟内有效
-	private Cache<String, JSONDict> cache = Caffeine.newBuilder().expireAfterWrite(10, TimeUnit.MINUTES).build();
+	// 缓存 <key, JSONDict>，5分钟内有效
+	private Cache<String, JSONDict> cache = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}
