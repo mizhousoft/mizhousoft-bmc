@@ -143,7 +143,7 @@ export default function OperationLog() {
             title: '操作时间',
             dataIndex: 'creationTimeStr',
             key: 'creationTimeStr',
-            width: '150px',
+            width: '170px',
         },
         {
             title: '来源',

@@ -56,7 +56,7 @@ export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
     return (
         <Menu
             mode='horizontal'
-            defaultSelectedKeys={selectedKeys}
+            selectedKeys={selectedKeys}
             style={{ backgroundColor: '#051E37' }}
             className='header-menu'
         >
