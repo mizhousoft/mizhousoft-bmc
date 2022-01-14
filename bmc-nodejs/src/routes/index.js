@@ -27,6 +27,19 @@ routes.forEach((route) => {
             }
         });
     }
+    else if (route.component) {
+        const {element} = route;
+
+        if (undefined === route.authz || route.authz) {
+            route.element = (
+                <RequireAuth>
+                    <Suspense fallback={<PageLoading />}>{element}</Suspense>
+                </RequireAuth>
+            );
+        } else {
+            route.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
+        }
+    }
 });
 
 routes.push({
