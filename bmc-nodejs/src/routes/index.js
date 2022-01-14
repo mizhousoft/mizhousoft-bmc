@@ -26,9 +26,8 @@ routes.forEach((route) => {
                 child.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
             }
         });
-    }
-    else if (route.component) {
-        const {element} = route;
+    } else if (route.component) {
+        const { element } = route;
 
         if (undefined === route.authz || route.authz) {
             route.element = (
