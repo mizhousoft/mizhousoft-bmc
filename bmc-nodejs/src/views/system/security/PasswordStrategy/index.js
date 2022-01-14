@@ -151,7 +151,7 @@ export default function PasswordStrategy() {
                 <FormItem>
                     <Row>
                         <Col xxl={4} xl={6} lg={7} style={{ textAlign: 'right', paddingRight: '5px' }}>
-                            距离密码到期，提醒用户修改的天数
+                            距离密码到期，提醒修改的天数
                         </Col>
                         <Col span={5}>
                             <FormItem
@@ -159,7 +159,7 @@ export default function PasswordStrategy() {
                                 rules={[
                                     {
                                         required: true,
-                                        message: '请输入提醒用户修改密码的天数。',
+                                        message: '请输入提醒修改密码的天数。',
                                     },
                                 ]}
                             >
