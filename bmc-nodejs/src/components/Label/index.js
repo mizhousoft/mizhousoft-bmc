@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './index.less';
 
 const LabelContext = React.createContext({
@@ -38,10 +38,13 @@ function Label({ defaultValue, title, extendMoreHidden = false, children, onChan
         setExtendMore(true);
     };
 
-    const value = {
-        selectedValue,
-        onClickLabel: clickLabelEvent,
-    };
+    const value = useMemo(
+        () => ({
+            selectedValue,
+            onClickLabel: clickLabelEvent,
+        }),
+        [selectedValue]
+    );
 
     const extendClass = isExtendMore ? 'expand-label' : '';
 

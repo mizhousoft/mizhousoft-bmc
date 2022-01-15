@@ -44,11 +44,13 @@ module.exports = {
         'react/sort-comp': 0,
         'react/display-name': 0,
         'react/static-property-placement': 0,
+        'react/jsx-no-bind': 0, // Should not check test file
         'react/no-find-dom-node': 0,
         'react/no-unused-prop-types': 0,
         'react/default-props-match-prop-types': 0,
         'react-hooks/rules-of-hooks': 2, // Checks rules of Hooks
-
+        'react/function-component-definition': 0,
+        'react/no-unused-class-component-methods': 0,
         'import/extensions': 0,
         'import/no-cycle': 0,
         'import/no-extraneous-dependencies': [

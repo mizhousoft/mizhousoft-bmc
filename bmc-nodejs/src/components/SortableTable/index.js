@@ -5,7 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const type = 'DragableBodyRow';
 
-const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => {
+function DragableBodyRow({ index, moveRow, className, style, ...restProps }) {
     const ref = React.useRef();
     const [{ isOver, dropClassName }, drop] = useDrop(
         () => ({
@@ -46,7 +46,7 @@ const DragableBodyRow = ({ index, moveRow, className, style, ...restProps }) => 
             {...restProps}
         />
     );
-};
+}
 
 function SortableTable(props, ref) {
     const { columns, title, dataSource } = props;

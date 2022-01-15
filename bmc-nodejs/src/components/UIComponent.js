@@ -102,9 +102,10 @@ export function AButton({ title, onClick, style, children }) {
     const child = title ?? children;
 
     return (
-        <a href='javascript:void(0)' rel='noopener noreferrer' onClick={onClick} style={style}>
+        <Button onClick={onClick} type='link' style={style}>
+            {' '}
             {child}
-        </a>
+        </Button>
     );
 }
 

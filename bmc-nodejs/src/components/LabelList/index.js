@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import './index.less';
 
 const LabelListContext = React.createContext({
@@ -34,10 +34,13 @@ function LabelList({ defaultValue, children, onChange }) {
         }
     };
 
-    const value = {
-        selectedValue,
-        onClickLabel: clickLabelEvent,
-    };
+    const value = useMemo(
+        () => ({
+            selectedValue,
+            onClickLabel: clickLabelEvent,
+        }),
+        [selectedValue]
+    );
 
     return (
         <ul className='mz-label-list'>
