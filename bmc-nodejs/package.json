@@ -79,8 +79,8 @@
         "webpack-dev-server": "4.7.3"
     },
     "dependencies": {
-        "@ant-design/charts": "1.2.14",
         "@ant-design/icons": "4.7.0",
+        "@ant-design/plots": "1.0.7",
         "antd": "4.18.3",
         "axios": "0.24.0",
         "moment": "2.29.1",

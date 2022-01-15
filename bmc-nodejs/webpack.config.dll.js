@@ -3,6 +3,7 @@ var path = require("path");
 
 const vendors = [
     '@ant-design/icons',
+    '@ant-design/plots',
     'antd',
     'axios',
     'react',
@@ -12,7 +13,6 @@ const vendors = [
     'redux',
     'redux-saga',
     'moment',
-    '@ant-design/charts',
     'react-dnd',
     'react-dnd-html5-backend',
 ]

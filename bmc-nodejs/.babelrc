@@ -14,14 +14,6 @@
         [
             "@babel/plugin-transform-runtime"
         ],
-        [
-            "import",
-            {
-                "libraryName": "@ant-design/charts",
-                "libraryDirectory": "lib"
-            },
-            "@ant-design/charts"
-        ],
         "@babel/plugin-syntax-dynamic-import",
         "@babel/plugin-syntax-import-meta",
         "@babel/plugin-proposal-class-properties",
