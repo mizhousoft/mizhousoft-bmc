@@ -300,6 +300,7 @@
 .mz-button-tags .ant-radio-button-wrapper-checked {
     background: #f2f2f6 !important;
     border: 1px solid #f2f2f6 !important;
+    color: #0774e9;
 }
 
 .mz-button-tags .ant-radio-button-wrapper:not(:first-child)::before {
