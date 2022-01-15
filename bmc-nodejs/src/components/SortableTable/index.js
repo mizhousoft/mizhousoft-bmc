@@ -53,7 +53,7 @@ function SortableTable(props, ref) {
 
     const [uDataSource, setDataSource] = useState(dataSource);
 
-    moveRow = (dragIndex, hoverIndex) => {
+    const moveRow = (dragIndex, hoverIndex) => {
         const newValues = [...uDataSource];
 
         const items = newValues.splice(dragIndex, 1);
