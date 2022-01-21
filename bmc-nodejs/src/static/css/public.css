@@ -118,6 +118,11 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12), 0 1px 4px rgba(0, 0, 0, 0.12);
 }
 
+.mz-page-header {
+    padding: 16px 0 0 12px;
+    background: #f9f9f9;
+}
+
 .mz-table-header {
     margin-bottom: 20px;
 }
@@ -298,9 +303,9 @@
 }
 
 .mz-button-tags .ant-radio-button-wrapper-checked {
+    color: #0774e9;
     background: #f2f2f6 !important;
     border: 1px solid #f2f2f6 !important;
-    color: #0774e9;
 }
 
 .mz-button-tags .ant-radio-button-wrapper:not(:first-child)::before {
