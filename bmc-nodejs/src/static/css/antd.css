@@ -40,6 +40,11 @@ div.ant-input-number {
     border-radius: 2px;
 }
 
+.ant-modal-header {
+    padding: 11px 24px !important;
+    background: #f7f8fa !important;
+}
+
 .ant-alert {
     border-radius: 0;
 }
@@ -178,6 +183,11 @@ div.ant-input-number {
 .header-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
+}
+
+.mz-layout-sider .ant-layout-sider-children {
+    display: flex !important;
+    flex-direction: column !important;
 }
 
 .mz-layout-sider .ant-menu {

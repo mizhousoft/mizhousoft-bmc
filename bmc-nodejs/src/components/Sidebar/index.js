@@ -7,7 +7,7 @@ import { findSiderMenuId, findOpenMenuKeys } from '@/utils/MenuUtils';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-export default function Sidebar({ siderMenus, path, selectedMenuId, height = '100%' }) {
+export default function Sidebar({ header, footer, siderMenus, path, selectedMenuId, height = '100%' }) {
     if (selectedMenuId === null) {
         selectedMenuId = findSiderMenuId(path, siderMenus);
     }
@@ -109,17 +109,21 @@ export default function Sidebar({ siderMenus, path, selectedMenuId, height = '10
 
     return (
         <Sider width={210} className='mz-layout-sider' theme='light'>
-            <Menu
-                mode='inline'
-                selectedKeys={selectedKeys}
-                defaultSelectedKeys={selectedKeys}
-                openKeys={openKeys}
-                onOpenChange={onOpenChange}
-                onSelect={onSelect}
-                style={{ height, borderRight: 'none' }}
-            >
-                {siderMenus.map((siderMenu, index) => renderSiderMenu(siderMenu))}
-            </Menu>
+            {undefined !== header && <div className='mz-sider-header'>{header}</div>}
+            <div style={{ flex: '1 1 0%', overflow: 'hidden auto' }}>
+                <Menu
+                    mode='inline'
+                    selectedKeys={selectedKeys}
+                    defaultSelectedKeys={selectedKeys}
+                    openKeys={openKeys}
+                    onOpenChange={onOpenChange}
+                    onSelect={onSelect}
+                    style={{ height, borderRight: 'none' }}
+                >
+                    {siderMenus.map((siderMenu, index) => renderSiderMenu(siderMenu))}
+                </Menu>
+            </div>
+            {undefined !== footer && <div className='mz-sider-footer'>{footer}</div>}
         </Sider>
     );
 }
