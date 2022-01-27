@@ -3,7 +3,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import { Tree, Form, Button } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import FormFlex from '@/constants/flex';
 import { fetchRoleInfo } from '../redux/roleService';
 
 const FormItem = Form.Item;
@@ -62,13 +61,9 @@ export default function RoleInfo() {
 
     return (
         <PageComponent title={pageTitle}>
-            <Form labelAlign='left'>
-                <FormItem {...FormFlex.w100_lg3_required} label='角色名'>
-                    {uRole.displayNameCN}
-                </FormItem>
-                <FormItem {...FormFlex.w100_lg3_required} label='描述'>
-                    {uRole.descriptionCN}
-                </FormItem>
+            <Form labelAlign='left' labelCol={{ flex: '80px' }}>
+                <FormItem label='角色名'>{uRole.displayNameCN}</FormItem>
+                <FormItem label='描述'>{uRole.descriptionCN}</FormItem>
                 <div>角色权限：</div>
                 <div className='mz_permission_tree'>
                     <Tree showLine defaultExpandAll>

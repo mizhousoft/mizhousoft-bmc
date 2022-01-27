@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Button, Radio } from 'antd';
-import FormFlex from '@/constants/flex';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -39,6 +38,7 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
             onFinish={onFinish}
             form={form}
             labelAlign='left'
+            labelCol={{ flex: '120px' }}
             initialValues={{
                 name: formData.name,
                 password: formData.password,
@@ -49,7 +49,6 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
         >
             <FormItem
                 name='name'
-                {...FormFlex.w50_lg4_required}
                 label='帐号'
                 rules={[
                     {
@@ -66,11 +65,10 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                     },
                 ]}
             >
-                <Input autoComplete='off' maxLength='20' />
+                <Input autoComplete='off' maxLength='20' style={{ width: '50%' }} />
             </FormItem>
             <FormItem
                 name='password'
-                {...FormFlex.w50_lg4_required}
                 label='密码'
                 validateFirst
                 rules={[
@@ -87,11 +85,10 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                     },
                 ]}
             >
-                <Input type='password' maxLength='32' autoComplete='off' />
+                <Input type='password' maxLength='32' autoComplete='off' style={{ width: '50%' }} />
             </FormItem>
             <FormItem
                 name='confirmPassword'
-                {...FormFlex.w50_lg4_required}
                 label='确认密码'
                 dependencies={['password']}
                 validateFirst
@@ -109,12 +106,12 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                     },
                 ]}
             >
-                <Input type='password' maxLength='32' autoComplete='off' />
+                <Input type='password' maxLength='32' autoComplete='off' style={{ width: '50%' }} />
             </FormItem>
             <FormItem
                 name='phoneNumber'
-                {...FormFlex.w50_lg4}
                 label='手机号'
+                labelCol={{ flex: '120px', style: { paddingLeft: '12px' } }}
                 rules={[
                     {
                         min: 11,
@@ -122,11 +119,10 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                     },
                 ]}
             >
-                <Input autoComplete='off' maxLength='11' />
+                <Input autoComplete='off' maxLength='11' style={{ width: '50%' }} />
             </FormItem>
             <FormItem
                 name='status'
-                {...FormFlex.w50_lg4_required}
                 label='帐号使用状态'
                 rules={[
                     {

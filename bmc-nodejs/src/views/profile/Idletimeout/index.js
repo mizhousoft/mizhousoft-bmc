@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Form, InputNumber, Button, message, Alert } from 'antd';
-import FormFlex from '@/constants/flex';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageComponent, PageLoading, PageException } from '@/components/UIComponent';
 import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
@@ -44,7 +43,12 @@ export default function Idletimeout() {
 
     return (
         <PageComponent title={pageTitle}>
-            <Form onFinish={onFinish} initialValues={{ timeout: uIdleTimeOut.timeout }}>
+            <Form
+                onFinish={onFinish}
+                initialValues={{ timeout: uIdleTimeOut.timeout }}
+                labelAlign='left'
+                labelCol={{ flex: '120px' }}
+            >
                 <Alert
                     message='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
                     type='info'
@@ -52,7 +56,7 @@ export default function Idletimeout() {
                     style={{ marginBottom: '18px' }}
                 />
 
-                <Form.Item {...FormFlex.w50_lg4} label='闲置超时时间' labelAlign='left'>
+                <Form.Item label='闲置超时时间'>
                     <FormItem
                         name='timeout'
                         rules={[
@@ -68,7 +72,7 @@ export default function Idletimeout() {
                     <span>&nbsp; 分钟</span>
                 </Form.Item>
 
-                <FormItem {...FormFlex.w50_lg4} colon={false} label=' '>
+                <FormItem colon={false} label=' '>
                     <Button type='primary' htmlType='submit' loading={confirmLoading}>
                         确定
                     </Button>

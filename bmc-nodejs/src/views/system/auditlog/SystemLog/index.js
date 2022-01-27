@@ -3,7 +3,6 @@ import { Table, Form, Input, Button, DatePicker, Row, Col } from 'antd';
 import moment from 'moment';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
-import FormFlex from '@/constants/flex';
 import ViewSystemLog from './ViewSystemLog';
 import { fetchSystemLogs } from '../redux/auditLogService';
 
@@ -201,7 +200,8 @@ export default function SystemLog() {
                     source: uSearchFilter.source,
                     timePeriod,
                 }}
-                {...FormFlex.w100_md6_required}
+                labelCol={{ flex: '85px' }}
+                wrapperCol={{ style: { paddingRight: '30px' } }}
             >
                 <Row>
                     <Col span={12}>

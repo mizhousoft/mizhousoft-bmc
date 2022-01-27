@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Form, Table, Space } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import FormFlex from '@/constants/flex';
 import PhoneNumberEdit from './PhoneNumberEdit';
 import { fetchMyAccountInfo } from '../profileService';
 
@@ -52,11 +51,9 @@ export default function MyAccountInfo() {
 
     return (
         <PageComponent title={pageTitle}>
-            <Form labelAlign='left'>
-                <FormItem {...FormFlex.w100_lg4_required} label='帐号名'>
-                    {uAccount.name}
-                </FormItem>
-                <FormItem {...FormFlex.w100_lg4_required} label='手机号'>
+            <Form labelAlign='left' labelCol={{ flex: '90px' }}>
+                <FormItem label='帐号名'>{uAccount.name}</FormItem>
+                <FormItem label='手机号'>
                     <Space>
                         <span>{uAccount.phoneNumber}</span>
 

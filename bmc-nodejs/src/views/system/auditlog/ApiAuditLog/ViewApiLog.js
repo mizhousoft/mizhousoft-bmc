@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Modal } from 'antd';
-import FormFlex from '@/constants/flex';
 
 const FormItem = Form.Item;
 
@@ -23,7 +22,7 @@ export default function ViewApiLog({ apiLog }) {
                     centered
                     className='mz-modal'
                 >
-                    <Form className='mz-view-form' labelAlign='left' {...FormFlex.w100_lg5_required}>
+                    <Form className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
                         <FormItem label='操作名称'>{apiLog.operation}</FormItem>
                         <FormItem label='级别'>{apiLog.logLevel}</FormItem>
                         <FormItem label='操作时间'>{apiLog.creationTimeStr}</FormItem>

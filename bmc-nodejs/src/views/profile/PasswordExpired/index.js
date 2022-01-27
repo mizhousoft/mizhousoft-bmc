@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Row, Col, Form, Input, Button, Alert, message } from 'antd';
-import FormFlex from '@/constants/flex';
 import { logout } from '@/session/sessionService';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { modifyExpiredPassword } from '../profileService';
@@ -82,6 +81,7 @@ export default function PasswordExpired() {
                     onFinish={onFinish}
                     form={form}
                     labelAlign='left'
+                    labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
                     <Alert
@@ -93,7 +93,6 @@ export default function PasswordExpired() {
 
                     <FormItem
                         name='password'
-                        {...FormFlex.w100_lg5_required}
                         label='老密码'
                         rules={[
                             {
@@ -110,7 +109,6 @@ export default function PasswordExpired() {
                     </FormItem>
                     <FormItem
                         name='newPassword'
-                        {...FormFlex.w100_lg5_required}
                         label='新密码'
                         validateFirst
                         rules={[
@@ -131,7 +129,6 @@ export default function PasswordExpired() {
                     </FormItem>
                     <FormItem
                         name='confirmPassword'
-                        {...FormFlex.w100_lg5_required}
                         label='确认新密码'
                         dependencies={['newPassword']}
                         validateFirst

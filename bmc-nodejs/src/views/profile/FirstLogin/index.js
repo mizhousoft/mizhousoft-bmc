@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Row, Col, Form, Input, Button, Alert, message } from 'antd';
-import FormFlex from '@/constants/flex';
 import { logout } from '@/session/sessionService';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { modifyFirstLoginPassword } from '../profileService';
@@ -82,13 +81,13 @@ export default function FirstLogin() {
                     onFinish={onFinish}
                     form={form}
                     labelAlign='left'
+                    labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
                     <Alert message={content} type='info' showIcon style={{ marginBottom: '20px' }} />
 
                     <FormItem
                         name='password'
-                        {...FormFlex.w100_lg5_required}
                         label='老密码'
                         rules={[
                             {
@@ -105,7 +104,6 @@ export default function FirstLogin() {
                     </FormItem>
                     <FormItem
                         name='newPassword'
-                        {...FormFlex.w100_lg5_required}
                         label='新密码'
                         validateFirst
                         rules={[
@@ -126,7 +124,6 @@ export default function FirstLogin() {
                     </FormItem>
                     <FormItem
                         name='confirmPassword'
-                        {...FormFlex.w100_lg5_required}
                         label='确认新密码'
                         validateFirst
                         dependencies={['newPassword']}

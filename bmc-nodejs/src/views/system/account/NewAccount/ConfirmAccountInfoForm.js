@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Table, Form, Button, message } from 'antd';
-import FormFlex from '@/constants/flex';
 import { addAccount } from '../redux/accountService';
 
 const FormItem = Form.Item;
@@ -49,14 +48,10 @@ export default function ConfirmAccountInfoForm({ prevStep, gotoList, formData })
     ];
 
     return (
-        <Form labelAlign='left'>
-            <FormItem {...FormFlex.w100_lg5_required} label='帐号名'>
-                {formData.name}
-            </FormItem>
-            <FormItem {...FormFlex.w100_lg5_required} label='手机号'>
-                {formData.phoneNumber}
-            </FormItem>
-            <FormItem {...FormFlex.w100_lg5_required} label='帐号使用状态'>
+        <Form labelAlign='left' labelCol={{ flex: '120px' }}>
+            <FormItem label='帐号名'>{formData.name}</FormItem>
+            <FormItem label='手机号'>{formData.phoneNumber}</FormItem>
+            <FormItem label='帐号使用状态'>
                 {formData.status === 2 && '启用'}
                 {formData.status === 3 && '停用'}
             </FormItem>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Alert, message } from 'antd';
-import FormFlex from '@/constants/flex';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import PasswordNote from '@/views/components/PasswordNote';
@@ -115,12 +114,11 @@ export default function AccountPassword() {
 
     return (
         <PageComponent title={pageTitle}>
-            <Form onFinish={onFinish} form={form} labelAlign='left'>
+            <Form onFinish={onFinish} form={form} labelAlign='left' labelCol={{ flex: '120px' }}>
                 <Alert message={content} type='info' showIcon style={{ marginBottom: '18px' }} />
 
                 <FormItem
                     name='password'
-                    {...FormFlex.w100_lg4}
                     label='老密码'
                     rules={[
                         {
@@ -137,7 +135,6 @@ export default function AccountPassword() {
                 </FormItem>
                 <FormItem
                     name='newPassword'
-                    {...FormFlex.w100_lg4}
                     label='新密码'
                     validateFirst
                     rules={[
@@ -158,7 +155,6 @@ export default function AccountPassword() {
                 </FormItem>
                 <FormItem
                     name='confirmPassword'
-                    {...FormFlex.w100_lg4}
                     label='确认新密码'
                     dependencies={['newPassword']}
                     validateFirst
@@ -178,12 +174,12 @@ export default function AccountPassword() {
                 >
                     <Input type='password' maxLength='32' autoComplete='off' />
                 </FormItem>
-                <FormItem {...FormFlex.w50_lg4} label=' ' colon={false}>
+                <FormItem label=' ' colon={false}>
                     <Button type='primary' htmlType='submit' loading={confirmLoading}>
                         确定
                     </Button>
                 </FormItem>
-                <FormItem {...FormFlex.w100_lg4}>
+                <FormItem>
                     <PasswordNote
                         charAppearSize={uPasswordStrategy.charAppearSize}
                         historyRepeatSize={uPasswordStrategy.historyRepeatSize}

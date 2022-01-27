@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Form, Button, message, Input, Modal } from 'antd';
-import FormFlex from '@/constants/flex';
 import { modifyPhoneNumber } from '../profileService';
 
 const FormItem = Form.Item;
@@ -49,12 +48,12 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
                     <Form
                         onFinish={onFinish}
                         labelAlign='left'
+                        labelCol={{ flex: '80px' }}
                         initialValues={{
                             phoneNumber: account.phoneNumber,
                         }}
                     >
                         <FormItem
-                            {...FormFlex.w100_lg5_required}
                             label='手机号'
                             name='phoneNumber'
                             rules={[

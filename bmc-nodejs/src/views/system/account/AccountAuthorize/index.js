@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Form, Button, Popconfirm, message, Table } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import FormFlex from '@/constants/flex';
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
 import { fetchRolesOnAuthorize, fetchAccountRolesOnAuthorize, authorizeAccount } from '../redux/accountService';
 
@@ -103,10 +102,8 @@ export default function AccountAuthorize() {
 
     return (
         <PageComponent title={pageTitle}>
-            <Form labelAlign='left'>
-                <FormItem {...FormFlex.w100_lg3_required} label='帐号名'>
-                    {uAccount.name}
-                </FormItem>
+            <Form labelAlign='left' labelCol={{ flex: '80px' }}>
+                <FormItem label='帐号名'>{uAccount.name}</FormItem>
                 <FormItem>
                     <ButtonSelectRole
                         selectedRoles={uSelectedRoles}

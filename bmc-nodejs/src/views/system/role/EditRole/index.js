@@ -3,7 +3,6 @@ import { useNavigate, Link, useParams } from 'react-router-dom';
 import { Tree, Form, Button, Input, message } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import FormFlex from '@/constants/flex';
 import { editRole, modifyRole } from '../redux/roleService';
 
 const FormItem = Form.Item;
@@ -102,6 +101,7 @@ export default function EditRole() {
                 onFinish={onFinish}
                 form={form}
                 labelAlign='left'
+                labelCol={{ flex: '90px' }}
                 initialValues={{
                     name: uRole.displayNameCN,
                     description: uRole.descriptionCN,
@@ -109,7 +109,6 @@ export default function EditRole() {
             >
                 <FormItem
                     name='name'
-                    {...FormFlex.w100_lg3_required}
                     label='角色名'
                     rules={[
                         {
@@ -128,7 +127,7 @@ export default function EditRole() {
                 >
                     <Input autoComplete='off' maxLength='15' />
                 </FormItem>
-                <FormItem name='description' {...FormFlex.w100_lg3} label='描述'>
+                <FormItem name='description' label='描述' labelCol={{ flex: '90px', style: { paddingLeft: '12px' } }}>
                     <TextArea rows={1} maxLength='255' />
                 </FormItem>
                 <div>角色权限：</div>
