@@ -111,7 +111,7 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
             <FormItem
                 name='phoneNumber'
                 label='手机号'
-                labelCol={{ flex: '120px', style: { paddingLeft: '12px' } }}
+                labelCol={{ flex: '120px', style: { paddingLeft: '11px' } }}
                 rules={[
                     {
                         min: 11,

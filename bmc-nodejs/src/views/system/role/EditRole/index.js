@@ -127,7 +127,7 @@ export default function EditRole() {
                 >
                     <Input autoComplete='off' maxLength='15' />
                 </FormItem>
-                <FormItem name='description' label='描述' labelCol={{ flex: '90px', style: { paddingLeft: '12px' } }}>
+                <FormItem name='description' label='描述' labelCol={{ flex: '90px', style: { paddingLeft: '11px' } }}>
                     <TextArea rows={1} maxLength='255' />
                 </FormItem>
                 <div>角色权限：</div>
