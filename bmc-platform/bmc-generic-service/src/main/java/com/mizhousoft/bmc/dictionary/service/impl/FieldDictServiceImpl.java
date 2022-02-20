@@ -101,15 +101,6 @@ public class FieldDictServiceImpl implements FieldDictService
 		return fieldDict.getValue();
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<FieldDict> queryByDomain(String domain)
-	{
-		return dictMapper.findByDomain(domain);
-	}
-
 	private synchronized FieldDict getFieldDict(String domain, String key)
 	{
 		String cacheKey = buildCaceKey(domain, key);

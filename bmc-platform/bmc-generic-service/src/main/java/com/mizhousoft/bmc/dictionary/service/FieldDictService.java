@@ -1,9 +1,5 @@
 package com.mizhousoft.bmc.dictionary.service;
 
-import java.util.List;
-
-import com.mizhousoft.bmc.dictionary.domain.FieldDict;
-
 /**
  * 字段字典服务
  *
@@ -56,11 +52,4 @@ public interface FieldDictService
 	 */
 	String getValue(String domain, String key);
 
-	/**
-	 * 根据domain查询
-	 * 
-	 * @param domain
-	 * @return
-	 */
-	List<FieldDict> queryByDomain(String domain);
 }
