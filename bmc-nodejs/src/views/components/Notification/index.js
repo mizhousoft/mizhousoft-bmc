@@ -43,7 +43,11 @@ export default function Notification() {
                     itemLayout='horizontal'
                     dataSource={uTodos}
                     renderItem={(item) => (
-                        <List.Item actions={[<AButton title='审批' onClick={() => rediectUrl(item)} key={item.key} />]}>
+                        <List.Item
+                            actions={[
+                                <AButton title={item.buttonName} onClick={() => rediectUrl(item)} key={item.key} />,
+                            ]}
+                        >
                             <List.Item.Meta
                                 title={
                                     <>

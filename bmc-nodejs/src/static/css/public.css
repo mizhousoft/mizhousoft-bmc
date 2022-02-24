@@ -333,6 +333,14 @@
     box-shadow: none;
 }
 
+.mz-panel-title {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    background-color: #f8f8f8;
+}
+
 .header-avatar {
     color: rgba(255, 255, 255, 0.55);
     font-weight: 500;

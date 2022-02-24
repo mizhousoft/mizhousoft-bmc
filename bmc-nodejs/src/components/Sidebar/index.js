@@ -20,14 +20,14 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
             return (
                 <Menu.Item key={menu.id}>
                     <Link to={menu.path} replace>
-                        <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />{' '}
+                        <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />
                         {menu.name}
                     </Link>
                 </Menu.Item>
             );
         }
         return (
-            <Menu.Item key={menu.id}>
+            <Menu.Item key={menu.id} style={{ marginLeft: '6px' }}>
                 <Link to={menu.path} replace>
                     {menu.name}
                 </Link>
@@ -44,13 +44,13 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
                 <SubMenu
                     key={siderMenu.id}
                     title={
-                        <span>
+                        <>
                             <FontIcon
                                 type={siderMenu.iconFont}
                                 style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }}
                             />
                             {siderMenu.name}
-                        </span>
+                        </>
                     }
                 >
                     {siderMenu.subMenus.map((subMenu, index) => renderSiderMenu(subMenu))}

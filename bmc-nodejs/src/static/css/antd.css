@@ -216,11 +216,11 @@ div.ant-input-number {
 }
 
 .ant-layout-sider-light .ant-menu-item .anticon {
-    margin-right: 8px;
+    margin-right: 12px !important;
 }
 
 .ant-layout-sider-light .ant-menu-submenu-title .anticon {
-    margin-right: 6px;
+    margin-right: 12px !important;
 }
 
 .input-addon-button .ant-input-group-addon {
