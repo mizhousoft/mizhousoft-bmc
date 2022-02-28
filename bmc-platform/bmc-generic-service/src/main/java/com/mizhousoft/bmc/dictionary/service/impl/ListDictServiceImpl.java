@@ -32,15 +32,26 @@ public class ListDictServiceImpl implements ListDictService
 	@Override
 	public String getName(String domain, String key)
 	{
-		List<Field> list = queryByDomain(domain);
-
-		Field field = list.stream().filter(item -> item.getKey().equals(key)).findFirst().orElse(null);
+		Field field = getField(domain, key);
 		if (null != field)
 		{
 			return field.getValue();
 		}
 
 		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Field getField(String domain, String key)
+	{
+		List<Field> list = queryByDomain(domain);
+
+		Field field = list.stream().filter(item -> item.getKey().equals(key)).findFirst().orElse(null);
+
+		return field;
 	}
 
 	/**

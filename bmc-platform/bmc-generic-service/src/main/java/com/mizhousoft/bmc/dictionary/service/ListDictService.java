@@ -21,6 +21,15 @@ public interface ListDictService
 	String getName(String domain, String key);
 
 	/**
+	 * 获取Field
+	 * 
+	 * @param domain
+	 * @param key
+	 * @return
+	 */
+	Field getField(String domain, String key);
+
+	/**
 	 * 根据domain查询
 	 * 
 	 * @param domain
