@@ -3,11 +3,11 @@ package com.mizhousoft.bmc.authentication.model;
 import java.util.Set;
 
 /**
- * 帐号资源
+ * 帐号视图数据
  *
  * @version
  */
-public class AccountResource
+public class AccountViewData
 {
 	// 姓名
 	private String name;

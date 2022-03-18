@@ -31,7 +31,7 @@ public class MyAccountInfoFetchController
 	private static final Logger LOG = LoggerFactory.getLogger(MyAccountInfoFetchController.class);
 
 	@Autowired
-	private AccountViewService accountBusinessService;
+	private AccountViewService accountViewService;
 
 	@Autowired
 	private AccountService accountService;
@@ -49,7 +49,7 @@ public class MyAccountInfoFetchController
 			Account account = accountService.loadById(id);
 			map.put("account", account);
 
-			List<Role> roles = accountBusinessService.getRoleByAccountId(id);
+			List<Role> roles = accountViewService.getRoleByAccountId(id);
 			map.put("roles", roles);
 		}
 		catch (BMCException e)

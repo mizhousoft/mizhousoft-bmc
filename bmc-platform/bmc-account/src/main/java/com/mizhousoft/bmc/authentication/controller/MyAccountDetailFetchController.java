@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.account.service.AccountViewService;
-import com.mizhousoft.bmc.authentication.model.AccountResource;
+import com.mizhousoft.bmc.authentication.model.AccountViewData;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -24,7 +24,7 @@ import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 public class MyAccountDetailFetchController
 {
 	@Autowired
-	private AccountViewService accountBusinessService;
+	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/account/fetchMyAccountDetail.action", method = RequestMethod.GET)
 	public ModelMap fetchMyAccountDetail()
@@ -33,14 +33,14 @@ public class MyAccountDetailFetchController
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		long id = authentication.getAccountId();
-		AccountResource accountRes = new AccountResource();
+		AccountViewData viewData = new AccountViewData();
 
-		accountRes.setName(authentication.getName());
+		viewData.setName(authentication.getName());
 
-		Set<String> perms = accountBusinessService.getPermByAccountId(id);
-		accountRes.setPermissions(perms);
+		Set<String> perms = accountViewService.getPermByAccountId(id);
+		viewData.setPermissions(perms);
 
-		map.addAttribute("account", accountRes);
+		map.addAttribute("account", viewData);
 
 		Calendar cal = Calendar.getInstance();
 		String[] params = { String.valueOf(cal.get(Calendar.YEAR)), String.valueOf(cal.get(Calendar.MONTH) + 1),
