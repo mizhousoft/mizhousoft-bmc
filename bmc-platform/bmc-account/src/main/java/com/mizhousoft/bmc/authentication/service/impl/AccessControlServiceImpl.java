@@ -1,4 +1,4 @@
-package com.mizhousoft.bmc.authentication.service;
+package com.mizhousoft.bmc.authentication.service.impl;
 
 import java.util.Set;
 

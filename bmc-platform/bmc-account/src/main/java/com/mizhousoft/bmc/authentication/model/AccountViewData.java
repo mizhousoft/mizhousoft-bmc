@@ -1,5 +1,6 @@
 package com.mizhousoft.bmc.authentication.model;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,6 +15,9 @@ public class AccountViewData
 
 	// 权限
 	private Set<String> permissions;
+
+	// 扩展数据
+	private Map<String, Object> extendMap;
 
 	/**
 	 * 获取name
@@ -53,5 +57,25 @@ public class AccountViewData
 	public void setPermissions(Set<String> permissions)
 	{
 		this.permissions = permissions;
+	}
+
+	/**
+	 * 获取extendMap
+	 * 
+	 * @return
+	 */
+	public Map<String, Object> getExtendMap()
+	{
+		return extendMap;
+	}
+
+	/**
+	 * 设置extendMap
+	 * 
+	 * @param extendMap
+	 */
+	public void setExtendMap(Map<String, Object> extendMap)
+	{
+		this.extendMap = extendMap;
 	}
 }
