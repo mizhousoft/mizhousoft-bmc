@@ -27,7 +27,7 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
             );
         }
         return (
-            <Menu.Item key={menu.id} style={{ marginLeft: '6px' }}>
+            <Menu.Item key={menu.id} style={{ paddingLeft: '54px' }}>
                 <Link to={menu.path} replace>
                     {menu.name}
                 </Link>

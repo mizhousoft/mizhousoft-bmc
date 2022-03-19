@@ -341,6 +341,20 @@
     background-color: #f8f8f8;
 }
 
+.mz-toolbar-button {
+    margin-bottom: 15px;
+}
+
+.mz-toolbar-button .ant-btn {
+    margin-right: 15px;
+    color: #666;
+}
+
+.mz-toolbar-button .ant-btn.active {
+    color: #40a9ff;
+    border-color: #40a9ff;
+}
+
 .header-avatar {
     color: rgba(255, 255, 255, 0.55);
     font-weight: 500;
