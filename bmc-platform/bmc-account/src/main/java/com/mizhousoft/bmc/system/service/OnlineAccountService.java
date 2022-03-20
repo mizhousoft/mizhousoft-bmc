@@ -33,9 +33,4 @@ public interface OnlineAccountService
 	 * @throws BMCException
 	 */
 	AccountDetails logoffAccount(long accountId, String randomId) throws BMCException;
-
-	/**
-	 * 注销所有帐号
-	 */
-	void logoffAll();
 }

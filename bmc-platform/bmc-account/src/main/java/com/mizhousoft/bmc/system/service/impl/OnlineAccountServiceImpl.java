@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionDAO;
-import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.support.DefaultSubjectContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,7 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.system.model.OnlineAccount;
 import com.mizhousoft.bmc.system.service.OnlineAccountService;
 import com.mizhousoft.boot.authentication.AccountDetails;
+import com.mizhousoft.boot.authentication.AccountSessionService;
 import com.mizhousoft.boot.authentication.GrantedAuthority;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.data.domain.Page;
@@ -41,6 +40,9 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 	@Autowired
 	private SessionDAO sessionDAO;
 
+	@Autowired
+	private AccountSessionService accountSessionService;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -52,7 +54,7 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 
 		for (Session session : sessions)
 		{
-			AccountDetails accountDetails = getAccountDetails(session);
+			AccountDetails accountDetails = accountSessionService.getAccountDetails(session);
 			if (null == accountDetails)
 			{
 				continue;
@@ -117,7 +119,7 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 
 		if (null != session)
 		{
-			accountDetails = getAccountDetails(session);
+			accountDetails = accountSessionService.getAccountDetails(session);
 			if (null != accountDetails)
 			{
 				if (accountDetails.getAccountId() == accountId)
@@ -137,28 +139,6 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 		}
 
 		return accountDetails;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void logoffAll()
-	{
-		Collection<Session> activeSessions = sessionDAO.getActiveSessions();
-		for (Session session : activeSessions)
-		{
-			AccountDetails accountDetails = getAccountDetails(session);
-			if (null == accountDetails)
-			{
-				LOG.error("Session is not AccountDetails, id is {}, host is {}.", session.getId(), session.getHost());
-				continue;
-			}
-
-			sessionDAO.delete(session);
-
-			LOG.warn("Logoff account successfully, id is {}, name is {}.", accountDetails.getAccountId(), accountDetails.getAccountName());
-		}
 	}
 
 	/**
@@ -202,34 +182,5 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 		}
 
 		return sessions;
-	}
-
-	/**
-	 * 获取AccountDetails
-	 * 
-	 * @param session
-	 * @return
-	 */
-	private AccountDetails getAccountDetails(Session session)
-	{
-		Object simplePrincipalCollection = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-		if (simplePrincipalCollection instanceof SimplePrincipalCollection)
-		{
-			Object primaryPrincipal = ((SimplePrincipalCollection) simplePrincipalCollection).getPrimaryPrincipal();
-			if (primaryPrincipal instanceof AccountDetails)
-			{
-				return ((AccountDetails) primaryPrincipal);
-			}
-			else
-			{
-				LOG.error("Primary Principal object is not AccountDetails.");
-			}
-		}
-		else
-		{
-			LOG.error("Session PRINCIPALS_SESSION_KEY object is not SimplePrincipalCollection.");
-		}
-
-		return null;
 	}
 }
