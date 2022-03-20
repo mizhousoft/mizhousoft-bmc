@@ -140,6 +140,28 @@ public class OnlineAccountServiceImpl implements OnlineAccountService
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void logoffAll()
+	{
+		Collection<Session> activeSessions = sessionDAO.getActiveSessions();
+		for (Session session : activeSessions)
+		{
+			AccountDetails accountDetails = getAccountDetails(session);
+			if (null == accountDetails)
+			{
+				LOG.error("Session is not AccountDetails, id is {}, host is {}.", session.getId(), session.getHost());
+				continue;
+			}
+
+			sessionDAO.delete(session);
+
+			LOG.warn("Logoff account successfully, id is {}, name is {}.", accountDetails.getAccountId(), accountDetails.getAccountName());
+		}
+	}
+
+	/**
 	 * 获取页面激活的Session
 	 * 
 	 * @param pageRequest
