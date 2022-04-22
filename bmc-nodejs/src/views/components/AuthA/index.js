@@ -1,12 +1,15 @@
 import React from 'react';
 import SessionStore from '@/session/SessionStore';
 
-export default function AuthA({ authId, childrenVisible = false, children, ...others }) {
+export default function AuthA({ authId, childrenVisible = false, disabled = false, children, ...others }) {
+    if (disabled) {
+        return <a disabled>{children}</a>;
+    }
     if (SessionStore.hasPermission(authId)) {
         return <a {...others}>{children}</a>;
     }
     if (childrenVisible) {
-        return children;
+        return <a disabled>{children}</a>;
     }
 
     return null;

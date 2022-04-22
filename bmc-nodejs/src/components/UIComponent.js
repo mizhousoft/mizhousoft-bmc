@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Empty, Button, Spin, Modal } from 'antd';
+import { Empty, Button, Spin, Modal, Statistic } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Exception from '@/components/Exception';
 
@@ -141,5 +141,13 @@ export default function ActionLoading({ visible, content }) {
                 {content}
             </div>
         </Modal>
+    );
+}
+
+export function LinkStatistic({ to, title, value, groupSeparator, suffix }) {
+    const valueNode = (number) => <Link to={to}>{number}</Link>;
+
+    return (
+        <Statistic title={title} groupSeparator={groupSeparator} suffix={suffix} valueRender={() => valueNode(value)} />
     );
 }
