@@ -10,7 +10,7 @@ const { Header } = Layout;
 
 export default function MainHeader({ selectedTopMenuId }) {
     return (
-        <Header style={{ width: '100%', backgroundColor: '#051E37', padding: 0, height: '60px', lineHeight: '60px' }}>
+        <Header className='mz-main-header'>
             <Row>
                 <Col xxl={3} xl={4} lg={5} md={6}>
                     <Logo />

@@ -54,12 +54,7 @@ export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
     const selectedKeys = [selectedTopMenuId];
 
     return (
-        <Menu
-            mode='horizontal'
-            selectedKeys={selectedKeys}
-            style={{ backgroundColor: '#051E37' }}
-            className='header-menu'
-        >
+        <Menu mode='horizontal' selectedKeys={selectedKeys} className='mz-navigation-menu'>
             {topMemus.map((topMemu, index) => renderMenu(topMemu))}
         </Menu>
     );

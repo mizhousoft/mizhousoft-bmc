@@ -118,40 +118,40 @@ div.ant-input-number {
     margin-bottom: 14px !important;
 }
 
-.header-menu.ant-menu-horizontal {
+.mz-navigation-menu.ant-menu-horizontal {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item a {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item a {
     color: rgba(255, 255, 255, 0.7);
     font-size: 15px;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-selected a {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected a {
     color: #fff;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-selected {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected {
     border-bottom-color: rgba(42, 48, 60);
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item.active {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item.active {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item:hover {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item:hover {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-submenu-selected {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected {
     border-bottom: none;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-selected::after {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
@@ -163,7 +163,7 @@ div.ant-input-number {
     content: '';
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-item-active::after {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-active::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
@@ -175,12 +175,12 @@ div.ant-input-number {
     content: '';
 }
 
-.header-menu.ant-menu-horizontal .ant-menu-submenu .ant-menu-submenu-title {
+.mz-navigation-menu.ant-menu-horizontal .ant-menu-submenu .ant-menu-submenu-title {
     color: white;
     font-size: 15px;
 }
 
-.header-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
+.mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
 }
