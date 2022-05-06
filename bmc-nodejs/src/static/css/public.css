@@ -46,6 +46,20 @@
     box-shadow: none;
 }
 
+.mz-body {
+    font-size: 14px;
+    background-color: #f0f2f5;
+}
+
+.mz-logo {
+    color: #fff;
+    font-size: 22px;
+    font-family: 'Microsoft Yahei', sans-serif;
+    letter-spacing: 1px;
+    text-align: center;
+    vertical-align: middle;
+}
+
 .mz-layout {
     padding: 0;
     background-color: #f4f5f9;
