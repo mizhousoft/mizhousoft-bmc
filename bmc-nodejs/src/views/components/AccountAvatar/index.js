@@ -9,11 +9,9 @@ export default function AccountAvatar({ isActive }) {
         return <Navigate to={LOGIN_PATH} replace />;
     }
 
-    const classname = isActive ? 'header-avatar-selected' : 'header-avatar';
-
     return (
-        <span style={{ margin: '0 18px 0 28px', display: 'inline-block', position: 'relative' }}>
-            <Link to='/profile/account' className={classname} replace>
+        <span className='mz-header-avatar'>
+            <Link to='/profile/account' className={isActive ? 'active' : ''} replace>
                 {account.name}
             </Link>
         </span>

@@ -468,21 +468,27 @@
     border-color: #40a9ff;
 }
 
-.header-avatar {
+.mz-header-avatar {
+    margin: 0 18px 0 28px;
+    display: inline-block;
+    position: relative;
+}
+
+.mz-header-avatar a {
     color: rgba(255, 255, 255, 0.55);
     font-weight: 500;
     font-size: 14px;
     vertical-align: middle;
 }
 
-.header-avatar-selected {
+.mz-header-avatar a.active {
     color: white;
     font-weight: 500;
     font-size: 14px;
     vertical-align: middle;
 }
 
-.header-avatar-selected::after {
+.mz-header-avatar a.active::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
