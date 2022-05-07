@@ -86,7 +86,6 @@ export default function RoleList() {
             title: '描述',
             dataIndex: 'descriptionCN',
             key: 'descriptionCN',
-            className: 'column-ellipsis column-width-2',
         },
         {
             title: '操作',

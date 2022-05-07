@@ -37,7 +37,7 @@ export default function Notification() {
     }, []);
 
     const content = (
-        <Tabs defaultActiveKey='1' style={{ width: '320px' }}>
+        <Tabs defaultActiveKey='1' className='mz-notification-list'>
             <TabPane tab='待办事项' key='1'>
                 <List
                     itemLayout='horizontal'
@@ -51,7 +51,7 @@ export default function Notification() {
                             <List.Item.Meta
                                 title={
                                     <>
-                                        {item.title} <span style={{ color: '#108ee9' }}>({item.count})</span>
+                                        {item.title} <span className='number'>({item.count})</span>
                                     </>
                                 }
                                 description={item.description}
@@ -73,18 +73,11 @@ export default function Notification() {
             content={content}
             trigger='click'
             placement='bottomLeft'
-            className='notification'
+            className='mz-notification'
             visible={visible}
             onVisibleChange={(show) => setVisible(show)}
         >
-            <Badge
-                count={badgeCount}
-                onClick={() => setVisible(true)}
-                showZero
-                size='default'
-                style={{ backgroundColor: '#006eff', color: '#fff', cursor: 'pointer' }}
-                offset={[8, 0]}
-            >
+            <Badge count={badgeCount} onClick={() => setVisible(true)} showZero size='default' offset={[8, 0]}>
                 <FontIcon
                     onClick={() => setVisible(true)}
                     type='anticon-notification'

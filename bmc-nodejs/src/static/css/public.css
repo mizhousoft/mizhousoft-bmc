@@ -1,51 +1,3 @@
-/* Tale */
-.column-ellipsis {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    word-break: keep-all;
-}
-
-.column-width-2 {
-    max-width: 20vh;
-}
-
-#table-drag-sorting tr.drop-over-downward td {
-    border-bottom: 2px dashed #1890ff;
-}
-
-#table-drag-sorting tr.drop-over-upward td {
-    border-top: 2px dashed #1890ff;
-}
-
-.ml-lg-1 {
-    margin-left: 5px !important;
-}
-
-.ml-lg-2 {
-    margin-left: 10px !important;
-}
-
-.ml-lg-3 {
-    margin-left: 15px !important;
-}
-
-.ml-lg-4 {
-    margin-left: 20px !important;
-}
-
-.ml-lg-5 {
-    margin-left: 25px !important;
-}
-
-.ml-lg-6 {
-    margin-left: 30px !important;
-}
-
-.notification .ant-badge-count {
-    box-shadow: none;
-}
-
 .mz-body {
     font-size: 14px;
     background-color: #f0f2f5;
@@ -154,6 +106,21 @@
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
+}
+
+.mz-notification .ant-badge-count {
+    color: #fff !important;
+    background-color: #006eff !important;
+    box-shadow: none !important;
+    cursor: pointer !important;
+}
+
+.mz-notification-list {
+    width: 320px;
+}
+
+.mz-notification-list .number {
+    color: #108ee9 !important;
 }
 
 .mz-sider {
@@ -469,9 +436,9 @@
 }
 
 .mz-header-avatar {
-    margin: 0 18px 0 28px;
-    display: inline-block;
     position: relative;
+    display: inline-block;
+    margin: 0 18px 0 28px;
 }
 
 .mz-header-avatar a {
@@ -512,4 +479,36 @@
 
 ::-webkit-scrollbar-track {
     background-color: transparent;
+}
+
+#table-drag-sorting tr.drop-over-downward td {
+    border-bottom: 2px dashed #1890ff;
+}
+
+#table-drag-sorting tr.drop-over-upward td {
+    border-top: 2px dashed #1890ff;
+}
+
+.ml-lg-1 {
+    margin-left: 5px !important;
+}
+
+.ml-lg-2 {
+    margin-left: 10px !important;
+}
+
+.ml-lg-3 {
+    margin-left: 15px !important;
+}
+
+.ml-lg-4 {
+    margin-left: 20px !important;
+}
+
+.ml-lg-5 {
+    margin-left: 25px !important;
+}
+
+.ml-lg-6 {
+    margin-left: 30px !important;
 }
