@@ -108,9 +108,9 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
     }, [selectedMenuId]);
 
     return (
-        <Sider width={210} className='mz-layout-sider' theme='light'>
+        <Sider width={210} className='mz-sider' theme='light'>
             {undefined !== header && <div className='mz-sider-header'>{header}</div>}
-            <div style={{ flex: '1 1 0%', overflow: 'hidden auto' }}>
+            <div className='mz-sider-body'>
                 <Menu
                     mode='inline'
                     selectedKeys={selectedKeys}
