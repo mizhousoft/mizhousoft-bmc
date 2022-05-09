@@ -10,7 +10,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url('../images/bg.jpg');
+    background-image: url('../images/bg-login.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -488,6 +488,10 @@
     border-radius: 2px;
     transform: translateX(-50%);
     content: '';
+}
+
+.mz-table-error {
+    color: #f04134;
 }
 
 ::-webkit-scrollbar {

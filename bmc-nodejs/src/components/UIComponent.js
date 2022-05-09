@@ -10,7 +10,7 @@ export function getTableLocale(fetchStatus) {
     let locale = {};
 
     if (undefined !== fetchStatus && !fetchStatus.okey) {
-        locale = { emptyText: <div style={{ color: '#f04134' }}>{fetchStatus.message}</div> };
+        locale = { emptyText: <div className='mz-table-error'>{fetchStatus.message}</div> };
     }
 
     return locale;
@@ -103,7 +103,6 @@ export function AButton({ title, onClick, style, children }) {
 
     return (
         <Button onClick={onClick} type='link' style={style}>
-            {' '}
             {child}
         </Button>
     );

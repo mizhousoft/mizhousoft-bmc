@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'antd';
-import LogoutImg from '@/static/images/logout.png';
+import LogoutImg from '@/static/images/icon-logout.png';
 import { logout } from '@/session/sessionService';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { AButton } from '@/components/UIComponent';

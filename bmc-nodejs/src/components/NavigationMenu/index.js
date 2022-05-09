@@ -45,6 +45,7 @@ export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
         return (
             <Menu.Item key={topMenu.id}>
                 <Link to={path} replace>
+                    <span className={topMenu.iconClass} />
                     {topMenu.name}
                 </Link>
             </Menu.Item>
