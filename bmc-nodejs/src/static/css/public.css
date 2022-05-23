@@ -1,6 +1,6 @@
 .mz-body {
     font-size: 14px;
-    background-color: #f0f2f5;
+    background-color: #f9f9f9;
 }
 
 .mz-login-container {
@@ -68,36 +68,36 @@
     border-bottom: none;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item {
     border-bottom: none;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item a {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item a {
     color: rgba(255, 255, 255, 0.7);
     font-size: 15px;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected a {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item-selected a {
     color: #fff;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item-selected {
     border-bottom-color: rgba(42, 48, 60);
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item.active {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item.active {
     border-bottom: none;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item:hover {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item:hover {
     border-bottom: none;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-submenu-selected {
     border-bottom: none;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected::after {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item-selected::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
@@ -109,7 +109,7 @@
     content: '';
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-active::after {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-item-active::after {
     position: absolute;
     bottom: 12.5px;
     left: 50%;
@@ -126,7 +126,7 @@
     font-size: 15px;
 }
 
-.mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
+.mz-navigation-menu.ant-menu-horizontal>.ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
 }
@@ -204,26 +204,24 @@
 }
 
 .mz-page-head {
-    margin-bottom: 10px;
-    padding: 8px 10px;
+    padding: 10px 10px 10px 12px;
     background: #f9f9f9;
 }
 
 .mz-page-head .title {
     color: #333;
-    font-size: 16px;
-    background: #f9f9f9;
+    font-size: 14px;
 }
 
 .mz-page-head .button-group {
     text-align: right;
 }
 
-.mz-page-head .button-group > button {
+.mz-page-head .button-group>button {
     margin-right: 16px;
 }
 
-.mz-page-head .button-group > button:last-child {
+.mz-page-head .button-group>button:last-child {
     margin-right: 0;
 }
 
@@ -233,7 +231,7 @@
 }
 
 .mz-page-content-body {
-    padding: 15px;
+    padding: 12px;
     background: white;
 }
 
@@ -346,18 +344,18 @@
     text-align: left;
 }
 
-.mz-a-group > a,
-.mz-a-group > span {
+.mz-a-group>a,
+.mz-a-group>span {
     margin-right: 15px;
 }
 
-.mz-a-group > a:first-child,
-.mz-a-group > span:first-child {
+.mz-a-group>a:first-child,
+.mz-a-group>span:first-child {
     margin-left: 15px;
 }
 
-.mz-a-group > a:last-child,
-.mz-a-group > span:last-child {
+.mz-a-group>a:last-child,
+.mz-a-group>span:last-child {
     margin-right: 0;
 }
 
@@ -365,7 +363,7 @@
     height: calc(100vh - 180px);
 }
 
-.mz-page-loading > .spin {
+.mz-page-loading>.spin {
     position: relative;
     top: calc((100vh - 106px) / 3 - 30px);
     text-align: center;
@@ -375,7 +373,7 @@
     min-height: 150px;
 }
 
-.mz-modal-loading > .spin {
+.mz-modal-loading>.spin {
     padding-top: 50px;
     text-align: center;
     vertical-align: middle;
@@ -405,7 +403,7 @@
     background-color: #fafafa;
 }
 
-.mz-toolbar > .title {
+.mz-toolbar>.title {
     font-size: 15px;
 }
 
