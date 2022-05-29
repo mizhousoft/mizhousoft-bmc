@@ -147,7 +147,7 @@
 }
 
 .mz-sider {
-    height: calc(100vh - 60px) !important;
+    min-height: calc(100vh - 60px) !important;
     padding: 10px 15px 0 !important;
     background: #f0f2f5 !important;
 }
