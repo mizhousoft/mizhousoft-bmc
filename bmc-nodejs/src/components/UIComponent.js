@@ -98,11 +98,11 @@ export function ModalException({ fetchStatus, goBack }) {
     );
 }
 
-export function AButton({ title, onClick, style, children }) {
+export function AButton({ title, onClick, style = {}, children }) {
     const child = title ?? children;
 
     return (
-        <Button onClick={onClick} type='link' style={style}>
+        <Button onClick={onClick} type='link' style={{ padding: '0px', ...style }}>
             {child}
         </Button>
     );
