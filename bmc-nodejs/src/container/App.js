@@ -7,7 +7,6 @@ import AppRoutes from '../routes';
 import 'antd/dist/antd.css';
 import '@/static/css/antd.css';
 import '@/static/css/public.css';
-import '@/static/css/style.css';
 
 message.config({ top: 120, duration: 2 });
 
