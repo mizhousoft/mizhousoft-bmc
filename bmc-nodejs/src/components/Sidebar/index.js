@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Affix } from 'antd';
 import FontIcon from '@/components/FontIcon';
 import { findSiderMenuId, findOpenMenuKeys } from '@/utils/MenuUtils';
 
@@ -123,7 +123,11 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
                     {siderMenus.map((siderMenu, index) => renderSiderMenu(siderMenu))}
                 </Menu>
             </div>
-            {undefined !== footer && <div className='mz-sider-footer'>{footer}</div>}
+            {undefined !== footer && (
+                <Affix offsetBottom={0}>
+                    <div className='mz-sider-footer'>{footer}</div>
+                </Affix>
+            )}
         </Sider>
     );
 }
