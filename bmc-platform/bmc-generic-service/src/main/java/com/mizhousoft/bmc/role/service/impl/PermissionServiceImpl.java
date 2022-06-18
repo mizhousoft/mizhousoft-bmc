@@ -57,7 +57,7 @@ public class PermissionServiceImpl implements PermissionService
 				return;
 			}
 
-			List<String> paths = permResourceService.queryByPermission(perm.getName());
+			List<String> paths = permResourceService.queryByPermission(srvId, perm.getName());
 			authcPaths.addAll(paths);
 		});
 
@@ -79,7 +79,7 @@ public class PermissionServiceImpl implements PermissionService
 				return;
 			}
 
-			List<String> paths = permResourceService.queryByPermission(perm.getName());
+			List<String> paths = permResourceService.queryByPermission(srvId, perm.getName());
 			authzPaths.addAll(paths);
 		});
 
@@ -99,7 +99,7 @@ public class PermissionServiceImpl implements PermissionService
 			return null;
 		}
 
-		String permName = permResourceService.getPermissionByPath(path);
+		String permName = permResourceService.getPermissionByPath(srvId, path);
 		if (null == permName)
 		{
 			LOG.warn("Permission not found, path is {}.", path);

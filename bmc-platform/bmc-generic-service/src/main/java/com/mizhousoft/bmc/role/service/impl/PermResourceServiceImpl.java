@@ -41,9 +41,11 @@ public class PermResourceServiceImpl implements PermResourceService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryByPermission(String permission)
+	public List<String> queryByPermission(String srvId, String permission)
 	{
-		List<String> list = permResourceMap.get(permission);
+		String index = buildPermIndex(srvId, permission);
+
+		List<String> list = permResourceMap.get(index);
 
 		return Collections.unmodifiableList(ListUtils.emptyIfNull(list));
 	}
@@ -52,9 +54,11 @@ public class PermResourceServiceImpl implements PermResourceService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getPermissionByPath(String path)
+	public String getPermissionByPath(String srvId, String path)
 	{
-		return resourcePermMap.get(path);
+		String index = buildPathIndex(srvId, path);
+
+		return resourcePermMap.get(index);
 	}
 
 	@PostConstruct
@@ -65,13 +69,17 @@ public class PermResourceServiceImpl implements PermResourceService
 
 		List<PermResource> permReses = permResourceMapper.findAll();
 		permReses.forEach(permRes -> {
-			resourcePermMap.put(permRes.getPath(), permRes.getPermName());
+			String srvId = permRes.getSrvId();
 
-			List<String> list = permResourceMap.get(permRes.getPermName());
+			String pathIndex = buildPathIndex(srvId, permRes.getPath());
+			resourcePermMap.put(pathIndex, permRes.getPermName());
+
+			String permIndex = buildPermIndex(srvId, permRes.getPermName());
+			List<String> list = permResourceMap.get(permIndex);
 			if (null == list)
 			{
 				list = new ArrayList<String>(4);
-				permResourceMap.put(permRes.getPermName(), list);
+				permResourceMap.put(permIndex, list);
 			}
 
 			list.add(permRes.getPath());
@@ -82,5 +90,15 @@ public class PermResourceServiceImpl implements PermResourceService
 
 		LOG.info("Load permission size is {}.", this.permResourceMap.size());
 		LOG.info("Load resource path size is {}.", this.resourcePermMap.size());
+	}
+
+	private String buildPermIndex(String srvId, String permission)
+	{
+		return srvId + "-" + permission;
+	}
+
+	private String buildPathIndex(String srvId, String path)
+	{
+		return srvId + "-" + path;
 	}
 }

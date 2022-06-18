@@ -5,12 +5,13 @@
 	
 	<resultMap type="com.mizhousoft.bmc.role.domain.PermResource" id="PermResourceMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srvId" />
 		<result property="permName" column="permName" />
 		<result property="path" column="path" />
 	</resultMap>
 	
 	<select id="findAll" resultMap="PermResourceMap">
-		select id, permName, path from bmc_perm_resource
+		select id, srvId, permName, path from bmc_perm_resource
 	</select>
 
 </mapper>

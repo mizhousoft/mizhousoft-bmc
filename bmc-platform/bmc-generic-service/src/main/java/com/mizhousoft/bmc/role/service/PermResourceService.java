@@ -12,16 +12,18 @@ public interface PermResourceService
 	/**
 	 * 根据权限查询
 	 * 
+	 * @param srvId
 	 * @param permission
 	 * @return
 	 */
-	List<String> queryByPermission(String permission);
+	List<String> queryByPermission(String srvId, String permission);
 
 	/**
 	 * 根据路径获取权限名称
 	 * 
+	 * @param srvId
 	 * @param path
 	 * @return
 	 */
-	String getPermissionByPath(String path);
+	String getPermissionByPath(String srvId, String path);
 }
