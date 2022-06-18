@@ -102,7 +102,6 @@ public class PermissionServiceImpl implements PermissionService
 		String permName = permResourceService.getPermissionByPath(srvId, path);
 		if (null == permName)
 		{
-			LOG.warn("Permission not found, path is {}.", path);
 			return null;
 		}
 
