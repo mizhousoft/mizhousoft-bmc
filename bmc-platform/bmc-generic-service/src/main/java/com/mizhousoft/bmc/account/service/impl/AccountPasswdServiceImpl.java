@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
-import com.mizhousoft.bmc.account.domain.AuthAccount;
 import com.mizhousoft.bmc.account.domain.HistoryPassword;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
+import com.mizhousoft.bmc.account.model.AuthAccount;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
 import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountUtils;

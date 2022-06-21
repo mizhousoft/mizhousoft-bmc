@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.mizhousoft.bmc.account.domain.Account;
-import com.mizhousoft.bmc.account.domain.AccountInfo;
-import com.mizhousoft.bmc.account.domain.AuthAccount;
+import com.mizhousoft.bmc.account.model.AccountInfo;
+import com.mizhousoft.bmc.account.model.AuthAccount;
 import com.mizhousoft.bmc.account.request.AccountPageRequest;
 import com.mizhousoft.commons.mapper.CrudMapper;
 

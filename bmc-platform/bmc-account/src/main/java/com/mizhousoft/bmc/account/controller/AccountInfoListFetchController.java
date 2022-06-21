@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mizhousoft.bmc.account.domain.AccountInfo;
+import com.mizhousoft.bmc.account.model.AccountInfo;
 import com.mizhousoft.bmc.account.request.AccountPageRequest;
 import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.commons.data.domain.Page;

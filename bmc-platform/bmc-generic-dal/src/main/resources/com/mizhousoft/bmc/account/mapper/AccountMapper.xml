@@ -15,12 +15,12 @@
 		<result property="lastAccessIpAddr" column="lastAccessIpAddr" />
 	</resultMap>
 	
-	<resultMap type="com.mizhousoft.bmc.account.domain.AuthAccount" id="AuthAccountMap" extends="AccountMap">
+	<resultMap type="com.mizhousoft.bmc.account.model.AuthAccount" id="AuthAccountMap" extends="AccountMap">
 		<result property="password" column="password" />
 		<result property="salt" column="salt" />
 	</resultMap>
 	
-	<resultMap type="com.mizhousoft.bmc.account.domain.AccountInfo" id="accountInfoMap" extends="AccountMap">
+	<resultMap type="com.mizhousoft.bmc.account.model.AccountInfo" id="accountInfoMap" extends="AccountMap">
 		
 	</resultMap>
 

@@ -15,10 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.account.constant.AccountStatus;
-import com.mizhousoft.bmc.account.domain.AuthAccount;
-import com.mizhousoft.bmc.account.domain.AuthFaildAccount;
 import com.mizhousoft.bmc.account.domain.HistoryPassword;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
+import com.mizhousoft.bmc.account.model.AuthAccount;
+import com.mizhousoft.bmc.account.model.AuthFaildAccount;
 import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountUtils;

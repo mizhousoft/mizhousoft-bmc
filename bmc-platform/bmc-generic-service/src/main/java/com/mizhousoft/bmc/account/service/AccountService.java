@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.account.service;
 
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
-import com.mizhousoft.bmc.account.domain.AuthAccount;
+import com.mizhousoft.bmc.account.model.AuthAccount;
 
 /**
  * 帐号服务

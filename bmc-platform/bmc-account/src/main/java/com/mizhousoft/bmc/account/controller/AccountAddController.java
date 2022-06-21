@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.BMCException;
-import com.mizhousoft.bmc.account.domain.AuthAccount;
+import com.mizhousoft.bmc.account.model.AuthAccount;
 import com.mizhousoft.bmc.account.request.AccountNewRequest;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
 import com.mizhousoft.bmc.account.service.AccountViewService;

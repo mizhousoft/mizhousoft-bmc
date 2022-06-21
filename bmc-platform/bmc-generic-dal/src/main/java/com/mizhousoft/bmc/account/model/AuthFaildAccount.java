@@ -1,4 +1,4 @@
-package com.mizhousoft.bmc.account.domain;
+package com.mizhousoft.bmc.account.model;
 
 import java.util.Date;
 

@@ -1,4 +1,6 @@
-package com.mizhousoft.bmc.account.domain;
+package com.mizhousoft.bmc.account.model;
+
+import com.mizhousoft.bmc.account.domain.Account;
 
 /**
  * 认证的帐号

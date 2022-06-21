@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -98,6 +97,7 @@
 				<directory>src/main/resources</directory>
 				<excludes>
 					<exclude>application*.properties</exclude>
+					<exclude>log4j2*.properties</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -106,6 +106,8 @@
 				<includes>
 					<include>application.properties</include>
 					<include>application-${profileActive}.properties</include>
+					<include>log4j2.xml</include>
+					<include>log4j2-${profileActive}.xml</include>
 				</includes>
 			</resource>
 		</resources>
@@ -122,10 +124,8 @@
 						</goals>
 						<configuration>
 							<target>
-								<replace file="${project.build.directory}/classes/application.properties" token="classpath:./rkey"
-									value="/opt/mizhousoft/cloudsoft/secfile/bmc/rkey" />
-								<replace file="${project.build.directory}/classes/application.properties" token="classpath:./wkey.json"
-									value="/opt/mizhousoft/cloudsoft/secfile/bmc/wkey.json" />
+								<replace file="${project.build.directory}/classes/application.properties" token="classpath:./rkey" value="/opt/mizhousoft/cloudsoft/secfile/bmc/rkey" />
+								<replace file="${project.build.directory}/classes/application.properties" token="classpath:./wkey.json" value="/opt/mizhousoft/cloudsoft/secfile/bmc/wkey.json" />
 
 								<delete file="${project.build.directory}/classes/application-dev.properties" />
 								<delete file="${project.build.directory}/classes/wkey.json" />
@@ -152,6 +152,7 @@
 						</goals>
 						<configuration>
 							<classesDirectory>${project.basedir}/target/classes</classesDirectory>
+							<finalName>${project.artifactId}-${project.version}</finalName>
 							<outputDirectory>${project.basedir}/target/${project.artifactId}-${project.version}/WEB-INF/lib</outputDirectory>
 							<includes>
 								<include>com/**</include>
