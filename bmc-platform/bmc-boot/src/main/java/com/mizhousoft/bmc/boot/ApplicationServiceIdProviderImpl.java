@@ -2,6 +2,7 @@ package com.mizhousoft.bmc.boot;
 
 import org.springframework.stereotype.Service;
 
+import com.mizhousoft.bmc.ApplicationConstants;
 import com.mizhousoft.boot.authentication.service.ApplicationServiceIdProvider;
 
 /**
@@ -18,6 +19,6 @@ public class ApplicationServiceIdProviderImpl implements ApplicationServiceIdPro
 	@Override
 	public String getServiceId()
 	{
-		return "BMC";
+		return ApplicationConstants.SERVICE_ID;
 	}
 }
