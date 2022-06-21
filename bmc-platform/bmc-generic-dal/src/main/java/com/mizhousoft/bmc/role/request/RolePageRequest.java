@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.role.request;
 
-import java.util.Set;
-
 import com.mizhousoft.commons.data.domain.PageRequest;
 
 /**
@@ -17,7 +15,7 @@ public class RolePageRequest extends PageRequest
 	private String name;
 
 	// 业务ID
-	private Set<String> srvIds;
+	private String srvId;
 
 	/**
 	 * 获取name
@@ -40,22 +38,22 @@ public class RolePageRequest extends PageRequest
 	}
 
 	/**
-	 * 获取srvIds
+	 * 获取srvId
 	 * 
 	 * @return
 	 */
-	public Set<String> getSrvIds()
+	public String getSrvId()
 	{
-		return srvIds;
+		return srvId;
 	}
 
 	/**
-	 * 设置srvIds
+	 * 设置srvId
 	 * 
-	 * @param srvIds
+	 * @param srvId
 	 */
-	public void setSrvIds(Set<String> srvIds)
+	public void setSrvId(String srvId)
 	{
-		this.srvIds = srvIds;
+		this.srvId = srvId;
 	}
 }

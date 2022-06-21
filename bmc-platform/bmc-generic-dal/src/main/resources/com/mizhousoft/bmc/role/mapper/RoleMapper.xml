@@ -46,35 +46,21 @@
 
 	<select id="countTotal" resultType="Long">
 		select count(id) from bmc_role
-		<where>
-			<if test="request.name != null">
-				<bind name="pattern" value="'%' + request.name + '%'" />
-				displayNameCN like #{pattern} 
-			</if>
-			<if test="request.srvIds.size > 0">
-				and srvId in
-				<foreach collection="request.srvIds" item="srvId" open="(" close=")" separator=",">
-		            #{srvId}
-		        </foreach>
-			</if>
-		</where>
+		where srvId = #{request.srvId} 
+		<if test="request.name != null">
+			<bind name="pattern" value="'%' + request.name + '%'" />
+			and displayNameCN like #{pattern} 
+		</if>
 	</select>
 
 	<select id="findPageData" parameterType="java.util.Map" resultMap="RoleMap">
 		select id, type, srvId, name, displayNameCN, displayNameUS, descriptionCN, descriptionUS 
 		from bmc_role 
-		<where>
-			<if test="request.name != null">
-				<bind name="pattern" value="'%' + request.name + '%'" />
-				displayNameCN like #{pattern} 
-			</if>
-			<if test="request.srvIds.size > 0">
-				and srvId in
-				<foreach collection="request.srvIds" item="srvId" open="(" close=")" separator=",">
-		            #{srvId}
-		        </foreach>
-			</if>
-		</where>
+		where srvId = #{request.srvId} 
+		<if test="request.name != null">
+			<bind name="pattern" value="'%' + request.name + '%'" />
+			and displayNameCN like #{pattern} 
+		</if>
 		limit #{rowOffset}, #{request.pageSize}
 	</select>
 	

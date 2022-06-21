@@ -1,11 +1,8 @@
 package com.mizhousoft.bmc.role.service.impl;
 
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +36,8 @@ public class RoleServiceImpl implements RoleService
 	@Override
 	public void addRole(Role role) throws BMCException
 	{
-		Set<String> srvIds = new HashSet<>(Arrays.asList(role.getSrvId()));
-
 		RolePageRequest request = new RolePageRequest();
-		request.setSrvIds(srvIds);
+		request.setSrvId(role.getSrvId());
 		List<Role> list = roleMapper.findPageData(0, request);
 
 		Optional<Role> optional = list.stream().filter(item -> item.getDisplayNameCN().equals(role.getDisplayNameCN())).findFirst();
@@ -60,10 +55,8 @@ public class RoleServiceImpl implements RoleService
 	@Override
 	public void modifyRole(Role role) throws BMCException
 	{
-		Set<String> srvIds = new HashSet<>(Arrays.asList(role.getSrvId()));
-
 		RolePageRequest request = new RolePageRequest();
-		request.setSrvIds(srvIds);
+		request.setSrvId(role.getSrvId());
 		List<Role> list = roleMapper.findPageData(0, request);
 
 		Optional<Role> optional = list.stream()

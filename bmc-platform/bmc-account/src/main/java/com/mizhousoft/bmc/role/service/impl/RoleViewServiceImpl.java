@@ -26,7 +26,7 @@ import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
-import com.mizhousoft.boot.authentication.service.AuthenticationServiceProvider;
+import com.mizhousoft.boot.authentication.service.ApplicationServiceIdProvider;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.data.domain.Page;
 
@@ -54,7 +54,7 @@ public class RoleViewServiceImpl implements RoleViewService
 	private ApplicationEventPublisher eventPublisher;
 
 	@Autowired
-	private AuthenticationServiceProvider authenticationServiceProvider;
+	private ApplicationServiceIdProvider serviceIdProvider;
 
 	/**
 	 * {@inheritDoc}
@@ -65,11 +65,11 @@ public class RoleViewServiceImpl implements RoleViewService
 	{
 		Role role = new Role();
 
-		String mainSrvId = authenticationServiceProvider.getMainServiceId();
+		String serviceId = serviceIdProvider.getServiceId();
 		String name = RandomGenerator.genHexString(16, true);
 
 		role.setType(RoleType.GeneralRole.getValue());
-		role.setSrvId(mainSrvId);
+		role.setSrvId(serviceId);
 		role.setName(name);
 		role.setDisplayNameCN(request.getName());
 		role.setDisplayNameUS(request.getName());
@@ -164,20 +164,17 @@ public class RoleViewServiceImpl implements RoleViewService
 	@Override
 	public List<Permission> queryPermissionsByRoleName(String roleName)
 	{
-		Set<String> srvIds = authenticationServiceProvider.listServiceIds();
+		String serviceId = serviceIdProvider.getServiceId();
 		List<RolePermission> rolePerms = rolePermissionService.queryByRoleName(roleName);
 
 		List<Permission> permissions = new ArrayList<>(10);
 		for (RolePermission rolePerm : rolePerms)
 		{
-			for (String srvId : srvIds)
+			Permission permission = permissionService.getByName(serviceId, rolePerm.getPermName());
+			if (null != permission)
 			{
-				Permission permission = permissionService.getByName(srvId, rolePerm.getPermName());
-				if (null != permission)
-				{
-					permissions.add(permission);
-					break;
-				}
+				permissions.add(permission);
+				break;
 			}
 		}
 
@@ -192,8 +189,8 @@ public class RoleViewServiceImpl implements RoleViewService
 	{
 		request.setName(StringUtils.trimToNull(request.getName()));
 
-		Set<String> srvIds = authenticationServiceProvider.listServiceIds();
-		request.setSrvIds(srvIds);
+		String serviceId = serviceIdProvider.getServiceId();
+		request.setSrvId(serviceId);
 
 		Page<Role> page = roleService.queryPageData(request);
 

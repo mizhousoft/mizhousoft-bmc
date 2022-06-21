@@ -1,8 +1,6 @@
 package com.mizhousoft.bmc.role.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.PermissionViewService;
-import com.mizhousoft.boot.authentication.service.AuthenticationServiceProvider;
+import com.mizhousoft.boot.authentication.service.ApplicationServiceIdProvider;
 
 /**
  * 权限视图服务
@@ -24,7 +22,7 @@ public class PermissionViewServiceImpl implements PermissionViewService
 	private PermissionService permissionService;
 
 	@Autowired
-	private AuthenticationServiceProvider authenticationServiceProvider;
+	private ApplicationServiceIdProvider serviceIdProvider;
 
 	/**
 	 * {@inheritDoc}
@@ -32,16 +30,10 @@ public class PermissionViewServiceImpl implements PermissionViewService
 	@Override
 	public List<Permission> queryAuthzPermissions()
 	{
-		Set<String> srvIds = authenticationServiceProvider.listServiceIds();
+		String serviceId = serviceIdProvider.getServiceId();
 
-		List<Permission> permissions = new ArrayList<>(10);
-		for (String srvId : srvIds)
-		{
-			List<Permission> list = permissionService.queryAuthzPermissions(srvId);
-			permissions.addAll(list);
-		}
+		List<Permission> permissions = permissionService.queryAuthzPermissions(serviceId);
 
 		return permissions;
 	}
-
 }
