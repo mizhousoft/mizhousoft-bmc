@@ -8,7 +8,6 @@ import static com.mizhousoft.bmc.system.constant.PasswordStrategyConstants.REMIN
 import static com.mizhousoft.bmc.system.constant.PasswordStrategyConstants.VALIDDAY;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.BMCException;
@@ -22,50 +21,38 @@ import com.mizhousoft.bmc.system.service.PasswordStrategyService;
  * @version
  */
 @Service
-public class PasswordStrategyServiceImpl implements PasswordStrategyService, CommandLineRunner
+public class PasswordStrategyServiceImpl implements PasswordStrategyService
 {
 	@Autowired
 	private FieldDictService fieldDictService;
 
-	private PasswordStrategy passwordStrategy;
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PasswordStrategy getPasswordStrategy()
-	{
-		return passwordStrategy;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void modifyPasswordStrategy(PasswordStrategy strategy) throws BMCException
-	{
-		fieldDictService.putValue(DOMAIN, CHARAPPEARSIZE, strategy.getCharAppearSize());
-		fieldDictService.putValue(DOMAIN, HISTORYREPEATSIZE, strategy.getHistoryRepeatSize());
-		fieldDictService.putValue(DOMAIN, MODIFYTIMEINTERVAL, strategy.getModifyTimeInterval());
-		fieldDictService.putValue(DOMAIN, REMINDERMODIFYDAY, strategy.getReminderModifyDay());
-		fieldDictService.putValue(DOMAIN, VALIDDAY, strategy.getValidDay());
-
-		this.passwordStrategy = strategy;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) throws Exception
+	public PasswordStrategy getPasswordStrategy(String srvId)
 	{
 		PasswordStrategy strategy = new PasswordStrategy();
-		strategy.setCharAppearSize(fieldDictService.getIntValue(DOMAIN, CHARAPPEARSIZE));
-		strategy.setHistoryRepeatSize(fieldDictService.getIntValue(DOMAIN, HISTORYREPEATSIZE));
-		strategy.setModifyTimeInterval(fieldDictService.getIntValue(DOMAIN, MODIFYTIMEINTERVAL));
-		strategy.setReminderModifyDay(fieldDictService.getIntValue(DOMAIN, REMINDERMODIFYDAY));
-		strategy.setValidDay(fieldDictService.getIntValue(DOMAIN, VALIDDAY));
 
-		passwordStrategy = strategy;
+		strategy.setCharAppearSize(fieldDictService.getIntValue(srvId, DOMAIN, CHARAPPEARSIZE));
+		strategy.setHistoryRepeatSize(fieldDictService.getIntValue(srvId, DOMAIN, HISTORYREPEATSIZE));
+		strategy.setModifyTimeInterval(fieldDictService.getIntValue(srvId, DOMAIN, MODIFYTIMEINTERVAL));
+		strategy.setReminderModifyDay(fieldDictService.getIntValue(srvId, DOMAIN, REMINDERMODIFYDAY));
+		strategy.setValidDay(fieldDictService.getIntValue(srvId, DOMAIN, VALIDDAY));
+
+		return strategy;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void modifyPasswordStrategy(String srvId, PasswordStrategy strategy) throws BMCException
+	{
+		fieldDictService.putValue(srvId, DOMAIN, CHARAPPEARSIZE, strategy.getCharAppearSize());
+		fieldDictService.putValue(srvId, DOMAIN, HISTORYREPEATSIZE, strategy.getHistoryRepeatSize());
+		fieldDictService.putValue(srvId, DOMAIN, MODIFYTIMEINTERVAL, strategy.getModifyTimeInterval());
+		fieldDictService.putValue(srvId, DOMAIN, REMINDERMODIFYDAY, strategy.getReminderModifyDay());
+		fieldDictService.putValue(srvId, DOMAIN, VALIDDAY, strategy.getValidDay());
 	}
 }

@@ -12,6 +12,9 @@ public class JSONDict
 	// ID
 	private int id;
 
+	// 服务ID
+	private String srvId;
+
 	// key
 	private String key;
 
@@ -42,6 +45,26 @@ public class JSONDict
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+
+	/**
+	 * 获取srvId
+	 * 
+	 * @return
+	 */
+	public String getSrvId()
+	{
+		return srvId;
+	}
+
+	/**
+	 * 设置srvId
+	 * 
+	 * @param srvId
+	 */
+	public void setSrvId(String srvId)
+	{
+		this.srvId = srvId;
 	}
 
 	/**

@@ -5,6 +5,7 @@
 
 	<resultMap type="com.mizhousoft.bmc.auditlog.domain.SystemLog" id="SystemLogMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srvId" />
 		<result property="logLevel" column="logLevel" />
 		<result property="source" column="source" />
 		<result property="baseInfo" column="baseInfo" />
@@ -15,19 +16,22 @@
 	</resultMap>
 	
 	<sql id="resultColumns">
-		id, logLevel, source, baseInfo, result, detail, addInfo, creationTime
+		id, srvId, logLevel, source, baseInfo, result, detail, addInfo, creationTime
 	</sql>
 
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_system_log (logLevel, source, baseInfo, result, detail, addInfo, creationTime)
-		values(#{logLevel}, #{source}, #{baseInfo}, #{result}, #{detail}, #{addInfo}, #{creationTime})
+		insert into bmc_system_log (srvId, logLevel, source, baseInfo, result, detail, addInfo, creationTime)
+		values(#{srvId}, #{logLevel}, #{source}, #{baseInfo}, #{result}, #{detail}, #{addInfo}, #{creationTime})
 	</insert>
 
 	<select id="countTotal" resultType="Long">
 		select count(id) from bmc_system_log
 		<where>
+			<if test="request != null and request.srvId != null">
+		   		srvId = #{request.srvId}
+		  	</if>
 			<if test="request != null and request.logLevels != null and request.logLevels.length > 0">
-		   		logLevel in 
+		   		and logLevel in 
 				<foreach collection="request.logLevels" item="logLevel" open="(" separator="," close=")">
 					#{logLevel}
 				</foreach>
@@ -53,8 +57,11 @@
 	<select id="findPageData" parameterType="java.util.Map" resultMap="SystemLogMap">
 		select <include refid="resultColumns" /> from bmc_system_log 
 		<where>
+			<if test="request != null and request.srvId != null">
+		   		srvId = #{request.srvId}
+		  	</if>
 			<if test="request != null and request.logLevels != null and request.logLevels.length > 0">
-		   		logLevel in 
+		   		and logLevel in 
 				<foreach collection="request.logLevels" item="logLevel" open="(" separator="," close=")">
 					#{logLevel}
 				</foreach>

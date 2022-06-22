@@ -5,6 +5,7 @@
 
 	<resultMap type="com.mizhousoft.bmc.auditlog.domain.ApiAuditLog" id="ApiAuditLogMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srvId" />
 		<result property="logLevel" column="logLevel" />
 		<result property="operation" column="operation" />
 		<result property="source" column="source" />
@@ -16,19 +17,22 @@
 	</resultMap>
 
 	<sql id="resultColumns">
-		id, logLevel, operation, source, terminal, result, detail, addInfo, creationTime
+		id, srvId, logLevel, operation, source, terminal, result, detail, addInfo, creationTime
 	</sql>
 
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_api_log (operation, logLevel, source, terminal, result, detail, addInfo, creationTime)
-		values(#{operation}, #{logLevel}, #{source}, #{terminal}, #{result}, #{detail}, #{addInfo}, #{creationTime})
+		insert into bmc_api_log (srvId, operation, logLevel, source, terminal, result, detail, addInfo, creationTime)
+		values(#{srvId}, #{operation}, #{logLevel}, #{source}, #{terminal}, #{result}, #{detail}, #{addInfo}, #{creationTime})
 	</insert>
 	
 	<select id="countTotal" resultType="Long">
 		select count(id) from bmc_api_log
 		<where>
+			<if test="request != null and request.srvId != null">
+		   		srvId = #{request.srvId}
+		  	</if>
 			<if test="request != null and request.logLevels != null and request.logLevels.length > 0">
-		   		logLevel in 
+		   		and logLevel in 
 				<foreach collection="request.logLevels" item="logLevel" open="(" separator="," close=")">
 					#{logLevel}
 				</foreach>
@@ -57,8 +61,11 @@
 	<select id="findPageData" parameterType="java.util.Map" resultMap="ApiAuditLogMap">
 		select <include refid="resultColumns" /> from bmc_api_log
 		<where>
+			<if test="request != null and request.srvId != null">
+		   		srvId = #{request.srvId}
+		  	</if>
 			<if test="request != null and request.logLevels != null and request.logLevels.length > 0">
-		   		logLevel in 
+		   		and logLevel in 
 				<foreach collection="request.logLevels" item="logLevel" open="(" separator="," close=")">
 					#{logLevel}
 				</foreach>

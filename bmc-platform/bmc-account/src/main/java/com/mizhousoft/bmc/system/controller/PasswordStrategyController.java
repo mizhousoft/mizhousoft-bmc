@@ -21,6 +21,7 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.system.domain.PasswordStrategy;
 import com.mizhousoft.bmc.system.request.PasswordStrategyReqesut;
 import com.mizhousoft.bmc.system.service.PasswordStrategyService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -38,19 +39,25 @@ public class PasswordStrategyController extends BaseAuditController
 	@Autowired
 	private PasswordStrategyService passwordStrategyService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	@RequestMapping(value = "/system/fetchPasswordStrategy.action", method = RequestMethod.GET)
 	public ModelMap fetchPasswordStrategy()
 	{
 		ModelMap map = new ModelMap();
 
-		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
+		String serviceId = applicationAuthService.getServiceId();
+
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy(serviceId);
 		map.put("strategy", passwordStrategy);
 
 		return map;
 	}
 
 	@RequestMapping(value = "/system/modifyPasswordStrategy.action", method = RequestMethod.POST)
-	public ActionResponse modifyPasswordStrategy(@Valid @RequestBody PasswordStrategyReqesut request, BindingResult result)
+	public ActionResponse modifyPasswordStrategy(@Valid @RequestBody
+	PasswordStrategyReqesut request, BindingResult result)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
@@ -68,6 +75,8 @@ public class PasswordStrategyController extends BaseAuditController
 			}
 			else
 			{
+				String serviceId = applicationAuthService.getServiceId();
+
 				PasswordStrategy passwordStrategy = new PasswordStrategy();
 				passwordStrategy.setId(request.getId());
 				passwordStrategy.setHistoryRepeatSize(request.getHistoryRepeatSize());
@@ -76,7 +85,7 @@ public class PasswordStrategyController extends BaseAuditController
 				passwordStrategy.setReminderModifyDay(request.getReminderModifyDay());
 				passwordStrategy.setValidDay(request.getValidDay());
 
-				passwordStrategyService.modifyPasswordStrategy(passwordStrategy);
+				passwordStrategyService.modifyPasswordStrategy(serviceId, passwordStrategy);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

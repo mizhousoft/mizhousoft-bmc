@@ -8,7 +8,6 @@ import static com.mizhousoft.bmc.system.constant.AccountStrategyConstants.LOGINL
 import static com.mizhousoft.bmc.system.constant.AccountStrategyConstants.TIMELIMITPERIOD;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.BMCException;
@@ -22,50 +21,38 @@ import com.mizhousoft.bmc.system.service.AccountStrategyService;
  * @version
  */
 @Service
-public class AccountStrategyServiceImpl implements AccountStrategyService, CommandLineRunner
+public class AccountStrategyServiceImpl implements AccountStrategyService
 {
 	@Autowired
 	private FieldDictService fieldDictService;
 
-	private AccountStrategy accountStrategy;
-
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public AccountStrategy getAccountStrategy()
-	{
-		return accountStrategy;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void modifyAccountStrategy(AccountStrategy accountStrategy) throws BMCException
-	{
-		fieldDictService.putValue(DOMAIN, ACCOUNTUNUSEDDAY, accountStrategy.getAccountUnusedDay());
-		fieldDictService.putValue(DOMAIN, TIMELIMITPERIOD, accountStrategy.getTimeLimitPeriod());
-		fieldDictService.putValue(DOMAIN, LOGINLIMITNUMBER, accountStrategy.getLoginLimitNumber());
-		fieldDictService.putValue(DOMAIN, LOCKTIMESTRATEGY, accountStrategy.getLockTimeStrategy());
-		fieldDictService.putValue(DOMAIN, ACCOUNTLOCKTIME, accountStrategy.getAccountLockTime());
-
-		this.accountStrategy = accountStrategy;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) throws Exception
+	public AccountStrategy getAccountStrategy(String srvId)
 	{
 		AccountStrategy strategy = new AccountStrategy();
-		strategy.setAccountUnusedDay(fieldDictService.getIntValue(DOMAIN, ACCOUNTUNUSEDDAY));
-		strategy.setTimeLimitPeriod(fieldDictService.getIntValue(DOMAIN, TIMELIMITPERIOD));
-		strategy.setLoginLimitNumber(fieldDictService.getIntValue(DOMAIN, LOGINLIMITNUMBER));
-		strategy.setLockTimeStrategy(fieldDictService.getIntValue(DOMAIN, LOCKTIMESTRATEGY));
-		strategy.setAccountLockTime(fieldDictService.getIntValue(DOMAIN, ACCOUNTLOCKTIME));
 
-		this.accountStrategy = strategy;
+		strategy.setAccountUnusedDay(fieldDictService.getIntValue(srvId, DOMAIN, ACCOUNTUNUSEDDAY));
+		strategy.setTimeLimitPeriod(fieldDictService.getIntValue(srvId, DOMAIN, TIMELIMITPERIOD));
+		strategy.setLoginLimitNumber(fieldDictService.getIntValue(srvId, DOMAIN, LOGINLIMITNUMBER));
+		strategy.setLockTimeStrategy(fieldDictService.getIntValue(srvId, DOMAIN, LOCKTIMESTRATEGY));
+		strategy.setAccountLockTime(fieldDictService.getIntValue(srvId, DOMAIN, ACCOUNTLOCKTIME));
+
+		return strategy;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void modifyAccountStrategy(String srvId, AccountStrategy accountStrategy) throws BMCException
+	{
+		fieldDictService.putValue(srvId, DOMAIN, ACCOUNTUNUSEDDAY, accountStrategy.getAccountUnusedDay());
+		fieldDictService.putValue(srvId, DOMAIN, TIMELIMITPERIOD, accountStrategy.getTimeLimitPeriod());
+		fieldDictService.putValue(srvId, DOMAIN, LOGINLIMITNUMBER, accountStrategy.getLoginLimitNumber());
+		fieldDictService.putValue(srvId, DOMAIN, LOCKTIMESTRATEGY, accountStrategy.getLockTimeStrategy());
+		fieldDictService.putValue(srvId, DOMAIN, ACCOUNTLOCKTIME, accountStrategy.getAccountLockTime());
 	}
 }

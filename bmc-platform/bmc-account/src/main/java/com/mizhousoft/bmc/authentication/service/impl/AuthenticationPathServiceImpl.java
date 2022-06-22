@@ -7,25 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mizhousoft.bmc.role.service.PermissionService;
-import com.mizhousoft.boot.authentication.service.RequestPathService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
+import com.mizhousoft.boot.authentication.service.AuthenticationPathService;
 
 /**
  * 请求路径服务
  *
  * @version
  */
-@Service(value = "RequestPathServiceImpl")
-public class RequestPathServiceImpl implements RequestPathService
+@Service
+public class AuthenticationPathServiceImpl implements AuthenticationPathService
 {
 	@Autowired
 	private PermissionService permissionService;
+
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthcRequestPaths(String serviceId)
+	public List<String> getAuthcRequestPaths()
 	{
+		String serviceId = applicationAuthService.getServiceId();
+
 		return permissionService.queryAuthcRequestPaths(serviceId);
 	}
 
@@ -33,8 +39,10 @@ public class RequestPathServiceImpl implements RequestPathService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryAuthzRequestPaths(String serviceId)
+	public List<String> getAuthzRequestPaths()
 	{
+		String serviceId = applicationAuthService.getServiceId();
+
 		return permissionService.queryAuthzRequestPaths(serviceId);
 	}
 
@@ -42,7 +50,7 @@ public class RequestPathServiceImpl implements RequestPathService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryLoginAuditRequestPaths(String serviceId)
+	public List<String> getLoginRequestPaths()
 	{
 		List<String> requestPaths = new ArrayList<>(10);
 
@@ -59,7 +67,7 @@ public class RequestPathServiceImpl implements RequestPathService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<String> queryNonUpdateAccessTimeRequestPaths(String serviceId)
+	public List<String> getNonUpdateAccessTimeRequestPaths()
 	{
 		return new ArrayList<>(0);
 	}

@@ -13,15 +13,17 @@ public interface AccountStrategyService
 	/**
 	 * 查找唯一的帐号策略
 	 * 
+	 * @param srvId
 	 * @return
 	 */
-	AccountStrategy getAccountStrategy();
+	AccountStrategy getAccountStrategy(String srvId);
 
 	/**
 	 * 修改帐号策略
 	 * 
+	 * @param srvId
 	 * @param accountStrategy
 	 * @throws BMCException
 	 */
-	void modifyAccountStrategy(AccountStrategy accountStrategy) throws BMCException;
+	void modifyAccountStrategy(String srvId, AccountStrategy accountStrategy) throws BMCException;
 }

@@ -12,6 +12,9 @@ public abstract class BaseAuditLog
 	// ID
 	private long id;
 
+	// 服务ID
+	private String srvId;
+
 	// 日志级别
 	private String logLevel;
 
@@ -48,6 +51,26 @@ public abstract class BaseAuditLog
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	/**
+	 * 获取srvId
+	 * 
+	 * @return
+	 */
+	public String getSrvId()
+	{
+		return srvId;
+	}
+
+	/**
+	 * 设置srvId
+	 * 
+	 * @param srvId
+	 */
+	public void setSrvId(String srvId)
+	{
+		this.srvId = srvId;
 	}
 
 	/**

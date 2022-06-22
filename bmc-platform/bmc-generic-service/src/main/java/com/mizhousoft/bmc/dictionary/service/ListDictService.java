@@ -14,26 +14,29 @@ public interface ListDictService
 	/**
 	 * 获取名称
 	 * 
+	 * @param srvId
 	 * @param domain
 	 * @param key
 	 * @return
 	 */
-	String getName(String domain, String key);
+	String getName(String srvId, String domain, String key);
 
 	/**
 	 * 获取Field
 	 * 
+	 * @param srvId
 	 * @param domain
 	 * @param key
 	 * @return
 	 */
-	Field getField(String domain, String key);
+	Field getField(String srvId, String domain, String key);
 
 	/**
 	 * 根据domain查询
 	 * 
+	 * @param srvId
 	 * @param domain
 	 * @return
 	 */
-	List<Field> queryByDomain(String domain);
+	List<Field> queryByDomain(String srvId, String domain);
 }

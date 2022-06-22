@@ -26,7 +26,7 @@ import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
-import com.mizhousoft.boot.authentication.service.ApplicationServiceIdProvider;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.data.domain.Page;
 
@@ -54,7 +54,7 @@ public class RoleViewServiceImpl implements RoleViewService
 	private ApplicationEventPublisher eventPublisher;
 
 	@Autowired
-	private ApplicationServiceIdProvider serviceIdProvider;
+	private ApplicationAuthenticationService serviceIdProvider;
 
 	/**
 	 * {@inheritDoc}

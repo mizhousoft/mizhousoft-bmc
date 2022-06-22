@@ -35,6 +35,7 @@ import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.system.domain.AccountStrategy;
 import com.mizhousoft.bmc.system.service.AccountStrategyService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
 import com.mizhousoft.commons.data.util.PageUtils;
@@ -71,6 +72,9 @@ public class AccountViewServiceImpl implements AccountViewService
 
 	@Autowired
 	private AccountStrategyService accountStrategyService;
+
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
 
 	/**
 	 * {@inheritDoc}
@@ -130,7 +134,9 @@ public class AccountViewServiceImpl implements AccountViewService
 		Date lastAccessTime = account.getLastAccessTime();
 		if (null != lastAccessTime)
 		{
-			AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
+			String serviceId = applicationAuthService.getServiceId();
+
+			AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 			int unusedDay = accountStrategy.getAccountUnusedDay();
 
 			Calendar cal = Calendar.getInstance();

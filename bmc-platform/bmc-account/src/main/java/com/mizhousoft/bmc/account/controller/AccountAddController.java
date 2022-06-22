@@ -72,7 +72,8 @@ public class AccountAddController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/account/addAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse addAccount(@Valid @RequestBody AccountNewRequest request, BindingResult bindingResult)
+	public ActionResponse addAccount(@Valid @RequestBody
+	AccountNewRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

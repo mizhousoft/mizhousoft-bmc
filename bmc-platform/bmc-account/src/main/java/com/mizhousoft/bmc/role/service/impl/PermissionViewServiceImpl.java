@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.PermissionViewService;
-import com.mizhousoft.boot.authentication.service.ApplicationServiceIdProvider;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 
 /**
  * 权限视图服务
@@ -22,7 +22,7 @@ public class PermissionViewServiceImpl implements PermissionViewService
 	private PermissionService permissionService;
 
 	@Autowired
-	private ApplicationServiceIdProvider serviceIdProvider;
+	private ApplicationAuthenticationService serviceIdProvider;
 
 	/**
 	 * {@inheritDoc}

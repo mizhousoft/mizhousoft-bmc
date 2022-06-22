@@ -14,6 +14,9 @@ public class AuditLogPageRequest extends PageRequest
 {
 	private static final long serialVersionUID = -2461181741359339018L;
 
+	// 服务ID
+	private String srvId;
+
 	// 日志级别
 	private String[] logLevels;
 
@@ -42,6 +45,26 @@ public class AuditLogPageRequest extends PageRequest
 
 	// 基本信息
 	private String baseInfo;
+
+	/**
+	 * 获取srvId
+	 * 
+	 * @return
+	 */
+	public String getSrvId()
+	{
+		return srvId;
+	}
+
+	/**
+	 * 设置srvId
+	 * 
+	 * @param srvId
+	 */
+	public void setSrvId(String srvId)
+	{
+		this.srvId = srvId;
+	}
 
 	/**
 	 * 获取logLevels

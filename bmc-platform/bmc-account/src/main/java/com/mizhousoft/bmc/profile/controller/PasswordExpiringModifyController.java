@@ -62,7 +62,8 @@ public class PasswordExpiringModifyController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/setting/password/modifyExpiringPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse modifyExpiringPassword(@Valid @RequestBody AccountPasswordRequest request, BindingResult bindingResult)
+	public ActionResponse modifyExpiringPassword(@Valid @RequestBody
+	AccountPasswordRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

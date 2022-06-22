@@ -5,6 +5,7 @@
 
 	<resultMap type="com.mizhousoft.bmc.dictionary.domain.FieldDict" id="FieldDictMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srv_id" />
 		<result property="domain" column="domain" />
 		<result property="key" column="key_x" />
 		<result property="value" column="value" />
@@ -17,9 +18,9 @@
 	</update>
 	
 	<select id="findByDomain" resultMap="FieldDictMap">
-		select id, domain, key_x, value, utime, ctime
+		select id, srv_id, domain, key_x, value, utime, ctime
 		from bmc_dict_field
-		where domain = #{domain}
+		where srv_id = #{srvId} and domain = #{domain}
 	</select>
 	
 </mapper>

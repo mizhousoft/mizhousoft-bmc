@@ -25,14 +25,14 @@ public class JSONDictServiceImpl implements JSONDictService
 	@Autowired
 	private JSONDictMapper dictMapper;
 
-	// 缓存 <key, JSONDict>，5分钟内有效
+	// 缓存 <srvId-key, JSONDict>，5分钟内有效
 	private Cache<String, JSONDict> cache = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void putValue(String key, Object object) throws JSONException
+	public void putValue(String srvId, String key, Object object) throws JSONException
 	{
 		String value = null;
 		if (null != object)
@@ -42,17 +42,20 @@ public class JSONDictServiceImpl implements JSONDictService
 
 		synchronized (this)
 		{
-			JSONDict jsonDict = getJSONDict(key);
+			String cacheKey = buildCacheKey(srvId, key);
+
+			JSONDict jsonDict = getJSONDict(srvId, key);
 			if (null == jsonDict)
 			{
 				JSONDict newDict = new JSONDict();
+				newDict.setSrvId(srvId);
 				newDict.setKey(key);
 				newDict.setValue(value);
 				newDict.setUtime(new Date());
 				newDict.setCtime(newDict.getUtime());
 				dictMapper.save(newDict);
 
-				cache.put(key, newDict);
+				cache.put(cacheKey, newDict);
 			}
 			else
 			{
@@ -68,7 +71,7 @@ public class JSONDictServiceImpl implements JSONDictService
 				jsonDict.setValue(value);
 				jsonDict.setUtime(new Date());
 
-				cache.put(key, jsonDict);
+				cache.put(cacheKey, jsonDict);
 			}
 		}
 	}
@@ -77,9 +80,9 @@ public class JSONDictServiceImpl implements JSONDictService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public <T> T getValue(String key, Class<T> clazz) throws JSONException
+	public <T> T getValue(String srvId, String key, Class<T> clazz) throws JSONException
 	{
-		JSONDict jsonDict = getJSONDict(key);
+		JSONDict jsonDict = getJSONDict(srvId, key);
 		if (null != jsonDict)
 		{
 			String value = jsonDict.getValue();
@@ -96,29 +99,38 @@ public class JSONDictServiceImpl implements JSONDictService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void delete(String key)
+	public void delete(String srvId, String key)
 	{
-		JSONDict jsonDict = cache.getIfPresent(key);
+		String cacheKey = buildCacheKey(srvId, key);
+
+		JSONDict jsonDict = cache.getIfPresent(cacheKey);
 		if (null != jsonDict)
 		{
-			cache.invalidate(key);
+			cache.invalidate(cacheKey);
 
 			dictMapper.delete(jsonDict.getId());
 		}
 	}
 
-	private synchronized JSONDict getJSONDict(String key)
+	private synchronized JSONDict getJSONDict(String srvId, String key)
 	{
-		JSONDict jsonDict = cache.getIfPresent(key);
+		String cacheKey = buildCacheKey(srvId, key);
+
+		JSONDict jsonDict = cache.getIfPresent(cacheKey);
 		if (null == jsonDict)
 		{
-			jsonDict = dictMapper.findByKey(key);
+			jsonDict = dictMapper.findByKey(srvId, key);
 			if (null != jsonDict)
 			{
-				cache.put(key, jsonDict);
+				cache.put(cacheKey, jsonDict);
 			}
 		}
 
 		return jsonDict;
+	}
+
+	private String buildCacheKey(String srvId, String key)
+	{
+		return srvId + "-" + key;
 	}
 }

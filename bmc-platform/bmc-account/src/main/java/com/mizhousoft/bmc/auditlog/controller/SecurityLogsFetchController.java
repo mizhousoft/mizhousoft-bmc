@@ -17,6 +17,7 @@ import com.mizhousoft.bmc.auditlog.request.AuditLogPageRequest;
 import com.mizhousoft.bmc.auditlog.service.SecurityLogService;
 import com.mizhousoft.bmc.auditlog.util.AuditLogI18nUtils;
 import com.mizhousoft.bmc.auditlog.util.AuditLogRequestUtils;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
 import com.mizhousoft.commons.lang.DateUtils;
@@ -32,10 +33,17 @@ public class SecurityLogsFetchController
 	@Autowired
 	private SecurityLogService securityLogService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	@RequestMapping(value = "/auditlog/fetchSecurityLogs.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelMap fetchSecurityLogs(@RequestBody AuditLogPageRequest request)
+	public ModelMap fetchSecurityLogs(@RequestBody
+	AuditLogPageRequest request)
 	{
 		AuditLogRequestUtils.handleRequest(request);
+
+		String serviceId = applicationAuthService.getServiceId();
+		request.setSrvId(serviceId);
 
 		ModelMap map = new ModelMap();
 

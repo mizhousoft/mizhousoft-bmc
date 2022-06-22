@@ -27,6 +27,7 @@ import com.mizhousoft.bmc.system.domain.PasswordStrategy;
 import com.mizhousoft.bmc.system.service.PasswordStrategyService;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -50,19 +51,25 @@ public class PasswordModifyController extends BaseAuditController
 	@Autowired
 	private PasswordStrategyService passwordStrategyService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	@RequestMapping(value = "/setting/password/fetchPasswordStrategy.action", method = RequestMethod.GET)
 	public ModelMap fetchAccountPasswordStrategy()
 	{
 		ModelMap map = new ModelMap();
 
-		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
+		String serviceId = applicationAuthService.getServiceId();
+
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy(serviceId);
 		map.put("passwordStrategy", passwordStrategy);
 
 		return map;
 	}
 
 	@RequestMapping(value = "/setting/password/modifyPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse modifyPassword(@Valid @RequestBody AccountPasswordRequest request, BindingResult bindingResult)
+	public ActionResponse modifyPassword(@Valid @RequestBody
+	AccountPasswordRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

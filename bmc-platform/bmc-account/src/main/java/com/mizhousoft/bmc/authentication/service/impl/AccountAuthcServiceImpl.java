@@ -44,6 +44,7 @@ import com.mizhousoft.boot.authentication.exception.AuthenticationException;
 import com.mizhousoft.boot.authentication.exception.BadCredentialsException;
 import com.mizhousoft.boot.authentication.impl.AccountImpl;
 import com.mizhousoft.boot.authentication.service.AccountAuthcService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.boot.authentication.service.TwoFactorAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
@@ -83,6 +84,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 	@Autowired
 	private TwoFactorAuthenticationService twoFactorAuthenticationService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	// 认证失败帐号集合
 	private Map<String, AuthFaildAccount> authFailedAccountMap = new ConcurrentHashMap<String, AuthFaildAccount>(1000);
 
@@ -109,7 +113,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 
 	private AccountDetails doAuthenticate(String account, char[] passwd, String host) throws AuthenticationException
 	{
-		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
+		String serviceId = applicationAuthService.getServiceId();
+
+		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 
 		// 查询帐号
 		AuthAccount authAccount = queryAuthAccount(account, accountStrategy);
@@ -312,8 +318,10 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		boolean credentialsExpired = false;
 		boolean remindModifyPasswd = false;
 
+		String serviceId = applicationAuthService.getServiceId();
+
 		// 判断密码是否过期
-		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy(serviceId);
 
 		int validDay = passwordStrategy.getValidDay();
 		int reminderModifyDay = passwordStrategy.getReminderModifyDay();

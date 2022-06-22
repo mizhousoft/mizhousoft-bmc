@@ -14,6 +14,7 @@ import com.mizhousoft.bmc.auditlog.service.ApiAuditLogService;
 import com.mizhousoft.bmc.auditlog.service.OperationLogService;
 import com.mizhousoft.bmc.auditlog.service.SecurityLogService;
 import com.mizhousoft.bmc.auditlog.service.SystemLogService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 
 /**
  * 审计日志服务
@@ -37,12 +38,18 @@ public class AduitLogServiceImpl implements AduitLogService
 	@Autowired
 	private ApiAuditLogService apiAuditLogService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void addOperationLog(OperationLog operationLog)
 	{
+		String serviceId = applicationAuthService.getServiceId();
+		operationLog.setSrvId(serviceId);
+
 		try
 		{
 			operationLogService.addOperationLog(operationLog);
@@ -59,6 +66,9 @@ public class AduitLogServiceImpl implements AduitLogService
 	@Override
 	public void addSecurityLog(SecurityLog securityLog)
 	{
+		String serviceId = applicationAuthService.getServiceId();
+		securityLog.setSrvId(serviceId);
+
 		try
 		{
 			securityLogService.addSecurityLog(securityLog);
@@ -75,6 +85,9 @@ public class AduitLogServiceImpl implements AduitLogService
 	@Override
 	public void addSystemLog(SystemLog systemLog)
 	{
+		String serviceId = applicationAuthService.getServiceId();
+		systemLog.setSrvId(serviceId);
+
 		try
 		{
 			systemLogService.addSystemLog(systemLog);
@@ -91,6 +104,9 @@ public class AduitLogServiceImpl implements AduitLogService
 	@Override
 	public void addApiAuditLog(ApiAuditLog apiAuditLog)
 	{
+		String serviceId = applicationAuthService.getServiceId();
+		apiAuditLog.setSrvId(serviceId);
+
 		try
 		{
 			apiAuditLogService.addApiAuditLog(apiAuditLog);

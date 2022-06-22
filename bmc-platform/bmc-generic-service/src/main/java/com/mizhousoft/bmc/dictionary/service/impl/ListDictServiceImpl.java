@@ -24,15 +24,16 @@ public class ListDictServiceImpl implements ListDictService
 	@Autowired
 	private FieldDictMapper dictMapper;
 
+	// Map<srvId-domain, List<Field>>
 	private Map<String, List<Field>> dictMap = new ConcurrentHashMap<>(10);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getName(String domain, String key)
+	public String getName(String srvId, String domain, String key)
 	{
-		Field field = getField(domain, key);
+		Field field = getField(srvId, domain, key);
 		if (null != field)
 		{
 			return field.getValue();
@@ -45,9 +46,9 @@ public class ListDictServiceImpl implements ListDictService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Field getField(String domain, String key)
+	public Field getField(String srvId, String domain, String key)
 	{
-		List<Field> list = queryByDomain(domain);
+		List<Field> list = queryByDomain(srvId, domain);
 
 		Field field = list.stream().filter(item -> item.getKey().equals(key)).findFirst().orElse(null);
 
@@ -58,12 +59,13 @@ public class ListDictServiceImpl implements ListDictService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public synchronized List<Field> queryByDomain(String domain)
+	public synchronized List<Field> queryByDomain(String srvId, String domain)
 	{
-		List<Field> list = dictMap.get(domain);
+		String cacheKey = srvId + "-" + domain;
+		List<Field> list = dictMap.get(cacheKey);
 		if (null == list)
 		{
-			List<FieldDict> dicts = dictMapper.findByDomain(domain);
+			List<FieldDict> dicts = dictMapper.findByDomain(srvId, domain);
 
 			list = new ArrayList<>(dicts.size());
 			for (FieldDict dict : dicts)
@@ -73,7 +75,7 @@ public class ListDictServiceImpl implements ListDictService
 				list.add(field);
 			}
 
-			dictMap.put(domain, list);
+			dictMap.put(cacheKey, list);
 		}
 
 		return list;

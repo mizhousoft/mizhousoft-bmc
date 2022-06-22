@@ -21,6 +21,7 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogUtils;
 import com.mizhousoft.bmc.system.domain.AccountStrategy;
 import com.mizhousoft.bmc.system.request.AccountStrategyRequest;
 import com.mizhousoft.bmc.system.service.AccountStrategyService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -38,19 +39,25 @@ public class AccountStrategyController extends BaseAuditController
 	@Autowired
 	private AccountStrategyService accountStrategyService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
 	@RequestMapping(value = "/system/fetchAccountStrategy.action", method = RequestMethod.GET)
 	public ModelMap fetchAccountStrategy()
 	{
 		ModelMap map = new ModelMap();
 
-		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy();
+		String serviceId = applicationAuthService.getServiceId();
+
+		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 		map.put("strategy", accountStrategy);
 
 		return map;
 	}
 
 	@RequestMapping(value = "/system/modifyAccountStrategy.action", method = RequestMethod.POST)
-	public ActionResponse modifyAccountStrategy(@Valid @RequestBody AccountStrategyRequest request, BindingResult result)
+	public ActionResponse modifyAccountStrategy(@Valid @RequestBody
+	AccountStrategyRequest request, BindingResult result)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
@@ -68,6 +75,8 @@ public class AccountStrategyController extends BaseAuditController
 			}
 			else
 			{
+				String serviceId = applicationAuthService.getServiceId();
+
 				AccountStrategy accountStrategy = new AccountStrategy();
 				accountStrategy.setId(request.getId());
 				accountStrategy.setAccountUnusedDay(request.getAccountUnusedDay());
@@ -76,7 +85,7 @@ public class AccountStrategyController extends BaseAuditController
 				accountStrategy.setAccountLockTime(request.getAccountLockTime());
 				accountStrategy.setLockTimeStrategy(request.getLockTimeStrategy());
 
-				accountStrategyService.modifyAccountStrategy(accountStrategy);
+				accountStrategyService.modifyAccountStrategy(serviceId, accountStrategy);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

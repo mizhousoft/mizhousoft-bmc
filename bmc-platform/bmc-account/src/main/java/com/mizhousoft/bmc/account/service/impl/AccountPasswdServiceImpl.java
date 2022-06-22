@@ -20,6 +20,7 @@ import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountUtils;
 import com.mizhousoft.bmc.system.domain.PasswordStrategy;
 import com.mizhousoft.bmc.system.service.PasswordStrategyService;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
 
@@ -41,6 +42,9 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	// 历史密码服务
 	@Autowired
 	private HistoryPasswordService historyPasswordService;
+
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
 
 	/**
 	 * {@inheritDoc}
@@ -174,7 +178,9 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 			throw new BMCException("bmc.account.password.char.illegal", "Password does not contain a-z or A-Z or 0-9 or ~!@#$%^&*()_-+=.");
 		}
 
-		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy();
+		String srvId = applicationAuthService.getServiceId();
+
+		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy(srvId);
 
 		// 检验密码同一个字符出现的次数
 		int charAppearSize = passwdStrategy.getCharAppearSize();
@@ -208,7 +214,9 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	@Override
 	public int calcPasswordExpiringDays(long accountId)
 	{
-		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy();
+		String srvId = applicationAuthService.getServiceId();
+
+		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy(srvId);
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountId, 1);
 		if (CollectionUtils.isNotEmpty(historyPasswords))
@@ -243,7 +251,9 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	 */
 	private void checkHistoryPassword(long id, String newPassword) throws BMCException
 	{
-		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy();
+		String srvId = applicationAuthService.getServiceId();
+
+		PasswordStrategy passwdStrategy = passwordStrategyService.getPasswordStrategy(srvId);
 		int repeatSize = passwdStrategy.getHistoryRepeatSize();
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(id, repeatSize);
