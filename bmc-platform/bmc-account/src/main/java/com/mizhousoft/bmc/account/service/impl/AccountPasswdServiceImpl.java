@@ -16,6 +16,7 @@ import com.mizhousoft.bmc.account.domain.HistoryPassword;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
 import com.mizhousoft.bmc.account.model.AuthAccount;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
+import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.account.service.HistoryPasswordService;
 import com.mizhousoft.bmc.account.util.AccountUtils;
 import com.mizhousoft.bmc.system.domain.PasswordStrategy;
@@ -34,6 +35,9 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 {
 	@Autowired
 	private AccountMapper accountMapper;
+
+	@Autowired
+	private AccountService accountService;
 
 	// 密码策略服务
 	@Autowired
@@ -70,8 +74,12 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void resetPassword(Account account, String password) throws BMCException
+	public Account resetPassword(long id, String password) throws BMCException
 	{
+		String srvId = applicationAuthService.getServiceId();
+
+		Account account = accountService.loadById(srvId, id);
+
 		String name = account.getName();
 
 		// 管理员帐号不能重置密码
@@ -85,7 +93,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		checkPassword(name, password);
 
 		// 查询帐号
-		AuthAccount authAccount = accountMapper.findAuthAccount(name);
+		AuthAccount authAccount = accountMapper.findAuthAccount(account.getSrvId(), name);
 		if (null == authAccount)
 		{
 			throw new BMCException("bmc.account.not.exist.error", "Acount not found, name is " + name + ".");
@@ -103,6 +111,8 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		}
 
 		accountMapper.updatePassword(account.getId(), encPasswd);
+
+		return account;
 	}
 
 	/**
@@ -116,7 +126,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		checkPassword(name, newPasswd);
 
 		// 查询帐号
-		AuthAccount authAccount = accountMapper.findAuthAccount(name);
+		AuthAccount authAccount = accountMapper.findAuthAccount(account.getSrvId(), name);
 		if (null == authAccount)
 		{
 			throw new BMCException("bmc.account.not.exist.error", "Acount not found, name is " + name + ".");

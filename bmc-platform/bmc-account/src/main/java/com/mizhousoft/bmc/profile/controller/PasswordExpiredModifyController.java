@@ -19,7 +19,7 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountPasswordRequest;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
-import com.mizhousoft.bmc.account.service.AccountService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -41,7 +41,7 @@ public class PasswordExpiredModifyController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(PasswordExpiredModifyController.class);
 
 	@Autowired
-	private AccountService accountService;
+	private AccountViewService accountService;
 
 	@Autowired
 	private AccountPasswdService accountPasswdService;

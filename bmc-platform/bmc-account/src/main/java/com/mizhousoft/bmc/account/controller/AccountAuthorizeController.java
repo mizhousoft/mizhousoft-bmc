@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountAuthorizeRequest;
-import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.account.service.AccountRoleSerivce;
-import com.mizhousoft.bmc.account.service.AccountService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -50,9 +49,6 @@ public class AccountAuthorizeController extends BaseAuditController
 	private RoleViewService roleViewService;
 
 	@Autowired
-	private AccountService accountService;
-
-	@Autowired
 	private AccountRoleSerivce accountRoleSerivce;
 
 	@Autowired
@@ -76,7 +72,7 @@ public class AccountAuthorizeController extends BaseAuditController
 
 		try
 		{
-			Account account = accountService.loadById(accountId);
+			Account account = accountViewService.loadById(accountId);
 			List<Role> roles = accountViewService.getRoleByAccountId(accountId);
 
 			map.addAttribute("account", account);
@@ -101,7 +97,7 @@ public class AccountAuthorizeController extends BaseAuditController
 
 		try
 		{
-			Account account = accountService.loadById(request.getId());
+			Account account = accountViewService.loadById(request.getId());
 
 			List<Role> roles = roleService.queryByIds(request.getRoleIds());
 			if (roles.size() != request.getRoleIds().size())

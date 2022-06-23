@@ -15,7 +15,6 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountRequest;
 import com.mizhousoft.bmc.account.service.AccountViewService;
-import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -35,9 +34,6 @@ public class AccountDeleteController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(AccountDeleteController.class);
 
 	@Autowired
-	private AccountService accountService;
-
-	@Autowired
 	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/account/deleteAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,10 +44,9 @@ public class AccountDeleteController extends BaseAuditController
 
 		try
 		{
-			Account account = accountService.getById(request.getId());
+			Account account = accountViewService.deleteAccount(request.getId());
 			if (null != account)
 			{
-				accountViewService.deleteAccount(account);
 				operLog = buildOperLog(AuditLogResult.Success, account.toString(), null);
 			}
 			else

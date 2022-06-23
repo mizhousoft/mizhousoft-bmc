@@ -118,7 +118,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 
 		// 查询帐号
-		AuthAccount authAccount = queryAuthAccount(account, accountStrategy);
+		AuthAccount authAccount = queryAuthAccount(serviceId, account, accountStrategy);
 
 		AccountDetails accountDetails = null;
 
@@ -175,9 +175,9 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		}
 	}
 
-	private AuthAccount queryAuthAccount(String account, AccountStrategy accountStrategy) throws AuthenticationException
+	private AuthAccount queryAuthAccount(String serviceId, String account, AccountStrategy accountStrategy) throws AuthenticationException
 	{
-		AuthAccount authAccount = accountMapper.findAuthAccount(account);
+		AuthAccount authAccount = accountMapper.findAuthAccount(serviceId, account);
 		if (null == authAccount)
 		{
 			boolean lockAccount = processAuthFailedAccount(account, accountStrategy);

@@ -2,6 +2,8 @@ package com.mizhousoft.bmc.role.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.commons.mapper.CrudMapper;
 
@@ -15,15 +17,21 @@ public interface RolePermissionMapper extends CrudMapper<RolePermission, Integer
 	/**
 	 * 根据角色名删除
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 */
-	void deleteByRoleName(String roleName);
+	void deleteByRoleName(@Param("srvId")
+	String srvId, @Param("roleName")
+	String roleName);
 
 	/**
 	 * 根据角色名称查询权限
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @return
 	 */
-	List<RolePermission> findByRoleName(String roleName);
+	List<RolePermission> findByRoleName(@Param("srvId")
+	String srvId, @Param("roleName")
+	String roleName);
 }

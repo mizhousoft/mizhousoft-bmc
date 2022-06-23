@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ import com.mizhousoft.commons.data.util.PageUtils;
 @Service
 public class RoleServiceImpl implements RoleService
 {
+	private static final Logger LOG = LoggerFactory.getLogger(RoleServiceImpl.class);
+
 	@Autowired
 	private RoleMapper roleMapper;
 
@@ -73,9 +77,9 @@ public class RoleServiceImpl implements RoleService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Role deleteRole(int id) throws BMCException
+	public Role deleteRole(String srvId, int id) throws BMCException
 	{
-		Role role = getById(id);
+		Role role = getById(srvId, id);
 		if (null == role)
 		{
 			return null;
@@ -109,9 +113,9 @@ public class RoleServiceImpl implements RoleService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Role loadById(int id) throws BMCException
+	public Role loadById(String srvId, int id) throws BMCException
 	{
-		Role role = getById(id);
+		Role role = getById(srvId, id);
 		if (null == role)
 		{
 			throw new BMCException("bmc.role.not.exist.error", "Role does not exist, id is " + id + ".");
@@ -124,9 +128,16 @@ public class RoleServiceImpl implements RoleService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Role getById(int id)
+	public Role getById(String srvId, int id)
 	{
-		return roleMapper.findById(id);
+		Role role = roleMapper.findById(id);
+		if (null != role && !role.getSrvId().equals(srvId))
+		{
+			LOG.error("Role service id is wrong, id is {}, role srvId is {}, srvId is {}.", id, role.getSrvId(), srvId);
+			return null;
+		}
+
+		return role;
 	}
 
 	/**

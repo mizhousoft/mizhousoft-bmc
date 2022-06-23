@@ -5,26 +5,27 @@
 	
 	<resultMap type="com.mizhousoft.bmc.role.domain.RolePermission" id="RolePermissionMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srvId" />
 		<result property="roleName" column="roleName" />
 		<result property="permName" column="permName" />
 	</resultMap>
 	
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_role_permission (permName ,roleName)
-		values(#{permName}, #{roleName})
+		insert into bmc_role_permission (srvId, permName, roleName)
+		values(#{srvId}, #{permName}, #{roleName})
 	</insert>
 	
 	<delete id="deleteByRoleName">
-		delete from bmc_role_permission where roleName = #{roleName}
+		delete from bmc_role_permission where srvId = #{srvId} and roleName = #{roleName}
 	</delete>
 		
 	<select id="findByRoleName" resultMap="RolePermissionMap">
-		select id, permName, roleName from bmc_role_permission
-		where roleName = #{roleName}
+		select id, srvId, permName, roleName from bmc_role_permission
+		where srvId = #{srvId} and roleName = #{roleName}
 	</select>
 	
 	<select id="findAll" resultMap="RolePermissionMap">
-		select id, permName, roleName from bmc_role_permission
+		select id, srvId, permName, roleName from bmc_role_permission
 	</select>
 	
 </mapper>

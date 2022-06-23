@@ -78,7 +78,8 @@ public class NewRoleController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/role/addRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse addRole(@Valid @RequestBody RoleRequest request, BindingResult bindingResult)
+	public ActionResponse addRole(@Valid @RequestBody
+	RoleRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
@@ -100,7 +101,7 @@ public class NewRoleController extends BaseAuditController
 
 				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
 
-				roleCacheService.addRolePermissions(role.getName(), permissions);
+				roleCacheService.addRolePermissions(role.getSrvId(), role.getName(), permissions);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

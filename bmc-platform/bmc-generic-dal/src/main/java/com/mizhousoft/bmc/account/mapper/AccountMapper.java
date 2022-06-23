@@ -78,34 +78,13 @@ public interface AccountMapper extends CrudMapper<Account, Long>
 	void unlockAccount(@Param("id") long id, @Param("status") int status);
 
 	/**
-	 * 启用帐号
-	 * 
-	 * @param id
-	 */
-	void enableAccount(@Param("id") long id);
-
-	/**
-	 * 停用帐号
-	 * 
-	 * @param id
-	 */
-	void disableAccount(@Param("id") long id);
-
-	/**
-	 * 清理帐号信息
-	 * 
-	 * @param id
-	 * @param status
-	 */
-	void clearAccountInfo(@Param("id") long id, @Param("status") int status);
-
-	/**
 	 * 查询帐号认证信息
 	 * 
+	 * @param srvId
 	 * @param name
 	 * @return
 	 */
-	AuthAccount findAuthAccount(@Param("name") String name);
+	AuthAccount findAuthAccount(@Param("srvId") String srvId, @Param("name") String name);
 
 	/**
 	 * 统计帐号

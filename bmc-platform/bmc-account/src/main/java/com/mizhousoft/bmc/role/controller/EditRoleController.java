@@ -34,7 +34,6 @@ import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.bmc.role.request.RoleRequest;
 import com.mizhousoft.bmc.role.service.PermissionViewService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
-import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
@@ -54,9 +53,6 @@ public class EditRoleController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(EditRoleController.class);
 
 	@Autowired
-	private RoleService roleService;
-
-	@Autowired
 	private PermissionViewService permissionViewService;
 
 	@Autowired
@@ -72,7 +68,7 @@ public class EditRoleController extends BaseAuditController
 
 		try
 		{
-			Role role = roleService.loadById(id);
+			Role role = roleViewService.loadById(id);
 			map.put("role", role);
 
 			List<Permission> rolePerms = roleViewService.queryPermissionsByRoleName(role.getName());
@@ -126,7 +122,7 @@ public class EditRoleController extends BaseAuditController
 
 				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
 
-				roleCacheService.refreshRolePermissions(role.getName(), permissions);
+				roleCacheService.refreshRolePermissions(role.getSrvId(), role.getName(), permissions);
 
 				response = ActionRespBuilder.buildSucceedResp();
 				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);

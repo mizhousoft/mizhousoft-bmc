@@ -34,14 +34,14 @@ INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`
 VALUES ('BMC',2,'bmc.system.management',NULL,'系统管理','System Management',true,NULL,NULL);
 
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.system.management','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.system.management','Administrator');
 
 
 -- Account Management
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',2,'bmc.account.management','bmc.system.management','帐号管理','Account Management',true,NULL,NULL);
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.management','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.management','Administrator');
 
 -- Account
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.account.list','/account/fetchAccountInfoList.action');
@@ -79,14 +79,14 @@ INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.a
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.account.delete','bmc.account.list','删除账号','Delete Account',true,NULL,NULL);
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.list','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.new','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.authorize','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.disable','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.enable','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.unlock','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.password.reset','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.delete','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.list','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.new','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.authorize','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.disable','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.enable','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.unlock','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.password.reset','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.delete','Administrator');
 
 -- Role
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.role.list','/role/fetchRoles.action');
@@ -112,11 +112,11 @@ INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`
 VALUES ('BMC',1,'bmc.role.delete','bmc.role.list','删除角色','Delete Role',true,NULL,NULL);
 
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.role.list','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.role.view','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.role.new','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.role.edit','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.role.delete','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.role.list','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.role.view','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.role.new','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.role.edit','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.role.delete','Administrator');
 
 -- Security Management
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
@@ -138,10 +138,10 @@ INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`
 VALUES ('BMC',1,'bmc.account.online','bmc.security.management','在线帐号','Online Account',true,NULL,NULL);
 
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.security.management','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.strategy','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.password.strategy','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.account.online','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.security.management','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.strategy','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.password.strategy','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.account.online','Administrator');
 
 -- Audit Log Management
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
@@ -169,16 +169,16 @@ INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.r
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.running.log','bmc.auditlog.management','本地日志','Running Log',true,NULL,NULL);
 
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.auditlog.management','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.auditlog.operation','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.auditlog.security','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.auditlog.system','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.auditlog.api','Administrator');
-INSERT INTO `bmc_role_permission` (`permName`,`roleName`) VALUES ('bmc.running.log','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.management','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.operation','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.security','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.system','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.api','Administrator');
+INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.running.log','Administrator');
 
 -- Account data
-INSERT INTO `bmc_account` (`name`, `type`, `password`, `salt`, `status`, `isFirstLogin`)
-VALUES ('admin', 1, 'YJYZN7mTlJC/KVZcc3lfKrVrtEcELwFixpw+xFuyfeXds+nLNEDsDYFA3ot6jfPZPLzFdOs8E/0f0F+hRj557w==', '6921466447566625716', 2, true);
+INSERT INTO `bmc_account` (`srvId`, `name`, `type`, `password`, `salt`, `status`, `isFirstLogin`)
+VALUES ('BMC', 'admin', 1, 'YJYZN7mTlJC/KVZcc3lfKrVrtEcELwFixpw+xFuyfeXds+nLNEDsDYFA3ot6jfPZPLzFdOs8E/0f0F+hRj557w==', '6921466447566625716', 2, true);
 
 -- Role data
 INSERT INTO `bmc_role` (`type`, `srvId`, `name`, `displayNameCN`, `displayNameUS`, `descriptionCN`, `descriptionUS`) 

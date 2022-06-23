@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountRequest;
-import com.mizhousoft.bmc.account.service.AccountService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -32,7 +32,7 @@ public class AccountUnlockController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(AccountUnlockController.class);
 
 	@Autowired
-	private AccountService accountService;
+	private AccountViewService accountService;
 
 	@RequestMapping(value = "/account/unlockAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ActionResponse unlockAccount(@RequestBody AccountRequest request)
@@ -42,17 +42,9 @@ public class AccountUnlockController extends BaseAuditController
 
 		try
 		{
-			Account account = accountService.loadById(request.getId());
-			if (null != account)
-			{
-				accountService.unlockAccount(account);
-				String detail = "Unlock " + account.getName() + " account.";
-				operLog = buildOperLog(AuditLogResult.Success, detail, account.toString());
-			}
-			else
-			{
-				operLog = buildOperLog(AuditLogResult.Success, "Account already has been deleted.", request.toString());
-			}
+			Account account = accountService.unlockAccount(request.getId());
+			String detail = "Unlock " + account.getName() + " account.";
+			operLog = buildOperLog(AuditLogResult.Success, detail, account.toString());
 
 			response = ActionRespBuilder.buildSucceedResp();
 		}

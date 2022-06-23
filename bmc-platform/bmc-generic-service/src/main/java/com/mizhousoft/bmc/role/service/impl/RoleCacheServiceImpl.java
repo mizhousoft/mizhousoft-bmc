@@ -1,7 +1,6 @@
 package com.mizhousoft.bmc.role.service.impl;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -40,18 +39,24 @@ public class RoleCacheServiceImpl implements RoleCacheService
 	@Autowired
 	private PermissionService permissionService;
 
-	// Map<Role Name, List<Permission Name>>
-	private Map<String, Set<String>> rolePermMap = new ConcurrentHashMap<>(5);
+	// Map<srvId, Map<roleName, Set<permissionName>>
+	private Map<String, Map<String, Set<String>>> srvRolePermMap = new ConcurrentHashMap<>(5);
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void addRolePermissions(String roleName, List<Permission> permissions)
+	public void addRolePermissions(String srvId, String roleName, List<Permission> permissions)
 	{
 		Set<String> list = new HashSet<>(permissions.size());
 		permissions.forEach(item -> list.add(item.getName()));
 
+		Map<String, Set<String>> rolePermMap = srvRolePermMap.get(srvId);
+		if (null == rolePermMap)
+		{
+			rolePermMap = new ConcurrentHashMap<>(5);
+			srvRolePermMap.put(srvId, rolePermMap);
+		}
 		rolePermMap.put(roleName, list);
 	}
 
@@ -59,11 +64,17 @@ public class RoleCacheServiceImpl implements RoleCacheService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void refreshRolePermissions(String roleName, List<Permission> permissions)
+	public void refreshRolePermissions(String srvId, String roleName, List<Permission> permissions)
 	{
 		Set<String> list = new HashSet<>(permissions.size());
 		permissions.forEach(item -> list.add(item.getName()));
 
+		Map<String, Set<String>> rolePermMap = srvRolePermMap.get(srvId);
+		if (null == rolePermMap)
+		{
+			rolePermMap = new ConcurrentHashMap<>(5);
+			srvRolePermMap.put(srvId, rolePermMap);
+		}
 		rolePermMap.remove(roleName);
 		rolePermMap.put(roleName, list);
 	}
@@ -72,39 +83,53 @@ public class RoleCacheServiceImpl implements RoleCacheService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteByRoleName(String roleName)
+	public void deleteByRoleName(String srvId, String roleName)
 	{
-		rolePermMap.remove(roleName);
+		Map<String, Set<String>> rolePermMap = srvRolePermMap.get(srvId);
+		if (null != rolePermMap)
+		{
+			rolePermMap.remove(roleName);
+		}
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<String> queryPermissionByRoleName(String roleName)
+	public Set<String> queryPermissionByRoleName(String srvId, String roleName)
 	{
-		Set<String> list = rolePermMap.get(roleName);
+		Map<String, Set<String>> rolePermMap = srvRolePermMap.get(srvId);
+		if (null != rolePermMap)
+		{
+			Set<String> list = rolePermMap.get(roleName);
 
-		return Collections.unmodifiableSet(SetUtils.emptyIfNull(list));
+			return Collections.unmodifiableSet(SetUtils.emptyIfNull(list));
+		}
+
+		return new HashSet<>(0);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Set<String> queryRoleByPermName(String permName)
+	public Set<String> queryRoleByPermName(String srvId, String permName)
 	{
 		Set<String> roleNames = new HashSet<>(4);
 
-		Iterator<Entry<String, Set<String>>> iter = rolePermMap.entrySet().iterator();
-		while (iter.hasNext())
+		Map<String, Set<String>> rolePermMap = srvRolePermMap.get(srvId);
+		if (null != rolePermMap)
 		{
-			Entry<String, Set<String>> entry = iter.next();
-			Set<String> permNames = entry.getValue();
-
-			if (permNames.contains(permName))
+			Iterator<Entry<String, Set<String>>> iter = rolePermMap.entrySet().iterator();
+			while (iter.hasNext())
 			{
-				roleNames.add(entry.getKey());
+				Entry<String, Set<String>> entry = iter.next();
+				Set<String> permNames = entry.getValue();
+
+				if (permNames.contains(permName))
+				{
+					roleNames.add(entry.getKey());
+				}
 			}
 		}
 
@@ -123,8 +148,7 @@ public class RoleCacheServiceImpl implements RoleCacheService
 			return Collections.emptySet();
 		}
 
-		Set<String> list = queryRoleByPermName(perm.getName());
-		return list;
+		return queryRoleByPermName(srvId, perm.getName());
 	}
 
 	@PostConstruct
@@ -132,8 +156,16 @@ public class RoleCacheServiceImpl implements RoleCacheService
 	{
 		List<RolePermission> rolePermissions = rolePermissionService.queryAll();
 
-		Map<String, Set<String>> rolePermMap = new HashMap<>(5);
+		Map<String, Map<String, Set<String>>> srvRolePermMap = new ConcurrentHashMap<>(5);
+
 		rolePermissions.forEach(item -> {
+			Map<String, Set<String>> rolePermMap = srvRolePermMap.get(item.getSrvId());
+			if (null == rolePermMap)
+			{
+				rolePermMap = new ConcurrentHashMap<>(5);
+				srvRolePermMap.put(item.getSrvId(), rolePermMap);
+			}
+
 			Set<String> list = rolePermMap.get(item.getRoleName());
 			if (null == list)
 			{
@@ -144,10 +176,10 @@ public class RoleCacheServiceImpl implements RoleCacheService
 			list.add(item.getPermName());
 		});
 
-		rolePermMap.forEach((key, value) -> {
-			this.rolePermMap.put(key, value);
-		});
+		srvRolePermMap.forEach((key, value) -> {
+			this.srvRolePermMap.put(key, value);
 
-		LOG.info("Load role size is {}.", rolePermMap.size());
+			LOG.info("Load {} role permission successfully, role size is {}.", key, value.size());
+		});
 	}
 }

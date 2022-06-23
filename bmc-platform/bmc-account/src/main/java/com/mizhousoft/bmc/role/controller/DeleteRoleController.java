@@ -41,7 +41,8 @@ public class DeleteRoleController extends BaseAuditController
 	private RoleCacheService roleCacheService;
 
 	@RequestMapping(value = "/role/deleteRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse deleteRole(@Valid @RequestBody RoleDeleteRequest request)
+	public ActionResponse deleteRole(@Valid @RequestBody
+	RoleDeleteRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
@@ -51,7 +52,7 @@ public class DeleteRoleController extends BaseAuditController
 			Role role = roleViewService.deleteRole(request.getId());
 			if (null != role)
 			{
-				roleCacheService.deleteByRoleName(role.getName());
+				roleCacheService.deleteByRoleName(role.getSrvId(), role.getName());
 
 				operLog = buildOperLog(AuditLogResult.Success, role.toString(), null);
 			}

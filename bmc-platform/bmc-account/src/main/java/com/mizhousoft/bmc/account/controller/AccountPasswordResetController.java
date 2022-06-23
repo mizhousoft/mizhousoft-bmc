@@ -17,7 +17,6 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountPasswordRequest;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
-import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -37,9 +36,6 @@ import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 public class AccountPasswordResetController extends BaseAuditController
 {
 	private static final Logger LOG = LoggerFactory.getLogger(AccountPasswordResetController.class);
-
-	@Autowired
-	private AccountService accountService;
 
 	@Autowired
 	private AccountPasswdService accountPasswdService;
@@ -76,9 +72,7 @@ public class AccountPasswordResetController extends BaseAuditController
 					throw new BMCException("bmc.account.reset.self.password.error", "You can not reset self password.");
 				}
 
-				Account account = accountService.loadById(request.getId());
-
-				accountPasswdService.resetPassword(account, request.getNewPassword());
+				Account account = accountPasswdService.resetPassword(request.getId(), request.getNewPassword());
 
 				response = ActionRespBuilder.buildSucceedResp();
 

@@ -5,6 +5,7 @@
 	
 	<resultMap type="com.mizhousoft.bmc.account.domain.Account" id="AccountMap">
 		<id property="id" column="id" />
+		<result property="srvId" column="srvId" />
 		<result property="name" column="name" />
 		<result property="type" column="type" />
 		<result property="status" column="status" />
@@ -25,8 +26,8 @@
 	</resultMap>
 
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_account (name, type, password, salt, status, phoneNumber, isFirstLogin)
-		values(#{name}, #{type}, #{password}, #{salt}, #{status}, #{phoneNumber}, #{firstLogin})
+		insert into bmc_account (srvId, name, type, password, salt, status, phoneNumber, isFirstLogin)
+		values(#{srvId}, #{name}, #{type}, #{password}, #{salt}, #{status}, #{phoneNumber}, #{firstLogin})
 	</insert>
 	
 	<delete id="delete">
@@ -72,40 +73,32 @@
 	</update>
 		
 	<select id="findById" resultMap="AccountMap">
-		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		select id, srvId, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
 		from bmc_account
 		where id = #{id}
 	</select>
 	
-	<select id="findByName" resultMap="AccountMap">
-		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
-		from bmc_account
-		where name = #{name}
-	</select>
-	
 	<select id="findAuthAccount" resultMap="AuthAccountMap">
-		select id, name, type, password, salt, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		select id, srvId, name, type, password, salt, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
 		from bmc_account
-		where name = #{name}
+		where srvId = #{srvId} and name = #{name} limit 1
 	</select>
 	
 	<select id="countAccounts" resultType="Long">
 		select count(id) from bmc_account
-		<where>
-			<if test="request.status != 0">
-	    		status = #{request.status} 
-	    	</if>	
-		</where>
+		where srvId = #{request.srvId}
+		<if test="request.status != 0">
+    		and status = #{request.status} 
+    	</if>	
 	</select>
 
 	<select id="findAccountInfos" parameterType="java.util.Map" resultMap="accountInfoMap">
-		select id, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		select id, srvId, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
 		from bmc_account
-		<where>
-			<if test="request.status != 0">
-	    		status = #{request.status} 
-	    	</if>	
-		</where> 
+		where srvId = #{request.srvId}
+		<if test="request.status != 0">
+    		and status = #{request.status} 
+    	</if>	
 		limit #{rowOffset}, #{request.pageSize}		
 	</select>
 	

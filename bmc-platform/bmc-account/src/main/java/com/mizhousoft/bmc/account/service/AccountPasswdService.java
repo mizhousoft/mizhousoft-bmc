@@ -33,11 +33,12 @@ public interface AccountPasswdService
 	/**
 	 * 重置密码
 	 * 
-	 * @param account
+	 * @param id
 	 * @param password
+	 * @return
 	 * @throws BMCException
 	 */
-	void resetPassword(Account account, String password) throws BMCException;
+	Account resetPassword(long id, String password) throws BMCException;
 
 	/**
 	 * 校验密码

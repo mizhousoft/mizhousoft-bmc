@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.authentication.model.AccountViewData;
-import com.mizhousoft.bmc.authentication.service.ViewDataFirstLoadService;
+import com.mizhousoft.bmc.authentication.service.ApplicationFirstLoadService;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
@@ -29,7 +29,7 @@ public class MyAccountDetailFetchController
 	private AccountViewService accountViewService;
 
 	@Autowired(required = false)
-	private ViewDataFirstLoadService viewDataFirstLoadService;
+	private ApplicationFirstLoadService applicationFirstLoadService;
 
 	@RequestMapping(value = "/account/fetchMyAccountDetail.action", method = RequestMethod.GET)
 	public ModelMap fetchMyAccountDetail()
@@ -53,9 +53,9 @@ public class MyAccountDetailFetchController
 		String nowTimeText = I18nUtils.getMessage("bmc.system.time.text", params);
 		map.addAttribute("nowTime", nowTimeText);
 
-		if (null != viewDataFirstLoadService)
+		if (null != applicationFirstLoadService)
 		{
-			Map<String, Object> loadedMap = viewDataFirstLoadService.obtainLoadedData();
+			Map<String, Object> loadedMap = applicationFirstLoadService.obtainLoadedData();
 			map.putAll(loadedMap);
 		}
 

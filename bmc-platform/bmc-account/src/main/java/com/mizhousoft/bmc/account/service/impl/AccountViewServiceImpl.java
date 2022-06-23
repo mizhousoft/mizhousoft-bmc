@@ -83,6 +83,9 @@ public class AccountViewServiceImpl implements AccountViewService
 	@Override
 	public synchronized void addAccount(AuthAccount account, List<Role> roles) throws BMCException
 	{
+		String serviceId = applicationAuthService.getServiceId();
+
+		account.setSrvId(serviceId);
 		accountService.addAccount(account);
 
 		if (null != roles)
@@ -103,23 +106,29 @@ public class AccountViewServiceImpl implements AccountViewService
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public synchronized void deleteAccount(Account account) throws BMCException
+	public synchronized Account deleteAccount(long id) throws BMCException
 	{
-		try
+		String serviceId = applicationAuthService.getServiceId();
+		Account account = accountService.deleteAccount(serviceId, id);
+
+		if (null != account)
 		{
-			AccountDeleteEvent event = new AccountDeleteEvent(account);
-			eventPublisher.publishEvent(event);
+			try
+			{
+				AccountDeleteEvent event = new AccountDeleteEvent(account);
+				eventPublisher.publishEvent(event);
+			}
+			catch (BMCRuntimeException e)
+			{
+				throw new BMCException(e.getErrorCode(), e.getCodeParams(), e.getMessage(), e);
+			}
+
+			accountRoleSerivce.deleteByAccountId(account.getId());
+
+			historyPasswordService.delete(account.getId());
 		}
-		catch (BMCRuntimeException e)
-		{
-			throw new BMCException(e.getErrorCode(), e.getCodeParams(), e.getMessage(), e);
-		}
 
-		accountService.deleteAccount(account);
-
-		accountRoleSerivce.deleteByAccountId(account.getId());
-
-		historyPasswordService.delete(account.getId());
+		return account;
 	}
 
 	/**
@@ -127,15 +136,16 @@ public class AccountViewServiceImpl implements AccountViewService
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	@Override
-	public synchronized void enableAccount(Account account) throws BMCException
+	public synchronized Account enableAccount(long id) throws BMCException
 	{
+		String serviceId = applicationAuthService.getServiceId();
+		Account account = accountService.loadById(serviceId, id);
+
 		accountService.enableAccount(account);
 
 		Date lastAccessTime = account.getLastAccessTime();
 		if (null != lastAccessTime)
 		{
-			String serviceId = applicationAuthService.getServiceId();
-
 			AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 			int unusedDay = accountStrategy.getAccountUnusedDay();
 
@@ -152,6 +162,36 @@ public class AccountViewServiceImpl implements AccountViewService
 				accountService.modifyLastAccess(account);
 			}
 		}
+
+		return account;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Account disableAccount(long id) throws BMCException
+	{
+		String serviceId = applicationAuthService.getServiceId();
+		Account account = accountService.loadById(serviceId, id);
+
+		accountService.disableAccount(account);
+
+		return account;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Account unlockAccount(long id) throws BMCException
+	{
+		String serviceId = applicationAuthService.getServiceId();
+		Account account = accountService.loadById(serviceId, id);
+
+		accountService.unlockAccount(account);
+
+		return account;
 	}
 
 	/**
@@ -167,10 +207,12 @@ public class AccountViewServiceImpl implements AccountViewService
 		}
 		else
 		{
+			String serviceId = applicationAuthService.getServiceId();
+
 			List<Role> roles = new ArrayList<Role>(accountRoles.size());
 			for (AccountRole accountRole : accountRoles)
 			{
-				Role role = roleService.getById(accountRole.getRoleId());
+				Role role = roleService.getById(serviceId, accountRole.getRoleId());
 				if (null != role)
 				{
 					roles.add(role);
@@ -192,7 +234,7 @@ public class AccountViewServiceImpl implements AccountViewService
 		List<Role> roles = getRoleByAccountId(accountId);
 		for (Role role : roles)
 		{
-			Set<String> list = roleCacheService.queryPermissionByRoleName(role.getName());
+			Set<String> list = roleCacheService.queryPermissionByRoleName(role.getSrvId(), role.getName());
 			perms.addAll(list);
 		}
 
@@ -203,8 +245,22 @@ public class AccountViewServiceImpl implements AccountViewService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Account loadById(long id) throws BMCException
+	{
+		String srvId = applicationAuthService.getServiceId();
+
+		return accountService.loadById(srvId, id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Page<AccountInfo> queryAccountInfos(AccountPageRequest request)
 	{
+		String srvId = applicationAuthService.getServiceId();
+		request.setSrvId(srvId);
+
 		long total = accountMapper.countAccounts(request);
 		long rowOffset = PageUtils.calcRowOffset(request, total);
 
@@ -233,4 +289,5 @@ public class AccountViewServiceImpl implements AccountViewService
 		String roleString = StringUtils.join(roleNames.iterator(), ",");
 		account.setRoleNames(roleString);
 	}
+
 }

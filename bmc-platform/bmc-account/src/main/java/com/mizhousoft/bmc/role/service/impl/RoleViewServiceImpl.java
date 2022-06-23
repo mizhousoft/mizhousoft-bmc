@@ -54,7 +54,7 @@ public class RoleViewServiceImpl implements RoleViewService
 	private ApplicationEventPublisher eventPublisher;
 
 	@Autowired
-	private ApplicationAuthenticationService serviceIdProvider;
+	private ApplicationAuthenticationService applicationAuthService;
 
 	/**
 	 * {@inheritDoc}
@@ -65,7 +65,7 @@ public class RoleViewServiceImpl implements RoleViewService
 	{
 		Role role = new Role();
 
-		String serviceId = serviceIdProvider.getServiceId();
+		String serviceId = applicationAuthService.getServiceId();
 		String name = RandomGenerator.genHexString(16, true);
 
 		role.setType(RoleType.GeneralRole.getValue());
@@ -88,6 +88,7 @@ public class RoleViewServiceImpl implements RoleViewService
 		for (Permission permission : permissions)
 		{
 			RolePermission rp = new RolePermission();
+			rp.setSrvId(serviceId);
 			rp.setRoleName(role.getName());
 			rp.setPermName(permission.getName());
 			rolePermissionService.addRolePermission(rp);
@@ -103,14 +104,14 @@ public class RoleViewServiceImpl implements RoleViewService
 	@Override
 	public synchronized Role modifyRole(RoleRequest request) throws BMCException
 	{
-		Role role = roleService.loadById(request.getId());
+		Role role = loadById(request.getId());
 
 		role.setDisplayNameCN(request.getName());
 		role.setDisplayNameUS(request.getName());
 		role.setDescriptionCN(request.getDescription());
 		roleService.modifyRole(role);
 
-		rolePermissionService.deleteByRoleName(role.getName());
+		rolePermissionService.deleteByRoleName(role.getSrvId(), role.getName());
 
 		Set<Integer> ids = new HashSet<Integer>(10);
 		String[] permIds = request.getPermIds();
@@ -123,6 +124,7 @@ public class RoleViewServiceImpl implements RoleViewService
 		for (Permission perm : permissions)
 		{
 			RolePermission rp = new RolePermission();
+			rp.setSrvId(role.getSrvId());
 			rp.setRoleName(role.getName());
 			rp.setPermName(perm.getName());
 			rolePermissionService.addRolePermission(rp);
@@ -138,7 +140,9 @@ public class RoleViewServiceImpl implements RoleViewService
 	@Override
 	public synchronized Role deleteRole(int id) throws BMCException
 	{
-		Role role = roleService.deleteRole(id);
+		String serviceId = applicationAuthService.getServiceId();
+
+		Role role = roleService.deleteRole(serviceId, id);
 		if (null != role)
 		{
 			try
@@ -151,7 +155,7 @@ public class RoleViewServiceImpl implements RoleViewService
 				throw new BMCException(e.getErrorCode(), e.getCodeParams(), e.getMessage(), e);
 			}
 
-			rolePermissionService.deleteByRoleName(role.getName());
+			rolePermissionService.deleteByRoleName(role.getSrvId(), role.getName());
 			accountRoleSerivce.deleteByRoleId(role.getId());
 		}
 
@@ -162,10 +166,21 @@ public class RoleViewServiceImpl implements RoleViewService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Role loadById(int id) throws BMCException
+	{
+		String serviceId = applicationAuthService.getServiceId();
+
+		return roleService.loadById(serviceId, id);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<Permission> queryPermissionsByRoleName(String roleName)
 	{
-		String serviceId = serviceIdProvider.getServiceId();
-		List<RolePermission> rolePerms = rolePermissionService.queryByRoleName(roleName);
+		String serviceId = applicationAuthService.getServiceId();
+		List<RolePermission> rolePerms = rolePermissionService.queryByRoleName(serviceId, roleName);
 
 		List<Permission> permissions = new ArrayList<>(10);
 		for (RolePermission rolePerm : rolePerms)
@@ -189,11 +204,12 @@ public class RoleViewServiceImpl implements RoleViewService
 	{
 		request.setName(StringUtils.trimToNull(request.getName()));
 
-		String serviceId = serviceIdProvider.getServiceId();
+		String serviceId = applicationAuthService.getServiceId();
 		request.setSrvId(serviceId);
 
 		Page<Role> page = roleService.queryPageData(request);
 
 		return page;
 	}
+
 }

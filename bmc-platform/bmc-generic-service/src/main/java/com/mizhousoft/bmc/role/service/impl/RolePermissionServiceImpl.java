@@ -34,18 +34,18 @@ public class RolePermissionServiceImpl implements RolePermissionService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteByRoleName(String roleName) throws BMCException
+	public void deleteByRoleName(String srvId, String roleName) throws BMCException
 	{
-		rolePermissionMapper.deleteByRoleName(roleName);
+		rolePermissionMapper.deleteByRoleName(srvId, roleName);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<RolePermission> queryByRoleName(String roleName)
+	public List<RolePermission> queryByRoleName(String srvId, String roleName)
 	{
-		return rolePermissionMapper.findByRoleName(roleName);
+		return rolePermissionMapper.findByRoleName(srvId, roleName);
 	}
 
 	/**

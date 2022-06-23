@@ -15,41 +15,46 @@ public interface RoleCacheService
 	/**
 	 * 增加角色权限
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @param permissions
 	 */
-	void addRolePermissions(String roleName, List<Permission> permissions);
+	void addRolePermissions(String srvId, String roleName, List<Permission> permissions);
 
 	/**
 	 * 刷新角色权限
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @param permissions
 	 */
-	void refreshRolePermissions(String roleName, List<Permission> permissions);
+	void refreshRolePermissions(String srvId, String roleName, List<Permission> permissions);
 
 	/**
 	 * 根据角色名删除
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 */
-	void deleteByRoleName(String roleName);
+	void deleteByRoleName(String srvId, String roleName);
 
 	/**
 	 * 根据角色名查询角色权限
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @return
 	 */
-	Set<String> queryPermissionByRoleName(String roleName);
+	Set<String> queryPermissionByRoleName(String srvId, String roleName);
 
 	/**
 	 * 根据权限名查询角色权限
 	 * 
+	 * @param srvId
 	 * @param permName
 	 * @return
 	 */
-	Set<String> queryRoleByPermName(String permName);
+	Set<String> queryRoleByPermName(String srvId, String permName);
 
 	/**
 	 * 根据请求路径获取角色

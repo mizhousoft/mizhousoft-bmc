@@ -31,10 +31,10 @@ public class PermResourceServiceImpl implements PermResourceService
 	@Autowired
 	private PermResourceMapper permResourceMapper;
 
-	// Map<Permission Name, List<Resource Path>>
+	// Map<srvId-Permission Name, List<Resource Path>>
 	private Map<String, List<String>> permResourceMap = new HashMap<>(0);
 
-	// Map<Resource Path, Permission Name>
+	// Map<srvId-Resource Path, Permission Name>
 	private Map<String, String> resourcePermMap = new HashMap<>(0);
 
 	/**

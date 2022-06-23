@@ -14,7 +14,7 @@ public class RolePageRequest extends PageRequest
 	// 名称
 	private String name;
 
-	// 业务ID
+	// 服务ID
 	private String srvId;
 
 	/**

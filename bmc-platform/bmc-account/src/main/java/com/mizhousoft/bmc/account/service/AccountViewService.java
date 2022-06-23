@@ -30,18 +30,38 @@ public interface AccountViewService
 	/**
 	 * 删除帐号
 	 * 
-	 * @param account
+	 * @param id
+	 * @return
 	 * @throws BMCException
 	 */
-	void deleteAccount(Account account) throws BMCException;
+	Account deleteAccount(long id) throws BMCException;
 
 	/**
 	 * 启用帐号
 	 * 
-	 * @param account
+	 * @param id
+	 * @return
 	 * @throws BMCException
 	 */
-	void enableAccount(Account account) throws BMCException;
+	Account enableAccount(long id) throws BMCException;
+
+	/**
+	 * 禁用帐号
+	 * 
+	 * @param id
+	 * @return
+	 * @throws BMCException
+	 */
+	Account disableAccount(long id) throws BMCException;
+
+	/**
+	 * 解锁帐号
+	 * 
+	 * @param id
+	 * @return
+	 * @throws BMCException
+	 */
+	Account unlockAccount(long id) throws BMCException;
 
 	/**
 	 * 根据帐号ID获取角色
@@ -58,6 +78,15 @@ public interface AccountViewService
 	 * @return
 	 */
 	Set<String> getPermByAccountId(long accountId);
+
+	/**
+	 * 查询帐号
+	 * 
+	 * @param id
+	 * @return
+	 * @throws BMCException
+	 */
+	Account loadById(long id) throws BMCException;
 
 	/**
 	 * 查询帐号信息

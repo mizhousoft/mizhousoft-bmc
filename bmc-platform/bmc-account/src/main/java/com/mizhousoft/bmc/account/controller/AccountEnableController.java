@@ -13,7 +13,6 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.AccountRequest;
 import com.mizhousoft.bmc.account.service.AccountViewService;
-import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -33,9 +32,6 @@ public class AccountEnableController extends BaseAuditController
 	private static final Logger LOG = LoggerFactory.getLogger(AccountEnableController.class);
 
 	@Autowired
-	private AccountService accountService;
-
-	@Autowired
 	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/account/enableAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -46,17 +42,10 @@ public class AccountEnableController extends BaseAuditController
 
 		try
 		{
-			Account account = accountService.loadById(request.getId());
-			if (null != account)
-			{
-				accountViewService.enableAccount(account);
-				String detail = "Enable " + account.getName() + " account.";
-				operLog = buildOperLog(AuditLogResult.Success, detail, account.toString());
-			}
-			else
-			{
-				operLog = buildOperLog(AuditLogResult.Success, "Account already has been deleted.", request.toString());
-			}
+			Account account = accountViewService.enableAccount(request.getId());
+
+			String detail = "Enable " + account.getName() + " account.";
+			operLog = buildOperLog(AuditLogResult.Success, detail, account.toString());
 
 			response = ActionRespBuilder.buildSucceedResp();
 		}

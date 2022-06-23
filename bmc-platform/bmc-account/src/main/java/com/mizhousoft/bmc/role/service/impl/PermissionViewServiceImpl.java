@@ -22,7 +22,7 @@ public class PermissionViewServiceImpl implements PermissionViewService
 	private PermissionService permissionService;
 
 	@Autowired
-	private ApplicationAuthenticationService serviceIdProvider;
+	private ApplicationAuthenticationService applicationAuthService;
 
 	/**
 	 * {@inheritDoc}
@@ -30,7 +30,7 @@ public class PermissionViewServiceImpl implements PermissionViewService
 	@Override
 	public List<Permission> queryAuthzPermissions()
 	{
-		String serviceId = serviceIdProvider.getServiceId();
+		String serviceId = applicationAuthService.getServiceId();
 
 		List<Permission> permissions = permissionService.queryAuthzPermissions(serviceId);
 

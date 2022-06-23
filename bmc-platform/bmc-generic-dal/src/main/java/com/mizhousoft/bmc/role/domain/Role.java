@@ -10,11 +10,11 @@ public class Role
 	// ID
 	private int id;
 
+	// 服务ID
+	private String srvId;
+
 	// 类型
 	private int type;
-
-	// 业务ID
-	private String srvId;
 
 	// 角色名
 	private String name;

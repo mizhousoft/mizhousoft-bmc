@@ -10,6 +10,9 @@ public class RolePermission
 	// ID
 	private int id;
 
+	// 服务ID
+	private String srvId;
+
 	// 角色名称
 	private String roleName;
 
@@ -34,6 +37,26 @@ public class RolePermission
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+
+	/**
+	 * 获取srvId
+	 * 
+	 * @return
+	 */
+	public String getSrvId()
+	{
+		return srvId;
+	}
+
+	/**
+	 * 设置srvId
+	 * 
+	 * @param srvId
+	 */
+	public void setSrvId(String srvId)
+	{
+		this.srvId = srvId;
 	}
 
 	/**

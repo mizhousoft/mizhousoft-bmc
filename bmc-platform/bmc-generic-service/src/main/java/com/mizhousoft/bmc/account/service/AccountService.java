@@ -62,25 +62,29 @@ public interface AccountService
 	/**
 	 * 删除帐号
 	 * 
-	 * @param account
-	 * @throws BMCException
-	 */
-	void deleteAccount(Account account) throws BMCException;
-
-	/**
-	 * 查询帐号
-	 * 
+	 * @param srvId
 	 * @param id
 	 * @return
 	 * @throws BMCException
 	 */
-	Account loadById(long id) throws BMCException;
+	Account deleteAccount(String srvId, long id) throws BMCException;
 
 	/**
 	 * 查询帐号
 	 * 
+	 * @param srvId
+	 * @param id
+	 * @return
+	 * @throws BMCException
+	 */
+	Account loadById(String srvId, long id) throws BMCException;
+
+	/**
+	 * 查询帐号
+	 * 
+	 * @param srvId
 	 * @param id
 	 * @return
 	 */
-	Account getById(long id);
+	Account getById(String srvId, long id);
 }

@@ -17,6 +17,7 @@ import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.request.PhoneNumberEditRequest;
 import com.mizhousoft.bmc.account.service.AccountService;
+import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
@@ -40,6 +41,9 @@ public class PhoneNumberEditController extends BaseAuditController
 	@Autowired
 	private AccountService accountService;
 
+	@Autowired
+	private AccountViewService accountViewService;
+
 	@RequestMapping(value = "/setting/account/modifyPhoneNumber.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ActionResponse modifyPhoneNumber(@Valid @RequestBody PhoneNumberEditRequest request, BindingResult bindingResult)
 	{
@@ -62,7 +66,7 @@ public class PhoneNumberEditController extends BaseAuditController
 				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 				long id = authentication.getAccountId();
 
-				accountService.loadById(id);
+				accountViewService.loadById(id);
 
 				Account account = new Account();
 				account.setId(id);

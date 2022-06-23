@@ -1,7 +1,7 @@
 package com.mizhousoft.bmc.account.service.impl;
 
-import java.util.List;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +25,8 @@ import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 @Service
 public class AccountServiceImpl implements AccountService
 {
+	private static final Logger LOG = LoggerFactory.getLogger(AccountServiceImpl.class);
+
 	@Autowired
 	private AccountMapper accountMapper;
 
@@ -34,10 +36,8 @@ public class AccountServiceImpl implements AccountService
 	@Override
 	public void addAccount(AuthAccount account) throws BMCException
 	{
-		String password = account.getPassword();
-
-		List<Account> dbAccount = accountMapper.findByName(account.getName());
-		if (dbAccount.size() > 0)
+		AuthAccount entity = accountMapper.findAuthAccount(account.getSrvId(), account.getName());
+		if (null != entity)
 		{
 			throw new BMCException("bmc.account.name.exist.error", "Account does exist, name is " + account.getName() + ".");
 		}
@@ -52,7 +52,7 @@ public class AccountServiceImpl implements AccountService
 			String salt = RandomGenerator.genBase64String(16);
 			account.setSalt(salt);
 
-			String encPasswd = PBEPasswdGenerator.derivePasswd(password, salt);
+			String encPasswd = PBEPasswdGenerator.derivePasswd(account.getPassword(), salt);
 			account.setPassword(encPasswd);
 		}
 		catch (CryptoException e)
@@ -148,24 +148,30 @@ public class AccountServiceImpl implements AccountService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteAccount(Account account) throws BMCException
+	public Account deleteAccount(String srvId, long id) throws BMCException
 	{
-		if (AccountUtils.isSuperAdmin(account.getType()))
+		Account account = getById(srvId, id);
+		if (null != account)
 		{
-			throw new BMCException("bmc.account.superadmin.delete.error",
-			        "Super admin can not delete, account id is " + account.getId() + '.');
+			if (AccountUtils.isSuperAdmin(account.getType()))
+			{
+				throw new BMCException("bmc.account.superadmin.delete.error",
+				        "Super admin can not delete, account id is " + account.getId() + '.');
+			}
+
+			accountMapper.delete(account.getId());
 		}
 
-		accountMapper.delete(account.getId());
+		return account;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Account loadById(long id) throws BMCException
+	public Account loadById(String srvId, long id) throws BMCException
 	{
-		Account account = getById(id);
+		Account account = getById(srvId, id);
 		if (null == account)
 		{
 			throw new BMCException("bmc.account.not.found.error", "Account already has been deleted, id is " + id + '.');
@@ -178,8 +184,15 @@ public class AccountServiceImpl implements AccountService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Account getById(long id)
+	public Account getById(String srvId, long id)
 	{
-		return accountMapper.findById(id);
+		Account account = accountMapper.findById(id);
+		if (null != account && !account.getSrvId().equals(srvId))
+		{
+			LOG.error("Account service id is wrong, id is {}, account srvId is {}, srvId is {}.", id, account.getSrvId(), srvId);
+			return null;
+		}
+
+		return account;
 	}
 }

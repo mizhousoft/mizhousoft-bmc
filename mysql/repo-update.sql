@@ -18,3 +18,9 @@ alter table bmc_security_log modify column `srvId` VARCHAR(16) NOT NULL;
 alter table bmc_operation_log modify column `srvId` VARCHAR(16) NOT NULL;
 alter table bmc_api_log modify column `srvId` VARCHAR(16) NOT NULL;
 
+
+alter table bmc_role_permission add `srvId` VARCHAR(16) NOT NULL DEFAULT 'BMC' after id;
+alter table bmc_role_permission modify column `srvId` VARCHAR(16) NOT NULL;
+
+alter table bmc_account add `srvId` VARCHAR(16) NOT NULL DEFAULT 'BMC' after id;
+alter table bmc_account modify column `srvId` VARCHAR(16) NOT NULL;

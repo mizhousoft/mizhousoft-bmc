@@ -14,7 +14,7 @@ public class Permission implements Serializable
 	// ID
 	private int id;
 
-	// 业务ID
+	// 服务ID
 	private String srvId;
 
 	// 类型

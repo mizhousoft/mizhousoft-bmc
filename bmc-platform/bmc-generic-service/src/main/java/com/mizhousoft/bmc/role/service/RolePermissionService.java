@@ -23,18 +23,20 @@ public interface RolePermissionService
 	/**
 	 * 根据角色名称删除
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @throws BMCException
 	 */
-	void deleteByRoleName(String roleName) throws BMCException;
+	void deleteByRoleName(String srvId, String roleName) throws BMCException;
 
 	/**
 	 * 根据角色名查询角色
 	 * 
+	 * @param srvId
 	 * @param roleName
 	 * @return
 	 */
-	List<RolePermission> queryByRoleName(String roleName);
+	List<RolePermission> queryByRoleName(String srvId, String roleName);
 
 	/**
 	 * 查询所有

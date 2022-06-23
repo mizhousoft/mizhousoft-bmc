@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.service.AccountViewService;
-import com.mizhousoft.bmc.account.service.AccountService;
 import com.mizhousoft.bmc.role.domain.Role;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
@@ -33,9 +32,6 @@ public class MyAccountInfoFetchController
 	@Autowired
 	private AccountViewService accountViewService;
 
-	@Autowired
-	private AccountService accountService;
-
 	@RequestMapping(value = "/setting/account/fetchMyAccountInfo.action", method = RequestMethod.GET)
 	public ModelMap fetchMyAccountInfo()
 	{
@@ -46,7 +42,7 @@ public class MyAccountInfoFetchController
 
 		try
 		{
-			Account account = accountService.loadById(id);
+			Account account = accountViewService.loadById(id);
 			map.put("account", account);
 
 			List<Role> roles = accountViewService.getRoleByAccountId(id);

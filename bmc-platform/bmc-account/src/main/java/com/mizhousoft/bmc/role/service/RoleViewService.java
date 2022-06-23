@@ -43,6 +43,14 @@ public interface RoleViewService
 	Role deleteRole(int id) throws BMCException;
 
 	/**
+	 * 根据ID查询
+	 * 
+	 * @param id
+	 * @throws BMCException
+	 */
+	Role loadById(int id) throws BMCException;
+
+	/**
 	 * 根据角色名查询权限
 	 * 
 	 * @param roleName

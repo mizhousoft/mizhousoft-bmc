@@ -33,10 +33,12 @@ public interface RoleService
 	/**
 	 * 删除角色
 	 * 
+	 * @param srvId
 	 * @param id
+	 * @return
 	 * @throws BMCException
 	 */
-	Role deleteRole(int id) throws BMCException;
+	Role deleteRole(String srvId, int id) throws BMCException;
 
 	/**
 	 * 根据角色ID查找角色
@@ -49,19 +51,21 @@ public interface RoleService
 	/**
 	 * 根据角色id查找角色，查找不到，抛出异常
 	 * 
+	 * @param srvId
 	 * @param id
 	 * @return
 	 * @throws BMCException
 	 */
-	Role loadById(int id) throws BMCException;
+	Role loadById(String srvId, int id) throws BMCException;
 
 	/**
 	 * 根据角色ID查找角色
 	 * 
+	 * @param srvId
 	 * @param id
 	 * @return
 	 */
-	Role getById(int id);
+	Role getById(String srvId, int id);
 
 	/**
 	 * 分页查找角色

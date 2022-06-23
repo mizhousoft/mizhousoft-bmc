@@ -25,7 +25,7 @@ public class PermissionOpenServiceImpl implements PermissionOpenService
 	@Override
 	public boolean hasPermission(String srvId, Set<String> authorities, String permissionName)
 	{
-		Set<String> roleNames = roleCacheService.queryRoleByPermName(permissionName);
+		Set<String> roleNames = roleCacheService.queryRoleByPermName(srvId, permissionName);
 		for (String roleName : roleNames)
 		{
 			if (authorities.contains(roleName))

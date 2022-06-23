@@ -3,11 +3,11 @@ package com.mizhousoft.bmc.authentication.service;
 import java.util.Map;
 
 /**
- * 视图数据首次加载服务
+ * 应用首次加载服务
  *
  * @version
  */
-public interface ViewDataFirstLoadService
+public interface ApplicationFirstLoadService
 {
 	/**
 	 * 获取加载数据

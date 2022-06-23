@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.domain.Role;
-import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
@@ -36,9 +35,6 @@ public class RoleInfoFetchController
 	private static final Logger LOG = LoggerFactory.getLogger(RoleInfoFetchController.class);
 
 	@Autowired
-	private RoleService roleService;
-
-	@Autowired
 	private RoleViewService roleViewService;
 
 	@RequestMapping(value = "/role/fetchRoleInfo.action", method = RequestMethod.GET)
@@ -48,7 +44,7 @@ public class RoleInfoFetchController
 
 		try
 		{
-			Role role = roleService.loadById(id);
+			Role role = roleViewService.loadById(id);
 			map.put("role", role);
 
 			List<Permission> rolePerms = roleViewService.queryPermissionsByRoleName(role.getName());

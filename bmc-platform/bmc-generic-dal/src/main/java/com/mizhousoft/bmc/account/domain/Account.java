@@ -12,6 +12,9 @@ public class Account
 	// ID
 	private long id;
 
+	// 服务ID
+	private String srvId;
+
 	// 帐号名称
 	private String name;
 
@@ -54,6 +57,26 @@ public class Account
 	public void setId(long id)
 	{
 		this.id = id;
+	}
+
+	/**
+	 * 获取srvId
+	 * 
+	 * @return
+	 */
+	public String getSrvId()
+	{
+		return srvId;
+	}
+
+	/**
+	 * 设置srvId
+	 * 
+	 * @param srvId
+	 */
+	public void setSrvId(String srvId)
+	{
+		this.srvId = srvId;
 	}
 
 	/**
