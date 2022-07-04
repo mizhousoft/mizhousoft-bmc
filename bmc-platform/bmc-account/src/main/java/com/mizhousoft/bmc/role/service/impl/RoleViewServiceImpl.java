@@ -189,7 +189,6 @@ public class RoleViewServiceImpl implements RoleViewService
 			if (null != permission)
 			{
 				permissions.add(permission);
-				break;
 			}
 		}
 
