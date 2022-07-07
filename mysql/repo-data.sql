@@ -3,6 +3,7 @@ use bmc;
 START TRANSACTION;
 
 CREATE UNIQUE INDEX PERM_RESOURCE_IDX ON bmc_perm_resource (srvId, path);
+CREATE UNIQUE INDEX DICT_JSON_IDX ON bmc_dict_json (srv_id, key_x);
 
 -- My Account
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.my.accountdetail','/account/fetchMyAccountDetail.action');
