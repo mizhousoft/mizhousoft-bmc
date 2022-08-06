@@ -78,7 +78,7 @@ public class ListDictServiceImpl implements ListDictService
 			dictMap.put(cacheKey, list);
 		}
 
-		return list;
+		return new ArrayList<>(list);
 	}
 
 }
