@@ -1,5 +1,11 @@
 package com.mizhousoft.bmc.account.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,5 +200,33 @@ public class AccountServiceImpl implements AccountService
 		}
 
 		return account;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Map<Long, Account> queryByIds(String srvId, Set<Long> ids)
+	{
+		if (CollectionUtils.isEmpty(ids))
+		{
+			return new HashMap<>(0);
+		}
+
+		List<Account> list = accountMapper.findByIds(ids);
+
+		Map<Long, Account> resultMap = new HashMap<>(list.size());
+		for (Account item : list)
+		{
+			if (!item.getSrvId().equals(srvId))
+			{
+				LOG.error("Account service id is wrong, id is {}, account srvId is {}, srvId is {}.", item.getId(), item.getSrvId(), srvId);
+				continue;
+			}
+
+			resultMap.put(item.getId(), item);
+		}
+
+		return resultMap;
 	}
 }

@@ -1,5 +1,8 @@
 package com.mizhousoft.bmc.account.service;
 
+import java.util.Map;
+import java.util.Set;
+
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
 import com.mizhousoft.bmc.account.model.AuthAccount;
@@ -87,4 +90,13 @@ public interface AccountService
 	 * @return
 	 */
 	Account getById(String srvId, long id);
+
+	/**
+	 * 根据ID查询
+	 * 
+	 * @param srvId
+	 * @param ids
+	 * @return
+	 */
+	Map<Long, Account> queryByIds(String srvId, Set<Long> ids);
 }

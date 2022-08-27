@@ -78,6 +78,15 @@
 		where id = #{id}
 	</select>
 	
+	<select id="findByIds" parameterType="java.util.Map" resultMap="AccountMap">
+        select id, srvId, name, type, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
+		from bmc_account
+        where id in
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+	
 	<select id="findAuthAccount" resultMap="AuthAccountMap">
 		select id, srvId, name, type, password, salt, status, phoneNumber, isFirstLogin, lockTime, lastAccessTime, lastAccessIpAddr
 		from bmc_account
