@@ -49,7 +49,7 @@
     height: 60px !important;
     padding: 0 !important;
     line-height: 60px !important;
-    background-color: #051e37 !important;
+    background-color: #11375c !important;
 }
 
 .mz-empty-header {
@@ -57,11 +57,11 @@
     height: 60px !important;
     padding: 0 !important;
     line-height: 60px !important;
-    background-color: #051e37 !important;
+    background-color: #11375c !important;
 }
 
 .mz-navigation-menu {
-    background-color: #051e37 !important;
+    background-color: #11375c !important;
 }
 
 .mz-navigation-menu.ant-menu-horizontal {
@@ -149,7 +149,7 @@
 .mz-sider {
     min-height: calc(100vh - 60px) !important;
     padding: 10px 15px 0 !important;
-    background: #f0f2f5 !important;
+    background: #eef2f5 !important;
 }
 
 .mz-sider-header {
@@ -179,7 +179,7 @@
 }
 
 .mz-sider .ant-menu {
-    background-color: #f0f2f5;
+    background-color: #eef2f5;
 }
 
 .mz-sider .ant-menu-inline .ant-menu-item {
@@ -384,7 +384,7 @@
 }
 
 .mz-view-form .ant-form-item {
-    margin-bottom: 9px;
+    margin-bottom: 14px;
 }
 
 .mz-modal .ant-modal-header {

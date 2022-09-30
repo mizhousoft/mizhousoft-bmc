@@ -1,6 +1,13 @@
 import { asyncFetch, asyncPost } from '@/utils/request';
 import { BASENAME } from '@/config/application';
 
+export function fetchAccountInfoList(param) {
+    return asyncFetch({
+        url: `${BASENAME}/account/fetchAccountInfoList.action`,
+        data: param,
+    });
+}
+
 export function fetchRolesOnNew(param) {
     return asyncFetch({
         url: `${BASENAME}/account/new/fetchRoles.action`,

@@ -73,6 +73,20 @@ export default {
         window.open(sUrl, '_blank');
     },
 
+    directDownLoadFile(url) {
+        const link = document.createElement('a');
+        link.href = url;
+        link.style.display = 'none';
+        link.setAttribute('download', '');
+
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+            document.body.removeChild(link);
+        }, 1000);
+    },
+
     redirectTo(url) {
         window.open(url, '_blank');
     },

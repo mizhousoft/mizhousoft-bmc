@@ -1,14 +1,8 @@
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import rootReducer from '@/reducers/rootReducer';
-import rootSaga from '@/sagas/rootSaga';
+import { configureStore } from '@reduxjs/toolkit';
+import accountSlice from '@/views/system/account/redux/accountSlice';
 
-const preloadedState = {};
-
-const sagaMiddleware = createSagaMiddleware();
-
-const store = createStore(rootReducer, preloadedState, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(rootSaga);
-
-export default store;
+export default configureStore({
+    reducer: {
+        accounts: accountSlice,
+    },
+});

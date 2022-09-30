@@ -3,12 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { message, Row, Col, Radio, Table } from 'antd';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
+import { DEFAULT_DATA_PAGE } from '@/constants/common';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
-import ACCOUNT from '../redux/accountActionType';
+import { fetchEvent, fetchResultEvent, actionEvent, actionResultEvent } from '../redux/accountSlice';
 import ResetAccountPasswd from '../ResetAccountPasswd';
-import { disableAccount, enableAccount, unlockAccount, deleteAccount } from '../redux/accountService';
+import {
+    fetchAccountInfoList,
+    disableAccount,
+    enableAccount,
+    unlockAccount,
+    deleteAccount,
+} from '../redux/accountService';
 
 export default function AccountList() {
     const dispatch = useDispatch();
@@ -22,22 +29,31 @@ export default function AccountList() {
         navigate('/account/new');
     };
 
-    const fetchList = (pageNumber, pageSize) => {
-        const payload = {
+    const fetchList = (pageNumber, pageSize, filter) => {
+        const body = {
             pageNumber,
             pageSize,
-            status: uFilter.status,
+            status: filter.status,
         };
 
-        dispatch({ type: ACCOUNT.FETCH_LIST, filter: uFilter, payload });
+        dispatch(fetchEvent({ filter }));
+
+        fetchAccountInfoList(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            dispatch(
+                fetchResultEvent({
+                    fetchStatus,
+                    dataSource: dataPage,
+                })
+            );
+        });
     };
 
     const refreshList = () => {
-        fetchList(dataSource.pageNumber, dataSource.pageSize);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
     };
 
     const disableItem = (id) => {
-        dispatch({ type: ACCOUNT.ACTION });
+        dispatch(actionEvent());
 
         const body = { id };
 
@@ -47,13 +63,13 @@ export default function AccountList() {
                 refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch({ type: ACCOUNT.ACTION_FAILURE, payload: { fetchStatus } });
+                dispatch(actionResultEvent());
             }
         });
     };
 
     const enableItem = (id) => {
-        dispatch({ type: ACCOUNT.ACTION });
+        dispatch(actionEvent());
 
         const body = { id };
 
@@ -63,13 +79,13 @@ export default function AccountList() {
                 refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch({ type: ACCOUNT.ACTION_FAILURE, payload: { fetchStatus } });
+                dispatch(actionResultEvent());
             }
         });
     };
 
     const unlockItem = (id) => {
-        dispatch({ type: ACCOUNT.ACTION });
+        dispatch(actionEvent());
 
         const body = { id };
 
@@ -79,13 +95,13 @@ export default function AccountList() {
                 refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch({ type: ACCOUNT.ACTION_FAILURE, payload: { fetchStatus } });
+                dispatch(actionResultEvent());
             }
         });
     };
 
     const deleteItem = (id) => {
-        dispatch({ type: ACCOUNT.ACTION });
+        dispatch(actionEvent());
 
         const body = { id };
 
@@ -95,15 +111,17 @@ export default function AccountList() {
                 refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch({ type: ACCOUNT.ACTION_FAILURE, payload: { fetchStatus } });
+                dispatch(actionResultEvent());
             }
         });
     };
 
     const changeFilterStatus = (e) => {
-        uFilter.status = e.target.value;
+        const filter = {
+            status: e.target.value,
+        };
 
-        fetchList(dataSource.pageNumber, dataSource.pageSize);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, filter);
     };
 
     useEffect(() => {
@@ -217,7 +235,7 @@ export default function AccountList() {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50'],
         showTotal: (total) => `总条数： ${total} `,
-        onChange: (page, pageSize) => fetchList(page, pageSize),
+        onChange: (page, pageSize) => fetchList(page, pageSize, uFilter),
         position: ['bottomLeft'],
     };
 

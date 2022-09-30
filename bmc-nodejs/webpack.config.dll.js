@@ -11,7 +11,7 @@ const vendors = [
     'react-redux',
     'react-router-dom',
     'redux',
-    'redux-saga',
+    '@reduxjs/toolkit',
     'moment',
     'react-dnd',
     'react-dnd-html5-backend',
