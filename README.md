@@ -5,7 +5,7 @@
 
 1.  只更新父模块的版本号;
 	```shell
-	mvn versions:set -DnewVersion=1.6.0-SNAPSHOT
+	mvn versions:set -DnewVersion=1.7.0-SNAPSHOT
 	```
 2.  更新子模块和父模块一样的版本号;
 	```shell
