@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Form, Input, Button, Alert, Card } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import BMC from '@/utils/BMC';
-import { COMPANY, LOGIN_TITLE, TEST_ADMIN, TEST_PASSWORD } from '@/config/application';
+import { COMPANY, LOGIN_TITLE, TEST_ADMIN, TEST_PASSWORD, BASENAME } from '@/config/application';
 import { userLogin } from '@/session/sessionService';
 import SessionStore from '@/session/SessionStore';
 
 const FormItem = Form.Item;
 
 export default function Login() {
-    const navigate = useNavigate();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [uError, setError] = useState('');
 
@@ -21,15 +19,15 @@ export default function Login() {
         userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
                 if (firstLogin) {
-                    navigate('/login/first');
+                    window.location.href = `${BASENAME}/login/first`;
                 } else if (credentialsExpired) {
-                    navigate('/password/expired');
+                    window.location.href = `${BASENAME}/password/expired`;
                 } else if (remindModifyPasswd) {
-                    navigate('/password/expiring');
+                    window.location.href = `${BASENAME}/password/expiring`;
                 } else {
                     SessionStore.initAccountInfo(() => {
                         const homePath = SessionStore.getHomePath();
-                        navigate(homePath);
+                        window.location.href = BASENAME + homePath;
                     });
                 }
             } else {

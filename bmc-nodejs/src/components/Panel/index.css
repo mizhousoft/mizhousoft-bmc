@@ -1,0 +1,11 @@
+.mz-panel-title {
+    margin-bottom: 20px;
+    padding: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    background-color: #f8f8f8;
+}
+
+.mz-panel-body {
+    padding: 0 12px;
+}
