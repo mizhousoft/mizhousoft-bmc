@@ -7,18 +7,18 @@
 		<id property="id" column="id" />
 		<result property="srvId" column="srv_id" />
 		<result property="key" column="key_x" />
-		<result property="value" column="value" />
+		<result property="value" column="value_x" />
 		<result property="utime" column="utime" />
 		<result property="ctime" column="ctime" />
 	</resultMap>
 	
 	<insert id="save" useGeneratedKeys="true" keyProperty="id">
-		insert into bmc_dict_json (srv_id, key_x, value, utime, ctime)
+		insert into bmc_dict_json (srv_id, key_x, value_x, utime, ctime)
 		values(#{srvId}, #{key}, #{value}, #{utime}, #{ctime})
 	</insert>
 	
 	<update id="update">
-		update bmc_dict_json set value = #{value}, utime = #{utime} where id = #{id} 
+		update bmc_dict_json set value_x = #{value}, utime = #{utime} where id = #{id} 
 	</update>
 	
 	<delete id="delete">
@@ -27,7 +27,7 @@
 	</delete>
 	
 	<select id="findByKey" resultMap="JSONDictMap">
-		select id, srv_id, key_x, value, utime, ctime
+		select id, srv_id, key_x, value_x, utime, ctime
 		from bmc_dict_json
 		where srv_id = #{srvId} and key_x = #{key}
 		limit 1
