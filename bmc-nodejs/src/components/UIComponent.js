@@ -124,7 +124,7 @@ export function SafeLink({ to, style, children }) {
     );
 }
 
-export default function ActionLoading({ visible, content }) {
+export function ActionLoading({ visible, content }) {
     return (
         <Modal
             width='300px'
