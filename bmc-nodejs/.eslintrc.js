@@ -51,6 +51,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 2, // Checks rules of Hooks
         'react/function-component-definition': 0,
         'react/no-unused-class-component-methods': 0,
+        'react/no-unknown-property': ['error', { ignore: ['directory', 'webkitdirectory'] }],
         'import/extensions': 0,
         'import/no-cycle': 0,
         'import/no-extraneous-dependencies': [
