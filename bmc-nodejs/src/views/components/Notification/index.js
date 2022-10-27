@@ -81,7 +81,7 @@ export default function Notification() {
                 <FontIcon
                     onClick={() => setVisible(true)}
                     type='anticon-notification'
-                    style={{ fontSize: '1.2em', cursor: 'pointer' }}
+                    style={{ fontSize: '1.15em', cursor: 'pointer' }}
                 />
             </Badge>
         </Popover>

@@ -18,7 +18,7 @@ export default function MainHeader({ selectedTopMenuId }) {
                 <Col xxl={18} xl={16} lg={14} md={12}>
                     <AuthNavigationMenu selectedTopMenuId={selectedTopMenuId} topMemus={GLOBAL_MENUS} />
                 </Col>
-                <Col xxl={3} xl={4} lg={5} md={6} style={{ textAlign: 'right' }}>
+                <Col xxl={3} xl={4} lg={5} md={6} className='right'>
                     <AccountAvatar isActive={selectedTopMenuId === ''} />
                     <Logout />
                 </Col>

@@ -27,7 +27,7 @@ export default function Logout() {
 
     return (
         <AButton onClick={onLogout} style={{ marginRight: '15px' }}>
-            <img width='28px' height='28px' alt='退出' src={LogoutImg} style={{ verticalAlign: 'middle' }} />
+            <img width='22px' height='22px' alt='退出' src={LogoutImg} style={{ verticalAlign: 'middle' }} />
         </AButton>
     );
 }

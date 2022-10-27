@@ -52,6 +52,12 @@
     background-color: #11375c !important;
 }
 
+.mz-main-header .right {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+}
+
 .mz-empty-header {
     width: 100% !important;
     height: 60px !important;
@@ -129,6 +135,10 @@
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: #1890ff;
     font-size: 15px;
+}
+
+.mz-notification {
+    margin-top: 5px;
 }
 
 .mz-notification .ant-badge-count {
@@ -459,7 +469,7 @@
 .mz-header-avatar {
     position: relative;
     display: inline-block;
-    margin: 0 18px 0 28px;
+    margin: 0 18px 0 40px;
 }
 
 .mz-header-avatar a {
