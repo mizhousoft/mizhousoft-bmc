@@ -5,30 +5,27 @@ START TRANSACTION;
 CREATE UNIQUE INDEX PERM_RESOURCE_IDX ON bmc_perm_resource (srvId, path);
 CREATE UNIQUE INDEX DICT_JSON_IDX ON bmc_dict_json (srv_id, key_x);
 
--- My Account
+-- Persional Account
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.my.accountdetail','/account/fetchMyAccountDetail.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.my.accountdetail',NULL,'我的帐号详情','My Accout Detail',false,NULL,NULL);
 
-
--- Personal Setting
-INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',2,'bmc.personal.settings',NULL,'个人设置','Personal Settings',false,NULL,NULL);
-
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.myaccount','/setting/account/fetchMyAccountInfo.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.myaccount','/setting/account/modifyPhoneNumber.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',1,'bmc.setting.myaccount','bmc.account.setting','我的帐号','My Account',false,NULL,NULL);
+VALUES ('BMC',1,'bmc.setting.myaccount',NULL,'帐号信息','Account Information',false,NULL,NULL);
 
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.password','/setting/password/fetchPasswordStrategy.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.password','/setting/password/modifyPassword.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',1,'bmc.setting.password','bmc.account.setting','修改密码','Modify Password',false,NULL,NULL);
+VALUES ('BMC',1,'bmc.setting.password',NULL,'修改密码','Modify Password',false,NULL,NULL);
 
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.idletimeout','/setting/idletimeout/fetchIdletimeout.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.setting.idletimeout','/setting/idletimeout/modifyIdletimeout.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',1,'bmc.setting.idletimeout','bmc.account.setting','闲置时间设置','Idle timeout Setting',false,NULL,NULL);
+VALUES ('BMC',1,'bmc.setting.idletimeout',NULL,'闲置时间设置','Idle timeout Setting',false,NULL,NULL);
+
+
 
 -- System Management
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 

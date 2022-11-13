@@ -40,7 +40,7 @@ export default function MyAccountInfo() {
         fetchPageData();
     }, []);
 
-    const pageTitle = '我的帐号';
+    const pageTitle = '帐号信息';
 
     if (uFetchStatus.loading) {
         return <PageLoading title={pageTitle} />;

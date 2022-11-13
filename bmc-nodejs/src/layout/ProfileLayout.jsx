@@ -9,26 +9,22 @@ const { Content } = Layout;
 
 const SIDER_MENUS = [
     {
-        id: 'bmc.personal.settings',
-        name: '个人设置',
-        iconFont: 'anticon-profile',
-        subMenus: [
-            {
-                id: 'bmc.setting.myaccount',
-                name: '我的帐号',
-                path: '/profile/account',
-            },
-            {
-                id: 'bmc.setting.password',
-                name: '密码修改',
-                path: '/profile/password',
-            },
-            {
-                id: 'bmc.setting.idletimeout',
-                name: '闲置时间设置',
-                path: '/profile/idletimeout',
-            },
-        ],
+        id: 'bmc.setting.myaccount',
+        name: '帐号信息',
+        iconFont: 'anticon-account',
+        path: '/profile/account',
+    },
+    {
+        id: 'bmc.setting.password',
+        name: '密码修改',
+        iconFont: 'anticon-password',
+        path: '/profile/password',
+    },
+    {
+        id: 'bmc.setting.idletimeout',
+        name: '闲置时间设置',
+        iconFont: 'anticon-idletime',
+        path: '/profile/idletimeout',
     },
 ];
 
