@@ -5,7 +5,7 @@ var theme = require("./theme.js")
 module.exports = {
     mode: 'development',
     entry: {
-        bundle: './src/index.js'
+        bundle: './src/index.jsx'
     },
     output: {
         path: path.join(__dirname, './dist/assets'),
@@ -16,7 +16,9 @@ module.exports = {
     resolve: {
         alias: {
             '@': path.resolve(__dirname, "./src")
-        }
+        },
+        extensions: [".js", ".jsx", ".json"],
+        mainFiles: ["index"],
     },
     devtool: 'source-map',
     module: {
@@ -62,7 +64,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 use: [{
                     loader: 'babel-loader',
                     options: {

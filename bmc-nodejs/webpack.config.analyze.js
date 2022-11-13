@@ -12,7 +12,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        bundle: './src/index.js'
+        bundle: './src/index.jsx'
     },
     output: {
         path: path.join(__dirname, './dist'),
@@ -22,7 +22,9 @@ module.exports = {
     resolve: {
         alias: {
             '@': path.resolve(__dirname, "./src"),
-        }
+        },
+        extensions: [".js", ".jsx", ".json"],
+        mainFiles: ["index"],
     },
     module: {
         rules: [

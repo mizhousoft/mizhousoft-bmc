@@ -13,18 +13,20 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        bundle: './src/index.js'
+        bundle: './src/index.jsx'
     },
     output: {
         path: path.join(__dirname, './dist/assets'),
         publicPath: "/bmc/assets/",
-        filename: '[id]-[contenthash:10].js',
-        chunkFilename: '[id]-[contenthash:10].js'
+        filename: '[id]-[chunkhash].js',
+        chunkFilename: '[id]-[chunkhash].js'
     },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, "./src"),
-        }
+        },
+        extensions: [".js", ".jsx", ".json"],
+        mainFiles: ["index"],
     },
     module: {
         rules: [
@@ -67,7 +69,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 use: [{
                     loader: 'babel-loader',
                     options: {

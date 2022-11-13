@@ -17,6 +17,7 @@ const instance = axios.create({
         'Cache-Control': 'no-cache',
         Expires: '0',
         Pragma: 'no-cache',
+        Accept: 'application/json;charset=UTF-8',
     },
 });
 

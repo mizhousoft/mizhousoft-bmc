@@ -38,7 +38,7 @@ export function FullPageException({ fetchStatus, goBack }) {
     );
 }
 
-export function PageComponent({ title, headStyle = {}, bodyStyle = {}, children }) {
+export function PageComponent({ title, headStyle = {}, bodyStyle = {}, bodyClass = '', children }) {
     return (
         <>
             <div className='mz-page-head' style={headStyle}>
@@ -46,7 +46,7 @@ export function PageComponent({ title, headStyle = {}, bodyStyle = {}, children 
             </div>
 
             <div className='mz-page-content'>
-                <div className='mz-page-content-body' style={bodyStyle}>
+                <div className={`mz-page-content-body ${bodyClass}`} style={bodyStyle}>
                     {children}
                 </div>
             </div>
