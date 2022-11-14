@@ -7,9 +7,9 @@ import RequireAuth from './RequireAuth';
 
 import loginRoute from './loginRoute';
 import profileRoute from './profileRoute';
-import accoutRoutes from './accountRoute';
+import systemRoutes from './systemRoute';
 
-const routes = [...loginRoute, ...accoutRoutes, ...profileRoute];
+const routes = [...loginRoute, ...systemRoutes, ...profileRoute];
 
 routes.forEach((route) => {
     if (route.children) {
