@@ -119,6 +119,10 @@ module.exports = {
         },
     },
     plugins: [
+        new webpack.DefinePlugin({
+            ENV_TEST_ADMIN: JSON.stringify(''),
+            ENV_TEST_PASSWORD: JSON.stringify(''),
+        }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name]-[contenthash].css',

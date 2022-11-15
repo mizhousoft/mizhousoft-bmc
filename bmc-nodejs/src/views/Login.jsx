@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Alert, Card } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import BMC from '@/utils/BMC';
-import { COMPANY, LOGIN_TITLE, TEST_ADMIN, TEST_PASSWORD, BASENAME } from '@/config/application';
+import { COMPANY, LOGIN_TITLE, BASENAME } from '@/config/application';
 import { userLogin } from '@/session/sessionService';
 import SessionStore from '@/session/SessionStore';
 
@@ -43,8 +42,8 @@ export default function Login() {
                 <Form
                     onFinish={onFinish}
                     initialValues={{
-                        account: BMC.isDev() ? TEST_ADMIN : '',
-                        password: BMC.isDev() ? TEST_PASSWORD : '',
+                        account: ENV_TEST_ADMIN,
+                        password: ENV_TEST_PASSWORD,
                     }}
                 >
                     <h2 style={{ textAlign: 'center', paddingBottom: '30px' }}>{LOGIN_TITLE}</h2>

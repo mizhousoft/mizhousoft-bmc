@@ -16,8 +16,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, './dist'),
-        filename: '[id]-[contenthash:10].js',
-        chunkFilename: '[id]-[contenthash:10].js'
+        filename: '[id]-[chunkhash].js',
+        chunkFilename: '[id]-[chunkhash].js'
     },
     resolve: {
         alias: {
@@ -67,7 +67,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.js$/,
+                test: /\.(js|jsx)$/,
                 use: [{
                     loader: 'babel-loader',
                     options: {
@@ -102,7 +102,6 @@ module.exports = {
                 extractComments: false,
             }),
             new CssMinimizerPlugin({
-                cache: true,
                 parallel: true,
             }),
         ],
@@ -118,8 +117,14 @@ module.exports = {
         },
     },
     plugins: [
+        new webpack.DefinePlugin({
+            ENV_TEST_ADMIN: JSON.stringify(''),
+            ENV_TEST_PASSWORD: JSON.stringify(''),
+        }),
         new CleanWebpackPlugin(),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name]-[contenthash].css',
+        }),
         new BundleAnalyzerPlugin({
             analyzerPort: 8889
         })
