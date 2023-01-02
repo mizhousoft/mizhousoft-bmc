@@ -9,5 +9,5 @@ node_modules
 .vscode
 **/*.svg
 **/*.png
-src/static/iconfont
-src/static/images
+src/assets/iconfont
+src/assets/imgs

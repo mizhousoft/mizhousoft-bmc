@@ -114,6 +114,10 @@ div.ant-input-number {
     border-radius: 4px !important;
 }
 
+.ant-breadcrumb a {
+    color: #1890ff !important;
+}
+
 .list-ant-tag .ant-tag {
     margin-bottom: 14px !important;
 }

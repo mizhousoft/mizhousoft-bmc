@@ -72,7 +72,7 @@ export default function ResetAccountPasswd({ accountId }) {
             {visible && (
                 <Modal
                     title='重置帐号密码'
-                    visible
+                    open
                     centered
                     closable={false}
                     maskClosable={false}

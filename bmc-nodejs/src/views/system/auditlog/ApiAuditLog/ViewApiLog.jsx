@@ -13,7 +13,7 @@ export default function ViewApiLog({ apiLog }) {
             {visible && (
                 <Modal
                     title='查看接口日志'
-                    visible
+                    open
                     width='600px'
                     onOk={() => setVisible(false)}
                     onCancel={() => setVisible(false)}

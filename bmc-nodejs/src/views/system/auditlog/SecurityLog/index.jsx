@@ -182,7 +182,7 @@ export default function SecurityLog() {
         current: dataSource.pageNumber,
         showQuickJumper: true,
         showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '30', '40', '50'],
+        pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
         position: ['bottomLeft'],
     };

@@ -22,7 +22,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['react', 'babel', '@typescript-eslint', 'react-hooks', 'unicorn'],
     overrides: [{
-        files: ['*.js', '*.ts', '*.tsx'],
+        files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
         rules: {
             '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
             'no-unused-expressions': 'off',

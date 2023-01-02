@@ -14,7 +14,7 @@ export default function ViewSystemLog({ systemLog }) {
                 <Modal
                     title='查看系统日志'
                     width='600px'
-                    visible
+                    open
                     onOk={() => setVisible(false)}
                     onCancel={() => setVisible(false)}
                     closable={false}

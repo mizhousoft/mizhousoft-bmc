@@ -93,7 +93,7 @@ export default function OnlineAccountList() {
         current: dataSource.pageNumber,
         showQuickJumper: true,
         showSizeChanger: true,
-        pageSizeOptions: ['10', '20', '30', '40', '50'],
+        pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
         onChange: (page, pageSize) => fetchList(page, pageSize),
         position: ['bottomLeft'],

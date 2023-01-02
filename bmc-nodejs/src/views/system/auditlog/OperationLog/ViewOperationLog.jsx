@@ -13,7 +13,7 @@ export default function ViewOperatorLog({ operationLog }) {
             {visible && (
                 <Modal
                     title='查看操作日志'
-                    visible
+                    open
                     onOk={() => setVisible(false)}
                     onCancel={() => setVisible(false)}
                     width='600px'

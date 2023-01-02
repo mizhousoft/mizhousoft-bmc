@@ -126,15 +126,7 @@ export function SafeLink({ to, style, children }) {
 
 export function ActionLoading({ visible, content }) {
     return (
-        <Modal
-            width='300px'
-            centered
-            maskClosable={false}
-            footer={null}
-            visible={visible}
-            destroyOnClose
-            closable={false}
-        >
+        <Modal width='300px' centered maskClosable={false} footer={null} open={visible} destroyOnClose closable={false}>
             <div style={{ textAlign: 'center' }}>
                 <Spin indicator={antIcon} style={{ marginRight: '30px' }} />
                 {content}

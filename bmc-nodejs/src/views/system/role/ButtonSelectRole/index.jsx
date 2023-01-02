@@ -108,7 +108,7 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
 
             <Modal
                 title='选择角色'
-                visible={visible}
+                open={visible}
                 closable={false}
                 maskClosable={false}
                 onCancel={() => setVisible(false)}

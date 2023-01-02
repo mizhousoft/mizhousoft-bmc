@@ -5,8 +5,8 @@ import zhCN from 'antd/lib/locale-provider/zh_CN';
 import { BASENAME } from '@/config/application';
 import AppRoutes from '../routes';
 import 'antd/dist/antd.css';
-import '@/static/css/antd.css';
-import '@/static/css/public.css';
+import '@/assets/css/antd.css';
+import '@/assets/css/public.css';
 
 message.config({ top: 120, duration: 2 });
 

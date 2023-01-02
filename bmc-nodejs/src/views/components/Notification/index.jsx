@@ -74,8 +74,8 @@ export default function Notification() {
             trigger='click'
             placement='bottomLeft'
             className='mz-notification'
-            visible={visible}
-            onVisibleChange={(show) => setVisible(show)}
+            open={visible}
+            onOpenChange={(show) => setVisible(show)}
         >
             <Badge count={badgeCount} onClick={() => setVisible(true)} showZero size='default' offset={[8, 0]}>
                 <FontIcon

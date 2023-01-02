@@ -13,7 +13,7 @@ export default function ViewSecurityLog({ securityLog }) {
             {visible && (
                 <Modal
                     title='查看安全日志'
-                    visible
+                    open
                     width='600px'
                     onOk={() => setVisible(false)}
                     onCancel={() => setVisible(false)}

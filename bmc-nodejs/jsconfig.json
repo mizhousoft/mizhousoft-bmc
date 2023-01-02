@@ -14,8 +14,8 @@
             "@/session/*": [
                 "./src/session/*"
             ],
-            "@/static/*": [
-                "./src/static/*"
+            "@/assets/*": [
+                "./src/assets/*"
             ],
             "@/utils/*": [
                 "./src/utils/*"

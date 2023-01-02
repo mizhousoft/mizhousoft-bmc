@@ -38,7 +38,7 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
                     title='修改手机号'
                     maskClosable={false}
                     footer={null}
-                    visible
+                    open
                     destroyOnClose
                     onCancel={() => setVisible(false)}
                     closable={false}
