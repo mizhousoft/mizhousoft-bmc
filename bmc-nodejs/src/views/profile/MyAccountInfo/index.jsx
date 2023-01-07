@@ -69,7 +69,6 @@ export default function MyAccountInfo() {
                         dataSource={uRoles}
                         rowKey={(record) => record.id}
                         pagination={false}
-                        bordered
                     />
                 </FormItem>
             </Form>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import SessionStore from '@/session/SessionStore';
 
-export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
+export default function NavigationMenu({ selectedTopMenuId, topMenus }) {
     const getTopMenuFirstPath = (topMenu) => {
         if (topMenu.path) {
             return topMenu.path;
@@ -39,24 +39,22 @@ export default function NavigationMenu({ selectedTopMenuId, topMemus }) {
         return null;
     };
 
-    const renderMenu = (topMenu) => {
+    const selectedKeys = [selectedTopMenuId];
+
+    const menuItems = [];
+    topMenus.forEach((topMenu) => {
         const path = getTopMenuFirstPath(topMenu);
 
-        return (
-            <Menu.Item key={topMenu.id}>
+        menuItems.push({
+            key: topMenu.id,
+            label: (
                 <Link to={path} replace>
                     <span className={topMenu.iconClass} />
                     {topMenu.name}
                 </Link>
-            </Menu.Item>
-        );
-    };
+            ),
+        });
+    });
 
-    const selectedKeys = [selectedTopMenuId];
-
-    return (
-        <Menu mode='horizontal' selectedKeys={selectedKeys} className='mz-navigation-menu'>
-            {topMemus.map((topMemu, index) => renderMenu(topMemu))}
-        </Menu>
-    );
+    return <Menu mode='horizontal' selectedKeys={selectedKeys} className='mz-navigation-menu' items={menuItems} />;
 }

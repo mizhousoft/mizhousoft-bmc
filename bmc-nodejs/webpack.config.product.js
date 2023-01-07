@@ -1,6 +1,5 @@
 ﻿var webpack = require('webpack')
 var path = require("path")
-var theme = require("./theme.js")
 const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin')
@@ -62,7 +61,6 @@ module.exports = {
                     options: {
                         lessOptions: {
                             javascriptEnabled: true,
-                            "modifyVars": theme()
                         }
                     }
                 }
@@ -136,11 +134,6 @@ module.exports = {
                 patterns: [{
                     from: 'public/favicon.ico',
                     to: '../',
-                    toType: 'dir'
-                },
-                {
-                    from: 'public/polyfill.min.js',
-                    to: './',
                     toType: 'dir'
                 }
                 ]

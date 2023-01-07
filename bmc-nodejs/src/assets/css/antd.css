@@ -1,92 +1,10 @@
 .ant-btn {
     padding: 0 16px;
-    border-radius: 1px;
-}
-
-.ant-btn-group > .ant-btn:first-child:not(:last-child),
-.ant-btn-group > span:first-child:not(:last-child) > .ant-btn {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.ant-btn-group > .ant-btn:last-child:not(:first-child),
-.ant-btn-group > span:last-child:not(:first-child) > .ant-btn {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.ant-input {
-    border-radius: 0;
-}
-
-div.ant-input-number {
-    border-radius: 0;
-}
-
-.ant-input-number .ant-input-number-input {
-    border-radius: 0;
-}
-
-.ant-radio-group .ant-radio-button-wrapper:first-child {
-    border-radius: 0;
-}
-
-.ant-radio-group .ant-radio-button-wrapper:last-child {
-    border-radius: 0;
-}
-
-.ant-modal-content,
-.ant-modal-header {
-    border-radius: 2px;
 }
 
 .ant-modal-header {
     padding: 11px 24px !important;
     background: #f7f8fa !important;
-}
-
-.ant-alert {
-    border-radius: 0;
-}
-
-.ant-select .ant-select-selection {
-    border-radius: 0;
-}
-
-.ant-pagination .ant-pagination-next .ant-pagination-item-link {
-    border-radius: 0;
-}
-
-.ant-pagination .ant-pagination-prev .ant-pagination-item-link {
-    border-radius: 0;
-}
-
-.ant-pagination .ant-pagination-item {
-    border-radius: 0;
-}
-
-.ant-pagination .ant-pagination-options-quick-jumper input {
-    border-radius: 0;
-}
-
-.ant-table .ant-table-body table {
-    border-radius: 0;
-}
-
-.ant-table .ant-table-placeholder {
-    border-radius: 0;
-}
-
-.ant-table-body .ant-table-thead > tr:first-child > th:last-child {
-    border-radius: 0;
-}
-
-.ant-progress-outer .ant-progress-inner {
-    border-radius: 0;
-}
-
-.ant-progress .ant-progress-bg {
-    border-radius: 0;
 }
 
 .ant-filter-form .ant-form-item {
@@ -111,7 +29,6 @@ div.ant-input-number {
     padding: 3px 10px !important;
     font-size: 13px !important;
     border: 1px solid #ddd !important;
-    border-radius: 4px !important;
 }
 
 .ant-breadcrumb a {
@@ -133,4 +50,16 @@ div.ant-input-number {
 .input-addon-button .ant-input-group-addon {
     background-color: #fff;
     border-width: 0;
+}
+
+.ant-modal-content {
+    padding: 0 !important;
+}
+
+.ant-modal-body {
+    padding: 20px 24px !important;
+}
+
+.ant-modal-footer {
+    padding: 0 24px 20px !important;
 }

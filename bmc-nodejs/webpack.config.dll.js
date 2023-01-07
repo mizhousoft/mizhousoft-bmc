@@ -12,7 +12,7 @@ const vendors = [
     'react-router-dom',
     'redux',
     '@reduxjs/toolkit',
-    'moment',
+    'dayjs',
     'react-dnd',
     'react-dnd-html5-backend',
 ]

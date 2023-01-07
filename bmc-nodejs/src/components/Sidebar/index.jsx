@@ -5,7 +5,6 @@ import FontIcon from '@/components/FontIcon';
 import { findSiderMenuId, findOpenMenuKeys } from '@/utils/MenuUtils';
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
 
 export default function Sidebar({ header, footer, siderMenus, path, selectedMenuId, height = '100%' }) {
     if (selectedMenuId === null) {
@@ -15,47 +14,50 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
     const [selectedKeys, setSelectedKeys] = useState(() => (selectedMenuId ? [selectedMenuId] : []));
     const [openKeys, setOpenKeys] = useState(() => findOpenMenuKeys(selectedMenuId, siderMenus));
 
-    const renderMenuItem = (menu) => {
+    const buildMenuItem = (menu) => {
         if (menu.iconFont) {
-            return (
-                <Menu.Item key={menu.id}>
+            return {
+                key: menu.id,
+                label: (
                     <Link to={menu.path} replace>
                         <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />
                         {menu.name}
                     </Link>
-                </Menu.Item>
-            );
+                ),
+            };
         }
-        return (
-            <Menu.Item key={menu.id} style={{ paddingLeft: '54px' }}>
+
+        return {
+            key: menu.id,
+            style: { paddingLeft: '54px' },
+            label: (
                 <Link to={menu.path} replace>
                     {menu.name}
                 </Link>
-            </Menu.Item>
-        );
+            ),
+        };
     };
 
-    const renderSiderMenu = (siderMenu) => {
+    const buildSiderMenuItems = (siderMenu) => {
         if (undefined === siderMenu.subMenus) {
-            return renderMenuItem(siderMenu);
+            return buildMenuItem(siderMenu);
         }
         if (siderMenu.iconFont) {
-            return (
-                <SubMenu
-                    key={siderMenu.id}
-                    title={
-                        <>
-                            <FontIcon
-                                type={siderMenu.iconFont}
-                                style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }}
-                            />
-                            {siderMenu.name}
-                        </>
-                    }
-                >
-                    {siderMenu.subMenus.map((subMenu, index) => renderSiderMenu(subMenu))}
-                </SubMenu>
-            );
+            const children = siderMenu.subMenus.map((subMenu) => buildSiderMenuItems(subMenu));
+
+            return {
+                key: siderMenu.id,
+                label: (
+                    <>
+                        <FontIcon
+                            type={siderMenu.iconFont}
+                            style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }}
+                        />
+                        {siderMenu.name}
+                    </>
+                ),
+                children,
+            };
         }
     };
 
@@ -107,6 +109,8 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
         setOpenKeys(keys);
     }, [selectedMenuId]);
 
+    const menuItems = siderMenus.map((siderMenu) => buildSiderMenuItems(siderMenu));
+
     return (
         <Sider width={210} className='mz-sider' theme='light'>
             {undefined !== header && <div className='mz-sider-header'>{header}</div>}
@@ -119,9 +123,8 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
                     onOpenChange={onOpenChange}
                     onSelect={onSelect}
                     style={{ height, borderRight: 'none' }}
-                >
-                    {siderMenus.map((siderMenu, index) => renderSiderMenu(siderMenu))}
-                </Menu>
+                    items={menuItems}
+                />
             </div>
             {undefined !== footer && (
                 <Affix offsetBottom={0}>

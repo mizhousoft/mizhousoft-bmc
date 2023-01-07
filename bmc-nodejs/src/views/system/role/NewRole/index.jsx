@@ -6,7 +6,6 @@ import { PageLoading, PageException, PageComponent } from '@/components/UICompon
 import { newRole, addRole } from '../redux/roleService';
 
 const FormItem = Form.Item;
-const { TreeNode } = Tree;
 const { TextArea } = Input;
 
 export default function NewRole() {
@@ -26,18 +25,6 @@ export default function NewRole() {
     const onCheck = (checkedKeys) => {
         setCheckedKeys(checkedKeys);
     };
-
-    const renderTreeNodes = (data) =>
-        data.map((item) => {
-            if (item.children) {
-                return (
-                    <TreeNode title={item.title} key={item.key} dataRef={item}>
-                        {renderTreeNodes(item.children)}
-                    </TreeNode>
-                );
-            }
-            return <TreeNode {...item} key={item.key} />;
-        });
 
     const onFinish = (values) => {
         if (uCheckedKeys.length === 0) {
@@ -116,9 +103,7 @@ export default function NewRole() {
                 </FormItem>
                 <div>角色权限：</div>
                 <div className='mz_permission_tree'>
-                    <Tree showLine checkable defaultExpandAll onCheck={onCheck}>
-                        {renderTreeNodes(treeDataArray)}
-                    </Tree>
+                    <Tree showLine checkable defaultExpandAll blockNode onCheck={onCheck} treeData={treeDataArray} />
                 </div>
                 <div className='mz-button-group'>
                     <Button type='primary' htmlType='submit' loading={confirmLoading}>

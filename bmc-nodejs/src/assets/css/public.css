@@ -1,5 +1,8 @@
 .mz-body {
+    margin: 0;
+    padding: 0;
     font-size: 14px;
+    line-height: 1.5;
     background-color: #f9f9f9;
 }
 
@@ -75,6 +78,7 @@
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item {
+    padding: 0 20px !important;
     border-bottom: none;
 }
 
@@ -189,7 +193,7 @@
 }
 
 .mz-sider .ant-menu {
-    background-color: #eef2f5;
+    background-color: #eef2f5 !important;
 }
 
 .mz-sider .ant-menu-inline .ant-menu-item {
@@ -264,10 +268,12 @@
 .mz-note-list-head {
     margin-bottom: 20px;
     padding: 20px 20px 14px;
+    background-color: rgb(249, 249, 249);
     border: 1px solid #f0f0f0;
 }
 
 .mz-note-list-head p {
+    margin-top: 0;
     margin-bottom: 4px;
     color: #333;
     font-size: 14px;
@@ -306,7 +312,7 @@
 }
 
 .mz_permission_tree {
-    height: calc(100vh - 350px);
+    height: calc(100vh - 320px);
     margin-top: 5px;
     margin-bottom: 10px;
     overflow: auto;

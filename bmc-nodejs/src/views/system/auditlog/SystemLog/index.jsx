@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, Input, Button, DatePicker, Row, Col } from 'antd';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import ViewSystemLog from './ViewSystemLog';
@@ -185,7 +185,7 @@ export default function SystemLog() {
     let timePeriod = [undefined, undefined];
     if (uSearchFilter.beginTime !== undefined && uSearchFilter.endTime !== undefined) {
         const dateFormat = 'YYYY-MM-DD HH:mm';
-        timePeriod = [moment(uSearchFilter.beginTime, dateFormat), moment(uSearchFilter.endTime, dateFormat)];
+        timePeriod = [dayjs(uSearchFilter.beginTime, dateFormat), dayjs(uSearchFilter.endTime, dateFormat)];
     }
 
     return (
@@ -218,7 +218,10 @@ export default function SystemLog() {
                 <Row style={{ marginTop: '10px' }}>
                     <Col span={12}>
                         <FormItem name='timePeriod' label='时间段'>
-                            <RangePicker format='YYYY-MM-DD HH:mm' />
+                            <RangePicker
+                                format='YYYY-MM-DD HH:mm'
+                                disabledDate={(current) => current && current >= dayjs().endOf('day')}
+                            />
                         </FormItem>
                     </Col>
                     <Col span={8} className='mz-button-group'>
@@ -237,7 +240,6 @@ export default function SystemLog() {
                 pagination={pagination}
                 rowKey={(record) => record.id}
                 size='middle'
-                bordered
                 locale={locale}
                 onChange={handleTableChange}
             />

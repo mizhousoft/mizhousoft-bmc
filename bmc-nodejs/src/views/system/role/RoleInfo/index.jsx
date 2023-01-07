@@ -6,7 +6,6 @@ import { PageLoading, PageException, PageComponent } from '@/components/UICompon
 import { fetchRoleInfo } from '../redux/roleService';
 
 const FormItem = Form.Item;
-const { TreeNode } = Tree;
 
 export default function RoleInfo() {
     const navigate = useNavigate();
@@ -19,18 +18,6 @@ export default function RoleInfo() {
     const gotoList = () => {
         navigate('/role/list');
     };
-
-    const renderTreeNodes = (data) =>
-        data.map((item) => {
-            if (item.children) {
-                return (
-                    <TreeNode title={item.title} key={item.key} dataRef={item}>
-                        {renderTreeNodes(item.children)}
-                    </TreeNode>
-                );
-            }
-            return <TreeNode {...item} key={item.key} />;
-        });
 
     useEffect(() => {
         const body = {
@@ -57,7 +44,7 @@ export default function RoleInfo() {
         return <PageException title={pageTitle} fetchStatus={uFetchStatus} goBack={gotoList} />;
     }
 
-    const treeDataArray = JSON.parse(uTreeData);
+    const treeDataList = JSON.parse(uTreeData);
 
     return (
         <PageComponent title={pageTitle}>
@@ -66,9 +53,7 @@ export default function RoleInfo() {
                 <FormItem label='描述'>{uRole.descriptionCN}</FormItem>
                 <div>角色权限：</div>
                 <div className='mz_permission_tree'>
-                    <Tree showLine defaultExpandAll>
-                        {renderTreeNodes(treeDataArray)}
-                    </Tree>
+                    <Tree showLine defaultExpandAll blockNode treeData={treeDataList} />
                 </div>
                 <div>
                     <Button type='primary' onClick={gotoList}>

@@ -127,7 +127,6 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
                     rowKey={(record) => record.id}
                     rowSelection={rowSelection}
                     size='middle'
-                    bordered
                     locale={locale}
                 />
                 <div className='mz-button-group center'>

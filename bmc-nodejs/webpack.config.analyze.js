@@ -1,6 +1,5 @@
 var webpack = require('webpack')
 var path = require("path")
-var theme = require("./theme.js")
 const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin')
@@ -60,7 +59,6 @@ module.exports = {
                     options: {
                         lessOptions: {
                             javascriptEnabled: true,
-                            "modifyVars": theme()
                         }
                     }
                 }

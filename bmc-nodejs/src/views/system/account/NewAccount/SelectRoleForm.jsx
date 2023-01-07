@@ -61,7 +61,6 @@ export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData 
                 pagination={false}
                 rowKey={(record) => record.name}
                 size='middle'
-                bordered
             />
 
             <div className='mz-button-group' style={{ marginTop: '24px' }}>

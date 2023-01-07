@@ -6,7 +6,6 @@ import { PageLoading, PageException, PageComponent } from '@/components/UICompon
 import { editRole, modifyRole } from '../redux/roleService';
 
 const FormItem = Form.Item;
-const { TreeNode } = Tree;
 const { TextArea } = Input;
 
 export default function EditRole() {
@@ -28,18 +27,6 @@ export default function EditRole() {
     const onCheck = (checkedKeys) => {
         setCheckedKeys(checkedKeys);
     };
-
-    const renderTreeNodes = (data) =>
-        data.map((item) => {
-            if (item.children) {
-                return (
-                    <TreeNode title={item.title} key={item.key} dataRef={item}>
-                        {renderTreeNodes(item.children)}
-                    </TreeNode>
-                );
-            }
-            return <TreeNode {...item} key={item.key} />;
-        });
 
     const onFinish = (values) => {
         if (uCheckedKeys.length === 0) {
@@ -132,9 +119,15 @@ export default function EditRole() {
                 </FormItem>
                 <div>角色权限：</div>
                 <div className='mz_permission_tree'>
-                    <Tree showLine checkable defaultExpandAll defaultCheckedKeys={uCheckedKeys} onCheck={onCheck}>
-                        {renderTreeNodes(treeDataArray)}
-                    </Tree>
+                    <Tree
+                        showLine
+                        checkable
+                        defaultExpandAll
+                        blockNode
+                        defaultCheckedKeys={uCheckedKeys}
+                        onCheck={onCheck}
+                        treeData={treeDataArray}
+                    />
                 </div>
                 <div className='mz-button-group'>
                     <Button type='primary' htmlType='submit' loading={confirmLoading}>

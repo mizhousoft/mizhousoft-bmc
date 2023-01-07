@@ -5,8 +5,6 @@ import FontIcon from '@/components/FontIcon';
 import NotificationStore from '@/store/notificationStore';
 import { AButton } from '@/components/UIComponent';
 
-const { TabPane } = Tabs;
-
 export default function Notification() {
     const navigate = useNavigate();
 
@@ -36,9 +34,11 @@ export default function Notification() {
         return () => clearInterval(interval);
     }, []);
 
-    const content = (
-        <Tabs defaultActiveKey='1' className='mz-notification-list'>
-            <TabPane tab='待办事项' key='1'>
+    const tabItems = [
+        {
+            key: '1',
+            label: '待办事项',
+            children: (
                 <List
                     itemLayout='horizontal'
                     dataSource={uTodos}
@@ -59,9 +59,11 @@ export default function Notification() {
                         </List.Item>
                     )}
                 />
-            </TabPane>
-        </Tabs>
-    );
+            ),
+        },
+    ];
+
+    const content = <Tabs defaultActiveKey='1' className='mz-notification-list' items={tabItems} />;
 
     let badgeCount = 0;
     uTodos.forEach((item) => {

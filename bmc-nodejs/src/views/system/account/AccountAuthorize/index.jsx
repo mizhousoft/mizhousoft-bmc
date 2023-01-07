@@ -117,7 +117,6 @@ export default function AccountAuthorize() {
                         dataSource={uSelectedRoles}
                         pagination={false}
                         rowKey={(record) => record.id}
-                        bordered
                     />
                 </FormItem>
                 <FormItem className='mz-button-group'>

@@ -265,7 +265,6 @@ export default function AccountList() {
                 pagination={pagination}
                 rowKey={(record) => record.id}
                 size='middle'
-                bordered
                 locale={locale}
             />
         </PageComponent>

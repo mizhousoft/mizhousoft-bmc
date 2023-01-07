@@ -63,7 +63,6 @@ export default function ConfirmAccountInfoForm({ prevStep, gotoList, formData })
                     pagination={false}
                     rowKey={(record) => record.id}
                     size='middle'
-                    bordered
                 />
             </FormItem>
             <FormItem className='mz-button-group'>

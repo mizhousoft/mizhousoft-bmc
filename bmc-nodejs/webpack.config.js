@@ -1,6 +1,5 @@
 var webpack = require('webpack')
 var path = require("path")
-var theme = require("./theme.js")
 
 module.exports = {
     mode: 'development',
@@ -57,7 +56,6 @@ module.exports = {
                         options: {
                             lessOptions: {
                                 javascriptEnabled: true,
-                                "modifyVars": theme()
                             }
                         }
                     }

@@ -5,8 +5,6 @@ import { PageLoading, PageException, PageComponent, UnsafeALink } from '@/compon
 import { BASENAME } from '@/config/application';
 import { fetchRunningLogNames, fetchRunningLogFileNames } from '../redux/auditLogService';
 
-const { TabPane } = Tabs;
-
 export default function RunningLog() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [uActiveLogname, setActiveLogname] = useState(undefined);
@@ -74,22 +72,26 @@ export default function RunningLog() {
         return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
     }
 
+    const tabItems = [];
+    uLognames.forEach((logname) => {
+        tabItems.push({
+            label: logname,
+            key: logname,
+            children: (
+                <Table
+                    columns={columns}
+                    dataSource={uLogFiles}
+                    rowKey={(record) => record.name}
+                    size='middle'
+                    pagination={false}
+                />
+            ),
+        });
+    });
+
     return (
         <PageComponent title={pageTitle}>
-            <Tabs hideAdd onChange={onChange} activeKey={uActiveLogname}>
-                {uLognames.map((logname) => (
-                    <TabPane tab={logname} key={logname}>
-                        <Table
-                            columns={columns}
-                            dataSource={uLogFiles}
-                            rowKey={(record) => record.name}
-                            size='middle'
-                            bordered
-                            pagination={false}
-                        />
-                    </TabPane>
-                ))}
-            </Tabs>
+            <Tabs hideAdd onChange={onChange} activeKey={uActiveLogname} items={tabItems} />
         </PageComponent>
     );
 }

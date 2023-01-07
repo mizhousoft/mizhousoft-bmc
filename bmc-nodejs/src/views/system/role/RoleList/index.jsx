@@ -167,7 +167,6 @@ export default function RoleList() {
                 pagination={pagination}
                 rowKey={(record) => record.id}
                 size='middle'
-                bordered
                 locale={locale}
             />
         </PageComponent>

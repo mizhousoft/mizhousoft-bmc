@@ -110,7 +110,6 @@ export default function OnlineAccountList() {
                 pagination={pagination}
                 rowKey={(record) => record.randomId}
                 size='middle'
-                bordered
                 locale={locale}
             />
         </PageComponent>

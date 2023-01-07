@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationMenu from '@/components/NavigationMenu';
 import SessionStore from '@/session/SessionStore';
 
-export default function AuthNavigationMenu({ topMemus, ...others }) {
+export default function AuthNavigationMenu({ topMenus, ...others }) {
     const filterAuthMenus = (memus) => {
         const newMenus = JSON.parse(JSON.stringify(memus));
 
@@ -17,7 +17,7 @@ export default function AuthNavigationMenu({ topMemus, ...others }) {
         return authMenus;
     };
 
-    const authTopMenus = filterAuthMenus(topMemus);
+    const authTopMenus = filterAuthMenus(topMenus);
 
-    return <NavigationMenu topMemus={authTopMenus} {...others} />;
+    return <NavigationMenu topMenus={authTopMenus} {...others} />;
 }
