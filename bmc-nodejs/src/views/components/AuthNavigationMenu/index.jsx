@@ -3,8 +3,8 @@ import NavigationMenu from '@/components/NavigationMenu';
 import SessionStore from '@/session/SessionStore';
 
 export default function AuthNavigationMenu({ topMenus, ...others }) {
-    const filterAuthMenus = (memus) => {
-        const newMenus = JSON.parse(JSON.stringify(memus));
+    const filterAuthMenus = (menus) => {
+        const newMenus = JSON.parse(JSON.stringify(menus));
 
         const authMenus = [];
         for (let i = 0; i < newMenus.length; ++i) {
