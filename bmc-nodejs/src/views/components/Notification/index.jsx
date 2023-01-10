@@ -79,7 +79,7 @@ export default function Notification() {
             open={visible}
             onOpenChange={(show) => setVisible(show)}
         >
-            <Badge count={badgeCount} onClick={() => setVisible(true)} showZero={false} size='default' offset={[8, 0]}>
+            <Badge count={badgeCount} onClick={() => setVisible(true)} showZero size='default' offset={[8, 0]}>
                 <FontIcon
                     onClick={() => setVisible(true)}
                     type='anticon-notification'

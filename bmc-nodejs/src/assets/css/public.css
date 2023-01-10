@@ -160,6 +160,14 @@
     color: #108ee9 !important;
 }
 
+.mz-notification-list .ant-list-item {
+    padding: 0 0 12px;
+}
+
+.mz-notification-list .ant-list-item-meta-title {
+    font-weight: 500;
+}
+
 .mz-sider {
     min-height: calc(100vh - 60px) !important;
     padding: 10px 15px 0 !important;

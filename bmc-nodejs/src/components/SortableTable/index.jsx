@@ -76,7 +76,6 @@ function SortableTable(props, ref) {
                 dataSource={uDataSource}
                 rowKey={(record) => `index-${record.id}`}
                 pagination={false}
-                bordered
                 components={{
                     body: {
                         row: DragableBodyRow,
