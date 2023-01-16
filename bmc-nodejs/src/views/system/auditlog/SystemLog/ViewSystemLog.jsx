@@ -21,7 +21,7 @@ export default function ViewSystemLog({ systemLog }) {
                     centered
                     className='mz-modal'
                 >
-                    <Form className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
+                    <Form preserve={false} className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
                         <FormItem label='基本信息'>{systemLog.baseInfo}</FormItem>
                         <FormItem label='级别'>{systemLog.logLevel}</FormItem>
                         <FormItem label='操作时间'>{systemLog.creationTimeStr}</FormItem>

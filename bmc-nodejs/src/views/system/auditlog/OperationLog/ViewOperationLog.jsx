@@ -22,7 +22,7 @@ export default function ViewOperatorLog({ operationLog }) {
                     centered
                     className='mz-modal'
                 >
-                    <Form className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
+                    <Form preserve={false} className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
                         <FormItem label='操作名称'>{operationLog.operation}</FormItem>
                         <FormItem label='级别'>{operationLog.logLevel}</FormItem>
                         <FormItem label='操作帐号'>{operationLog.accountName}</FormItem>

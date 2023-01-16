@@ -46,6 +46,7 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
                     className='mz-modal'
                 >
                     <Form
+                        preserve={false}
                         onFinish={onFinish}
                         labelAlign='left'
                         labelCol={{ flex: '80px' }}

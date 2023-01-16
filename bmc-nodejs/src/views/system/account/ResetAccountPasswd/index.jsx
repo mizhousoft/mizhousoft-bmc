@@ -80,7 +80,7 @@ export default function ResetAccountPasswd({ accountId }) {
                     onCancel={() => setVisible(false)}
                     className='mz-modal'
                 >
-                    <Form onFinish={onFinish} form={form} labelAlign='left'>
+                    <Form preserve={false} onFinish={onFinish} form={form} labelAlign='left'>
                         <FormItem
                             name='newPassword'
                             {...formItemLayout}

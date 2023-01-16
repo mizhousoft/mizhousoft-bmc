@@ -22,7 +22,7 @@ export default function ViewSecurityLog({ securityLog }) {
                     centered
                     className='mz-modal'
                 >
-                    <Form className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
+                    <Form preserve={false} className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
                         <FormItem label='操作名称'>{securityLog.operation}</FormItem>
                         <FormItem label='级别'>{securityLog.logLevel}</FormItem>
                         <FormItem label='操作帐号'>{securityLog.accountName}</FormItem>
