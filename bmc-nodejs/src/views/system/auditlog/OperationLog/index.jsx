@@ -205,7 +205,7 @@ export default function OperationLog() {
     }
 
     return (
-        <PageComponent title='操作日志'>
+        <PageComponent breadcrumbs={['操作日志']}>
             <Form
                 form={form}
                 layout='horizontal'

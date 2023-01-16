@@ -63,13 +63,13 @@ export default function RunningLog() {
         },
     ];
 
-    const pageTitle = '本地日志';
+    const breadcrumbs = ['本地日志'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     const tabItems = [];
@@ -90,7 +90,7 @@ export default function RunningLog() {
     });
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Tabs hideAdd onChange={onChange} activeKey={uActiveLogname} items={tabItems} />
         </PageComponent>
     );

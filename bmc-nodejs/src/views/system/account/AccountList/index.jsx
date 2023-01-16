@@ -242,7 +242,7 @@ export default function AccountList() {
     const locale = getTableLocale(uFetchStatus);
 
     return (
-        <PageComponent title='帐号'>
+        <PageComponent breadcrumbs={['帐号']}>
             <Row className='mz-table-header'>
                 <Col span={12}>
                     <Radio.Group defaultValue={`${uFilter.status}`} onChange={changeFilterStatus}>

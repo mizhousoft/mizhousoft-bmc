@@ -32,17 +32,17 @@ export default function Idletimeout() {
         });
     }, []);
 
-    const pageTitle = '闲时时间设置';
+    const breadcrumbs = ['闲时时间设置'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form
                 onFinish={onFinish}
                 initialValues={{ timeout: uIdleTimeOut.timeout }}

@@ -31,23 +31,24 @@ export default function RoleInfo() {
         });
     }, []);
 
-    const pageTitle = (
-        <>
-            <Link to='/role/list'>角色</Link> / 查看角色
-        </>
-    );
+    const breadcrumbs = [
+        <Link key='list' to='/role/list'>
+            角色
+        </Link>,
+        '查看角色',
+    ];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} goBack={gotoList} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
     }
 
     const treeDataList = JSON.parse(uTreeData);
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '80px' }}>
                 <FormItem label='角色名'>{uRole.displayNameCN}</FormItem>
                 <FormItem label='描述'>{uRole.descriptionCN}</FormItem>

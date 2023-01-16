@@ -197,7 +197,7 @@ export default function ApiAuditLog() {
     }
 
     return (
-        <PageComponent title='系统日志'>
+        <PageComponent breadcrumbs={['系统日志']}>
             <Form
                 form={form}
                 layout='horizontal'

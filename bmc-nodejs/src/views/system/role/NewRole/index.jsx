@@ -60,23 +60,24 @@ export default function NewRole() {
         });
     }, []);
 
-    const pageTitle = (
-        <>
-            <Link to='/role/list'>角色</Link> / 增加角色
-        </>
-    );
+    const breadcrumbs = [
+        <Link key='list' to='/role/list'>
+            角色
+        </Link>,
+        '增加角色',
+    ];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} goBack={gotoList} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
     }
 
     const treeDataArray = JSON.parse(uTreeData);
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form onFinish={onFinish} form={form} labelAlign='left' labelCol={{ flex: '90px' }}>
                 <FormItem
                     name='name'

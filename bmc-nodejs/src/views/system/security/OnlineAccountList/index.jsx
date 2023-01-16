@@ -102,7 +102,7 @@ export default function OnlineAccountList() {
     const locale = getTableLocale(uFetchStatus);
 
     return (
-        <PageComponent title='在线帐号'>
+        <PageComponent breadcrumbs={['在线帐号']}>
             <Table
                 loading={uFetchStatus.loading}
                 columns={columns}

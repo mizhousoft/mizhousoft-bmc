@@ -43,20 +43,20 @@ export default function AccountStrategy() {
         });
     }, []);
 
-    const pageTitle = '帐号策略';
+    const breadcrumbs = ['帐号策略'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     const PermanentLockChecked = uStrategy.lockTimeStrategy === 2;
     const lockTimeChecked = !PermanentLockChecked;
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form
                 onFinish={onFinish}
                 form={form}

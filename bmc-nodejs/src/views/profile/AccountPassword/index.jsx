@@ -101,19 +101,19 @@ export default function AccountPassword() {
         });
     }, []);
 
-    const pageTitle = '密码修改';
+    const breadcrumbs = ['密码修改'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     const content = `在${uPasswordStrategy.modifyTimeInterval}分钟内，只能修改一次密码，不能连续修改密码。`;
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form onFinish={onFinish} form={form} labelAlign='left' labelCol={{ flex: '120px' }}>
                 <Alert message={content} type='info' showIcon style={{ marginBottom: '18px' }} />
 

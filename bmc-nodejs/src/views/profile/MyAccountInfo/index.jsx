@@ -40,17 +40,17 @@ export default function MyAccountInfo() {
         fetchPageData();
     }, []);
 
-    const pageTitle = '帐号信息';
+    const breadcrumbs = ['帐号信息'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '90px' }}>
                 <FormItem label='帐号名'>{uAccount.name}</FormItem>
                 <FormItem label='手机号'>

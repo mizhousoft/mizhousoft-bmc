@@ -60,13 +60,13 @@ export default function AccountAuthorize() {
         });
     }, []);
 
-    const pageTitle = <>帐号 / 授权帐号</>;
+    const breadcrumbs = ['帐号', '授权帐号'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} goBack={gotoList} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
     }
 
     const columns = [
@@ -101,7 +101,7 @@ export default function AccountAuthorize() {
     ];
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '80px' }}>
                 <FormItem label='帐号名'>{uAccount.name}</FormItem>
                 <FormItem>

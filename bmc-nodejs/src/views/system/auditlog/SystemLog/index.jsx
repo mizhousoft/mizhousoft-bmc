@@ -189,7 +189,7 @@ export default function SystemLog() {
     }
 
     return (
-        <PageComponent title='系统日志'>
+        <PageComponent breadcrumbs={['系统日志']}>
             <Form
                 form={form}
                 layout='horizontal'

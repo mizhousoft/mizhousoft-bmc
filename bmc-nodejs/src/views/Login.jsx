@@ -52,7 +52,7 @@ export default function Login() {
                             prefix={<UserOutlined />}
                             size='large'
                             placeholder='请输入帐号'
-                            autoComplete='off'
+                            autoComplete='new-password'
                             maxLength={32}
                         />
                     </FormItem>
@@ -74,7 +74,7 @@ export default function Login() {
                             size='large'
                             type='password'
                             placeholder='请输入密码'
-                            autoComplete='off'
+                            autoComplete='new-password'
                             maxLength={32}
                         />
                     </FormItem>

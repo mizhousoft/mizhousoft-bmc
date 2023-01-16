@@ -39,17 +39,17 @@ export default function PasswordStrategy() {
         });
     }, []);
 
-    const pageTitle = '密码策略';
+    const breadcrumbs = ['密码策略'];
 
     if (uFetchStatus.loading) {
-        return <PageLoading title={pageTitle} />;
+        return <PageLoading breadcrumbs={breadcrumbs} />;
     }
     if (!uFetchStatus.okey) {
-        return <PageException title={pageTitle} fetchStatus={uFetchStatus} />;
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
     return (
-        <PageComponent title={pageTitle}>
+        <PageComponent breadcrumbs={breadcrumbs}>
             <Form
                 onFinish={onFinish}
                 form={form}

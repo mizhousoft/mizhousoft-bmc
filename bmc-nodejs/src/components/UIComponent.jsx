@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Empty, Button, Spin, Modal, Statistic } from 'antd';
+import { Empty, Button, Spin, Modal, Statistic, Breadcrumb } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Exception from '@/components/Exception';
 
@@ -38,12 +38,18 @@ export function FullPageException({ fetchStatus, goBack }) {
     );
 }
 
-export function PageComponent({ title, headStyle = {}, bodyStyle = {}, bodyClass = '', children }) {
+export function PageComponent({ breadcrumbs = [], headStyle = {}, bodyStyle = {}, bodyClass = '', children }) {
     return (
         <>
-            <div className='mz-page-head' style={headStyle}>
-                <div className='title'>{title}</div>
-            </div>
+            {breadcrumbs.length > 0 ? (
+                <div className='mz-page-head' style={headStyle}>
+                    <Breadcrumb>
+                        {breadcrumbs.map((value) => (
+                            <Breadcrumb.Item key={value}>{value}</Breadcrumb.Item>
+                        ))}
+                    </Breadcrumb>
+                </div>
+            ) : null}
 
             <div className='mz-page-content'>
                 <div className={`mz-page-content-body ${bodyClass}`} style={bodyStyle}>
@@ -54,10 +60,10 @@ export function PageComponent({ title, headStyle = {}, bodyStyle = {}, bodyClass
     );
 }
 
-export function PageLoading({ title, tip = '数据加载中' }) {
-    if (undefined !== title) {
+export function PageLoading({ breadcrumbs = [], tip = '数据加载中' }) {
+    if (breadcrumbs.length > 0) {
         return (
-            <PageComponent title={title}>
+            <PageComponent breadcrumbs={breadcrumbs}>
                 <FullPageLoading tip={tip} />
             </PageComponent>
         );
@@ -65,10 +71,10 @@ export function PageLoading({ title, tip = '数据加载中' }) {
     return <FullPageLoading tip={tip} />;
 }
 
-export function PageException({ title, fetchStatus, goBack }) {
-    if (undefined !== title) {
+export function PageException({ breadcrumbs = [], fetchStatus, goBack }) {
+    if (breadcrumbs.length > 0) {
         return (
-            <PageComponent title={title}>
+            <PageComponent breadcrumbs={breadcrumbs}>
                 <FullPageException fetchStatus={fetchStatus} goBack={goBack} />
             </PageComponent>
         );
