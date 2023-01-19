@@ -149,3 +149,46 @@ export async function asyncUpload(options) {
 
     return result;
 }
+
+export function downloadFile(fileUrl, filename, contentType, downloadOk, downloadFail) {
+    axios
+        .get(fileUrl, {
+            responseType: 'blob',
+        })
+        .then((response) => {
+            if (downloadOk) {
+                downloadOk();
+            }
+
+            const blob = new Blob([response.data], { type: contentType });
+            const linkNode = document.createElement('a');
+            linkNode.download = filename;
+            linkNode.style.display = 'none';
+            linkNode.href = URL.createObjectURL(blob);
+
+            document.body.appendChild(linkNode);
+            linkNode.click();
+
+            URL.revokeObjectURL(linkNode.href);
+            document.body.removeChild(linkNode);
+        })
+        .catch((error) => {
+            if (downloadFail) {
+                downloadFail(error);
+            }
+        });
+}
+
+export function downloadWordFile(fileUrl, filename, downloadOk, downloadFail) {
+    downloadFile(fileUrl, filename, 'application/msword', downloadOk, downloadFail);
+}
+
+export function downloadXlsxFile(fileUrl, filename, downloadOk, downloadFail) {
+    downloadFile(
+        fileUrl,
+        filename,
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        downloadOk,
+        downloadFail
+    );
+}
