@@ -69,10 +69,6 @@ export default {
         return t;
     },
 
-    redirectTo(url) {
-        window.open(url, '_blank');
-    },
-
     tsFormat(ts) {
         if (ts === 0) {
             return '';

@@ -105,7 +105,7 @@ export default function PasswordExpiring() {
                         message={content}
                         type='warning'
                         showIcon
-                        style={{ marginBottom: '40px', color: 'red', fontSize: '15px' }}
+                        style={{ marginBottom: '40px', fontSize: '15px' }}
                     />
 
                     <FormItem

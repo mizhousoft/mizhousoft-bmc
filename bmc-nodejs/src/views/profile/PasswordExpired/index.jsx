@@ -84,12 +84,7 @@ export default function PasswordExpired() {
                     labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
-                    <Alert
-                        message={content}
-                        type='error'
-                        showIcon
-                        style={{ marginBottom: '40px', color: 'red', fontSize: '15px' }}
-                    />
+                    <Alert message={content} type='error' showIcon style={{ marginBottom: '40px', fontSize: '15px' }} />
 
                     <FormItem
                         name='password'

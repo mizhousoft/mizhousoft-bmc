@@ -150,7 +150,62 @@ export async function asyncUpload(options) {
     return result;
 }
 
-export function downloadFile(fileUrl, filename, contentType, downloadOk, downloadFail) {
+function getFileContentType(filename) {
+    const extension = filename.substring(filename.lastIndexOf('.') + 1);
+
+    const contentTypes = [
+        { type: 'apk', application: 'application/vnd.android.package-archive' },
+        { type: 'doc', application: 'application/msword' },
+        {
+            type: 'docx',
+            application: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        },
+        { type: 'dot', application: 'application/msword' },
+        {
+            type: 'dotx',
+            application: 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+        },
+        { type: 'xls', application: 'application/vnd.ms-excel' },
+        {
+            type: 'xlsx',
+            application: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        },
+        { type: 'ppt', application: 'application/vnd.ms-powerpoint' },
+        {
+            type: 'pptx',
+            application: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        },
+        { type: 'pdf', application: 'application/pdf' },
+        { type: 'txt', application: 'text/plain' },
+        { type: 'gif', application: 'image/gif' },
+        { type: 'jpeg', application: 'image/jpeg' },
+        { type: 'jpg', application: 'image/jpeg' },
+        { type: 'png', application: 'image/png' },
+        { type: 'css', application: 'text/css' },
+        { type: 'html', application: 'text/html' },
+        { type: 'htm', application: 'text/html' },
+        { type: 'xsl', application: 'text/xml' },
+        { type: 'xml', application: 'text/xml' },
+        { type: 'mpeg', application: 'video/mpeg' },
+        { type: 'mpg', application: 'video/mpeg' },
+        { type: 'avi', application: 'video/x-msvideo' },
+        { type: 'movie', application: 'video/x-sgi-movie' },
+        { type: 'bin', application: 'application/octet-stream' },
+        { type: 'exe', application: 'application/octet-stream' },
+        { type: 'ai', application: 'application/postscript' },
+        { type: 'js', application: 'application/x-javascript' },
+        { type: 'zip', application: 'application/zip' },
+        { type: 'mp3', application: 'audio/mpeg' },
+        { type: 'rpm', application: 'audio/x-pn-realaudio-plugin' },
+        { type: 'wav', application: 'audio/x-wav' },
+    ];
+
+    return contentTypes.find((item) => item.type === extension);
+}
+
+export function downloadFile(fileUrl, filename, downloadOk, downloadFail) {
+    const contentType = getFileContentType(filename);
+
     axios
         .get(fileUrl, {
             responseType: 'blob',
@@ -177,18 +232,4 @@ export function downloadFile(fileUrl, filename, contentType, downloadOk, downloa
                 downloadFail(error);
             }
         });
-}
-
-export function downloadWordFile(fileUrl, filename, downloadOk, downloadFail) {
-    downloadFile(fileUrl, filename, 'application/msword', downloadOk, downloadFail);
-}
-
-export function downloadXlsxFile(fileUrl, filename, downloadOk, downloadFail) {
-    downloadFile(
-        fileUrl,
-        filename,
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-        downloadOk,
-        downloadFail
-    );
 }
