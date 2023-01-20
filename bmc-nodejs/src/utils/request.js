@@ -184,6 +184,7 @@ function getFileContentType(filename) {
         { type: 'css', application: 'text/css' },
         { type: 'html', application: 'text/html' },
         { type: 'htm', application: 'text/html' },
+        { type: 'json', application: 'application/json' },
         { type: 'xsl', application: 'text/xml' },
         { type: 'xml', application: 'text/xml' },
         { type: 'mpeg', application: 'video/mpeg' },
