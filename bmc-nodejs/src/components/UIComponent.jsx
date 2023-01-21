@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Empty, Button, Spin, Modal, Statistic, Breadcrumb } from 'antd';
+import { Empty, Button, Spin, Modal, Statistic, Breadcrumb, Row, Col } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Exception from '@/components/Exception';
 
@@ -38,16 +38,23 @@ export function FullPageException({ fetchStatus, goBack }) {
     );
 }
 
-export function PageComponent({ breadcrumbs = [], headStyle = {}, bodyStyle = {}, bodyClass = '', children }) {
+export function PageComponent({ breadcrumbs = [], extra, children, headStyle = {}, bodyStyle = {}, bodyClass = '' }) {
     return (
         <>
             {breadcrumbs.length > 0 ? (
                 <div className='mz-page-head' style={headStyle}>
-                    <Breadcrumb>
-                        {breadcrumbs.map((value) => (
-                            <Breadcrumb.Item key={value}>{value}</Breadcrumb.Item>
-                        ))}
-                    </Breadcrumb>
+                    <Row>
+                        <Col span={20}>
+                            <Breadcrumb>
+                                {breadcrumbs.map((value) => (
+                                    <Breadcrumb.Item key={value}>{value}</Breadcrumb.Item>
+                                ))}
+                            </Breadcrumb>
+                        </Col>
+                        <Col span={4} className='extra'>
+                            {extra}
+                        </Col>
+                    </Row>
                 </div>
             ) : null}
 

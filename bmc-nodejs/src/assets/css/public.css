@@ -264,6 +264,11 @@
     margin-right: 0;
 }
 
+.mz-page-head .extra {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .mz-page-content {
     margin-bottom: 0;
     padding: 0;
