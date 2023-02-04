@@ -58,7 +58,6 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
         showQuickJumper: true,
         showTotal: (total) => `总条数： ${total} `,
         onChange: (page, pageSize) => fetchList(page, pageSize),
-        position: ['bottomLeft'],
     };
 
     const selectedRoleIds = uSelectedRoles.map((role, key, roles) => role.id);

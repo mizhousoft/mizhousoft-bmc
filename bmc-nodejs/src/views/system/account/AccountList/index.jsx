@@ -236,7 +236,6 @@ export default function AccountList() {
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
         onChange: (page, pageSize) => fetchList(page, pageSize, uFilter),
-        position: ['bottomLeft'],
     };
 
     const locale = getTableLocale(uFetchStatus);
@@ -245,7 +244,7 @@ export default function AccountList() {
         <PageComponent breadcrumbs={['帐号']}>
             <Row className='mz-table-header'>
                 <Col span={12}>
-                    <Radio.Group defaultValue={`${uFilter.status}`} onChange={changeFilterStatus}>
+                    <Radio.Group defaultValue={`${uFilter.status}`} onChange={changeFilterStatus} optionType='button'>
                         <Radio.Button value='0'>所有帐号</Radio.Button>
                         <Radio.Button value='2'>启用帐号</Radio.Button>
                         <Radio.Button value='3'>禁用帐号</Radio.Button>

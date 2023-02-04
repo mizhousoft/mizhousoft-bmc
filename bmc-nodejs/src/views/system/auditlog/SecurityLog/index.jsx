@@ -184,7 +184,6 @@ export default function SecurityLog() {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
-        position: ['bottomLeft'],
     };
 
     const locale = getTableLocale(uFetchStatus);

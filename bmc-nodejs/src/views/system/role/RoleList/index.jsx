@@ -129,7 +129,6 @@ export default function RoleList() {
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
         onChange: (page, pageSize) => fetchList(page, pageSize),
-        position: ['bottomLeft'],
     };
 
     const locale = getTableLocale(uFetchStatus);

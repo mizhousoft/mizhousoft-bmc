@@ -38,10 +38,19 @@ export function FullPageException({ fetchStatus, goBack }) {
     );
 }
 
-export function PageComponent({ breadcrumbs = [], extra, children, headStyle = {}, bodyStyle = {}, bodyClass = '' }) {
+export function PageComponent({
+    breadcrumbs = [],
+    extra,
+    children,
+    headContent,
+    headStyle = {},
+    contentStyle = {},
+    bodyStyle = {},
+    bodyClass = '',
+}) {
     return (
         <>
-            {breadcrumbs.length > 0 ? (
+            {breadcrumbs.length > 0 || headContent ? (
                 <div className='mz-page-head' style={headStyle}>
                     <Row>
                         <Col span={20}>
@@ -55,10 +64,11 @@ export function PageComponent({ breadcrumbs = [], extra, children, headStyle = {
                             {extra}
                         </Col>
                     </Row>
+                    {headContent}
                 </div>
             ) : null}
 
-            <div className='mz-page-content'>
+            <div className='mz-page-content' style={contentStyle}>
                 <div className={`mz-page-content-body ${bodyClass}`} style={bodyStyle}>
                     {children}
                 </div>
