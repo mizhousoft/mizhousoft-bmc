@@ -177,6 +177,7 @@ function getFileContentType(filename) {
         },
         { type: 'pdf', application: 'application/pdf' },
         { type: 'txt', application: 'text/plain' },
+        { type: 'log', application: 'text/plain' },
         { type: 'gif', application: 'image/gif' },
         { type: 'jpeg', application: 'image/jpeg' },
         { type: 'jpg', application: 'image/jpeg' },

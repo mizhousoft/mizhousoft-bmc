@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Table } from 'antd';
+import { Tabs, Table, Modal, Button } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException, PageComponent, UnsafeALink } from '@/components/UIComponent';
+import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
+import { downloadFile } from '@/utils/request';
 import { fetchRunningLogNames, fetchRunningLogFileNames } from '../redux/auditLogService';
 
 export default function RunningLog() {
@@ -28,6 +29,27 @@ export default function RunningLog() {
         setFetchStatus(LOADING_FETCH_STATUS);
 
         fetchRunningLogFiles(value);
+    };
+
+    const downloadFileAction = (logname) => {
+        const modal = Modal.info({
+            content: '正在下载中...',
+            footer: null,
+            bodyStyle: { padding: '40px !important' },
+            centered: true,
+        });
+
+        downloadFile(
+            `${BASENAME}/runninglog/downloadRunningLogFile.action?logname=${logname}`,
+            logname,
+            () => {
+                modal.destroy();
+            },
+            () => {
+                modal.destroy();
+                message.error('下载文件失败');
+            }
+        );
     };
 
     useEffect(() => {
@@ -56,9 +78,9 @@ export default function RunningLog() {
             width: '120px',
             className: 'center-action-button',
             render: (text, record) => (
-                <UnsafeALink href={`${BASENAME}/runninglog/downloadRunningLogFile.action?logname=${record.name}`}>
+                <Button type='link' onClick={() => downloadFileAction(record.name)}>
                     下载
-                </UnsafeALink>
+                </Button>
             ),
         },
     ];

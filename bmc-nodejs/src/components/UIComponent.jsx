@@ -125,9 +125,9 @@ export function AButton({ title, onClick, style = {}, children }) {
     const child = title ?? children;
 
     return (
-        <Button onClick={onClick} type='link' style={{ padding: '0px', ...style }}>
+        <a onClick={onClick} type='link' style={{ padding: '0px', ...style }}>
             {child}
-        </Button>
+        </a>
     );
 }
 
