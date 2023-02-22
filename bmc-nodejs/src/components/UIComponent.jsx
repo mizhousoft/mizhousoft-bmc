@@ -47,7 +47,10 @@ export function PageComponent({
     contentStyle = {},
     bodyStyle = {},
     bodyClass = '',
+    lightBodyColor = true,
 }) {
+    const bodyTheme = lightBodyColor ? 'light-theme' : '';
+
     return (
         <>
             {breadcrumbs.length > 0 || headContent ? (
@@ -69,7 +72,7 @@ export function PageComponent({
             ) : null}
 
             <div className='mz-page-content' style={contentStyle}>
-                <div className={`mz-page-content-body ${bodyClass}`} style={bodyStyle}>
+                <div className={`mz-page-content-body ${bodyClass} ${bodyTheme}`} style={bodyStyle}>
                     {children}
                 </div>
             </div>

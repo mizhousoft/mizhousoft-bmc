@@ -8,7 +8,7 @@ export default function FullLayout({ topMenuId }) {
     return (
         <Layout>
             <MainHeader selectedTopMenuId={topMenuId} />
-            <Layout className='mz-layout'>
+            <Layout className='mz-layout mz-layout-full'>
                 <Outlet />
             </Layout>
         </Layout>

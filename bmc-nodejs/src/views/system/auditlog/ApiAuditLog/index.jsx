@@ -196,12 +196,12 @@ export default function ApiAuditLog() {
     }
 
     return (
-        <PageComponent breadcrumbs={['系统日志']}>
+        <PageComponent breadcrumbs={['系统日志']} lightBodyColor={false}>
             <Form
                 form={form}
                 layout='horizontal'
                 labelAlign='left'
-                className='mz-filter-form mz-table-header'
+                className='mz-form-light'
                 initialValues={{
                     operation: uSearchFilter.operation,
                     terminal: uSearchFilter.terminal,
@@ -256,6 +256,7 @@ export default function ApiAuditLog() {
                 size='middle'
                 locale={locale}
                 onChange={handleTableChange}
+                className='mz-table-light'
             />
         </PageComponent>
     );

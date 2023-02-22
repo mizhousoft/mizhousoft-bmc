@@ -204,12 +204,12 @@ export default function OperationLog() {
     }
 
     return (
-        <PageComponent breadcrumbs={['操作日志']}>
+        <PageComponent breadcrumbs={['操作日志']} lightBodyColor={false}>
             <Form
                 form={form}
                 layout='horizontal'
                 labelAlign='left'
-                className='mz-filter-form mz-table-header'
+                className='mz-form-light'
                 initialValues={{
                     operation: uSearchFilter.operation,
                     accountName: uSearchFilter.accountName,
@@ -269,6 +269,7 @@ export default function OperationLog() {
                 size='middle'
                 locale={locale}
                 onChange={handleTableChange}
+                className='mz-table-light'
             />
         </PageComponent>
     );
