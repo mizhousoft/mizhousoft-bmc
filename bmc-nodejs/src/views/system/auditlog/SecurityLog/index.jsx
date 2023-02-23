@@ -238,7 +238,7 @@ export default function SecurityLog() {
                     </Col>
                     <Col span={8} />
                     <Col span={8} className='mz-button-group'>
-                        <Button onClick={search} className='mz-grey-button'>
+                        <Button onClick={search} >
                             查询
                         </Button>
                         <Button onClick={clearFilterForm}>清理过滤</Button>

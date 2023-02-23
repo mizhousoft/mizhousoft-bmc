@@ -148,7 +148,7 @@ export default function RoleList() {
                             <Input placeholder='输入名称' style={{ width: '300px' }} maxLength={10} />
                         </Form.Item>
                         &nbsp;&nbsp;
-                        <Button onClick={search} className='mz-grey-button'>
+                        <Button onClick={search} >
                             查询
                         </Button>
                     </Col>
