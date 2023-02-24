@@ -148,9 +148,7 @@ export default function RoleList() {
                             <Input placeholder='输入名称' style={{ width: '300px' }} maxLength={10} />
                         </Form.Item>
                         &nbsp;&nbsp;
-                        <Button onClick={search} >
-                            查询
-                        </Button>
+                        <Button onClick={search}>查询</Button>
                     </Col>
                     <Col span={12} style={{ textAlign: 'right' }}>
                         <AuthButton authId='bmc.role.new' onClick={gotoNew} type='primary'>
