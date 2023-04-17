@@ -141,9 +141,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<finalName>${project.artifactId}-${project.version}</finalName>
-				</configuration>
 				<executions>
 					<!-- 定义在prepare-package时将classes中的代码文件夹打成jar -->
 					<execution>
@@ -153,7 +150,6 @@
 						</goals>
 						<configuration>
 							<classesDirectory>${project.basedir}/target/classes</classesDirectory>
-							<finalName>${project.artifactId}-${project.version}</finalName>
 							<outputDirectory>${project.basedir}/target/${project.artifactId}-${project.version}/WEB-INF/lib</outputDirectory>
 							<includes>
 								<include>com/**</include>
