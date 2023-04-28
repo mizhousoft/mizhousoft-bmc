@@ -1,32 +1,21 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import './index.less';
 
-const LabelContext = React.createContext({
-    selectedValue: undefined,
-    onClickLabel: undefined,
-});
+function LabelItem({ item, selected, clickItemEvent }) {
+    const selectedClass = selected ? 'selected' : '';
 
-function LabelItem({ value, children }) {
     return (
-        <LabelContext.Consumer>
-            {({ selectedValue, onClickLabel }) => {
-                const selectedClass = selectedValue === value ? 'selected' : '';
-
-                return (
-                    <span className={`label-item ${selectedClass}`} onClick={(e) => onClickLabel(value)}>
-                        {children}
-                    </span>
-                );
-            }}
-        </LabelContext.Consumer>
+        <span className={`label-item ${selectedClass}`} onClick={(e) => clickItemEvent(item.value)}>
+            {item.title}
+        </span>
     );
 }
 
-function Label({ defaultValue, title, extendMoreHidden = false, children, onChange }) {
+export default function Label({ defaultValue, title, extendMoreHidden = false, items = [], onChange }) {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
     const [isExtendMore, setExtendMore] = useState(extendMoreHidden);
 
-    const clickLabelEvent = (value) => {
+    const clickItemEvent = (value) => {
         setSelectedValue(value);
 
         if (onChange) {
@@ -38,21 +27,20 @@ function Label({ defaultValue, title, extendMoreHidden = false, children, onChan
         setExtendMore(true);
     };
 
-    const value = useMemo(
-        () => ({
-            selectedValue,
-            onClickLabel: clickLabelEvent,
-        }),
-        [selectedValue]
-    );
-
     const extendClass = isExtendMore ? 'expand-label' : '';
 
     return (
         <div className='mz-label'>
             <span className='title'>{title}</span>
             <div className={`collection ${extendClass}`}>
-                <LabelContext.Provider value={value}>{children}</LabelContext.Provider>
+                {items.map((item) => (
+                    <LabelItem
+                        key={item.key}
+                        item={item}
+                        selected={item.value === selectedValue}
+                        clickItemEvent={clickItemEvent}
+                    />
+                ))}
             </div>
             {!isExtendMore && (
                 <span className='expand-all-text' onClick={extendMore}>
@@ -62,7 +50,3 @@ function Label({ defaultValue, title, extendMoreHidden = false, children, onChan
         </div>
     );
 }
-
-Label.Item = LabelItem;
-
-export default Label;
