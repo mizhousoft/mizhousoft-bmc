@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Modal } from 'antd';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
 
@@ -25,8 +26,20 @@ instance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response && error.response.data && error.response.data.location) {
-            SessionStore.logout();
-            window.location.href = CONTEXT_LOGIN_PATH;
+            Modal.warning({
+                centered: true,
+                maskClosable: false,
+                autoFocusButton: null,
+                keyboard: false,
+                title: '帐号提示',
+                content: '帐号会话已失效，请重新登录',
+                okText: '确认',
+                onOk() {
+                    SessionStore.logout();
+                    window.location.href = CONTEXT_LOGIN_PATH;
+                },
+            });
+
             return Promise.reject(error);
         }
         return Promise.reject(error);
