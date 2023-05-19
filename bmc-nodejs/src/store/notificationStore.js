@@ -50,6 +50,11 @@ export default {
 
                 DefaultUserStore.setItem(PUSHTIME_KEY, `${pushTime}`);
             }
+            else {
+                pushTime = new Date().getTime();
+
+                DefaultUserStore.setItem(PUSHTIME_KEY, `${pushTime}`);
+            }
         });
     },
 };

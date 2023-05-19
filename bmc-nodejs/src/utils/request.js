@@ -26,6 +26,7 @@ instance.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response.status === 401) {
+            Modal.destroyAll();
             Modal.warning({
                 centered: true,
                 maskClosable: false,
