@@ -1,1 +1,0 @@
-native2ascii.exe -encoding utf8 account_zh_CN.txt account_zh_CN.properties
