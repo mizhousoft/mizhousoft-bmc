@@ -25,7 +25,7 @@ const instance = axios.create({
 instance.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response && error.response.data && error.response.data.location) {
+        if (error.response.status === 401) {
             Modal.warning({
                 centered: true,
                 maskClosable: false,
