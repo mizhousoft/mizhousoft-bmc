@@ -53,3 +53,7 @@
 .ant-modal-footer {
     padding: 0 24px 20px !important;
 }
+
+.ant-modal-confirm .ant-modal-footer {
+    padding: 0 !important;
+}

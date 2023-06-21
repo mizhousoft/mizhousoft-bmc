@@ -35,7 +35,7 @@ export default function RunningLog() {
         const modal = Modal.info({
             content: '正在下载中...',
             footer: null,
-            bodyStyle: { padding: '40px !important' },
+            className: 'mz-modal-confirm-loading',
             centered: true,
         });
 

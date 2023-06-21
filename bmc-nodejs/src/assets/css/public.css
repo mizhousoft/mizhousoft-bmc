@@ -442,16 +442,6 @@
     text-align: center;
 }
 
-.mz-modal-loading {
-    min-height: 150px;
-}
-
-.mz-modal-loading > .spin {
-    padding-top: 50px;
-    text-align: center;
-    vertical-align: middle;
-}
-
 .mz-form-light {
     margin-bottom: 15px;
     padding: 15px 15px 0;
@@ -468,6 +458,24 @@
 
 .mz-modal .ant-modal-header {
     padding: 10px 16px;
+}
+
+.mz-modal-loading {
+    min-height: 150px;
+}
+
+.mz-modal-loading > .spin {
+    padding-top: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.mz-modal-confirm-loading .ant-modal-body {
+    padding: 30px !important;
+}
+
+.mz-modal-confirm-loading .ant-modal-footer {
+    padding: 0 !important;
 }
 
 .mz-drawer .ant-drawer-header {

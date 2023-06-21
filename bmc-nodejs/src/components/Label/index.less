@@ -15,7 +15,19 @@
     .title {
         margin-right: 30px;
         color: #333;
-        font-size: 13px;
+        font-size: 14px;
+    }
+
+    .required {
+        &::before {
+            display: inline-block;
+            margin-inline-end: 4px;
+            color: #ff4d4f;
+            font-size: 14px;
+            font-family: SimSun, sans-serif;
+            line-height: 1;
+            content: '*';
+        }
     }
 
     .collection {

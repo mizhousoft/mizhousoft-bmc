@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useImperativeHandle } from 'react';
 import './index.less';
 
 function LabelItem({ item, selected, clickItemEvent }) {
@@ -11,7 +11,9 @@ function LabelItem({ item, selected, clickItemEvent }) {
     );
 }
 
-export default function Label({ defaultValue, title, extendMoreHidden = false, items = [], onChange }) {
+function Label(props, ref) {
+    const { defaultValue, title, extendMoreHidden = false, items = [], onChange, style = {}, required = false } = props;
+
     const [selectedValue, setSelectedValue] = useState(defaultValue);
     const [isExtendMore, setExtendMore] = useState(extendMoreHidden);
 
@@ -27,11 +29,16 @@ export default function Label({ defaultValue, title, extendMoreHidden = false, i
         setExtendMore(true);
     };
 
+    useImperativeHandle(ref, () => ({
+        setValue: (value) => setSelectedValue(value),
+        getValue: () => selectedValue,
+    }));
+
     const extendClass = isExtendMore ? 'expand-label' : '';
 
     return (
-        <div className='mz-label'>
-            <span className='title'>{title}</span>
+        <div className='mz-label' style={style}>
+            <span className={required ? 'title required' : 'title'}>{title}</span>
             <div className={`collection ${extendClass}`}>
                 {items.map((item) => (
                     <LabelItem
@@ -50,3 +57,5 @@ export default function Label({ defaultValue, title, extendMoreHidden = false, i
         </div>
     );
 }
+
+export default React.forwardRef(Label);
