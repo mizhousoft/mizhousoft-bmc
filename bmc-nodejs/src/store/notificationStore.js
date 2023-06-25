@@ -49,8 +49,7 @@ export default {
                 pushTime = response.pushTime;
 
                 DefaultUserStore.setItem(PUSHTIME_KEY, `${pushTime}`);
-            }
-            else {
+            } else {
                 pushTime = new Date().getTime();
 
                 DefaultUserStore.setItem(PUSHTIME_KEY, `${pushTime}`);

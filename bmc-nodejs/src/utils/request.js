@@ -49,8 +49,7 @@ instance.interceptors.response.use(
                         window.location.href = CONTEXT_LOGIN_PATH;
                     },
                 });
-            }
-            else {
+            } else {
                 SessionStore.logout();
                 window.location.href = CONTEXT_LOGIN_PATH;
             }
