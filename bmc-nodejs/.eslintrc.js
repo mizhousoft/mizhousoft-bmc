@@ -2,8 +2,10 @@ module.exports = {
     extends: [
         'airbnb',
         'prettier',
+        'plugin:compat/recommended',
         'plugin:react/recommended',
         'plugin:import/typescript',
+        'plugin:markdown/recommended',
     ],
     env: {
         browser: true,
@@ -20,7 +22,7 @@ module.exports = {
         }
     },
     parser: '@typescript-eslint/parser',
-    plugins: ['react', 'babel', '@typescript-eslint', 'react-hooks', 'unicorn'],
+    plugins: ['react', '@babel', '@typescript-eslint', 'react-hooks', 'unicorn', 'markdown'],
     overrides: [{
         files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
         rules: {
@@ -28,6 +30,7 @@ module.exports = {
             'no-unused-expressions': 'off',
             '@typescript-eslint/no-unused-expressions': 2,
             'class-methods-use-this': 0,
+            'compat/compat': 0,
         },
     }],
     rules: {
