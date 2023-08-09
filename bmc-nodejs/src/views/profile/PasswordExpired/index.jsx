@@ -37,9 +37,9 @@ export default function PasswordExpired() {
         setConfirmLoading(true);
 
         const body = {
-            password: values.password,
-            newPassword: values.newPassword,
-            confirmNewPassword: values.confirmPassword,
+            password: values.password?.trim(),
+            newPassword: values.newPassword?.trim(),
+            confirmNewPassword: values.confirmPassword?.trim(),
         };
 
         modifyExpiredPassword(body).then(({ fetchStatus }) => {

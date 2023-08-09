@@ -47,8 +47,8 @@ export default function ResetAccountPasswd({ accountId }) {
 
         const body = {
             id: accountId,
-            newPassword: values.newPassword,
-            confirmNewPassword: values.confirmNewPassword,
+            newPassword: values.newPassword?.trim(),
+            confirmNewPassword: values.confirmNewPassword?.trim(),
         };
 
         resetPassword(body).then(({ fetchStatus }) => {

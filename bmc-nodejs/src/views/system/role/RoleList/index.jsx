@@ -27,7 +27,7 @@ export default function RoleList() {
         const body = {
             pageNumber,
             pageSize,
-            name: uFilter.name,
+            name: uFilter.name?.trim(),
         };
 
         setFilter(uFilter);

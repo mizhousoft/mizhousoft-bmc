@@ -36,8 +36,8 @@ export default function EditRole() {
 
         const body = {
             id,
-            name: values.name,
-            description: values.description,
+            name: values.name?.trim(),
+            description: values.description?.trim(),
             permIds: uCheckedKeys,
         };
 

@@ -11,11 +11,11 @@ export default function ConfirmAccountInfoForm({ prevStep, gotoList, formData })
         const roleIds = formData.selectedRoles.map((role, key, roles) => role.id);
 
         const form = {
-            name: formData.name,
+            name: formData.name?.trim(),
             status: formData.status,
-            phoneNumber: formData.phoneNumber.length === 11 ? formData.phoneNumber : undefined,
-            password: formData.password,
-            confirmPassword: formData.confirmPassword,
+            phoneNumber: formData.phoneNumber.length === 11 ? formData.phoneNumber?.trim() : undefined,
+            password: formData.password?.trim(),
+            confirmPassword: formData.confirmPassword?.trim(),
             roleIds,
         };
 

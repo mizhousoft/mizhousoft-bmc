@@ -1,9 +1,19 @@
-.mz-panel-title {
+.mz-panel-header {
     margin-bottom: 20px;
     padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.mz-panel-title {
+    display: flex;
+    align-items: center;
     font-weight: 700;
     font-size: 14px;
-    background-color: #f8f8f8;
+}
+
+.mz-panel-extra {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .mz-panel-body {

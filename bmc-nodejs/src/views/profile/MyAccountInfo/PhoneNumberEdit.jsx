@@ -13,7 +13,7 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
 
         const body = {};
         if (values.phoneNumber && values.phoneNumber.length >= 1) {
-            body.phoneNumber = values.phoneNumber;
+            body.phoneNumber = values.phoneNumber?.trim();
         }
 
         modifyPhoneNumber(body).then(({ fetchStatus }) => {

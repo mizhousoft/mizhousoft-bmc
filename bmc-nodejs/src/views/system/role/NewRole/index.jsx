@@ -33,8 +33,8 @@ export default function NewRole() {
         }
 
         const body = {
-            name: values.name,
-            description: values.description,
+            name: values.name?.trim(),
+            description: values.description?.trim(),
             permIds: uCheckedKeys,
         };
 
