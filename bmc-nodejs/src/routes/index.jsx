@@ -1,10 +1,12 @@
 import React, { Suspense } from 'react';
-import { useRoutes, Navigate } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 
 import { PageLoading } from '@/components/UIComponent';
+import { BASENAME } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
-import RequireAuth from './RequireAuth';
+import ErrorBoundary from '@/components/ErrorBoundary';
 
+import RequireAuth from './RequireAuth';
 import loginRoute from './loginRoute';
 import profileRoute from './profileRoute';
 import systemRoutes from './systemRoute';
@@ -15,6 +17,7 @@ routes.forEach((route) => {
     if (route.children) {
         route.children.forEach((child) => {
             const { element } = child;
+            child.errorElement = <ErrorBoundary />;
 
             if (undefined === child.authz || child.authz) {
                 child.element = (
@@ -28,6 +31,7 @@ routes.forEach((route) => {
         });
     } else if (route.component) {
         const { element } = route;
+        route.errorElement = <ErrorBoundary />;
 
         if (undefined === route.authz || route.authz) {
             route.element = (
@@ -46,8 +50,8 @@ routes.push({
     element: <Navigate to={SessionStore.getHomePath()} replace />,
 });
 
-export default function AppRoutes() {
-    const routing = useRoutes(routes);
+const router = createBrowserRouter(routes, {
+    basename: BASENAME,
+});
 
-    return routing;
-}
+export default router;
