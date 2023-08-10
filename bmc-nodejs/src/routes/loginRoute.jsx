@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PureLayout = React.lazy(() => import('@/layout/PureLayout'));
+import PureLayout from '@/layout/PureLayout';
 
-const Login = React.lazy(() => import('@/views/Login'));
+import Login from '@/views/Login';
 
 const FirstLogin = React.lazy(() => import('@/views/profile/FirstLogin'));
 const PasswordExpired = React.lazy(() => import('@/views/profile/PasswordExpired'));
