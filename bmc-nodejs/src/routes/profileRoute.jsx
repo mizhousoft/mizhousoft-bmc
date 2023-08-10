@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProfileLayout from '@/layout/ProfileLayout';
+const ProfileLayout = React.lazy(() => import('@/layout/ProfileLayout'));
 
 const MyAccountInfo = React.lazy(() => import('@/views/profile/MyAccountInfo'));
 const AccountPassword = React.lazy(() => import('@/views/profile/AccountPassword'));

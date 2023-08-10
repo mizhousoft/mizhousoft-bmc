@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BasicLayout from '@/layout/BasicLayout';
+const BasicLayout = React.lazy(() => import('@/layout/BasicLayout'));
 
 const AccountList = React.lazy(() => import('@/views/system/account/AccountList'));
 const NewAccount = React.lazy(() => import('@/views/system/account/NewAccount'));

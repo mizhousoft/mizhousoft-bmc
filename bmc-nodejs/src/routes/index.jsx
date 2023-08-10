@@ -14,6 +14,8 @@ import systemRoutes from './systemRoute';
 const routes = [...loginRoute, ...systemRoutes, ...profileRoute];
 
 routes.forEach((route) => {
+    route.element = <Suspense fallback={<PageLoading />}>{route.element}</Suspense>;
+
     if (route.children) {
         route.children.forEach((child) => {
             const { element } = child;
