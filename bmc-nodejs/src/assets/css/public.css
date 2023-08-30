@@ -474,7 +474,11 @@
 }
 
 .mz-modal-confirm-loading .ant-modal-body {
-    padding: 30px !important;
+    padding: 50px !important;
+}
+
+.mz-modal-confirm-loading .anticon-info-circle {
+    display: none;
 }
 
 .mz-modal-confirm-loading .ant-modal-footer {
@@ -483,6 +487,20 @@
 
 .mz-modal-confirm-loading .ant-modal-confirm-content {
     width: 100%;
+}
+
+.mz-modal-alert .ant-modal-header {
+    margin-bottom: 0 !important;
+}
+
+.mz-modal-alert .ant-modal-body {
+    padding-top: 0 !important;
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.mz-modal-alert .ant-form {
+    padding: 10px 30px 0 !important;
 }
 
 .mz-drawer .ant-drawer-header {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Table, Modal, Button } from 'antd';
+import { Tabs, Table, Modal, Button, Spin } from 'antd';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
@@ -33,7 +33,11 @@ export default function RunningLog() {
 
     const downloadFileAction = (logname) => {
         const modal = Modal.info({
-            content: '正在下载中...',
+            content: (
+                <Spin tip='正在下载中...'>
+                    <div />
+                </Spin>
+            ),
             footer: null,
             className: 'mz-modal-confirm-loading',
             centered: true,
