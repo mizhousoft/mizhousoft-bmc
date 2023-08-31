@@ -2,36 +2,68 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, Popover, List, Badge } from 'antd';
 import FontIcon from '@/components/FontIcon';
-import NotificationStore from '@/store/notificationStore';
+import { addEventListener, removeEventListener } from '@/utils/eventBus';
+import { asyncFetch } from '@/utils/request';
+import { BASENAME } from '@/config/application';
 import { AButton } from '@/components/UIComponent';
+import DefaultUserStore from '@/store/DefaultUserStore';
+
+let interval = 0;
+const PUSHTIME_KEY = 'PUSHTIME_KEY';
 
 export default function Notification() {
     const navigate = useNavigate();
 
     const [visible, setVisible] = useState(false);
-    const [uTodos, setTodos] = useState(() => NotificationStore.getTodos());
+    const [uTodos, setTodos] = useState([]);
 
     const rediectUrl = (entity) => {
         setVisible(false);
         navigate(entity.viewPath);
     };
 
-    const fetchNotifications = () => {
-        const todos = NotificationStore.getTodos();
-        setTodos(todos);
+    const asyncFetchData = () => {
+        asyncFetch({
+            url: `${BASENAME}/fetchNotifications.action`,
+        }).then(({ todos = [], pushTime, fetchStatus }) => {
+            setTodos(todos);
 
-        const pushTime = NotificationStore.getPushTime();
+            const time = undefined !== pushTime ? pushTime : new Date().getTime();
+            DefaultUserStore.setItem(PUSHTIME_KEY, `${time}`);
+
+            if (fetchStatus.statusCode === 401) {
+                clearInterval(interval);
+            }
+        });
+    };
+
+    const fetchNotifications = () => {
         const nowTs = new Date().getTime();
 
+        let pushTime = 0;
+        const text = DefaultUserStore.getItem(PUSHTIME_KEY);
+        if (text) {
+            pushTime = parseInt(text, 10);
+        }
+
         if (nowTs - pushTime > 30 * 1000) {
-            NotificationStore.asyncFetchData();
+            asyncFetchData();
         }
     };
 
-    useEffect(() => {
-        const interval = setInterval(fetchNotifications, 5000);
+    const listenEvent = (e) => {
+        asyncFetchData();
+    };
 
-        return () => clearInterval(interval);
+    useEffect(() => {
+        interval = setInterval(fetchNotifications, 5000);
+
+        addEventListener('notification', listenEvent);
+
+        return () => {
+            clearInterval(interval);
+            removeEventListener('notification', listenEvent);
+        };
     }, []);
 
     const tabItems = [
