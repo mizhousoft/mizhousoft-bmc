@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.dictionary.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ public class JSONDictServiceImpl implements JSONDictService
 				newDict.setSrvId(srvId);
 				newDict.setKey(key);
 				newDict.setValue(value);
-				newDict.setUtime(new Date());
+				newDict.setUtime(LocalDateTime.now());
 				newDict.setCtime(newDict.getUtime());
 				dictMapper.save(newDict);
 
@@ -64,12 +64,12 @@ public class JSONDictServiceImpl implements JSONDictService
 				newDict.setId(jsonDict.getId());
 				newDict.setKey(key);
 				newDict.setValue(value);
-				newDict.setUtime(new Date());
+				newDict.setUtime(LocalDateTime.now());
 				newDict.setCtime(jsonDict.getCtime());
 				dictMapper.update(newDict);
 
 				jsonDict.setValue(value);
-				jsonDict.setUtime(new Date());
+				jsonDict.setUtime(LocalDateTime.now());
 
 				cache.put(cacheKey, jsonDict);
 			}

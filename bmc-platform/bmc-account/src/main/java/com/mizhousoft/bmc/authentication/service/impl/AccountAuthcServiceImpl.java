@@ -1,7 +1,7 @@
 package com.mizhousoft.bmc.authentication.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -166,7 +166,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 			boolean twoFactorAuthcPassed = accountDetails.isTwoFactorAuthcPassed();
 			if (!authenticationProperties.isTwoFactorAuthcEnable() || twoFactorAuthcPassed)
 			{
-				accountMapper.updateLastAccess(accountDetails.getAccountId(), new Date(), host);
+				accountMapper.updateLastAccess(accountDetails.getAccountId(), LocalDateTime.now(), host);
 			}
 		}
 		catch (Throwable e)
@@ -201,14 +201,11 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 
 		if (accountStrategy.getLockTimeStrategy() == AccountStrategyConstants.LOCK_TIME_STRATEGY)
 		{
-			Date lockTime = authAccount.getLockTime();
 			int timeLimitPeriod = accountStrategy.getTimeLimitPeriod();
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(lockTime);
-			cal.add(Calendar.MINUTE, timeLimitPeriod);
+			LocalDateTime lockTime = authAccount.getLockTime().plusMinutes(timeLimitPeriod);
 
-			Date now = new Date();
-			if (cal.getTime().after(now))
+			LocalDateTime now = LocalDateTime.now();
+			if (lockTime.isAfter(now))
 			{
 				throw new AccountLockedException(account + " is locked.");
 			}
@@ -228,15 +225,13 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 	{
 		int unusedDay = accountStrategy.getAccountUnusedDay();
 
-		Date lastAccessTime = authAccount.getLastAccessTime();
+		LocalDateTime lastAccessTime = authAccount.getLastAccessTime();
 		if (null != lastAccessTime)
 		{
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(lastAccessTime);
-			cal.add(Calendar.DAY_OF_MONTH, unusedDay);
+			lastAccessTime = lastAccessTime.plusDays(unusedDay);
 
-			Date nowDate = new Date();
-			if (nowDate.after(cal.getTime()))
+			LocalDateTime nowDate = LocalDateTime.now();
+			if (nowDate.isAfter(lastAccessTime))
 			{
 				if (!AccountUtils.isSuperAdmin(authAccount.getType()))
 				{
@@ -269,7 +264,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 			boolean lockAccount = processAuthFailedAccount(account, accountStrategy);
 			if (lockAccount)
 			{
-				accountMapper.lockAccount(authAccount.getId(), AccountStatus.Locked.getValue(), new Date());
+				accountMapper.lockAccount(authAccount.getId(), AccountStatus.Locked.getValue(), LocalDateTime.now());
 				throw new AccountLockedException("Lock Account, name is " + account + ".");
 			}
 
@@ -329,30 +324,17 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountImpl.getAccountId(), 1);
 		if (CollectionUtils.isNotEmpty(historyPasswords))
 		{
-			Date modifyTime = historyPasswords.get(0).getModifyTime();
-			Calendar hisCal = Calendar.getInstance();
-			hisCal.setTime(modifyTime);
-			hisCal.add(Calendar.DAY_OF_MONTH, validDay);
-			hisCal.set(Calendar.HOUR_OF_DAY, 0);
-			hisCal.set(Calendar.MINUTE, 0);
-			hisCal.set(Calendar.SECOND, 0);
-			hisCal.set(Calendar.MILLISECOND, 0);
+			LocalDateTime modifyTime = historyPasswords.get(0).getModifyTime();
 
-			Calendar nowCal = Calendar.getInstance();
-			nowCal.set(Calendar.HOUR_OF_DAY, 0);
-			nowCal.set(Calendar.MINUTE, 0);
-			nowCal.set(Calendar.SECOND, 0);
-			nowCal.set(Calendar.MILLISECOND, 0);
-
-			long hisTime = hisCal.getTime().getTime();
-			long nowTime = nowCal.getTime().getTime();
+			long hisTime = modifyTime.plusDays(validDay).toLocalDate().toEpochDay();
+			long nowTime = LocalDate.now().toEpochDay();
 			if (nowTime > hisTime)
 			{
 				credentialsExpired = true;
 			}
 			else
 			{
-				int offset = (int) ((hisTime - nowTime) / (24 * 60 * 60 * 1000));
+				int offset = (int) (hisTime - nowTime);
 				if (offset > 0 && offset <= reminderModifyDay)
 				{
 					remindModifyPasswd = true;
@@ -378,19 +360,16 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 			{
 				authFailedAccount = new AuthFaildAccount();
 				authFailedAccount.setAuthFailedCount(1);
-				authFailedAccount.setAuthFailedTime(new Date());
+				authFailedAccount.setAuthFailedTime(LocalDateTime.now());
 
 				authFailedAccountMap.put(account, authFailedAccount);
 			}
 			else
 			{
-				Date authFailedTime = authFailedAccount.getAuthFailedTime();
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(authFailedTime);
-				cal.add(Calendar.MINUTE, timeLimitPeriod);
+				LocalDateTime authFailedTime = authFailedAccount.getAuthFailedTime().plusMinutes(timeLimitPeriod);
 
-				Date now = new Date();
-				if (cal.getTime().after(now))
+				LocalDateTime now = LocalDateTime.now();
+				if (authFailedTime.isAfter(now))
 				{
 					int authFailedCount = authFailedAccount.getAuthFailedCount() + 1;
 					if (authFailedCount >= loginLimitNumber)
@@ -405,7 +384,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 				else
 				{
 					authFailedAccount.setAuthFailedCount(1);
-					authFailedAccount.setAuthFailedTime(new Date());
+					authFailedAccount.setAuthFailedTime(LocalDateTime.now());
 				}
 
 				authFailedAccountMap.remove(account);
@@ -448,7 +427,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		securityLog.setAccountName(account);
 		securityLog.setTerminal(host);
 		securityLog.setOperation(I18nUtils.getMessage("bmc.account.login.operation"));
-		securityLog.setCreationTime(new Date());
+		securityLog.setCreationTime(LocalDateTime.now());
 		securityLog.setSource(I18nUtils.getMessage("bmc.account.source"));
 		securityLog.setDetail(detail);
 

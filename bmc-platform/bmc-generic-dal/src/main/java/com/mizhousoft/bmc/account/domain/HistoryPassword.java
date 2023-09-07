@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.account.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 历史密码
@@ -19,7 +19,7 @@ public class HistoryPassword
 	private String historyPwd;
 
 	// 修改时间
-	private Date modifyTime;
+	private LocalDateTime modifyTime;
 
 	/**
 	 * 获取id
@@ -86,7 +86,7 @@ public class HistoryPassword
 	 * 
 	 * @return
 	 */
-	public Date getModifyTime()
+	public LocalDateTime getModifyTime()
 	{
 		return modifyTime;
 	}
@@ -96,7 +96,7 @@ public class HistoryPassword
 	 * 
 	 * @param modifyTime
 	 */
-	public void setModifyTime(Date modifyTime)
+	public void setModifyTime(LocalDateTime modifyTime)
 	{
 		this.modifyTime = modifyTime;
 	}

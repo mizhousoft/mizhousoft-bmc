@@ -1,7 +1,6 @@
 package com.mizhousoft.bmc.authentication.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -30,7 +29,7 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean determineInternalAuthcPass(AccountDetails accountDetails, String lastAccessIpAddr, Date lastAccessTime)
+	public boolean determineInternalAuthcPass(AccountDetails accountDetails, String lastAccessIpAddr, LocalDateTime lastAccessTime)
 	{
 		boolean authcPassed = false;
 
@@ -40,11 +39,9 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
 			// 跟最后一次登录访问IP地址一样，并且在7天内，可以不用短信认证
 			if (null != lastAccessIpAddr && null != lastAccessTime)
 			{
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.DAY_OF_MONTH, -7);
-				Date date = cal.getTime();
+				LocalDateTime date = LocalDateTime.now().minusDays(7);
 
-				if (lastAccessTime.after(date) && StringUtils.equals(accountDetails.getLoginIpAddr(), lastAccessIpAddr))
+				if (lastAccessTime.isAfter(date) && StringUtils.equals(accountDetails.getLoginIpAddr(), lastAccessIpAddr))
 				{
 					authcPassed = true;
 				}

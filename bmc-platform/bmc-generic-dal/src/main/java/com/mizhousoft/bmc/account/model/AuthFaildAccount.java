@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.account.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 认证失败帐号
@@ -13,7 +13,7 @@ public class AuthFaildAccount
 	private int authFailedCount;
 
 	// 认证失败时间
-	private Date authFailedTime;
+	private LocalDateTime authFailedTime;
 
 	/**
 	 * 获取authFailedCount
@@ -40,7 +40,7 @@ public class AuthFaildAccount
 	 * 
 	 * @return
 	 */
-	public Date getAuthFailedTime()
+	public LocalDateTime getAuthFailedTime()
 	{
 		return authFailedTime;
 	}
@@ -50,7 +50,7 @@ public class AuthFaildAccount
 	 * 
 	 * @param authFailedTime
 	 */
-	public void setAuthFailedTime(Date authFailedTime)
+	public void setAuthFailedTime(LocalDateTime authFailedTime)
 	{
 		this.authFailedTime = authFailedTime;
 	}

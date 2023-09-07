@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.account.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class HistoryPasswordServiceImpl implements HistoryPasswordService
 		HistoryPassword historyPassword = new HistoryPassword();
 		historyPassword.setAccountId(accountId);
 		historyPassword.setHistoryPwd(oldPassword);
-		historyPassword.setModifyTime(new Date());
+		historyPassword.setModifyTime(LocalDateTime.now());
 
 		historyPasswordMapper.save(historyPassword);
 	}

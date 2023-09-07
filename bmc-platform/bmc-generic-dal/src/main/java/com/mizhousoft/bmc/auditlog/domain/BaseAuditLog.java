@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.auditlog.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 审计日志基类
@@ -31,7 +31,7 @@ public abstract class BaseAuditLog
 	private String addInfo;
 
 	// 创建时间
-	private Date creationTime;
+	private LocalDateTime creationTime;
 
 	/**
 	 * 获取id
@@ -178,7 +178,7 @@ public abstract class BaseAuditLog
 	 * 
 	 * @return
 	 */
-	public Date getCreationTime()
+	public LocalDateTime getCreationTime()
 	{
 		return creationTime;
 	}
@@ -188,7 +188,7 @@ public abstract class BaseAuditLog
 	 * 
 	 * @param creationTime
 	 */
-	public void setCreationTime(Date creationTime)
+	public void setCreationTime(LocalDateTime creationTime)
 	{
 		this.creationTime = creationTime;
 	}

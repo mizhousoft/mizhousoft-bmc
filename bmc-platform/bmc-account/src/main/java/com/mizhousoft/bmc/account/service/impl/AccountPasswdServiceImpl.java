@@ -1,7 +1,7 @@
 package com.mizhousoft.bmc.account.service.impl;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,6 +24,7 @@ import com.mizhousoft.bmc.system.service.PasswordStrategyService;
 import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
+import com.mizhousoft.commons.lang.LocalDateTimeUtils;
 
 /**
  * 帐号密码服务
@@ -231,24 +232,14 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountId, 1);
 		if (CollectionUtils.isNotEmpty(historyPasswords))
 		{
-			Date modifyTime = historyPasswords.get(0).getModifyTime();
-			Calendar hisCal = Calendar.getInstance();
-			hisCal.setTime(modifyTime);
-			hisCal.add(Calendar.DAY_OF_MONTH, passwordStrategy.getValidDay());
-			hisCal.set(Calendar.HOUR_OF_DAY, 0);
-			hisCal.set(Calendar.MINUTE, 0);
-			hisCal.set(Calendar.SECOND, 0);
-			hisCal.set(Calendar.MILLISECOND, 0);
+			LocalDateTime modifyTime = historyPasswords.get(0).getModifyTime();
+			LocalDate modifyDate = modifyTime.plusDays(passwordStrategy.getValidDay()).toLocalDate();
 
-			Calendar nowCal = Calendar.getInstance();
-			nowCal.set(Calendar.HOUR_OF_DAY, 0);
-			nowCal.set(Calendar.MINUTE, 0);
-			nowCal.set(Calendar.SECOND, 0);
-			nowCal.set(Calendar.MILLISECOND, 0);
+			LocalDate now = LocalDate.now();
 
-			long hisTime = hisCal.getTime().getTime();
-			long nowTime = nowCal.getTime().getTime();
-			int offset = (int) ((hisTime - nowTime) / (24 * 60 * 60 * 1000));
+			long hisTime = modifyDate.toEpochDay();
+			long nowTime = now.toEpochDay();
+			int offset = (int) (hisTime - nowTime);
 
 			return offset;
 		}
@@ -271,7 +262,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		{
 			// 校验修改密码时间间隔
 			HistoryPassword latestPassword = historyPasswords.get(0);
-			long previousTime = latestPassword.getModifyTime().getTime();
+			long previousTime = LocalDateTimeUtils.toTimestamp(latestPassword.getModifyTime());
 			long currentTime = System.currentTimeMillis();
 			long offset = currentTime - previousTime;
 			long timeInterval = passwdStrategy.getModifyTimeInterval() * 60 * 1000;

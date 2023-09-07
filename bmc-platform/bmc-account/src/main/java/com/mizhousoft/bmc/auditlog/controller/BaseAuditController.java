@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.auditlog.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.mizhousoft.bmc.auditlog.constants.AuditLogLevel;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
@@ -31,7 +31,7 @@ public abstract class BaseAuditController
 		OperationLog operLog = new OperationLog();
 		operLog.setAccountName(authentication.getName());
 		operLog.setTerminal(authentication.getAccessIPAddress());
-		operLog.setCreationTime(new Date());
+		operLog.setCreationTime(LocalDateTime.now());
 		operLog.setOperation(I18nUtils.getMessage(getAuditOperation()));
 		operLog.setSource(I18nUtils.getMessage(getAuditSource()));
 		operLog.setResult(auditResult.getValue());
@@ -57,7 +57,7 @@ public abstract class BaseAuditController
 	{
 		OperationLog operLog = new OperationLog();
 		operLog.setTerminal(host);
-		operLog.setCreationTime(new Date());
+		operLog.setCreationTime(LocalDateTime.now());
 		operLog.setOperation(I18nUtils.getMessage(getAuditOperation()));
 		operLog.setSource(I18nUtils.getMessage(getAuditSource()));
 		operLog.setResult(auditResult.getValue());

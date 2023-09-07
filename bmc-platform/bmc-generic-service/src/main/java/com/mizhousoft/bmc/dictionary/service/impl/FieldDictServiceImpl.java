@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.dictionary.service.impl;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -47,11 +47,11 @@ public class FieldDictServiceImpl implements FieldDictService
 		FieldDict newDict = new FieldDict();
 		newDict.setId(fieldDict.getId());
 		newDict.setValue(v);
-		newDict.setUtime(new Date());
+		newDict.setUtime(LocalDateTime.now());
 		dictMapper.update(newDict);
 
 		fieldDict.setValue(v);
-		fieldDict.setUtime(new Date());
+		fieldDict.setUtime(LocalDateTime.now());
 
 		String cacheKey = buildCacheKey(srvId, domain, key);
 		cache.put(cacheKey, fieldDict);

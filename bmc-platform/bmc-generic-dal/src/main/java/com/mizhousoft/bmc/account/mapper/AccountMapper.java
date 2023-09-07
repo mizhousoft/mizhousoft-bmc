@@ -1,5 +1,6 @@
 package com.mizhousoft.bmc.account.mapper;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public interface AccountMapper extends CrudMapper<Account, Long>
 	 * @param lastAccessTime
 	 * @param lastAccessIpAddr
 	 */
-	void updateLastAccess(@Param("id") long id, @Param("lastAccessTime") Date lastAccessTime,
+	void updateLastAccess(@Param("id") long id, @Param("lastAccessTime") LocalDateTime lastAccessTime,
 	        @Param("lastAccessIpAddr") String lastAccessIpAddr);
 
 	/**
@@ -67,7 +68,7 @@ public interface AccountMapper extends CrudMapper<Account, Long>
 	 * @param status
 	 * @param lockTime
 	 */
-	void lockAccount(@Param("id") long id, @Param("status") int status, @Param("lockTime") Date lockTime);
+	void lockAccount(@Param("id") long id, @Param("status") int status, @Param("lockTime") LocalDateTime lockTime);
 
 	/**
 	 * 解锁帐号

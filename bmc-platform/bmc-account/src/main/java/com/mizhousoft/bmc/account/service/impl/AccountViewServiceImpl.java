@@ -1,9 +1,8 @@
 package com.mizhousoft.bmc.account.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -39,7 +38,7 @@ import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationServi
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
 import com.mizhousoft.commons.data.util.PageUtils;
-import com.mizhousoft.commons.lang.DateUtils;
+import com.mizhousoft.commons.lang.LocalDateTimeUtils;
 
 /**
  * 帐号业务服务
@@ -143,18 +142,16 @@ public class AccountViewServiceImpl implements AccountViewService
 
 		accountService.enableAccount(account);
 
-		Date lastAccessTime = account.getLastAccessTime();
+		LocalDateTime lastAccessTime = account.getLastAccessTime();
 		if (null != lastAccessTime)
 		{
 			AccountStrategy accountStrategy = accountStrategyService.getAccountStrategy(serviceId);
 			int unusedDay = accountStrategy.getAccountUnusedDay();
 
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(lastAccessTime);
-			cal.add(Calendar.DAY_OF_MONTH, unusedDay);
+			lastAccessTime = lastAccessTime.plusDays(unusedDay);
 
-			Date nowDate = new Date();
-			if (nowDate.after(cal.getTime()))
+			LocalDateTime nowDate = LocalDateTime.now();
+			if (nowDate.isAfter(lastAccessTime))
 			{
 				account.setLastAccessTime(null);
 				account.setLastAccessIpAddr(null);
@@ -281,7 +278,7 @@ public class AccountViewServiceImpl implements AccountViewService
 
 		String statusText = AccountStatus18nUtils.getText(account.getStatus());
 		account.setStatusText(statusText);
-		account.setLastAccessTimeText(DateUtils.formatYmdhms(account.getLastAccessTime()));
+		account.setLastAccessTimeText(LocalDateTimeUtils.formatYmdhms(account.getLastAccessTime()));
 
 		List<Role> roles = getRoleByAccountId(account.getId());
 		List<String> roleNames = new ArrayList<String>();

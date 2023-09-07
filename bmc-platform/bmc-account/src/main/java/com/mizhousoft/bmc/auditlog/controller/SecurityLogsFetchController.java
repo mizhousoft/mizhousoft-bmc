@@ -20,7 +20,7 @@ import com.mizhousoft.bmc.auditlog.util.AuditLogRequestUtils;
 import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.util.PageBuilder;
-import com.mizhousoft.commons.lang.DateUtils;
+import com.mizhousoft.commons.lang.LocalDateTimeUtils;
 
 /**
  * 抓取安全日志控制器
@@ -37,8 +37,7 @@ public class SecurityLogsFetchController
 	private ApplicationAuthenticationService applicationAuthService;
 
 	@RequestMapping(value = "/auditlog/fetchSecurityLogs.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelMap fetchSecurityLogs(@RequestBody
-	AuditLogPageRequest request)
+	public ModelMap fetchSecurityLogs(@RequestBody AuditLogPageRequest request)
 	{
 		AuditLogRequestUtils.handleRequest(request);
 
@@ -69,7 +68,7 @@ public class SecurityLogsFetchController
 		page.getContent().forEach(auditLog -> {
 			SecurityLogInfo info = new SecurityLogInfo();
 
-			String creationTimeStr = DateUtils.formatYmdhms(auditLog.getCreationTime());
+			String creationTimeStr = LocalDateTimeUtils.formatYmdhms(auditLog.getCreationTime());
 			String logLevelStr = AuditLogI18nUtils.getLevelText(auditLog.getLogLevel());
 			String resultStr = AuditLogI18nUtils.getResultText(auditLog.getResult());
 

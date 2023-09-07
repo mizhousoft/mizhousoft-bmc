@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.dictionary.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * JSON字典
@@ -22,10 +22,10 @@ public class JSONDict
 	private String value;
 
 	// 更新时间
-	private Date utime;
+	private LocalDateTime utime;
 
 	// 创建时间
-	private Date ctime;
+	private LocalDateTime ctime;
 
 	/**
 	 * 获取id
@@ -112,7 +112,7 @@ public class JSONDict
 	 * 
 	 * @return
 	 */
-	public Date getUtime()
+	public LocalDateTime getUtime()
 	{
 		return utime;
 	}
@@ -122,7 +122,7 @@ public class JSONDict
 	 * 
 	 * @param utime
 	 */
-	public void setUtime(Date utime)
+	public void setUtime(LocalDateTime utime)
 	{
 		this.utime = utime;
 	}
@@ -132,7 +132,7 @@ public class JSONDict
 	 * 
 	 * @return
 	 */
-	public Date getCtime()
+	public LocalDateTime getCtime()
 	{
 		return ctime;
 	}
@@ -142,7 +142,7 @@ public class JSONDict
 	 * 
 	 * @param ctime
 	 */
-	public void setCtime(Date ctime)
+	public void setCtime(LocalDateTime ctime)
 	{
 		this.ctime = ctime;
 	}

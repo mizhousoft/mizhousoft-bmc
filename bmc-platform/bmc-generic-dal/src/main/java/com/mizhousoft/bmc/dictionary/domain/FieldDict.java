@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.dictionary.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 字段字典
@@ -25,10 +25,10 @@ public class FieldDict
 	private String value;
 
 	// 更新时间
-	private Date utime;
+	private LocalDateTime utime;
 
 	// 创建时间
-	private Date ctime;
+	private LocalDateTime ctime;
 
 	/**
 	 * 获取id
@@ -135,7 +135,7 @@ public class FieldDict
 	 * 
 	 * @return
 	 */
-	public Date getUtime()
+	public LocalDateTime getUtime()
 	{
 		return utime;
 	}
@@ -145,7 +145,7 @@ public class FieldDict
 	 * 
 	 * @param utime
 	 */
-	public void setUtime(Date utime)
+	public void setUtime(LocalDateTime utime)
 	{
 		this.utime = utime;
 	}
@@ -155,7 +155,7 @@ public class FieldDict
 	 * 
 	 * @return
 	 */
-	public Date getCtime()
+	public LocalDateTime getCtime()
 	{
 		return ctime;
 	}
@@ -165,7 +165,7 @@ public class FieldDict
 	 * 
 	 * @param ctime
 	 */
-	public void setCtime(Date ctime)
+	public void setCtime(LocalDateTime ctime)
 	{
 		this.ctime = ctime;
 	}

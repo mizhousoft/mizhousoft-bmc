@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.auditlog.request;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mizhousoft.commons.data.domain.PageRequest;
@@ -25,11 +25,11 @@ public class AuditLogPageRequest extends PageRequest
 
 	// 开始时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	private Date beginTime;
+	private LocalDateTime beginTime;
 
 	// 结束时间
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
-	private Date endTime;
+	private LocalDateTime endTime;
 
 	// 操作
 	private String operation;
@@ -111,7 +111,7 @@ public class AuditLogPageRequest extends PageRequest
 	 * 
 	 * @return
 	 */
-	public Date getBeginTime()
+	public LocalDateTime getBeginTime()
 	{
 		return beginTime;
 	}
@@ -121,7 +121,7 @@ public class AuditLogPageRequest extends PageRequest
 	 * 
 	 * @param beginTime
 	 */
-	public void setBeginTime(Date beginTime)
+	public void setBeginTime(LocalDateTime beginTime)
 	{
 		this.beginTime = beginTime;
 	}
@@ -131,7 +131,7 @@ public class AuditLogPageRequest extends PageRequest
 	 * 
 	 * @return
 	 */
-	public Date getEndTime()
+	public LocalDateTime getEndTime()
 	{
 		return endTime;
 	}
@@ -141,7 +141,7 @@ public class AuditLogPageRequest extends PageRequest
 	 * 
 	 * @param endTime
 	 */
-	public void setEndTime(Date endTime)
+	public void setEndTime(LocalDateTime endTime)
 	{
 		this.endTime = endTime;
 	}

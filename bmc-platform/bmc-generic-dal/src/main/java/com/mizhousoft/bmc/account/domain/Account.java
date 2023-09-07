@@ -1,5 +1,6 @@
 package com.mizhousoft.bmc.account.domain;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -31,10 +32,10 @@ public class Account
 	private boolean firstLogin;
 
 	// 锁定时间
-	private Date lockTime;
+	private LocalDateTime lockTime;
 
 	// 最后访问时间
-	private Date lastAccessTime;
+	private LocalDateTime lastAccessTime;
 
 	// 最后访问IP地址
 	private String lastAccessIpAddr;
@@ -184,7 +185,7 @@ public class Account
 	 * 
 	 * @return
 	 */
-	public Date getLockTime()
+	public LocalDateTime getLockTime()
 	{
 		return lockTime;
 	}
@@ -194,7 +195,7 @@ public class Account
 	 * 
 	 * @param lockTime
 	 */
-	public void setLockTime(Date lockTime)
+	public void setLockTime(LocalDateTime lockTime)
 	{
 		this.lockTime = lockTime;
 	}
@@ -204,7 +205,7 @@ public class Account
 	 * 
 	 * @return
 	 */
-	public Date getLastAccessTime()
+	public LocalDateTime getLastAccessTime()
 	{
 		return lastAccessTime;
 	}
@@ -214,7 +215,7 @@ public class Account
 	 * 
 	 * @param lastAccessTime
 	 */
-	public void setLastAccessTime(Date lastAccessTime)
+	public void setLastAccessTime(LocalDateTime lastAccessTime)
 	{
 		this.lastAccessTime = lastAccessTime;
 	}
