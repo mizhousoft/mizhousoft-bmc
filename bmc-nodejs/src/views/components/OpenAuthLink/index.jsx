@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import SessionStore from '@/session/SessionStore';
 
 export default function OpenAuthLink({ authId, to, childrenVisible = false, children, ...others }) {

@@ -1,18 +1,20 @@
 {
-    'singleQuote': true,
-    'semi': true,
-    'trailingComma': 'es5',
-    'useTabs' : false,
-    'tabWidth': 4,
-    'printWidth': 120,
-    'proseWrap': 'never',
-    'jsxSingleQuote': true,
-    'arrowParens': 'always',
-    'overrides': [
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "es5",
+    "useTabs" : false,
+    "tabWidth": 4,
+    "printWidth": 120,
+    "proseWrap": "never",
+    "jsxSingleQuote": true,
+    "arrowParens": "always",
+    "importOrder": ["^(react|react-dom)$", "^([a-z]|@[a-z])", "", ".*"],
+    "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+    "overrides": [
         {
-            'files': '.prettierrc',
-            'options': {
-                'parser': 'json'
+            "files": ".prettierrc",
+            "options": {
+                "parser": "json"
             }
         }
     ]

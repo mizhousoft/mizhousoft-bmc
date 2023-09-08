@@ -1,5 +1,6 @@
 import React from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Col, Layout, Row } from 'antd';
+
 import Logo from '../Logo';
 
 const { Header } = Layout;

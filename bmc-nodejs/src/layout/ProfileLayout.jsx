@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLocation, Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import Sidebar from '@/components/Sidebar';
 import MainHeader from '@/views/components/MainHeader';

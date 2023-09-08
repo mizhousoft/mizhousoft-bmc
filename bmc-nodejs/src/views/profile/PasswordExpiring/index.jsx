@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { Row, Col, Form, Input, Button, Alert, message } from 'antd';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException } from '@/components/UIComponent';
-import { logout } from '@/session/sessionService';
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
+
 import { fetchPasswordExpiringDays, modifyExpiringPassword } from '../profileService';
+import { PageException, PageLoading } from '@/components/UIComponent';
+import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { logout } from '@/session/sessionService';
 
 const FormItem = Form.Item;
 

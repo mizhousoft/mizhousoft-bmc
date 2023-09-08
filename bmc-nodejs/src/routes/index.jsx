@@ -1,15 +1,14 @@
 import React, { Suspense } from 'react';
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
+import loginRoute from './loginRoute';
+import profileRoute from './profileRoute';
+import RequireAuth from './RequireAuth';
+import systemRoutes from './systemRoute';
+import ErrorBoundary from '@/components/ErrorBoundary';
 import { PageLoading } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
-import ErrorBoundary from '@/components/ErrorBoundary';
-
-import RequireAuth from './RequireAuth';
-import loginRoute from './loginRoute';
-import profileRoute from './profileRoute';
-import systemRoutes from './systemRoute';
 
 const routes = [...loginRoute, ...systemRoutes, ...profileRoute];
 

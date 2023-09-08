@@ -1,6 +1,6 @@
-import DefaultUserStore from '@/store/DefaultUserStore';
-import { CONTEXT_LOGIN_PATH, BASENAME } from '@/config/application';
+import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
 import { GLOBAL_MENUS } from '@/config/globalMenu';
+import DefaultUserStore from '@/store/DefaultUserStore';
 import { asyncFetch } from '@/utils/request';
 
 const SESSION_KEY = 'SESSION_KEY';

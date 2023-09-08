@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Table, Space } from 'antd';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import PhoneNumberEdit from './PhoneNumberEdit';
+import React, { useEffect, useState } from 'react';
+import { Form, Space, Table } from 'antd';
+
 import { fetchMyAccountInfo } from '../profileService';
+import PhoneNumberEdit from './PhoneNumberEdit';
+import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
+import { LOADING_FETCH_STATUS } from '@/constants/common';
 
 const FormItem = Form.Item;
 

@@ -3,8 +3,8 @@ dist/
 .eslintignore
 .prettierignore
 .gitignore
-public
-template
+./public/
+./template/
 node_modules
 .vscode
 **/*.svg

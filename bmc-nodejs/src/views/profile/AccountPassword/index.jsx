@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Button, Alert, message } from 'antd';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
-import PasswordNote from '@/views/components/PasswordNote';
-import SessionStore from '@/session/SessionStore';
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, Form, Input, message } from 'antd';
+
 import { fetchPasswordStrategy, modifyAccountPassword } from '../profileService';
+import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
+import { LOADING_FETCH_STATUS } from '@/constants/common';
+import SessionStore from '@/session/SessionStore';
+import PasswordNote from '@/views/components/PasswordNote';
 
 const FormItem = Form.Item;
 

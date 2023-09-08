@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Badge, List, Popover, Tabs } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { Tabs, Popover, List, Badge } from 'antd';
+
 import FontIcon from '@/components/FontIcon';
+import { AButton } from '@/components/UIComponent';
+import { BASENAME } from '@/config/application';
+import DefaultUserStore from '@/store/DefaultUserStore';
 import { addEventListener, removeEventListener } from '@/utils/eventBus';
 import { asyncFetch } from '@/utils/request';
-import { BASENAME } from '@/config/application';
-import { AButton } from '@/components/UIComponent';
-import DefaultUserStore from '@/store/DefaultUserStore';
 
 let interval = 0;
 const PUSHTIME_KEY = 'PUSHTIME_KEY';

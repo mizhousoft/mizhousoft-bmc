@@ -1,6 +1,6 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Outlet } from 'react-router-dom';
 
 import EmptyHeader from '@/views/components/EmptyHeader';
 

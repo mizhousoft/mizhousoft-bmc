@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Table, Form, Button, message } from 'antd';
+import { Button, Form, message, Table } from 'antd';
+
 import { addAccount } from '../redux/accountService';
 
 const FormItem = Form.Item;

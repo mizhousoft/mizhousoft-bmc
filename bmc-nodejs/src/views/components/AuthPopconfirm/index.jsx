@@ -1,5 +1,6 @@
 import React from 'react';
 import { Popconfirm } from 'antd';
+
 import SessionStore from '@/session/SessionStore';
 
 export default function AuthPopconfirm({ authId, title, children, ...others }) {

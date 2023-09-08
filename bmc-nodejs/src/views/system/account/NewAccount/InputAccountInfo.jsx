@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Radio } from 'antd';
+import { Button, Form, Input, Radio } from 'antd';
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Alert, Card } from 'antd';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { COMPANY, LOGIN_TITLE, BASENAME } from '@/config/application';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Alert, Button, Card, Form, Input } from 'antd';
+
+import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
 import { userLogin } from '@/session/sessionService';
 import SessionStore from '@/session/SessionStore';
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import { useLocation, Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
+import { Outlet, useLocation } from 'react-router-dom';
 
 import { getTopMenuId, getTopSubMenus } from '@/config/globalMenu';
-
-import MainHeader from '@/views/components/MainHeader';
 import AuthSidebar from '@/views/components/AuthSidebar';
+import MainHeader from '@/views/components/MainHeader';
 
 const { Content } = Layout;
 

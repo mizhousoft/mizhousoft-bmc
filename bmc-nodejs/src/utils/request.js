@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { Modal } from 'antd';
+import axios from 'axios';
+
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
 

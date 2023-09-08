@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
+
 import { LOGIN_PATH } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
 

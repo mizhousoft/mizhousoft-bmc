@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Affix, Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Affix } from 'antd';
+
 import FontIcon from '@/components/FontIcon';
-import { findSiderMenuId, findOpenMenuKeys } from '@/utils/MenuUtils';
+import { findOpenMenuKeys, findSiderMenuId } from '@/utils/MenuUtils';
 
 const { Sider } = Layout;
 

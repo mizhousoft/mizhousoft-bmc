@@ -121,6 +121,7 @@ module.exports = {
             args: 'none'
         }],
         'no-script-url': 0,
+        'import/order': 0,
     },
     globals: {
         gtag: true,

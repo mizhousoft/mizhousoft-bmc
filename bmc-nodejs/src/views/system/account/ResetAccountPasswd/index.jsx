@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Modal, message } from 'antd';
-import AuthA from '@/views/components/AuthA';
+import { Button, Form, Input, message, Modal } from 'antd';
+
 import { resetPassword } from '../redux/accountService';
+import AuthA from '@/views/components/AuthA';
 
 const FormItem = Form.Item;
 const formItemLayout = {

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Table, Button, Modal } from 'antd';
-import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import { Button, Modal, Table } from 'antd';
+
 import { getTableLocale } from '@/components/UIComponent';
+import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 
 export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onChange }) {
     const [visible, setVisible] = useState(false);

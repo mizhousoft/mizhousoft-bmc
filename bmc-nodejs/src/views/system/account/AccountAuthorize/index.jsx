@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Form, Button, Popconfirm, message, Table } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Button, Form, message, Popconfirm, Table } from 'antd';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import { authorizeAccount, fetchAccountRolesOnAuthorize, fetchRolesOnAuthorize } from '../redux/accountService';
+import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { PageLoading, PageException, PageComponent } from '@/components/UIComponent';
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
-import { fetchRolesOnAuthorize, fetchAccountRolesOnAuthorize, authorizeAccount } from '../redux/accountService';
 
 const FormItem = Form.Item;
 

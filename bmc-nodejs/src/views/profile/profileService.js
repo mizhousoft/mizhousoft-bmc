@@ -1,5 +1,5 @@
-import { asyncFetch, asyncPost } from '@/utils/request';
 import { BASENAME } from '@/config/application';
+import { asyncFetch, asyncPost } from '@/utils/request';
 
 export function fetchMyAccountInfo() {
     return asyncFetch({

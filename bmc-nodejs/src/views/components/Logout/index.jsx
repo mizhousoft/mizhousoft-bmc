@@ -1,9 +1,10 @@
 import React from 'react';
 import { Modal } from 'antd';
+
 import LogoutImg from '@/assets/imgs/icon-logout.png';
-import { logout } from '@/session/sessionService';
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { AButton } from '@/components/UIComponent';
+import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { logout } from '@/session/sessionService';
 
 export default function Logout() {
     const onLogout = () => {

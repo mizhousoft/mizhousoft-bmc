@@ -1,8 +1,11 @@
 import React, { createElement } from 'react';
 import { Button } from 'antd';
+
 import { BASENAME } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
+
 import './index.less';
+
 import config from './typeConfig';
 
 export default function Exception({ img, type, title, desc, actions }) {

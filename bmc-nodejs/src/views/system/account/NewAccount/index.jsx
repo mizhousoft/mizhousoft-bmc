@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Steps } from 'antd';
-import { PageComponent } from '@/components/UIComponent';
+import { useNavigate } from 'react-router-dom';
+
+import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
 import InputAccountInfo from './InputAccountInfo';
 import SelectRoleForm from './SelectRoleForm';
-import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
+import { PageComponent } from '@/components/UIComponent';
 
 const { Step } = Steps;
 

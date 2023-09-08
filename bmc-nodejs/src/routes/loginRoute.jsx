@@ -1,7 +1,6 @@
 import React from 'react';
 
 import PureLayout from '@/layout/PureLayout';
-
 import Login from '@/views/Login';
 
 const FirstLogin = React.lazy(() => import('@/views/profile/FirstLogin'));

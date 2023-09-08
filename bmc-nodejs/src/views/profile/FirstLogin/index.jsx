@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Form, Input, Button, Alert, message } from 'antd';
-import { logout } from '@/session/sessionService';
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import React, { useEffect, useRef, useState } from 'react';
+import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
+
 import { modifyFirstLoginPassword } from '../profileService';
+import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { logout } from '@/session/sessionService';
 
 const FormItem = Form.Item;
 

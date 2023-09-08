@@ -1,4 +1,5 @@
 import React from 'react';
+
 import SessionStore from '@/session/SessionStore';
 
 export default function AuthA({ authId, childrenVisible = false, disabled = false, children, ...others }) {

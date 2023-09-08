@@ -1,10 +1,11 @@
 import React from 'react';
-import { Layout, Row, Col } from 'antd';
-import { GLOBAL_MENUS } from '@/config/globalMenu';
-import Logo from '../Logo';
-import Logout from '../Logout';
+import { Col, Layout, Row } from 'antd';
+
 import AccountAvatar from '../AccountAvatar';
 import AuthNavigationMenu from '../AuthNavigationMenu';
+import Logo from '../Logo';
+import Logout from '../Logout';
+import { GLOBAL_MENUS } from '@/config/globalMenu';
 
 const { Header } = Layout;
 

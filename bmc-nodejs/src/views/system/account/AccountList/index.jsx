@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { Col, message, Radio, Row, Table } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { message, Row, Col, Radio, Table } from 'antd';
+
+import {
+    deleteAccount,
+    disableAccount,
+    enableAccount,
+    fetchAccountInfoList,
+    unlockAccount,
+} from '../redux/accountService';
+import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../redux/accountSlice';
+import ResetAccountPasswd from '../ResetAccountPasswd';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE } from '@/constants/common';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
-import { fetchEvent, fetchResultEvent, actionEvent, actionResultEvent } from '../redux/accountSlice';
-import ResetAccountPasswd from '../ResetAccountPasswd';
-import {
-    fetchAccountInfoList,
-    disableAccount,
-    enableAccount,
-    unlockAccount,
-    deleteAccount,
-} from '../redux/accountService';
 
 export default function AccountList() {
     const dispatch = useDispatch();
