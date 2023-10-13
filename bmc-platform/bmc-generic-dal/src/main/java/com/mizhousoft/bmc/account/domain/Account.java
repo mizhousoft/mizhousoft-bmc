@@ -1,7 +1,6 @@
 package com.mizhousoft.bmc.account.domain;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * 帐号
