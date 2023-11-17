@@ -2,8 +2,8 @@ package com.mizhousoft.bmc.role.request;
 
 import java.util.Arrays;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  * 角色请求

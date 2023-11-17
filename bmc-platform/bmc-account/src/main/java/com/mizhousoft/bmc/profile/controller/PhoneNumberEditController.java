@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.profile.controller;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,8 @@ import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
+
+import jakarta.validation.Valid;
 
 /**
  * 修改手机号控制器

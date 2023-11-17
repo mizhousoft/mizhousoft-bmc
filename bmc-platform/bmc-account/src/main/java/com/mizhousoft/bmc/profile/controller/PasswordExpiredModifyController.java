@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.profile.controller;
 
-import javax.validation.Valid;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -29,6 +27,8 @@ import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
+
+import jakarta.validation.Valid;
 
 /**
  * 密码过期修改控制器

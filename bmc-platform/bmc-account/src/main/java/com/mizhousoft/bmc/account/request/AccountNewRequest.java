@@ -2,8 +2,8 @@ package com.mizhousoft.bmc.account.request;
 
 import java.util.Arrays;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 /**
  * 增加帐号请求

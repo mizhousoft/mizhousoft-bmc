@@ -1,6 +1,6 @@
 package com.mizhousoft.bmc.account.request;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
 /**
  * 帐号密码请求

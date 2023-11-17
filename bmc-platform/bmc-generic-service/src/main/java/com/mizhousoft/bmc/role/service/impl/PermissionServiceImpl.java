@@ -10,8 +10,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -22,6 +20,8 @@ import com.mizhousoft.bmc.role.domain.Permission;
 import com.mizhousoft.bmc.role.mapper.PermissionMapper;
 import com.mizhousoft.bmc.role.service.PermResourceService;
 import com.mizhousoft.bmc.role.service.PermissionService;
+
+import jakarta.annotation.PostConstruct;
 
 /**
  * 权限服务实现

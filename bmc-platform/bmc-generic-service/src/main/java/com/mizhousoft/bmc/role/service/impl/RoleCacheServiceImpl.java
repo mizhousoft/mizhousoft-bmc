@@ -9,8 +9,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.collections4.SetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +20,8 @@ import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
+
+import jakarta.annotation.PostConstruct;
 
 /**
  * 角色缓存服务

@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.boot;
 
-import javax.servlet.ServletContextListener;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +12,8 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mizhousoft.commons.web.context.CommonContextLoaderListener;
+
+import jakarta.servlet.ServletContextListener;
 
 @EnableAsync
 @SpringBootApplication()

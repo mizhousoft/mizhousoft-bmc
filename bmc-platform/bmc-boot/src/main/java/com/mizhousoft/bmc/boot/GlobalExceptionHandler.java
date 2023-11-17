@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.boot;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,8 @@ import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 import com.mizhousoft.commons.web.util.WebUtils;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * 全局异常处理器

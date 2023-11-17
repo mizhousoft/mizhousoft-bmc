@@ -1,8 +1,5 @@
 package com.mizhousoft.bmc.profile.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -30,6 +27,9 @@ import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 
 /**
  * 修改闲置超时时间控制器

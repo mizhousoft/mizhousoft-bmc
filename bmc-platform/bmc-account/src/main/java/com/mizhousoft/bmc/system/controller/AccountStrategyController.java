@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.system.controller;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +23,8 @@ import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationServi
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
+
+import jakarta.validation.Valid;
 
 /**
  * 修改帐号策略控制器

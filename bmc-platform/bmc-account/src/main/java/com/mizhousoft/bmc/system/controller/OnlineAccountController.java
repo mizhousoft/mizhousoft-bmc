@@ -1,7 +1,5 @@
 package com.mizhousoft.bmc.system.controller;
 
-import javax.validation.Valid;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
@@ -30,6 +28,8 @@ import com.mizhousoft.commons.data.domain.PageRequest;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
+
+import jakarta.validation.Valid;
 
 /**
  * 注销在线帐号控制器

@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.commons.collections4.ListUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Service;
 import com.mizhousoft.bmc.role.domain.PermResource;
 import com.mizhousoft.bmc.role.mapper.PermResourceMapper;
 import com.mizhousoft.bmc.role.service.PermResourceService;
+
+import jakarta.annotation.PostConstruct;
 
 /**
  * 权限资源服务

@@ -98,7 +98,7 @@ and limitations under the License.
  */
 
 /**
- * @remix-run/router v1.7.2
+ * @remix-run/router v1.11.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -109,7 +109,7 @@ and limitations under the License.
  */
 
 /**
- * React Router DOM v6.14.2
+ * React Router DOM v6.18.0
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -120,7 +120,7 @@ and limitations under the License.
  */
 
 /**
- * React Router v6.14.2
+ * React Router v6.18.0
  *
  * Copyright (c) Remix Software Inc.
  *
