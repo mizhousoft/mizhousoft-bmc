@@ -32,11 +32,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.mizhousoft.boot</groupId>
-			<artifactId>restclient-spring-boot-starter</artifactId>
-			<version>${mizhousoft.boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.mizhousoft.boot</groupId>
 			<artifactId>crypto-spring-boot-starter</artifactId>
 			<version>${mizhousoft.boot.version}</version>
 		</dependency>
