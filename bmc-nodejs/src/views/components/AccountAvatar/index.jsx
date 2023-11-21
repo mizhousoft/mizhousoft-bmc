@@ -18,7 +18,7 @@ export default function AccountAvatar({ isActive }) {
 
                 <FontIcon
                     type='anticon-arrow_down'
-                    style={{ fontSize: '0.9em', verticalAlign: 'middle', marginLeft: '4px' }}
+                    style={{ fontSize: '0.8em', verticalAlign: 'middle', marginLeft: '4px' }}
                 />
             </Link>
         </span>
