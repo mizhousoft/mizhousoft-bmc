@@ -113,7 +113,7 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
     const menuItems = siderMenus.map((siderMenu) => buildSiderMenuItems(siderMenu));
 
     return (
-        <Sider width={210} className='mz-sider' theme='light'>
+        <Sider width={206} className='mz-sider' theme='light'>
             {undefined !== header && <div className='mz-sider-header'>{header}</div>}
             <div className='mz-sider-body'>
                 <Menu
