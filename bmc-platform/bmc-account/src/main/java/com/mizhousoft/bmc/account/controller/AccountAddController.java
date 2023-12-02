@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,9 +33,8 @@ import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 增加帐号控制器
@@ -72,49 +70,39 @@ public class AccountAddController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/account/addAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse addAccount(@Valid @RequestBody AccountNewRequest request, BindingResult bindingResult)
+	public ActionResponse addAccount(@RequestBody AccountNewRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			AccountRequestValidator.validate(request);
+			accountPasswdService.checkPassword(request.getName(), request.getPassword());
+
+			List<Role> roles = buildAccountRoles(request);
+
+			AuthAccount account = new AuthAccount();
+			account.setName(request.getName());
+			account.setPassword(request.getPassword());
+			account.setStatus(request.getStatus());
+			account.setPhoneNumber(request.getPhoneNumber());
+
+			accountViewService.addAccount(account, roles);
+
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				AccountRequestValidator.validate(request);
-				accountPasswdService.checkPassword(request.getName(), request.getPassword());
+			LOG.error("Add account failed, message: {}", e.getMessage());
 
-				List<Role> roles = buildAccountRoles(request);
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				AuthAccount account = new AuthAccount();
-				account.setName(request.getName());
-				account.setPassword(request.getPassword());
-				account.setStatus(request.getStatus());
-				account.setPhoneNumber(request.getPhoneNumber());
-
-				accountViewService.addAccount(account, roles);
-
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
-			catch (BMCException e)
-			{
-				LOG.error("Add account failed, message: {}", e.getMessage());
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);

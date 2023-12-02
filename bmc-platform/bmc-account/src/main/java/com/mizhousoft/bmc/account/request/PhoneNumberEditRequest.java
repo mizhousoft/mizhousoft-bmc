@@ -1,19 +1,29 @@
 package com.mizhousoft.bmc.account.request;
 
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.mizhousoft.commons.lang.PhoneNumberChecker;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 手机号编辑请求
  *
  * @version
  */
-public class PhoneNumberEditRequest
+public class PhoneNumberEditRequest implements Validator
 {
 	// 手机号
-	@Pattern(regexp = "^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$", message = "{bmc.account.phonenumber.pattern.error}")
-	@Size(min = 11, max = 11, message = "{bmc.account.phonenumber.size.error}")
 	private String phoneNumber;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
+		Asserts.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+	}
 
 	/**
 	 * 获取phoneNumber

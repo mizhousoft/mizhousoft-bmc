@@ -2,39 +2,52 @@ package com.mizhousoft.bmc.account.request;
 
 import java.util.Arrays;
 
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.mizhousoft.commons.lang.PhoneNumberChecker;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 增加帐号请求
  *
  * @version
  */
-public class AccountNewRequest
+public class AccountNewRequest implements Validator
 {
 	// 帐号
-	@Size(min = 5, max = 20, message = "{bmc.account.name.size.error}")
-	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "{bmc.account.name.pattern.error}")
 	private String name;
 
 	// 状态
 	private int status;
 
 	// 密码
-	@Size(min = 8, max = 32, message = "{bmc.account.password.size.error}")
 	private String password;
 
 	// 确认密码
-	@Size(min = 8, max = 32, message = "{bmc.account.confirm.password.size.error}")
 	private String confirmPassword;
 
 	// 手机号
-	@Pattern(regexp = "^[1](([3][0-9])|([4][5-9])|([5][0-3,5-9])|([6][5,6])|([7][0-8])|([8][0-9])|([9][1,8,9]))[0-9]{8}$", message = "{bmc.account.phonenumber.pattern.error}")
-	@Size(min = 11, max = 11, message = "{bmc.account.phonenumber.size.error}")
 	private String phoneNumber;
 
 	// 角色ID
 	private Integer[] roleIds;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.size(name, 5, 20, "bmc.account.name.size.error");
+		Asserts.notMatch(name, "^[a-zA-Z0-9]+$", "bmc.account.name.pattern.error");
+
+		Asserts.size(password, 8, 32, "bmc.account.password.size.error");
+
+		Asserts.size(confirmPassword, 8, 32, "bmc.account.confirm.password.size.error");
+
+		Asserts.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
+		Asserts.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+	}
 
 	/**
 	 * 获取name

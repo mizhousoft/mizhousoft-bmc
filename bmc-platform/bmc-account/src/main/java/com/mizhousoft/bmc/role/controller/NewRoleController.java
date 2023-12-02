@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,10 +31,9 @@ import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.antd.TreeNode;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 创建角色控制器
@@ -78,43 +76,32 @@ public class NewRoleController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/role/addRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse addRole(@Valid @RequestBody
-	RoleRequest request, BindingResult bindingResult)
+	public ActionResponse addRole(@RequestBody RoleRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			Role role = roleViewService.addRole(request);
+
+			List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
+
+			roleCacheService.addRolePermissions(role.getSrvId(), role.getName(), permissions);
+
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				Role role = roleViewService.addRole(request);
+			LOG.error("New role failed.", e);
 
-				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				roleCacheService.addRolePermissions(role.getSrvId(), role.getName(), permissions);
-
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
-			catch (BMCException e)
-			{
-				LOG.error("New role failed.", e);
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);

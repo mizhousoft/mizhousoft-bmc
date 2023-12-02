@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,10 +35,9 @@ import com.mizhousoft.commons.json.JSONException;
 import com.mizhousoft.commons.json.JSONUtils;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.antd.TreeNode;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 编辑角色控制器
@@ -100,42 +97,32 @@ public class EditRoleController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/role/modifyRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse modifyRole(@Valid @RequestBody RoleRequest request, BindingResult bindingResult)
+	public ActionResponse modifyRole(@RequestBody RoleRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			Role role = roleViewService.modifyRole(request);
+
+			List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
+
+			roleCacheService.refreshRolePermissions(role.getSrvId(), role.getName(), permissions);
+
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				Role role = roleViewService.modifyRole(request);
+			LOG.error("Modify role failed.", e);
 
-				List<Permission> permissions = roleViewService.queryPermissionsByRoleName(role.getName());
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				roleCacheService.refreshRolePermissions(role.getSrvId(), role.getName(), permissions);
-
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
-			catch (BMCException e)
-			{
-				LOG.error("Modify role failed.", e);
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);

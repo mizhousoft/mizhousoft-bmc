@@ -1,36 +1,50 @@
 package com.mizhousoft.bmc.system.request;
 
-import org.hibernate.validator.constraints.Range;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 密码策略请求
  *
  * @version
  */
-public class PasswordStrategyReqesut
+public class PasswordStrategyReqesut implements Validator
 {
 	// ID
 	private int id;
 
 	// 密码不能与历史密码重复次数
-	@Range(min = 1, max = 10, message = "{bmc.password.strategy.history.repeatsize.range.error}")
 	private int historyRepeatSize;
 
 	// 密码中允许同一个字符出现的次数
-	@Range(min = 1, max = 4, message = "{bmc.password.strategy.char.appearsize.range.error}")
 	private int charAppearSize;
 
 	// 密码修改最短时间间隔，单位分钟
-	@Range(min = 5, max = 60, message = "{bmc.password.strategy.modifytime.interval.range.error}")
 	private int modifyTimeInterval;
 
 	// 密码有效期，单位天
-	@Range(min = 90, max = 360, message = "{bmc.password.strategy.validday.range.error}")
 	private int validDay;
 
 	// 距离密码到期，提醒用户修改的天数，单位天
-	@Range(min = 5, max = 15, message = "{bmc.password.strategy.reminder.modifyday.range.error}")
 	private int reminderModifyDay;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.range(historyRepeatSize, 1, 10, "bmc.password.strategy.history.repeatsize.range.error");
+
+		Asserts.range(charAppearSize, 1, 4, "bmc.password.strategy.char.appearsize.range.error");
+
+		Asserts.range(modifyTimeInterval, 5, 60, "bmc.password.strategy.modifytime.interval.range.error");
+
+		Asserts.range(validDay, 90, 360, "bmc.password.strategy.validday.range.error");
+
+		Asserts.range(reminderModifyDay, 5, 15, "bmc.password.strategy.reminder.modifyday.range.error");
+	}
 
 	/**
 	 * 获取id

@@ -1,28 +1,40 @@
 package com.mizhousoft.bmc.account.request;
 
-import jakarta.validation.constraints.Size;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 帐号密码请求
  *
  * @version
  */
-public class AccountPasswordRequest
+public class AccountPasswordRequest implements Validator
 {
 	// ID
 	private long id;
 
 	// 老密码
-	@Size(min = 8, max = 32, message = "{bmc.account.password.size.error}")
 	private String password;
 
 	// 新密码
-	@Size(min = 8, max = 32, message = "{bmc.account.password.size.error}")
 	private String newPassword;
 
 	// 确认密码
-	@Size(min = 8, max = 32, message = "{bmc.account.confirm.password.size.error}")
 	private String confirmNewPassword;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.size(password, 8, 32, "bmc.account.password.size.error");
+
+		Asserts.size(newPassword, 8, 32, "bmc.account.password.size.error");
+
+		Asserts.size(confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error");
+	}
 
 	/**
 	 * 获取id

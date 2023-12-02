@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,9 +20,8 @@ import com.mizhousoft.bmc.system.service.AccountStrategyService;
 import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 修改帐号策略控制器
@@ -56,42 +53,31 @@ public class AccountStrategyController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/system/modifyAccountStrategy.action", method = RequestMethod.POST)
-	public ActionResponse modifyAccountStrategy(@Valid @RequestBody
-	AccountStrategyRequest request, BindingResult result)
+	public ActionResponse modifyAccountStrategy(@RequestBody AccountStrategyRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
 		try
 		{
-			if (result.hasErrors())
-			{
-				FieldError filedError = result.getFieldError();
-				String message = filedError.getDefaultMessage();
-				response = ActionRespBuilder.buildFailedResp(message);
-				operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-				LOG.error(filedError.getField() + " filed is invalid.");
-			}
-			else
-			{
-				String serviceId = applicationAuthService.getServiceId();
+			String serviceId = applicationAuthService.getServiceId();
 
-				AccountStrategy accountStrategy = new AccountStrategy();
-				accountStrategy.setId(request.getId());
-				accountStrategy.setAccountUnusedDay(request.getAccountUnusedDay());
-				accountStrategy.setTimeLimitPeriod(request.getTimeLimitPeriod());
-				accountStrategy.setLoginLimitNumber(request.getLoginLimitNumber());
-				accountStrategy.setAccountLockTime(request.getAccountLockTime());
-				accountStrategy.setLockTimeStrategy(request.getLockTimeStrategy());
+			AccountStrategy accountStrategy = new AccountStrategy();
+			accountStrategy.setId(request.getId());
+			accountStrategy.setAccountUnusedDay(request.getAccountUnusedDay());
+			accountStrategy.setTimeLimitPeriod(request.getTimeLimitPeriod());
+			accountStrategy.setLoginLimitNumber(request.getLoginLimitNumber());
+			accountStrategy.setAccountLockTime(request.getAccountLockTime());
+			accountStrategy.setLockTimeStrategy(request.getLockTimeStrategy());
 
-				accountStrategyService.modifyAccountStrategy(serviceId, accountStrategy);
+			accountStrategyService.modifyAccountStrategy(serviceId, accountStrategy);
 
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		catch (BMCException e)
+		catch (BMCException | AssertionException e)
 		{
 			LOG.error("Modify account strategy failed.", e);
 

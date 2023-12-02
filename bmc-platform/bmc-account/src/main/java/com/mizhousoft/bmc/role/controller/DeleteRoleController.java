@@ -22,8 +22,6 @@ import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
-import jakarta.validation.Valid;
-
 /**
  * 删除角色控制器
  *
@@ -41,8 +39,7 @@ public class DeleteRoleController extends BaseAuditController
 	private RoleCacheService roleCacheService;
 
 	@RequestMapping(value = "/role/deleteRole.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse deleteRole(@Valid @RequestBody
-	RoleDeleteRequest request)
+	public ActionResponse deleteRole(@RequestBody RoleDeleteRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

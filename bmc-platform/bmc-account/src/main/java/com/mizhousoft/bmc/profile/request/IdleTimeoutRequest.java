@@ -1,17 +1,27 @@
 package com.mizhousoft.bmc.profile.request;
 
-import org.hibernate.validator.constraints.Range;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 闲时超时时间
  *
  * @version
  */
-public class IdleTimeoutRequest
+public class IdleTimeoutRequest implements Validator
 {
 	// 超时时间
-	@Range(min = 1, max = 1440, message = "{bmc.idletimeout.timeout.range.error}")
 	private int timeout;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.range(timeout, 1, 1440, "bmc.idletimeout.timeout.range.error");
+	}
 
 	/**
 	 * 获取timeout

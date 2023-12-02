@@ -2,30 +2,40 @@ package com.mizhousoft.bmc.role.request;
 
 import java.util.Arrays;
 
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 角色请求
  *
  * @version
  */
-public class RoleRequest
+public class RoleRequest implements Validator
 {
 	// ID
 	private int id;
 
 	// 角色名
-	@Size(min = 2, max = 15, message = "{bmc.role.name.size.error}")
-	@Pattern(regexp = "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", message = "{bmc.role.name.pattern.error}")
 	private String name;
 
 	// 描述
-	@Size(min = 0, max = 256, message = "{bmc.role.description.size.error}")
 	private String description;
 
 	// 权限ID
 	private String[] permIds;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.size(name, 2, 15, "bmc.role.name.size.error");
+		Asserts.notMatch(name, "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", "bmc.role.name.pattern.error");
+
+		Asserts.size(description, 0, 256, "bmc.role.description.size.error");
+	}
 
 	/**
 	 * 获取id

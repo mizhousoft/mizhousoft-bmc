@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,9 +22,8 @@ import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 重置帐号密码控制器
@@ -41,53 +39,43 @@ public class AccountPasswordResetController extends BaseAuditController
 	private AccountPasswdService accountPasswdService;
 
 	@RequestMapping(value = "/account/resetPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse resetPassword(@Valid @RequestBody AccountPasswordRequest request, BindingResult bindingResult)
+	public ActionResponse resetPassword(@RequestBody AccountPasswordRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			if (!request.getConfirmNewPassword().equals(request.getNewPassword()))
+			{
+				throw new BMCException("bmc.account.password.not.equal.confirm.error",
+				        "account password is not equals with confirm password.");
+			}
+
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			long id = authentication.getAccountId();
+			if (id == request.getId())
+			{
+				throw new BMCException("bmc.account.reset.self.password.error", "You can not reset self password.");
+			}
+
+			Account account = accountPasswdService.resetPassword(request.getId(), request.getNewPassword());
+
+			response = ActionRespBuilder.buildSucceedResp();
+
+			String detail = "Reset " + account.getName() + " account password.";
+			operLog = buildOperLog(AuditLogResult.Success, detail, request.toString());
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				if (!request.getConfirmNewPassword().equals(request.getNewPassword()))
-				{
-					throw new BMCException("bmc.account.password.not.equal.confirm.error",
-					        "account password is not equals with confirm password.");
-				}
+			LOG.error("Reset account password failed, message:" + e.getMessage());
 
-				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				long id = authentication.getAccountId();
-				if (id == request.getId())
-				{
-					throw new BMCException("bmc.account.reset.self.password.error", "You can not reset self password.");
-				}
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				Account account = accountPasswdService.resetPassword(request.getId(), request.getNewPassword());
-
-				response = ActionRespBuilder.buildSucceedResp();
-
-				String detail = "Reset " + account.getName() + " account password.";
-				operLog = buildOperLog(AuditLogResult.Success, detail, request.toString());
-			}
-			catch (BMCException e)
-			{
-				LOG.error("Reset account password failed, message:" + e.getMessage());
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);

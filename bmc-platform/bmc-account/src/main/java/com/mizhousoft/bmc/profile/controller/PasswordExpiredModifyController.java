@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,9 +25,8 @@ import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 密码过期修改控制器
@@ -47,51 +45,41 @@ public class PasswordExpiredModifyController extends BaseAuditController
 	private AccountPasswdService accountPasswdService;
 
 	@RequestMapping(value = "/setting/password/modifyExpiredPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse modifyExpiredPassword(@Valid @RequestBody AccountPasswordRequest request, BindingResult bindingResult)
+	public ActionResponse modifyExpiredPassword(@RequestBody AccountPasswordRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			if (!request.getConfirmNewPassword().equals(request.getNewPassword()))
+			{
+				throw new BMCException("bmc.account.password.not.equal.confirm.error",
+				        "Account password is not equals with confirm password.");
+			}
+
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			long id = authentication.getAccountId();
+
+			Account account = accountService.loadById(id);
+
+			accountPasswdService.modifyPassword(account, request.getPassword(), request.getNewPassword());
+
+			logout();
+
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				if (!request.getConfirmNewPassword().equals(request.getNewPassword()))
-				{
-					throw new BMCException("bmc.account.password.not.equal.confirm.error",
-					        "Account password is not equals with confirm password.");
-				}
+			LOG.error("Modify account expired password failed, message:" + e.getMessage());
 
-				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				long id = authentication.getAccountId();
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				Account account = accountService.loadById(id);
-
-				accountPasswdService.modifyPassword(account, request.getPassword(), request.getNewPassword());
-
-				logout();
-
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
-			catch (BMCException e)
-			{
-				LOG.error("Modify account expired password failed, message:" + e.getMessage());
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);

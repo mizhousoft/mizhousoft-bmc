@@ -29,8 +29,6 @@ import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
-import jakarta.validation.Valid;
-
 /**
  * 注销在线帐号控制器
  *
@@ -66,7 +64,7 @@ public class OnlineAccountController extends BaseAuditController
 	 * @return
 	 */
 	@RequestMapping(value = "/system/logoffOnlineAccount.action", method = RequestMethod.POST)
-	public @ResponseBody ActionResponse logoffOnlineAccount(@Valid @RequestBody LogoffAccountRequest request, BindingResult result)
+	public @ResponseBody ActionResponse logoffOnlineAccount(@RequestBody LogoffAccountRequest request, BindingResult result)
 	{
 		ActionResponse response = null;
 		OperationLog log = null;

@@ -21,8 +21,6 @@ import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
-import jakarta.validation.Valid;
-
 /**
  * 删除帐号控制器
  *
@@ -37,7 +35,7 @@ public class AccountDeleteController extends BaseAuditController
 	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/account/deleteAccount.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse deleteAccount(@Valid @RequestBody AccountRequest request)
+	public ActionResponse deleteAccount(@RequestBody AccountRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

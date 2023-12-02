@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,10 +24,10 @@ import com.mizhousoft.boot.authentication.context.SecurityContext;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 
 /**
  * 修改闲置超时时间控制器
@@ -59,45 +57,34 @@ public class IdleTimeoutController extends BaseAuditController
 	}
 
 	@RequestMapping(value = "/setting/idletimeout/modifyIdletimeout.action", method = RequestMethod.POST)
-	public ActionResponse modify(@Valid @RequestBody IdleTimeoutRequest idleTimeoutRequest, BindingResult result,
-	        HttpServletRequest request)
+	public ActionResponse modify(@RequestBody IdleTimeoutRequest idleTimeoutRequest, HttpServletRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
 		try
 		{
-			if (result.hasErrors())
-			{
-				FieldError filedError = result.getFieldError();
-				String message = filedError.getDefaultMessage();
-				response = ActionRespBuilder.buildFailedResp(message);
-				operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", idleTimeoutRequest.toString());
+			idleTimeoutRequest.validate();
 
-				LOG.error(filedError.getField() + " filed is invalid.");
-			}
-			else
-			{
-				SecurityContext securityContext = SecurityContextHolder.getContext();
-				long accountId = securityContext.getAuthentication().getAccountId();
+			SecurityContext securityContext = SecurityContextHolder.getContext();
+			long accountId = securityContext.getAuthentication().getAccountId();
 
-				IdleTimeout idleTimeout = new IdleTimeout();
-				idleTimeout.setAccountId(accountId);
-				idleTimeout.setTimeout(idleTimeoutRequest.getTimeout());
+			IdleTimeout idleTimeout = new IdleTimeout();
+			idleTimeout.setAccountId(accountId);
+			idleTimeout.setTimeout(idleTimeoutRequest.getTimeout());
 
-				idleTimeoutService.modifyIdleTimeout(accountId, idleTimeout);
+			idleTimeoutService.modifyIdleTimeout(accountId, idleTimeout);
 
-				Subject subject = SecurityUtils.getSubject();
-				Session currentSessison = subject.getSession();
-				long maxIdleTimeInMillis = idleTimeoutRequest.getTimeout() * 60 * 1000;
-				currentSessison.setTimeout(maxIdleTimeInMillis);
-				request.getSession().setMaxInactiveInterval(idleTimeoutRequest.getTimeout() * 60);
+			Subject subject = SecurityUtils.getSubject();
+			Session currentSessison = subject.getSession();
+			long maxIdleTimeInMillis = idleTimeoutRequest.getTimeout() * 60 * 1000;
+			currentSessison.setTimeout(maxIdleTimeInMillis);
+			request.getSession().setMaxInactiveInterval(idleTimeoutRequest.getTimeout() * 60);
 
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, idleTimeoutRequest.toString(), null);
-			}
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, idleTimeoutRequest.toString(), null);
 		}
-		catch (BMCException e)
+		catch (BMCException | AssertionException e)
 		{
 			LOG.error("Modify account idle timeout failed.", e);
 

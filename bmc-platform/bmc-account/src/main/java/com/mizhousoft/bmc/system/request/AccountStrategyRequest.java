@@ -1,35 +1,48 @@
 package com.mizhousoft.bmc.system.request;
 
-import org.hibernate.validator.constraints.Range;
+import com.mizhousoft.commons.web.AssertionException;
+import com.mizhousoft.commons.web.Validator;
+import com.mizhousoft.commons.web.util.Asserts;
 
 /**
  * 帐号策略请求
  *
  * @version
  */
-public class AccountStrategyRequest
+public class AccountStrategyRequest implements Validator
 {
 	// ID
 	private int id;
 
 	// 帐号连续未使用天数
-	@Range(min = 60, max = 180, message = "{bmc.account.strategy.unusedday.range.error}")
 	private int accountUnusedDay;
 
 	// 限定时间段长度
-	@Range(min = 5, max = 720, message = "{bmc.account.strategy.timelimit.range.error}")
 	private int timeLimitPeriod;
 
 	// 限定时间段内连续登录失败次数
-	@Range(min = 5, max = 30, message = "{bmc.account.strategy.loginlimit.range.error}")
 	private int loginLimitNumber;
 
 	// 帐号锁定时间策略
 	private int lockTimeStrategy;
 
 	// 帐号锁定时长
-	@Range(min = 5, max = 60, message = "{bmc.account.strategy.locktime.range.error}")
 	private int accountLockTime;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void validate() throws AssertionException
+	{
+		Asserts.range(accountUnusedDay, 60, 180, "bmc.account.strategy.unusedday.range.error");
+
+		Asserts.range(timeLimitPeriod, 5, 720, "bmc.account.strategy.timelimit.range.error");
+
+		Asserts.range(loginLimitNumber, 5, 30, "bmc.account.strategy.loginlimit.range.error");
+
+		Asserts.range(accountLockTime, 5, 60, "bmc.account.strategy.locktime.range.error");
+	}
 
 	/**
 	 * 获取id

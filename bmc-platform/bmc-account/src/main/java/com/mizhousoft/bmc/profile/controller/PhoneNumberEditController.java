@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,9 +23,8 @@ import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
+import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
-
-import jakarta.validation.Valid;
 
 /**
  * 修改手机号控制器
@@ -45,47 +43,37 @@ public class PhoneNumberEditController extends BaseAuditController
 	private AccountViewService accountViewService;
 
 	@RequestMapping(value = "/setting/account/modifyPhoneNumber.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse modifyPhoneNumber(@Valid @RequestBody PhoneNumberEditRequest request, BindingResult bindingResult)
+	public ActionResponse modifyPhoneNumber(@RequestBody PhoneNumberEditRequest request, BindingResult bindingResult)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
 
-		if (bindingResult.hasErrors())
+		try
 		{
-			FieldError filedError = bindingResult.getFieldError();
-			String message = filedError.getDefaultMessage();
-			response = ActionRespBuilder.buildFailedResp(message);
-			operLog = buildOperLog(AuditLogResult.Failure, filedError.getField() + " filed is invalid.", request.toString());
+			request.validate();
 
-			LOG.error(filedError.getField() + " filed is invalid.");
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			long id = authentication.getAccountId();
+
+			accountViewService.loadById(id);
+
+			Account account = new Account();
+			account.setId(id);
+			account.setPhoneNumber(request.getPhoneNumber());
+
+			accountService.modifyPhoneNumber(account);
+
+			response = ActionRespBuilder.buildSucceedResp();
+			operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
 		}
-		else
+		catch (BMCException | AssertionException e)
 		{
-			try
-			{
-				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-				long id = authentication.getAccountId();
+			LOG.error("Modify phone number failed, message:" + e.getMessage());
 
-				accountViewService.loadById(id);
+			String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
+			response = ActionRespBuilder.buildFailedResp(error);
 
-				Account account = new Account();
-				account.setId(id);
-				account.setPhoneNumber(request.getPhoneNumber());
-
-				accountService.modifyPhoneNumber(account);
-
-				response = ActionRespBuilder.buildSucceedResp();
-				operLog = buildOperLog(AuditLogResult.Success, request.toString(), null);
-			}
-			catch (BMCException e)
-			{
-				LOG.error("Modify phone number failed, message:" + e.getMessage());
-
-				String error = I18nUtils.getMessage(e.getErrorCode(), e.getCodeParams());
-				response = ActionRespBuilder.buildFailedResp(error);
-
-				operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
-			}
+			operLog = buildOperLog(AuditLogResult.Failure, e.getMessage(), request.toString());
 		}
 
 		AuditLogUtils.addOperationLog(operLog);
