@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,7 +38,7 @@ public class AccountPasswordResetController extends BaseAuditController
 	private AccountPasswdService accountPasswdService;
 
 	@RequestMapping(value = "/account/resetPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse resetPassword(@RequestBody AccountPasswordRequest request, BindingResult bindingResult)
+	public ActionResponse resetPassword(@RequestBody AccountPasswordRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;
