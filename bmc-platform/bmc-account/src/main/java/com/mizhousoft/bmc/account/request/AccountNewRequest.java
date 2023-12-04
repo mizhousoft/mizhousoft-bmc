@@ -38,11 +38,14 @@ public class AccountNewRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
+		Asserts.notBlank(name, "bmc.account.name.size.error");
 		Asserts.size(name, 5, 20, "bmc.account.name.size.error");
 		Asserts.notMatch(name, "^[a-zA-Z0-9]+$", "bmc.account.name.pattern.error");
 
+		Asserts.notBlank(password, "bmc.account.password.size.error");
 		Asserts.size(password, 8, 32, "bmc.account.password.size.error");
 
+		Asserts.notBlank(confirmPassword, "bmc.account.confirm.password.size.error");
 		Asserts.size(confirmPassword, 8, 32, "bmc.account.confirm.password.size.error");
 
 		Asserts.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
