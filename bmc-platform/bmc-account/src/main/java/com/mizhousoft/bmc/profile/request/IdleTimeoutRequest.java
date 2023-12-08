@@ -20,7 +20,7 @@ public class IdleTimeoutRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.range(timeout, 1, 1440, "bmc.idletimeout.timeout.range.error");
+		Assert.range(timeout, 1, 1440, "bmc.idletimeout.timeout.range.error", "timeout");
 	}
 
 	/**

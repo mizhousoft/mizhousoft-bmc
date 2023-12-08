@@ -35,13 +35,13 @@ public class AccountStrategyRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.range(accountUnusedDay, 60, 180, "bmc.account.strategy.unusedday.range.error");
+		Assert.range(accountUnusedDay, 60, 180, "bmc.account.strategy.unusedday.range.error", "accountUnusedDay");
 
-		Assert.range(timeLimitPeriod, 5, 720, "bmc.account.strategy.timelimit.range.error");
+		Assert.range(timeLimitPeriod, 5, 720, "bmc.account.strategy.timelimit.range.error", "timeLimitPeriod");
 
-		Assert.range(loginLimitNumber, 5, 30, "bmc.account.strategy.loginlimit.range.error");
+		Assert.range(loginLimitNumber, 5, 30, "bmc.account.strategy.loginlimit.range.error", "loginLimitNumber");
 
-		Assert.range(accountLockTime, 5, 60, "bmc.account.strategy.locktime.range.error");
+		Assert.range(accountLockTime, 5, 60, "bmc.account.strategy.locktime.range.error", "accountLockTime");
 	}
 
 	/**

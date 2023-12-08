@@ -21,8 +21,8 @@ public class PhoneNumberEditRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
-		Assert.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+		Assert.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error", "phoneNumber");
+		Assert.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error", "phoneNumber");
 	}
 
 	/**

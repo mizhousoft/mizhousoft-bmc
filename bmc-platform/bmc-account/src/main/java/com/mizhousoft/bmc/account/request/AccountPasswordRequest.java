@@ -29,14 +29,14 @@ public class AccountPasswordRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.notBlank(password, "bmc.account.password.size.error");
-		Assert.size(password, 8, 32, "bmc.account.password.size.error");
+		Assert.notBlank(password, "bmc.account.password.size.error", "password");
+		Assert.size(password, 8, 32, "bmc.account.password.size.error", "password");
 
-		Assert.notBlank(newPassword, "bmc.account.password.size.error");
-		Assert.size(newPassword, 8, 32, "bmc.account.password.size.error");
+		Assert.notBlank(newPassword, "bmc.account.password.size.error", "newPassword");
+		Assert.size(newPassword, 8, 32, "bmc.account.password.size.error", "newPassword");
 
-		Assert.notBlank(confirmNewPassword, "bmc.account.confirm.password.size.error");
-		Assert.size(confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error");
+		Assert.notBlank(confirmNewPassword, "bmc.account.confirm.password.size.error", "confirmNewPassword");
+		Assert.size(confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error", "confirmNewPassword");
 	}
 
 	/**
