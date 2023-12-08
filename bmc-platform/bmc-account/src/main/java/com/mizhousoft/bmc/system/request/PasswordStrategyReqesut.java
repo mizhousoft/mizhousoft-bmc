@@ -35,15 +35,15 @@ public class PasswordStrategyReqesut implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.range(historyRepeatSize, 1, 10, "bmc.password.strategy.history.repeatsize.range.error", "historyRepeatSize");
+		Assert.range("historyRepeatSize", historyRepeatSize, 1, 10, "bmc.password.strategy.history.repeatsize.range.error");
 
-		Assert.range(charAppearSize, 1, 4, "bmc.password.strategy.char.appearsize.range.error", "charAppearSize");
+		Assert.range("charAppearSize", charAppearSize, 1, 4, "bmc.password.strategy.char.appearsize.range.error");
 
-		Assert.range(modifyTimeInterval, 5, 60, "bmc.password.strategy.modifytime.interval.range.error", "modifyTimeInterval");
+		Assert.range("modifyTimeInterval", modifyTimeInterval, 5, 60, "bmc.password.strategy.modifytime.interval.range.error");
 
-		Assert.range(validDay, 90, 360, "bmc.password.strategy.validday.range.error", "validDay");
+		Assert.range("validDay", validDay, 90, 360, "bmc.password.strategy.validday.range.error");
 
-		Assert.range(reminderModifyDay, 5, 15, "bmc.password.strategy.reminder.modifyday.range.error", "reminderModifyDay");
+		Assert.range("reminderModifyDay", reminderModifyDay, 5, 15, "bmc.password.strategy.reminder.modifyday.range.error");
 	}
 
 	/**

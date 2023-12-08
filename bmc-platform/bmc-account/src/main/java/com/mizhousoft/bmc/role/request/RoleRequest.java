@@ -31,11 +31,11 @@ public class RoleRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.notBlank(name, "bmc.role.name.size.error", "name");
-		Assert.size(name, 2, 15, "bmc.role.name.size.error", "name");
-		Assert.notMatch(name, "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", "bmc.role.name.pattern.error", "name");
+		Assert.notBlank("name", name, "bmc.role.name.size.error");
+		Assert.size("name", name, 2, 15, "bmc.role.name.size.error");
+		Assert.notMatch("name", name, "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", "bmc.role.name.pattern.error");
 
-		Assert.size(description, 0, 256, "bmc.role.description.size.error", "description");
+		Assert.size("description", description, 0, 256, "bmc.role.description.size.error");
 	}
 
 	/**
