@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 角色请求
@@ -31,11 +31,11 @@ public class RoleRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.notBlank(name, "bmc.role.name.size.error");
-		Asserts.size(name, 2, 15, "bmc.role.name.size.error");
-		Asserts.notMatch(name, "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", "bmc.role.name.pattern.error");
+		Assert.notBlank(name, "bmc.role.name.size.error");
+		Assert.size(name, 2, 15, "bmc.role.name.size.error");
+		Assert.notMatch(name, "^[a-zA-Z0-9-\\u4e00-\\u9fa5]+$", "bmc.role.name.pattern.error");
 
-		Asserts.size(description, 0, 256, "bmc.role.description.size.error");
+		Assert.size(description, 0, 256, "bmc.role.description.size.error");
 	}
 
 	/**

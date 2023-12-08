@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.system.request;
 
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 帐号策略请求
@@ -35,13 +35,13 @@ public class AccountStrategyRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.range(accountUnusedDay, 60, 180, "bmc.account.strategy.unusedday.range.error");
+		Assert.range(accountUnusedDay, 60, 180, "bmc.account.strategy.unusedday.range.error");
 
-		Asserts.range(timeLimitPeriod, 5, 720, "bmc.account.strategy.timelimit.range.error");
+		Assert.range(timeLimitPeriod, 5, 720, "bmc.account.strategy.timelimit.range.error");
 
-		Asserts.range(loginLimitNumber, 5, 30, "bmc.account.strategy.loginlimit.range.error");
+		Assert.range(loginLimitNumber, 5, 30, "bmc.account.strategy.loginlimit.range.error");
 
-		Asserts.range(accountLockTime, 5, 60, "bmc.account.strategy.locktime.range.error");
+		Assert.range(accountLockTime, 5, 60, "bmc.account.strategy.locktime.range.error");
 	}
 
 	/**

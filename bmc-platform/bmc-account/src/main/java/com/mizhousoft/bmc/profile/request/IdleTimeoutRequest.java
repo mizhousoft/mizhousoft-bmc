@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.profile.request;
 
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 闲时超时时间
@@ -20,7 +20,7 @@ public class IdleTimeoutRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.range(timeout, 1, 1440, "bmc.idletimeout.timeout.range.error");
+		Assert.range(timeout, 1, 1440, "bmc.idletimeout.timeout.range.error");
 	}
 
 	/**

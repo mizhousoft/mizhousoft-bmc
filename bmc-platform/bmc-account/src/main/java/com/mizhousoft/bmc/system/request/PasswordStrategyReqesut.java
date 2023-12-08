@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.system.request;
 
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 密码策略请求
@@ -35,15 +35,15 @@ public class PasswordStrategyReqesut implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.range(historyRepeatSize, 1, 10, "bmc.password.strategy.history.repeatsize.range.error");
+		Assert.range(historyRepeatSize, 1, 10, "bmc.password.strategy.history.repeatsize.range.error");
 
-		Asserts.range(charAppearSize, 1, 4, "bmc.password.strategy.char.appearsize.range.error");
+		Assert.range(charAppearSize, 1, 4, "bmc.password.strategy.char.appearsize.range.error");
 
-		Asserts.range(modifyTimeInterval, 5, 60, "bmc.password.strategy.modifytime.interval.range.error");
+		Assert.range(modifyTimeInterval, 5, 60, "bmc.password.strategy.modifytime.interval.range.error");
 
-		Asserts.range(validDay, 90, 360, "bmc.password.strategy.validday.range.error");
+		Assert.range(validDay, 90, 360, "bmc.password.strategy.validday.range.error");
 
-		Asserts.range(reminderModifyDay, 5, 15, "bmc.password.strategy.reminder.modifyday.range.error");
+		Assert.range(reminderModifyDay, 5, 15, "bmc.password.strategy.reminder.modifyday.range.error");
 	}
 
 	/**

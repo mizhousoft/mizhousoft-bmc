@@ -3,7 +3,7 @@ package com.mizhousoft.bmc.account.request;
 import com.mizhousoft.commons.lang.PhoneNumberChecker;
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 手机号编辑请求
@@ -21,8 +21,8 @@ public class PhoneNumberEditRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
-		Asserts.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+		Assert.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
+		Assert.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
 	}
 
 	/**

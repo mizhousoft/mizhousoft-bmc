@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.account.request;
 
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 帐号密码请求
@@ -29,14 +29,14 @@ public class AccountPasswordRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.notBlank(password, "bmc.account.password.size.error");
-		Asserts.size(password, 8, 32, "bmc.account.password.size.error");
+		Assert.notBlank(password, "bmc.account.password.size.error");
+		Assert.size(password, 8, 32, "bmc.account.password.size.error");
 
-		Asserts.notBlank(newPassword, "bmc.account.password.size.error");
-		Asserts.size(newPassword, 8, 32, "bmc.account.password.size.error");
+		Assert.notBlank(newPassword, "bmc.account.password.size.error");
+		Assert.size(newPassword, 8, 32, "bmc.account.password.size.error");
 
-		Asserts.notBlank(confirmNewPassword, "bmc.account.confirm.password.size.error");
-		Asserts.size(confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error");
+		Assert.notBlank(confirmNewPassword, "bmc.account.confirm.password.size.error");
+		Assert.size(confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error");
 	}
 
 	/**

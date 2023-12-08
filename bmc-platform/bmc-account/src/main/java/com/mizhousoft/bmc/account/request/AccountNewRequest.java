@@ -5,7 +5,7 @@ import java.util.Arrays;
 import com.mizhousoft.commons.lang.PhoneNumberChecker;
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
-import com.mizhousoft.commons.web.util.Asserts;
+import com.mizhousoft.commons.web.util.Assert;
 
 /**
  * 增加帐号请求
@@ -38,18 +38,18 @@ public class AccountNewRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Asserts.notBlank(name, "bmc.account.name.size.error");
-		Asserts.size(name, 5, 20, "bmc.account.name.size.error");
-		Asserts.notMatch(name, "^[a-zA-Z0-9]+$", "bmc.account.name.pattern.error");
+		Assert.notBlank(name, "bmc.account.name.size.error");
+		Assert.size(name, 5, 20, "bmc.account.name.size.error");
+		Assert.notMatch(name, "^[a-zA-Z0-9]+$", "bmc.account.name.pattern.error");
 
-		Asserts.notBlank(password, "bmc.account.password.size.error");
-		Asserts.size(password, 8, 32, "bmc.account.password.size.error");
+		Assert.notBlank(password, "bmc.account.password.size.error");
+		Assert.size(password, 8, 32, "bmc.account.password.size.error");
 
-		Asserts.notBlank(confirmPassword, "bmc.account.confirm.password.size.error");
-		Asserts.size(confirmPassword, 8, 32, "bmc.account.confirm.password.size.error");
+		Assert.notBlank(confirmPassword, "bmc.account.confirm.password.size.error");
+		Assert.size(confirmPassword, 8, 32, "bmc.account.confirm.password.size.error");
 
-		Asserts.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
-		Asserts.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+		Assert.size(phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
+		Assert.notMatch(phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
 	}
 
 	/**
