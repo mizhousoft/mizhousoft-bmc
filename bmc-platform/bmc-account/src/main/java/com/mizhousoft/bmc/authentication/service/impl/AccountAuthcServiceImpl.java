@@ -48,6 +48,7 @@ import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationServi
 import com.mizhousoft.boot.authentication.service.TwoFactorAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
+import com.mizhousoft.commons.crypto.generator.RandomGenerator;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 /**
@@ -297,6 +298,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		accountImpl.setSuperAdmin(AccountUtils.isSuperAdmin(authAccount.getType()));
 		accountImpl.setLoginIpAddr(host);
 		accountImpl.setSessionIdleTimeout(idleTimeout.getTimeout());
+		accountImpl.setCsrfToken(RandomGenerator.genBase64String(46));
 
 		// 初始化帐号凭证选项
 		initAccountCredentialOptions(accountImpl);

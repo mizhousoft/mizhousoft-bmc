@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Form, Input } from 'antd';
+import Cookies from 'js-cookie';
 
 import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
 import { userLogin } from '@/session/sessionService';
@@ -16,8 +17,18 @@ export default function Login() {
         setError('');
         setConfirmLoading(true);
 
-        userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
+        // 清除浏览器自带的无效cookie
+        Object.keys(Cookies.get()).forEach((cookieName) => {
+            const neededAttributes = {};
+            Cookies.remove(cookieName, neededAttributes);
+        });
+        // 清除本地缓存
+        SessionStore.logout();
+
+        userLogin(values).then(({ fetchStatus, headers, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
+                const csrfToken = headers['x-csrf-token'];
+                SessionStore.setCsrfToken(csrfToken);
                 if (firstLogin) {
                     window.location.href = `${BASENAME}/login/first`;
                 } else if (credentialsExpired) {

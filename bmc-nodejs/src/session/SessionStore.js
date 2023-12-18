@@ -5,7 +5,7 @@ import { asyncFetch } from '@/utils/request';
 
 const SESSION_KEY = 'SESSION_KEY';
 
-let memSession = null;
+let session = null;
 
 export default {
     isAuthenticated() {
@@ -18,22 +18,47 @@ export default {
     },
 
     logout() {
-        memSession = null;
+        session = null;
         DefaultUserStore.clear();
     },
 
-    getAccount() {
-        if (memSession !== null) {
-            return memSession.account;
+    getSession() {
+        if (session !== null) {
+            return session;
         }
 
         const jsonSession = DefaultUserStore.getItem(SESSION_KEY);
         if (jsonSession) {
-            memSession = JSON.parse(jsonSession);
-            return memSession.account;
+            session = JSON.parse(jsonSession);
+            return session;
         }
 
         return null;
+    },
+
+    getAccount() {
+        const currSession = this.getSession();
+        if (currSession !== null) {
+            return currSession.account;
+        }
+
+        return null;
+    },
+
+    getCsrfToken() {
+        const currSession = this.getSession();
+        if (currSession !== null) {
+            return currSession.csrfToken;
+        }
+
+        return undefined;
+    },
+
+    setCsrfToken(csrfToken) {
+        session = {
+            csrfToken,
+        };
+        DefaultUserStore.setItem(SESSION_KEY, JSON.stringify(session));
     },
 
     initAccountInfo(callback) {
@@ -42,11 +67,12 @@ export default {
                 if (!fetchStatus.okey) {
                     window.location.href = CONTEXT_LOGIN_PATH;
                 } else {
-                    memSession = {
+                    session = {
                         account,
                         nowTime,
+                        csrfToken: session.csrfToken,
                     };
-                    DefaultUserStore.setItem(SESSION_KEY, JSON.stringify(memSession));
+                    DefaultUserStore.setItem(SESSION_KEY, JSON.stringify(session));
 
                     if (callback) {
                         callback();

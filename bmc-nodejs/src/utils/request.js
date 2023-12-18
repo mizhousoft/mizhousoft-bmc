@@ -62,29 +62,39 @@ instance.interceptors.response.use(
 );
 
 function axiosRequest(options) {
-    const { url, data, form } = options;
+    const { url, data, form, headers = {} } = options;
     let { method } = options;
 
     if (!method) {
         method = 'get';
     }
 
+    const csrfToken = SessionStore.getCsrfToken();
+    if (undefined !== csrfToken) {
+        headers['X-Csrf-Token'] = csrfToken;
+    }
+
     switch (method.toLowerCase()) {
         case 'get':
             return instance.get(url, {
                 params: data,
+                headers,
             });
         case 'post':
-            return instance.post(url, data);
+            return instance.post(url, data, {
+                headers,
+            });
         case 'upload':
             return instance.post(url, form, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
+                    ...headers,
                 },
             });
         default:
             return instance.get(url, {
                 params: data,
+                headers,
             });
     }
 }
@@ -92,7 +102,8 @@ function axiosRequest(options) {
 function request(options) {
     return axiosRequest(options)
         .then((response) => {
-            const { status, data } = response;
+            const { status, data, headers } = response;
+            const headerValues = headers.toJSON();
 
             const fetchStatus = {
                 loading: false,
@@ -108,6 +119,7 @@ function request(options) {
 
             return {
                 fetchStatus,
+                headers: headerValues,
                 ...data,
             };
         })
