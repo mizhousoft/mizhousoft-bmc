@@ -10,7 +10,7 @@ import { addEventListener, removeEventListener } from '@/utils/eventBus';
 import { asyncFetch } from '@/utils/request';
 
 let interval = 0;
-const PUSHTIME_KEY = 'PUSHTIME_KEY';
+const PUSHTIME_KEY = 'push_time';
 
 export default function Notification() {
     const navigate = useNavigate();

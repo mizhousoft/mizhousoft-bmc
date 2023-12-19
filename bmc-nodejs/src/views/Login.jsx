@@ -25,10 +25,8 @@ export default function Login() {
         // 清除本地缓存
         SessionStore.logout();
 
-        userLogin(values).then(({ fetchStatus, headers, firstLogin, credentialsExpired, remindModifyPasswd }) => {
+        userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
-                const csrfToken = headers['x-csrf-token'];
-                SessionStore.setCsrfToken(csrfToken);
                 if (firstLogin) {
                     window.location.href = `${BASENAME}/login/first`;
                 } else if (credentialsExpired) {

@@ -26,10 +26,18 @@ const instance = axios.create({
 let exitModal;
 
 instance.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        SessionStore.updateSessionFrom();
+
+        return response;
+    },
     (error) => {
         if (error.response.status === 401) {
-            if (SessionStore.isAuthenticated()) {
+            if (
+                SessionStore.isAuthenticated() &&
+                SessionStore.isLocalSessionExist() &&
+                !SessionStore.isSessionFromLocal()
+            ) {
                 if (undefined === exitModal) {
                     exitModal = Modal.warning();
                 }
