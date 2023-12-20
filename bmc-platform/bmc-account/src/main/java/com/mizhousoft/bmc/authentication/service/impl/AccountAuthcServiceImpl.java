@@ -298,7 +298,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		accountImpl.setSuperAdmin(AccountUtils.isSuperAdmin(authAccount.getType()));
 		accountImpl.setLoginIpAddr(host);
 		accountImpl.setSessionIdleTimeout(idleTimeout.getTimeout());
-		accountImpl.setCsrfToken(RandomGenerator.genBase64String(46));
+		accountImpl.setCsrfToken(RandomGenerator.genHexString(32, true));
 
 		// 初始化帐号凭证选项
 		initAccountCredentialOptions(accountImpl);
