@@ -5,6 +5,7 @@ import LogoutImg from '@/assets/imgs/icon-logout.png';
 import { AButton } from '@/components/UIComponent';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { logout } from '@/session/sessionService';
+import SessionStore from '@/session/SessionStore';
 
 export default function Logout() {
     const onLogout = () => {
@@ -19,6 +20,8 @@ export default function Logout() {
             },
             onOk() {
                 logout().then(({ fetchStatus }) => {
+                    SessionStore.logout();
+
                     if (fetchStatus.okey) {
                         window.location.href = CONTEXT_LOGIN_PATH;
                     }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Form, Input } from 'antd';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
 import { userLogin } from '@/session/sessionService';
@@ -10,6 +11,7 @@ import SessionStore from '@/session/SessionStore';
 const FormItem = Form.Item;
 
 export default function Login() {
+    const navigate = useNavigate();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [uError, setError] = useState('');
 
@@ -28,11 +30,11 @@ export default function Login() {
         userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
                 if (firstLogin) {
-                    window.location.href = `${BASENAME}/login/first`;
+                    navigate('/login/first');
                 } else if (credentialsExpired) {
-                    window.location.href = `${BASENAME}/password/expired`;
+                    navigate('/password/expired');
                 } else if (remindModifyPasswd) {
-                    window.location.href = `${BASENAME}/password/expiring`;
+                    navigate('/password/expiring');
                 } else {
                     SessionStore.initAccountInfo(() => {
                         const homePath = SessionStore.getHomePath();

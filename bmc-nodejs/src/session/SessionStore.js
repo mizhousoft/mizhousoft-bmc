@@ -3,14 +3,9 @@ import Cookies from 'js-cookie';
 import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
 import { GLOBAL_MENUS } from '@/config/globalMenu';
 import DefaultUserStore from '@/store/DefaultUserStore';
-import GlobalUserStore from '@/store/GlobalUserStore';
 import { asyncFetch } from '@/utils/request';
 
-const ACCOUNT_KEY = 'account_data';
-const CSRF_TOKEN_KEY = 'csrf_token';
-
-let session = null;
-let sessionFromLocal = false;
+let session;
 
 export default {
     isAuthenticated() {
@@ -22,61 +17,56 @@ export default {
         return false;
     },
 
-    isSessionFromLocal() {
-        return sessionFromLocal;
-    },
-
-    isLocalSessionExist() {
-        const jsonAccount = GlobalUserStore.getItem(ACCOUNT_KEY);
-
-        return jsonAccount !== null;
-    },
-
-    updateSessionFrom() {
-        sessionFromLocal = false;
-    },
-
     logout() {
-        session = null;
-        GlobalUserStore.clear();
-        DefaultUserStore.clear();
+        session = undefined;
+
+        DefaultUserStore.clearAll();
     },
 
     getSession() {
-        if (session !== null) {
+        if (session !== undefined) {
             return session;
         }
 
-        const jsonAccount = GlobalUserStore.getItem(ACCOUNT_KEY);
-        if (jsonAccount) {
-            const account = JSON.parse(jsonAccount);
-            const csrfToken = GlobalUserStore.getItem(CSRF_TOKEN_KEY);
+        const csrfToken = Cookies.get('csrf-token');
+        if (undefined === csrfToken || csrfToken === null) {
+            return undefined;
+        }
+
+        const request = new XMLHttpRequest();
+        request.open('GET', `${BASENAME}/account/fetchMyAccountDetail.action`, false);
+        request.setRequestHeader('X-Csrf-Token', csrfToken);
+        request.setRequestHeader('Accept', 'application/json;charset=UTF-8');
+        request.setRequestHeader('Cache-Control', 'no-cache');
+        request.setRequestHeader('Pragma', 'no-cache');
+        request.send(null);
+
+        if (request.status === 200) {
+            const response = JSON.parse(request.responseText);
 
             session = {
-                account,
+                account: response.account,
                 csrfToken,
             };
-            sessionFromLocal = true;
 
             return session;
         }
 
-        return null;
+        return undefined;
     },
 
     getAccount() {
         const currSession = this.getSession();
-        if (currSession !== null) {
+        if (undefined !== currSession) {
             return currSession.account;
         }
 
-        return null;
+        return undefined;
     },
 
     getCsrfToken() {
-        const currSession = this.getSession();
-        if (currSession !== null) {
-            const { csrfToken } = currSession;
+        if (session !== undefined) {
+            const { csrfToken } = session;
             if (undefined !== csrfToken) {
                 return csrfToken;
             }
@@ -98,10 +88,6 @@ export default {
                         account,
                         csrfToken,
                     };
-                    sessionFromLocal = false;
-
-                    GlobalUserStore.setItem(ACCOUNT_KEY, JSON.stringify(account));
-                    GlobalUserStore.setItem(CSRF_TOKEN_KEY, csrfToken);
 
                     if (callback) {
                         callback();

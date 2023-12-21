@@ -5,12 +5,11 @@ import { useNavigate } from 'react-router-dom';
 import FontIcon from '@/components/FontIcon';
 import { AButton } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
-import DefaultUserStore from '@/store/DefaultUserStore';
 import { addEventListener, removeEventListener } from '@/utils/eventBus';
 import { asyncFetch } from '@/utils/request';
 
 let interval = 0;
-const PUSHTIME_KEY = 'push_time';
+let fetchTime = 0;
 
 export default function Notification() {
     const navigate = useNavigate();
@@ -29,8 +28,7 @@ export default function Notification() {
         }).then(({ todos = [], pushTime, fetchStatus }) => {
             setTodos(todos);
 
-            const time = undefined !== pushTime ? pushTime : new Date().getTime();
-            DefaultUserStore.setItem(PUSHTIME_KEY, `${time}`);
+            fetchTime = undefined !== pushTime ? pushTime : new Date().getTime();
 
             if (fetchStatus.statusCode === 401) {
                 clearInterval(interval);
@@ -41,13 +39,7 @@ export default function Notification() {
     const fetchNotifications = () => {
         const nowTs = new Date().getTime();
 
-        let pushTime = 0;
-        const text = DefaultUserStore.getItem(PUSHTIME_KEY);
-        if (text) {
-            pushTime = parseInt(text, 10);
-        }
-
-        if (nowTs - pushTime > 30 * 1000) {
+        if (nowTs - fetchTime > 30 * 1000) {
             asyncFetchData();
         }
     };

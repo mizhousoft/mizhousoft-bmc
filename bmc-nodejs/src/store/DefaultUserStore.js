@@ -11,7 +11,7 @@ export default {
         sessionStorage.removeItem(key);
     },
 
-    clear() {
+    clearAll() {
         sessionStorage.clear();
     },
 };

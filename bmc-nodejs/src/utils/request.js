@@ -26,18 +26,10 @@ const instance = axios.create({
 let exitModal;
 
 instance.interceptors.response.use(
-    (response) => {
-        SessionStore.updateSessionFrom();
-
-        return response;
-    },
+    (response) => response,
     (error) => {
         if (error.response.status === 401) {
-            if (
-                SessionStore.isAuthenticated() &&
-                SessionStore.isLocalSessionExist() &&
-                !SessionStore.isSessionFromLocal()
-            ) {
+            if (SessionStore.isAuthenticated()) {
                 if (undefined === exitModal) {
                     exitModal = Modal.warning();
                 }
@@ -256,9 +248,18 @@ function getFileContentType(filename) {
 export function downloadFile(fileUrl, filename, downloadOk, downloadFail) {
     const contentType = getFileContentType(filename);
 
+    const headers = {};
+    if (fileUrl.substring(0, 4) !== 'http') {
+        const csrfToken = SessionStore.getCsrfToken();
+        if (undefined !== csrfToken) {
+            headers['X-Csrf-Token'] = csrfToken;
+        }
+    }
+
     axios
         .get(fileUrl, {
             responseType: 'blob',
+            headers,
         })
         .then((response) => {
             if (downloadOk) {

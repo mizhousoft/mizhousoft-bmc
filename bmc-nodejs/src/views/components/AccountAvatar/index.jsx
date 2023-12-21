@@ -7,7 +7,7 @@ import SessionStore from '@/session/SessionStore';
 
 export default function AccountAvatar({ isActive }) {
     const account = SessionStore.getAccount();
-    if (account === null) {
+    if (account === undefined) {
         return <Navigate to={LOGIN_PATH} replace />;
     }
 
