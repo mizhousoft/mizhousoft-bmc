@@ -5,6 +5,7 @@ bmc.system.time.text={0}年{1}月{2}日
 #Account
 bmc.account.source=帐号
 bmc.account.login.operation=帐号登录
+bmc.account.logout.operation=帐号退出
 bmc.account.profile.modify.operation=修改个人资料
 bmc.account.password.modify.operation=修改密码
 bmc.account.password.first.modify.operation=第一次修改密码

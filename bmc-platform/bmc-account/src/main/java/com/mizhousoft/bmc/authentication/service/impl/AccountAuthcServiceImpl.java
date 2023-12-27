@@ -101,13 +101,13 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		{
 			AccountDetails accountDetails = doAuthenticate(account, passwd, host);
 
-			saveLoginLog(account, host, null, true);
+			saveSecurityLog(account, host, null, true);
 
 			return accountDetails;
 		}
 		catch (AuthenticationException e)
 		{
-			saveLoginLog(account, host, e.getMessage(), false);
+			saveSecurityLog(account, host, e.getMessage(), false);
 			throw e;
 		}
 	}
@@ -422,7 +422,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		authFailedAccountMap.remove(account);
 	}
 
-	private void saveLoginLog(String account, String host, String detail, boolean loginSuccess)
+	private void saveSecurityLog(String account, String host, String detail, boolean succeed)
 	{
 		SecurityLog securityLog = new SecurityLog();
 
@@ -433,7 +433,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		securityLog.setSource(I18nUtils.getMessage("bmc.account.source"));
 		securityLog.setDetail(detail);
 
-		if (loginSuccess)
+		if (succeed)
 		{
 			securityLog.setLogLevel(AuditLogLevel.INFO.getValue());
 			securityLog.setResult(AuditLogResult.Success.getValue());
