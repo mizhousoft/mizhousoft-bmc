@@ -4,9 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -14,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import com.mizhousoft.bmc.account.constant.AccountStatus;
 import com.mizhousoft.bmc.account.domain.HistoryPassword;
 import com.mizhousoft.bmc.account.mapper.AccountMapper;
@@ -89,7 +90,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 	private ApplicationAuthenticationService applicationAuthService;
 
 	// 认证失败帐号集合
-	private Map<String, AuthFaildAccount> authFailedAccountMap = new ConcurrentHashMap<String, AuthFaildAccount>(1000);
+	private Cache<String, AuthFaildAccount> authFailedAccountMap = Caffeine.newBuilder().expireAfterWrite(5, TimeUnit.MINUTES).build();
 
 	/**
 	 * {@inheritDoc}
@@ -357,7 +358,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		{
 			boolean lockAccount = false;
 
-			AuthFaildAccount authFailedAccount = authFailedAccountMap.get(account);
+			AuthFaildAccount authFailedAccount = authFailedAccountMap.getIfPresent(account);
 			if (null == authFailedAccount)
 			{
 				authFailedAccount = new AuthFaildAccount();
@@ -388,13 +389,6 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 					authFailedAccount.setAuthFailedCount(1);
 					authFailedAccount.setAuthFailedTime(LocalDateTime.now());
 				}
-
-				authFailedAccountMap.remove(account);
-
-				if (!lockAccount)
-				{
-					authFailedAccountMap.put(account, authFailedAccount);
-				}
 			}
 
 			return lockAccount;
@@ -405,7 +399,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 	{
 		int loginLimitNumber = accountStrategy.getLoginLimitNumber();
 
-		AuthFaildAccount authFaildAccount = authFailedAccountMap.get(account);
+		AuthFaildAccount authFaildAccount = authFailedAccountMap.getIfPresent(account);
 		if (null != authFaildAccount)
 		{
 			int authFailedCount = authFaildAccount.getAuthFailedCount();
@@ -419,7 +413,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 
 	private void cleanAuthFailedAccount(String account)
 	{
-		authFailedAccountMap.remove(account);
+		authFailedAccountMap.invalidate(account);
 	}
 
 	private void saveSecurityLog(String account, String host, String detail, boolean succeed)
