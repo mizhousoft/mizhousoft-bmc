@@ -266,6 +266,8 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 			boolean lockAccount = processAuthFailedAccount(account, accountStrategy);
 			if (lockAccount)
 			{
+				cleanAuthFailedAccount(account);
+
 				accountMapper.lockAccount(authAccount.getId(), AccountStatus.Locked.getValue(), LocalDateTime.now());
 				throw new AccountLockedException("Lock Account, name is " + account + ".");
 			}
