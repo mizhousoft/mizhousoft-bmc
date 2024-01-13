@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spin, Table, Tabs } from 'antd';
 
-import { fetchRunningLogFileNames, fetchRunningLogNames } from '../redux/auditLogService';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import { downloadFile } from '@/utils/request';
+import { fetchRunningLogFileNames, fetchRunningLogNames } from '../redux/auditLogService';
 
 export default function RunningLog() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);

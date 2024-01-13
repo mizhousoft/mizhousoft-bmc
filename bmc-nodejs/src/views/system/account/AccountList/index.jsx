@@ -3,6 +3,13 @@ import { Col, message, Radio, Row, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import { getTableLocale, PageComponent } from '@/components/UIComponent';
+import { DEFAULT_DATA_PAGE } from '@/constants/common';
+import AuthButton from '@/views/components/AuthButton';
+import AuthLink from '@/views/components/AuthLink';
+import AuthPopconfirm from '@/views/components/AuthPopconfirm';
+import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../redux/accountSlice';
+import ResetAccountPasswd from '../ResetAccountPasswd';
 import {
     deleteAccount,
     disableAccount,
@@ -10,13 +17,6 @@ import {
     fetchAccountInfoList,
     unlockAccount,
 } from '../redux/accountService';
-import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../redux/accountSlice';
-import ResetAccountPasswd from '../ResetAccountPasswd';
-import { getTableLocale, PageComponent } from '@/components/UIComponent';
-import { DEFAULT_DATA_PAGE } from '@/constants/common';
-import AuthButton from '@/views/components/AuthButton';
-import AuthLink from '@/views/components/AuthLink';
-import AuthPopconfirm from '@/views/components/AuthPopconfirm';
 
 export default function AccountList() {
     const dispatch = useDispatch();

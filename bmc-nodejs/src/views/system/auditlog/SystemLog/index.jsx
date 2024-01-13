@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, DatePicker, Form, Input, Row, Table } from 'antd';
 import dayjs from 'dayjs';
 
-import { fetchSystemLogs } from '../redux/auditLogService';
-import ViewSystemLog from './ViewSystemLog';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import ViewSystemLog from './ViewSystemLog';
+import { fetchSystemLogs } from '../redux/auditLogService';
 
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;

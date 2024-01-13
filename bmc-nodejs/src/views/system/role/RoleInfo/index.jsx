@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Tree } from 'antd';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { fetchRoleInfo } from '../redux/roleService';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { fetchRoleInfo } from '../redux/roleService';
 
 const FormItem = Form.Item;
 

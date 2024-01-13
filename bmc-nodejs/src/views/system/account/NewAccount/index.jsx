@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Steps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
+import { PageComponent } from '@/components/UIComponent';
 import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
 import InputAccountInfo from './InputAccountInfo';
 import SelectRoleForm from './SelectRoleForm';
-import { PageComponent } from '@/components/UIComponent';
 
 const { Step } = Steps;
 

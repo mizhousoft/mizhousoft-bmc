@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Input, message, Row, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { deleteRole, fetchRoles } from '../redux/roleService';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
+import { deleteRole, fetchRoles } from '../redux/roleService';
 
 export default function RoleList() {
     const [form] = Form.useForm();

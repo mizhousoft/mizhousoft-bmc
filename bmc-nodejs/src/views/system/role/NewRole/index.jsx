@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Tree } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { addRole, newRole } from '../redux/roleService';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { addRole, newRole } from '../redux/roleService';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;

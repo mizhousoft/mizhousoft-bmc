@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
-import { modifyExpiredPassword } from '../profileService';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { logout } from '@/session/sessionService';
+import { modifyExpiredPassword } from '../profileService';
 
 const FormItem = Form.Item;
 

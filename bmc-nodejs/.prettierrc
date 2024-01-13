@@ -2,14 +2,25 @@
     "singleQuote": true,
     "semi": true,
     "trailingComma": "es5",
-    "useTabs" : false,
+    "useTabs": false,
     "tabWidth": 4,
     "printWidth": 120,
     "proseWrap": "never",
     "jsxSingleQuote": true,
     "arrowParens": "always",
-    "importOrder": ["^(react|react-dom)$", "^([a-z]|@[a-z])", "", ".*"],
-    "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+    "importOrder": [
+        "^(react|react-dom)$",
+        "^([a-z]|@[a-z])",
+        "",
+        "^(@/assets|@/components|@/config|@/constants|@/layout|@/session|@/store|@/utils|@/views/biz-components|@/views/components|@/views)(/.*)$",
+        "^(?!.*Service$)[./].*$",
+        "Service$",
+        ".css$",
+        ".less$"
+    ],
+    "plugins": [
+        "@ianvs/prettier-plugin-sort-imports"
+    ],
     "overrides": [
         {
             "files": ".prettierrc",

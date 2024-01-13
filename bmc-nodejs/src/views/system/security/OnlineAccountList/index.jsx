@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { message, Popconfirm, Table } from 'antd';
 
-import { fetchOnlineAccounts, logoffOnlineAccount } from '../redux/securityService';
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/constants/common';
+import { fetchOnlineAccounts, logoffOnlineAccount } from '../redux/securityService';
 
 export default function OnlineAccountList() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);

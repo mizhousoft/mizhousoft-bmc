@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, InputNumber, message, Row } from 'antd';
 
-import { fetchPasswordStrategy, modifyPasswordStrategy } from '../redux/securityService';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { fetchPasswordStrategy, modifyPasswordStrategy } from '../redux/securityService';
 
 const FormItem = Form.Item;
 

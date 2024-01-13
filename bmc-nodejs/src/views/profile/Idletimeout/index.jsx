@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form, InputNumber, message } from 'antd';
 
-import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
 
 const FormItem = Form.Item;
 

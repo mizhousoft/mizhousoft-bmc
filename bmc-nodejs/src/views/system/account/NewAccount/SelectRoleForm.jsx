@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Popconfirm, Table } from 'antd';
 
-import { fetchRolesOnNew } from '../redux/accountService';
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
+import { fetchRolesOnNew } from '../redux/accountService';
 
 export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData }) {
     const [uSelectedRoles, setSelectedRoles] = useState(formData.selectedRoles);
