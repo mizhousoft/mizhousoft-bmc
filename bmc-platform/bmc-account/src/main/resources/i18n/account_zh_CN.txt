@@ -55,8 +55,8 @@ bmc.account.not.exist.error=帐号不存在。
 
 bmc.account.phonenumber.pattern.error=手机号码不正确
 bmc.account.phonenumber.size.error=手机号码长度是11位
-bmc.account.password.size.error=帐号密码长度不能小于{min}，且不能大于{max}。
-bmc.account.confirm.password.size.error=帐号确认密码长度不能小于{min}，且不能大于{max}。
+bmc.account.password.size.error=帐号密码长度不能小于{0}，且不能大于{1}。
+bmc.account.confirm.password.size.error=帐号确认密码长度不能小于{0}，且不能大于{1}。
 
 bmc.account.status.notcreated=未创建
 bmc.account.status.enable=启用
@@ -72,26 +72,26 @@ bmc.role.not.exist.error=角色不存在或已被删除。
 bmc.role.tree.root.node=角色权限
 bmc.role.administrator.can.not.delete.error=超级管理员不能删除。
 bmc.role.name.exist.error=角色已经存在。
-bmc.role.name.size.error=角色名称长度不能小于{min}，且不能大于{max}。
+bmc.role.name.size.error=角色名称长度不能小于{0}，且不能大于{1}。
 bmc.role.name.pattern.error=角色名称字符只能是a-z A-Z 0-9 - 和汉字。
-bmc.role.description.size.error=描述长度不能小于{min}，且不能大于{max}。
+bmc.role.description.size.error=描述长度不能小于{0}，且不能大于{1}。
 
 #Account strategy
 bmc.account.strategy.source=帐号策略
 bmc.account.strategy.modify.operation=修改帐号策略
-bmc.account.strategy.unusedday.range.error=帐号帐号连续未使用天数不能小于{min}，且不能大于{max}。
-bmc.account.strategy.timelimit.range.error=限定时间段长度不能小于{min}，且不能大于{max}。
-bmc.account.strategy.loginlimit.range.error=限定时间段内连续登录失败次数不能小于{min}，且不能大于{max}。
-bmc.account.strategy.locktime.range.error=帐号锁定时长不能小于{min}，且不能大于{max}。
+bmc.account.strategy.unusedday.range.error=帐号帐号连续未使用天数不能小于{0}，且不能大于{1}。
+bmc.account.strategy.timelimit.range.error=限定时间段长度不能小于{0}，且不能大于{1}。
+bmc.account.strategy.loginlimit.range.error=限定时间段内连续登录失败次数不能小于{0}，且不能大于{1}。
+bmc.account.strategy.locktime.range.error=帐号锁定时长不能小于{0}，且不能大于{1}。
 
 #Passord strategy
 bmc.password.strategy.source=密码策略
 bmc.password.strategy.modify.operation=修改密码策略
-bmc.password.strategy.history.repeatsize.range.error=密码不能与历史密码重复次数不能小于{min}，且不能大于{max}。
-bmc.password.strategy.char.appearsize.range.error=密码中允许同一个字符出现的次数不能小于{min}，且不能大于{max}。
-bmc.password.strategy.modifytime.interval.range.error=密码修改最短时间间隔不能小于{min}，且不能大于{max}。
-bmc.password.strategy.validday.range.error=密码有效期不能小于{min}，且不能大于{max}。
-bmc.password.strategy.reminder.modifyday.range.error=距离密码到期，提醒用户修改的天数不能小于{min}，且不能大于{max}。
+bmc.password.strategy.history.repeatsize.range.error=密码不能与历史密码重复次数不能小于{0}，且不能大于{1}。
+bmc.password.strategy.char.appearsize.range.error=密码中允许同一个字符出现的次数不能小于{0}，且不能大于{1}。
+bmc.password.strategy.modifytime.interval.range.error=密码修改最短时间间隔不能小于{0}，且不能大于{1}。
+bmc.password.strategy.validday.range.error=密码有效期不能小于{0}，且不能大于{1}。
+bmc.password.strategy.reminder.modifyday.range.error=距离密码到期，提醒用户修改的天数不能小于{0}，且不能大于{1}。
 
 #Online account
 bmc.online.account.source=在线帐号
@@ -101,7 +101,7 @@ bmc.online.account.logoff.invalid=非法注销帐号。
 #Idle Timeout
 bmc.idletimeout.source=闲置时间设置
 bmc.idletimeout.modify.operation=修改闲置时间
-bmc.idletimeout.timeout.range.error=帐号闲置时间不能小于{min}，且不能大于{max}。
+bmc.idletimeout.timeout.range.error=帐号闲置时间不能小于{0}，且不能大于{1}。
 
 # Profile
 bmc.profile.source=我的
