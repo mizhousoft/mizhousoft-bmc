@@ -2,10 +2,10 @@ package com.mizhousoft.bmc.account.request;
 
 import java.util.Arrays;
 
-import com.mizhousoft.commons.lang.PhoneNumberChecker;
 import com.mizhousoft.commons.web.AssertionException;
 import com.mizhousoft.commons.web.Validator;
 import com.mizhousoft.commons.web.util.Assert;
+import com.mizhousoft.commons.web.validator.PhoneNumberValidator;
 
 /**
  * 增加帐号请求
@@ -49,7 +49,7 @@ public class AccountNewRequest implements Validator
 		Assert.size("confirmPassword", confirmPassword, 8, 32, "bmc.account.confirm.password.size.error");
 
 		Assert.size("phoneNumber", phoneNumber, 11, 11, "bmc.account.phonenumber.size.error");
-		Assert.notMatch("phoneNumber", phoneNumber, PhoneNumberChecker.PHONE_REGEX, "bmc.account.phonenumber.pattern.error");
+		PhoneNumberValidator.validate("phoneNumber", phoneNumber, "bmc.account.phonenumber.pattern.error");
 	}
 
 	/**
