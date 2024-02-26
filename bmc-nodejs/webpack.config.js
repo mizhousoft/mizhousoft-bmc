@@ -91,13 +91,15 @@ module.exports = {
         historyApiFallback: {
             disableDotRule: false
         },
-        proxy: {
-            '**/*.action': {
-                target: 'http://127.0.0.1:18080'
+        proxy: [
+            {
+                context: ["**/*.action"],
+                target: 'http://127.0.0.1:18080',
                 //target: 'https://dev.mizhousoft.com',
                 //secure: false
-            }
-        }
+                changeOrigin: true,
+            },
+        ],
     },
     plugins: [
         new webpack.DefinePlugin({
