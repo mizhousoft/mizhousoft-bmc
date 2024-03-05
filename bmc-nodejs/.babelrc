@@ -14,8 +14,6 @@
         [
             "@babel/plugin-transform-runtime"
         ],
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-syntax-import-meta",
         "@babel/plugin-transform-class-properties",
         "@babel/plugin-transform-json-strings",
         [
