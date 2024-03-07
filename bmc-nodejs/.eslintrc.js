@@ -5,7 +5,7 @@ module.exports = {
         'plugin:compat/recommended',
         'plugin:react/recommended',
         'plugin:import/typescript',
-        'plugin:markdown/recommended',
+        'plugin:markdown/recommended-legacy',
     ],
     env: {
         browser: true,
