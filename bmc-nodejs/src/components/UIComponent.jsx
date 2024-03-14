@@ -165,7 +165,5 @@ export function ActionLoading({ visible, content }) {
 export function LinkStatistic({ to, title, value, groupSeparator, suffix }) {
     const valueNode = (number) => <Link to={to}>{number}</Link>;
 
-    return (
-        <Statistic title={title} groupSeparator={groupSeparator} suffix={suffix} valueRender={() => valueNode(value)} />
-    );
+    return <Statistic title={title} groupSeparator={groupSeparator} suffix={suffix} valueRender={() => valueNode(value)} />;
 }

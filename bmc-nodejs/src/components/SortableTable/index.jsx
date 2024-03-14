@@ -38,14 +38,7 @@ function DragableBodyRow({ index, moveRow, className, style, ...restProps }) {
     );
     drop(drag(ref));
 
-    return (
-        <tr
-            ref={ref}
-            className={`${className}${isOver ? dropClassName : ''}`}
-            style={{ cursor: 'move', ...style }}
-            {...restProps}
-        />
-    );
+    return <tr ref={ref} className={`${className}${isOver ? dropClassName : ''}`} style={{ cursor: 'move', ...style }} {...restProps} />;
 }
 
 function SortableTable(props, ref) {

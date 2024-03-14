@@ -1,9 +1,7 @@
 package com.mizhousoft.bmc.auditlog.util;
 
-import com.mizhousoft.bmc.auditlog.domain.ApiAuditLog;
 import com.mizhousoft.bmc.auditlog.domain.OperationLog;
 import com.mizhousoft.bmc.auditlog.domain.SecurityLog;
-import com.mizhousoft.bmc.auditlog.domain.SystemLog;
 import com.mizhousoft.bmc.auditlog.service.AduitLogService;
 import com.mizhousoft.commons.context.util.ServiceContextHolder;
 
@@ -46,33 +44,4 @@ public abstract class AuditLogUtils
 		LOGSERVICE.addSecurityLog(securityLog);
 	}
 
-	/**
-	 * 增加系统日志
-	 * 
-	 * @param systemLog
-	 */
-	public static void addSystemLog(SystemLog systemLog)
-	{
-		if (null == systemLog)
-		{
-			return;
-		}
-
-		LOGSERVICE.addSystemLog(systemLog);
-	}
-
-	/**
-	 * 增加API日志
-	 * 
-	 * @param apiAuditLog
-	 */
-	public static void addApiAuditLog(ApiAuditLog apiAuditLog)
-	{
-		if (null == apiAuditLog)
-		{
-			return;
-		}
-
-		LOGSERVICE.addApiAuditLog(apiAuditLog);
-	}
 }

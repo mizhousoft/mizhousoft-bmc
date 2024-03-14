@@ -60,13 +60,7 @@ export default function Login() {
                 >
                     <h2 style={{ textAlign: 'center', paddingBottom: '30px' }}>{LOGIN_TITLE}</h2>
                     <FormItem name='account' rules={[{ required: true, message: '请输入帐号！' }]}>
-                        <Input
-                            prefix={<UserOutlined />}
-                            size='large'
-                            placeholder='请输入帐号'
-                            autoComplete='new-password'
-                            maxLength={32}
-                        />
+                        <Input prefix={<UserOutlined />} size='large' placeholder='请输入帐号' autoComplete='new-password' maxLength={32} />
                     </FormItem>
                     <FormItem
                         name='password'
@@ -91,25 +85,11 @@ export default function Login() {
                         />
                     </FormItem>
                     <FormItem colon={false}>
-                        <Button
-                            type='primary'
-                            block
-                            htmlType='submit'
-                            size='large'
-                            style={{ marginTop: '10px' }}
-                            loading={confirmLoading}
-                        >
+                        <Button type='primary' block htmlType='submit' size='large' style={{ marginTop: '10px' }} loading={confirmLoading}>
                             登录
                         </Button>
                     </FormItem>
-                    {uError !== '' && (
-                        <Alert
-                            type='error'
-                            message={uError}
-                            showIcon
-                            style={{ textAlign: 'left', marginBottom: '20px' }}
-                        />
-                    )}
+                    {uError !== '' && <Alert type='error' message={uError} showIcon style={{ textAlign: 'left', marginBottom: '20px' }} />}
                 </Form>
                 <div
                     style={{

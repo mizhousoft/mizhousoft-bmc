@@ -63,22 +63,6 @@ CREATE TABLE IF NOT EXISTS `bmc_history_pwd` (
 
 
 -- -----------------------------------------------------
--- Table `bmc_system_log`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bmc_system_log` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `srvId` VARCHAR(16) NOT NULL COMMENT '业务服务ID',
-  `logLevel` VARCHAR(16) NULL COMMENT '日志级别',
-  `source` VARCHAR(50) NULL COMMENT '来源',
-  `baseInfo` VARCHAR(255) NULL COMMENT '基础信息',
-  `result` INT NULL COMMENT '操作结果',
-  `detail` VARCHAR(2048) NULL COMMENT '详细信息',
-  `addInfo` VARCHAR(2048) NULL COMMENT '附件信息',
-  `creationTime` DATETIME NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`))
-
-
--- -----------------------------------------------------
 -- Table `bmc_security_log`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bmc_security_log` (
@@ -160,23 +144,6 @@ CREATE TABLE IF NOT EXISTS `bmc_account` (
   `lockTime` DATETIME NULL COMMENT '锁定时间',
   `lastAccessTime` DATETIME NULL COMMENT '最后访问时间',
   `lastAccessIpAddr` VARCHAR(20) NULL COMMENT '最后访问IP地址',
-  PRIMARY KEY (`id`))
-
-
--- -----------------------------------------------------
--- Table `bmc_api_log`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bmc_api_log` (
-  `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `srvId` VARCHAR(16) NOT NULL COMMENT '业务服务ID',
-  `logLevel` VARCHAR(16) NULL COMMENT '日志级别',
-  `operation` VARCHAR(50) NULL COMMENT '操作名称',
-  `source` VARCHAR(50) NULL COMMENT '来源',
-  `terminal` VARCHAR(50) NULL COMMENT '操作终端',
-  `result` INT NULL COMMENT '操作结果',
-  `detail` VARCHAR(2048) NULL COMMENT '详细信息',
-  `addInfo` VARCHAR(2048) NULL COMMENT '附加信息',
-  `creationTime` DATETIME NULL COMMENT '创建时间',
   PRIMARY KEY (`id`))
 
 

@@ -10,11 +10,7 @@ public enum AduitLogType
     // 操作
 	Operation(1),
     // 安全
-	Security(2),
-    // 系统
-	System(3),
-    // 接口
-	API(4);
+	Security(2);
 
 	/**
 	 * 构造函数

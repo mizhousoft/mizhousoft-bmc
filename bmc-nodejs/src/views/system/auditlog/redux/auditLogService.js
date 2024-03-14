@@ -15,13 +15,6 @@ export function fetchRunningLogFileNames(param) {
     });
 }
 
-export function fetchApiAuditLogs(param) {
-    return asyncPost({
-        url: `${BASENAME}/auditlog/fetchApiAuditLogs.action`,
-        data: param,
-    });
-}
-
 export function fetchSecurityLogs(param) {
     return asyncPost({
         url: `${BASENAME}/auditlog/fetchSecurityLogs.action`,
@@ -32,13 +25,6 @@ export function fetchSecurityLogs(param) {
 export function fetchOperationLogs(param) {
     return asyncPost({
         url: `${BASENAME}/auditlog/fetchOperationLogs.action`,
-        data: param,
-    });
-}
-
-export function fetchSystemLogs(param) {
-    return asyncPost({
-        url: `${BASENAME}/auditlog/fetchSystemLogs.action`,
         data: param,
     });
 }

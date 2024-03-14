@@ -64,13 +64,7 @@ export default function MyAccountInfo() {
 
                 <FormItem>
                     <div style={{ marginBottom: '13px' }}>所属角色：</div>
-                    <Table
-                        size='middle'
-                        columns={columns}
-                        dataSource={uRoles}
-                        rowKey={(record) => record.id}
-                        pagination={false}
-                    />
+                    <Table size='middle' columns={columns} dataSource={uRoles} rowKey={(record) => record.id} pagination={false} />
                 </FormItem>
             </Form>
         </PageComponent>

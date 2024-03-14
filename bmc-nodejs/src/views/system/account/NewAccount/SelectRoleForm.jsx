@@ -50,19 +50,9 @@ export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData 
 
     return (
         <div>
-            <ButtonSelectRole
-                selectedRoles={uSelectedRoles}
-                onChange={(roles) => setSelectedRoles(roles)}
-                fetchAction={fetchRolesOnNew}
-            />
+            <ButtonSelectRole selectedRoles={uSelectedRoles} onChange={(roles) => setSelectedRoles(roles)} fetchAction={fetchRolesOnNew} />
 
-            <Table
-                columns={columns}
-                dataSource={uSelectedRoles}
-                pagination={false}
-                rowKey={(record) => record.name}
-                size='middle'
-            />
+            <Table columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.name} size='middle' />
 
             <div className='mz-button-group' style={{ marginTop: '24px' }}>
                 <Button type='primary' onClick={() => next()}>

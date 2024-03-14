@@ -58,16 +58,6 @@ export const GLOBAL_MENUS = [
                         path: '/auditlog/security/list',
                     },
                     {
-                        id: 'bmc.auditlog.system',
-                        name: '系统日志',
-                        path: '/auditlog/system/list',
-                    },
-                    {
-                        id: 'bmc.auditlog.api',
-                        name: '接口日志',
-                        path: '/auditlog/api/list',
-                    },
-                    {
                         id: 'bmc.running.log',
                         name: '本地日志',
                         path: '/running/log/list',

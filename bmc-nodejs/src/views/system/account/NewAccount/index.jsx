@@ -46,12 +46,8 @@ export default function NewAccount() {
             </Steps>
             <div style={{ padding: '0px 25px' }}>
                 {current === 0 && <InputAccountInfo formData={formData} nextStep={nextStep} gotoList={gotoList} />}
-                {current === 1 && (
-                    <SelectRoleForm formData={formData} prevStep={prevStep} nextStep={nextStep} gotoList={gotoList} />
-                )}
-                {current === 2 && (
-                    <ConfirmAccountInfoForm formData={formData} prevStep={prevStep} gotoList={gotoList} />
-                )}
+                {current === 1 && <SelectRoleForm formData={formData} prevStep={prevStep} nextStep={nextStep} gotoList={gotoList} />}
+                {current === 2 && <ConfirmAccountInfoForm formData={formData} prevStep={prevStep} gotoList={gotoList} />}
             </div>
         </PageComponent>
     );

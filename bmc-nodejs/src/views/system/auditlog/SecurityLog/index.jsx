@@ -231,10 +231,7 @@ export default function SecurityLog() {
                 <Row style={{ marginTop: '10px' }}>
                     <Col span={8}>
                         <FormItem name='timePeriod' label='时间段'>
-                            <RangePicker
-                                format='YYYY-MM-DD HH:mm'
-                                disabledDate={(current) => current && current >= dayjs().endOf('day')}
-                            />
+                            <RangePicker format='YYYY-MM-DD HH:mm' disabledDate={(current) => current && current >= dayjs().endOf('day')} />
                         </FormItem>
                     </Col>
                     <Col span={8} />

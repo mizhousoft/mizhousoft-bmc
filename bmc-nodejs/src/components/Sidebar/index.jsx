@@ -50,10 +50,7 @@ export default function Sidebar({ header, footer, siderMenus, path, selectedMenu
                 key: siderMenu.id,
                 label: (
                     <>
-                        <FontIcon
-                            type={siderMenu.iconFont}
-                            style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }}
-                        />
+                        <FontIcon type={siderMenu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />
                         {siderMenu.name}
                     </>
                 ),

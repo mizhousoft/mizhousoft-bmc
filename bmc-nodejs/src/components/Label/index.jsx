@@ -42,12 +42,7 @@ function Label(props, ref) {
             <span className={required ? 'title required' : 'title'}>{title}</span>
             <div className={`collection ${extendClass}`}>
                 {items.map((item) => (
-                    <LabelItem
-                        key={item.key}
-                        item={item}
-                        selected={item.value === selectedValue}
-                        clickItemEvent={clickItemEvent}
-                    />
+                    <LabelItem key={item.key} item={item} selected={item.value === selectedValue} clickItemEvent={clickItemEvent} />
                 ))}
             </div>
             {!isExtendMore && (

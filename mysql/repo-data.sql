@@ -153,14 +153,6 @@ INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.a
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.auditlog.security','bmc.auditlog.management','安全日志','Security Log',true,NULL,NULL);
 
-INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.auditlog.system','/auditlog/fetchSystemLogs.action');
-INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',1,'bmc.auditlog.system','bmc.auditlog.management','系统日志','System Log',true,NULL,NULL);
-
-INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.auditlog.api','/auditlog/fetchApiAuditLogs.action');
-INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
-VALUES ('BMC',1,'bmc.auditlog.api','bmc.auditlog.management','接口日志','API Log',true,NULL,NULL);
-
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/fetchRunningLogNames.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/fetchRunningLogFileNames.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/downloadRunningLogFile.action');
@@ -170,8 +162,6 @@ VALUES ('BMC',1,'bmc.running.log','bmc.auditlog.management','本地日志','Runn
 INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.management','Administrator');
 INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.operation','Administrator');
 INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.security','Administrator');
-INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.system','Administrator');
-INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.auditlog.api','Administrator');
 INSERT INTO `bmc_role_permission` (`srvId`,`permName`,`roleName`) VALUES ('BMC','bmc.running.log','Administrator');
 
 -- Account data

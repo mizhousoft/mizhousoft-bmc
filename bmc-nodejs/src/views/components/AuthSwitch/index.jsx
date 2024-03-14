@@ -6,12 +6,7 @@ import SessionStore from '@/session/SessionStore';
 export default function AuthSwitch({ authId, defaultChecked, checkedChildren, unCheckedChildren, ...others }) {
     if (SessionStore.hasPermission(authId)) {
         return (
-            <Switch
-                checkedChildren={checkedChildren}
-                unCheckedChildren={unCheckedChildren}
-                defaultChecked={defaultChecked}
-                {...others}
-            />
+            <Switch checkedChildren={checkedChildren} unCheckedChildren={unCheckedChildren} defaultChecked={defaultChecked} {...others} />
         );
     }
 

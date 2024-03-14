@@ -16,10 +16,7 @@ export default function AccountAvatar({ isActive }) {
             <Link to='/profile/account' className={isActive ? 'active' : ''} replace>
                 {account.name}
 
-                <FontIcon
-                    type='anticon-arrow_down'
-                    style={{ fontSize: '0.8em', verticalAlign: 'middle', marginLeft: '4px' }}
-                />
+                <FontIcon type='anticon-arrow_down' style={{ fontSize: '0.8em', verticalAlign: 'middle', marginLeft: '4px' }} />
             </Link>
         </span>
     );

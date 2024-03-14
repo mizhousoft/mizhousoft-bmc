@@ -112,13 +112,7 @@ export default function AccountAuthorize() {
                         fetchAction={fetchRolesOnAuthorize}
                     />
 
-                    <Table
-                        size='middle'
-                        columns={columns}
-                        dataSource={uSelectedRoles}
-                        pagination={false}
-                        rowKey={(record) => record.id}
-                    />
+                    <Table size='middle' columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.id} />
                 </FormItem>
                 <FormItem className='mz-button-group'>
                     <Button type='primary' onClick={onFinish} confirmLoading={confirmLoading}>

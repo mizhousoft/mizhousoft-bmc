@@ -104,15 +104,7 @@ export default function RunningLog() {
         tabItems.push({
             label: logname,
             key: logname,
-            children: (
-                <Table
-                    columns={columns}
-                    dataSource={uLogFiles}
-                    rowKey={(record) => record.name}
-                    size='middle'
-                    pagination={false}
-                />
-            ),
+            children: <Table columns={columns} dataSource={uLogFiles} rowKey={(record) => record.name} size='middle' pagination={false} />,
         });
     });
 

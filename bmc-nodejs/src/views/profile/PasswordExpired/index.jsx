@@ -17,9 +17,7 @@ export default function PasswordExpired() {
         if (value) {
             if (!/[a-z]/.test(value) || !/[A-Z]/.test(value) || !/\d/.test(value) || !/[!#$%&()*+=@^_~-]/.test(value)) {
                 return Promise.reject(
-                    new Error(
-                        '密码至少包括一个大写字符(A-Z)，一个小写字母(a-z)，一个数字字符，一个特殊字符~!@#$%^&*()_-+=。'
-                    )
+                    new Error('密码至少包括一个大写字符(A-Z)，一个小写字母(a-z)，一个数字字符，一个特殊字符~!@#$%^&*()_-+=。')
                 );
             }
         }
@@ -71,8 +69,7 @@ export default function PasswordExpired() {
 
     useEffect(() => () => clearTimeout(timeoutRef.current), []);
 
-    const content =
-        '你的密码已经过期，为保证你的帐号安全，请你修改密码。修改密码成功，2秒后自动跳转到登录界面重新登录。';
+    const content = '你的密码已经过期，为保证你的帐号安全，请你修改密码。修改密码成功，2秒后自动跳转到登录界面重新登录。';
 
     return (
         <Row style={{ marginTop: '120px' }}>

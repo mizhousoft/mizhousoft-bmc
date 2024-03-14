@@ -10,13 +10,7 @@ import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
 import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../redux/accountSlice';
 import ResetAccountPasswd from '../ResetAccountPasswd';
-import {
-    deleteAccount,
-    disableAccount,
-    enableAccount,
-    fetchAccountInfoList,
-    unlockAccount,
-} from '../redux/accountService';
+import { deleteAccount, disableAccount, enableAccount, fetchAccountInfoList, unlockAccount } from '../redux/accountService';
 
 export default function AccountList() {
     const dispatch = useDispatch();

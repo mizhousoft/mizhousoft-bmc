@@ -21,9 +21,7 @@ export default function PasswordExpiring() {
         if (value) {
             if (!/[a-z]/.test(value) || !/[A-Z]/.test(value) || !/\d/.test(value) || !/[!#$%&()*+=@^_~-]/.test(value)) {
                 return Promise.reject(
-                    new Error(
-                        '密码至少包括一个大写字符(A-Z)，一个小写字母(a-z)，一个数字字符，一个特殊字符~!@#$%^&*()_-+=。'
-                    )
+                    new Error('密码至少包括一个大写字符(A-Z)，一个小写字母(a-z)，一个数字字符，一个特殊字符~!@#$%^&*()_-+=。')
                 );
             }
         }
@@ -102,12 +100,7 @@ export default function PasswordExpiring() {
                     labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
-                    <Alert
-                        message={content}
-                        type='warning'
-                        showIcon
-                        style={{ marginBottom: '40px', fontSize: '15px' }}
-                    />
+                    <Alert message={content} type='warning' showIcon style={{ marginBottom: '40px', fontSize: '15px' }} />
 
                     <FormItem
                         name='password'

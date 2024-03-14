@@ -68,11 +68,7 @@ export default function Notification() {
                     itemLayout='horizontal'
                     dataSource={uTodos}
                     renderItem={(item) => (
-                        <List.Item
-                            actions={[
-                                <AButton title={item.buttonName} onClick={() => rediectUrl(item)} key={item.key} />,
-                            ]}
-                        >
+                        <List.Item actions={[<AButton title={item.buttonName} onClick={() => rediectUrl(item)} key={item.key} />]}>
                             <List.Item.Meta
                                 title={
                                     <>
@@ -105,11 +101,7 @@ export default function Notification() {
             onOpenChange={(show) => setVisible(show)}
         >
             <Badge count={badgeCount} onClick={() => setVisible(true)} showZero size='default' offset={[8, 0]}>
-                <FontIcon
-                    onClick={() => setVisible(true)}
-                    type='anticon-notification'
-                    style={{ fontSize: '1.15em', cursor: 'pointer' }}
-                />
+                <FontIcon onClick={() => setVisible(true)} type='anticon-notification' style={{ fontSize: '1.15em', cursor: 'pointer' }} />
             </Badge>
         </Popover>
     );

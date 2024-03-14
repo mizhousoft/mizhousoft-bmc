@@ -13,8 +13,6 @@ const EditRole = React.lazy(() => import('@/views/system/role/EditRole'));
 
 const OperationLog = React.lazy(() => import('@/views/system/auditlog/OperationLog'));
 const SecurityLog = React.lazy(() => import('@/views/system/auditlog/SecurityLog'));
-const SystemLog = React.lazy(() => import('@/views/system/auditlog/SystemLog'));
-const ApiAuditLog = React.lazy(() => import('@/views/system/auditlog/ApiAuditLog'));
 const RunningLog = React.lazy(() => import('@/views/system/auditlog/RunningLog'));
 
 const AccountStrategy = React.lazy(() => import('@/views/system/security/AccountStrategy'));
@@ -87,28 +85,6 @@ const routes = [
             {
                 path: 'list',
                 element: <SecurityLog />,
-                authz: true,
-            },
-        ],
-    },
-    {
-        path: '/auditlog/system',
-        element: <BasicLayout siderMenuId='bmc.auditlog.system' />,
-        children: [
-            {
-                path: 'list',
-                element: <SystemLog />,
-                authz: true,
-            },
-        ],
-    },
-    {
-        path: '/auditlog/api',
-        element: <BasicLayout siderMenuId='bmc.auditlog.api' />,
-        children: [
-            {
-                path: 'list',
-                element: <ApiAuditLog />,
                 authz: true,
             },
         ],

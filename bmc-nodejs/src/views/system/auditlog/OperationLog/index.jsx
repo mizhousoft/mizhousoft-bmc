@@ -246,10 +246,7 @@ export default function OperationLog() {
                     </Col>
                     <Col span={8}>
                         <FormItem name='timePeriod' label='操作时间'>
-                            <RangePicker
-                                format='YYYY-MM-DD HH:mm'
-                                disabledDate={(current) => current && current >= dayjs().endOf('day')}
-                            />
+                            <RangePicker format='YYYY-MM-DD HH:mm' disabledDate={(current) => current && current >= dayjs().endOf('day')} />
                         </FormItem>
                     </Col>
                     <Col span={8} className='mz-button-group'>
