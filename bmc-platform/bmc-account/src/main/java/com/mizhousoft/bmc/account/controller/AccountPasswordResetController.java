@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.BMCException;
 import com.mizhousoft.bmc.account.domain.Account;
-import com.mizhousoft.bmc.account.request.AccountPasswordRequest;
+import com.mizhousoft.bmc.account.request.AccountPasswordResetRequest;
 import com.mizhousoft.bmc.account.service.AccountPasswdService;
 import com.mizhousoft.bmc.auditlog.constants.AuditLogResult;
 import com.mizhousoft.bmc.auditlog.controller.BaseAuditController;
@@ -38,7 +38,7 @@ public class AccountPasswordResetController extends BaseAuditController
 	private AccountPasswdService accountPasswdService;
 
 	@RequestMapping(value = "/account/resetPassword.action", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ActionResponse resetPassword(@RequestBody AccountPasswordRequest request)
+	public ActionResponse resetPassword(@RequestBody AccountPasswordResetRequest request)
 	{
 		ActionResponse response = null;
 		OperationLog operLog = null;

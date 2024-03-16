@@ -53,9 +53,14 @@ bmc.account.add.failed=增加帐号失败。
 bmc.account.not.found.error=帐号不存在，或已经被删除。
 bmc.account.not.exist.error=帐号不存在。
 
+bmc.account.name.null.error=帐号名称不能为空
+bmc.account.name.size.error=帐号名称长度不能小于{0}，且不能大于{1}。
+bmc.account.name.pattern.error=帐号名称由数字和大小写字母组成。
 bmc.account.phonenumber.pattern.error=手机号码不正确
 bmc.account.phonenumber.size.error=手机号码长度是11位
+bmc.account.password.null.error=帐号密码不能为空
 bmc.account.password.size.error=帐号密码长度不能小于{0}，且不能大于{1}。
+bmc.account.confirm.password.null.error=帐号确认密码不能为空
 bmc.account.confirm.password.size.error=帐号确认密码长度不能小于{0}，且不能大于{1}。
 
 bmc.account.status.notcreated=未创建
@@ -68,10 +73,12 @@ bmc.role.source=角色
 bmc.role.add.operation=增加角色
 bmc.role.modify.operation=修改角色
 bmc.role.delete.operation=删除角色
+
 bmc.role.not.exist.error=角色不存在或已被删除。
 bmc.role.tree.root.node=角色权限
 bmc.role.administrator.can.not.delete.error=超级管理员不能删除。
 bmc.role.name.exist.error=角色已经存在。
+bmc.role.name.null.error=角色名称不能为空
 bmc.role.name.size.error=角色名称长度不能小于{0}，且不能大于{1}。
 bmc.role.name.pattern.error=角色名称字符只能是a-z A-Z 0-9 - 和汉字。
 bmc.role.description.size.error=描述长度不能小于{0}，且不能大于{1}。

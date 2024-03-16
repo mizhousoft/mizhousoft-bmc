@@ -11,17 +11,14 @@ import com.mizhousoft.commons.web.util.Assert;
  */
 public class AccountPasswordRequest implements Validator
 {
-	// ID
-	private long id;
-
 	// 老密码
-	private String password;
+	protected String password;
 
 	// 新密码
-	private String newPassword;
+	protected String newPassword;
 
 	// 确认密码
-	private String confirmNewPassword;
+	protected String confirmNewPassword;
 
 	/**
 	 * {@inheritDoc}
@@ -29,34 +26,14 @@ public class AccountPasswordRequest implements Validator
 	@Override
 	public void validate() throws AssertionException
 	{
-		Assert.notBlank("password", password, "bmc.account.password.size.error");
+		Assert.notBlank("password", password, "bmc.account.password.null.error");
 		Assert.size("password", password, 8, 32, "bmc.account.password.size.error");
 
-		Assert.notBlank("newPassword", newPassword, "bmc.account.password.size.error");
+		Assert.notBlank("newPassword", newPassword, "bmc.account.password.null.error");
 		Assert.size("newPassword", newPassword, 8, 32, "bmc.account.password.size.error");
 
-		Assert.notBlank("confirmNewPassword", confirmNewPassword, "bmc.account.confirm.password.size.error");
+		Assert.notBlank("confirmNewPassword", confirmNewPassword, "bmc.account.confirm.password.null.error");
 		Assert.size("confirmNewPassword", confirmNewPassword, 8, 32, "bmc.account.confirm.password.size.error");
-	}
-
-	/**
-	 * 获取id
-	 * 
-	 * @return
-	 */
-	public long getId()
-	{
-		return id;
-	}
-
-	/**
-	 * 设置id
-	 * 
-	 * @param id
-	 */
-	public void setId(long id)
-	{
-		this.id = id;
 	}
 
 	/**
@@ -120,16 +97,11 @@ public class AccountPasswordRequest implements Validator
 	}
 
 	/**
-	 * 
-	 * @return
+	 * {@inheritDoc}
 	 */
 	@Override
 	public String toString()
 	{
-		StringBuilder builder = new StringBuilder();
-		builder.append("{\"id\":\"");
-		builder.append(id);
-		builder.append("\"}");
-		return builder.toString();
+		return null;
 	}
 }

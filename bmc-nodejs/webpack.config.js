@@ -104,7 +104,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             ENV_TEST_ADMIN: JSON.stringify('admin'),
-            ENV_TEST_PASSWORD: JSON.stringify('Bmc@1234567'),
+            ENV_TEST_PASSWORD: JSON.stringify('Bmc@12345678'),
         }),
         new webpack.DllReferencePlugin({
             context: __dirname,
