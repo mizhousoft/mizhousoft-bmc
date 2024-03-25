@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 
+import httpRequest from '@/utils/http-request';
 import AuthA from '@/views/components/AuthA';
-import { resetPassword } from '../redux/accountService';
 
 const FormItem = Form.Item;
 const formItemLayout = {
@@ -44,13 +44,16 @@ export default function ResetAccountPasswd({ accountId }) {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {
-            id: accountId,
-            newPassword: values.newPassword?.trim(),
-            confirmNewPassword: values.confirmNewPassword?.trim(),
+        const requestBody = {
+            url: '/account/resetPassword.action',
+            data: {
+                id: accountId,
+                newPassword: values.newPassword?.trim(),
+                confirmNewPassword: values.confirmNewPassword?.trim(),
+            },
         };
 
-        resetPassword(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {

@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
-import { deleteRole, fetchRoles } from '../redux/roleService';
 
 export default function RoleList() {
     const [form] = Form.useForm();
@@ -25,16 +25,19 @@ export default function RoleList() {
     };
 
     const fetchList = (pageNumber, pageSize) => {
-        const body = {
-            pageNumber,
-            pageSize,
-            name: uFilter.name?.trim(),
-        };
-
         setFilter(uFilter);
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchRoles(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+        const requestBody = {
+            url: '/role/fetchRoles.action',
+            data: {
+                pageNumber,
+                pageSize,
+                name: uFilter.name?.trim(),
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });
@@ -54,9 +57,14 @@ export default function RoleList() {
     const deleteItem = (id) => {
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        const body = { id };
+        const requestBody = {
+            url: '/role/deleteRole.action',
+            data: {
+                id,
+            },
+        };
 
-        deleteRole(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('删除角色成功。');
                 refreshList();

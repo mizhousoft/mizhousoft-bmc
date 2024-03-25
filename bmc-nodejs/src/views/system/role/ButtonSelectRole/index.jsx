@@ -3,6 +3,7 @@ import { Button, Modal, Table } from 'antd';
 
 import { getTableLocale } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 
 export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onChange }) {
     const [visible, setVisible] = useState(false);
@@ -11,14 +12,17 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
     const [uSelectedRoles, setSelectedRoles] = useState([]);
 
     const fetchList = (pageNumber, pageSize) => {
-        const body = {
-            pageSize,
-            pageNumber,
-        };
-
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchAction(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+        const requestBody = {
+            url: fetchAction,
+            data: {
+                pageSize,
+                pageNumber,
+            },
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });

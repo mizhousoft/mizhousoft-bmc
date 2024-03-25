@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Button, Popconfirm, Table } from 'antd';
 
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
-import { fetchRolesOnNew } from '../redux/accountService';
 
 export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData }) {
     const [uSelectedRoles, setSelectedRoles] = useState(formData.selectedRoles);
@@ -50,7 +49,11 @@ export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData 
 
     return (
         <div>
-            <ButtonSelectRole selectedRoles={uSelectedRoles} onChange={(roles) => setSelectedRoles(roles)} fetchAction={fetchRolesOnNew} />
+            <ButtonSelectRole
+                selectedRoles={uSelectedRoles}
+                onChange={(roles) => setSelectedRoles(roles)}
+                fetchAction='/account/new/fetchRoles.action'
+            />
 
             <Table columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.name} size='middle' />
 

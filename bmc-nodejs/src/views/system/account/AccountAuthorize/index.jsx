@@ -4,8 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
-import { authorizeAccount, fetchAccountRolesOnAuthorize, fetchRolesOnAuthorize } from '../redux/accountService';
 
 const FormItem = Form.Item;
 
@@ -28,16 +28,19 @@ export default function AccountAuthorize() {
     };
 
     const onFinish = () => {
-        const roleIds = uSelectedRoles.map((role, key, roles) => role.id);
-
-        const body = {
-            id: Number.parseInt(id, 10),
-            roleIds,
-        };
-
         setConfirmLoading(true);
 
-        authorizeAccount(body).then(({ fetchStatus }) => {
+        const roleIds = uSelectedRoles.map((role, key, roles) => role.id);
+
+        const requestBody = {
+            url: '/account/authorizeAccount.action',
+            data: {
+                id: Number.parseInt(id, 10),
+                roleIds,
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -50,11 +53,14 @@ export default function AccountAuthorize() {
     };
 
     useEffect(() => {
-        const body = {
-            accountId: id,
+        const requestBody = {
+            url: '/account/authorize/fetchAccountRoles.action',
+            data: {
+                accountId: id,
+            },
         };
 
-        fetchAccountRolesOnAuthorize(body).then(({ fetchStatus, account, selectedRoles = [] }) => {
+        httpRequest.get(requestBody).then(({ fetchStatus, account, selectedRoles = [] }) => {
             setAccount(account);
             setSelectedRoles(selectedRoles);
             setFetchStatus(fetchStatus);
@@ -109,7 +115,7 @@ export default function AccountAuthorize() {
                     <ButtonSelectRole
                         selectedRoles={uSelectedRoles}
                         onChange={(roles) => setSelectedRoles(roles)}
-                        fetchAction={fetchRolesOnAuthorize}
+                        fetchAction='/account/authorize/fetchRoles.action'
                     />
 
                     <Table size='middle' columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.id} />

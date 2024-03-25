@@ -3,8 +3,8 @@ import { Form, Space, Table } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 import PhoneNumberEdit from './PhoneNumberEdit';
-import { fetchMyAccountInfo } from '../profileService';
 
 const FormItem = Form.Item;
 
@@ -30,7 +30,12 @@ export default function MyAccountInfo() {
     const fetchPageData = () => {
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchMyAccountInfo().then(({ fetchStatus, account, roles = [] }) => {
+        const requestBody = {
+            url: '/setting/account/fetchMyAccountInfo.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, account, roles = [] }) => {
             setRoles(roles);
             setAccount(account);
             setFetchStatus(fetchStatus);

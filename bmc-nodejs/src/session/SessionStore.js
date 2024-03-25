@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
 import { GLOBAL_MENUS } from '@/config/globalMenu';
 import DefaultUserStore from '@/store/DefaultUserStore';
-import { asyncFetch } from '@/utils/request';
+import httpRequest from '@/utils/http-request';
 
 let session;
 
@@ -77,26 +77,27 @@ export default {
     },
 
     initAccountInfo(callback) {
-        this.fetchMyAccountDetail()
-            .then(({ fetchStatus, account, nowTime }) => {
-                if (!fetchStatus.okey) {
-                    window.location.href = CONTEXT_LOGIN_PATH;
-                } else {
-                    const csrfToken = this.getCsrfToken();
+        const requestBody = {
+            url: '/account/fetchMyAccountDetail.action',
+            data: {},
+        };
 
-                    session = {
-                        account,
-                        csrfToken,
-                    };
+        httpRequest.get(requestBody).then(({ fetchStatus, account, nowTime }) => {
+            if (fetchStatus.okey) {
+                const csrfToken = this.getCsrfToken();
 
-                    if (callback) {
-                        callback();
-                    }
+                session = {
+                    account,
+                    csrfToken,
+                };
+
+                if (callback) {
+                    callback();
                 }
-            })
-            .catch((error) => {
+            } else {
                 window.location.href = CONTEXT_LOGIN_PATH;
-            });
+            }
+        });
     },
 
     hasPermission(authId) {
@@ -211,11 +212,5 @@ export default {
         }
 
         return BASENAME + path;
-    },
-
-    fetchMyAccountDetail() {
-        return asyncFetch({
-            url: `${BASENAME}/account/fetchMyAccountDetail.action`,
-        });
     },
 };

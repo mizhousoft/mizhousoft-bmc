@@ -3,7 +3,7 @@ import { Button, Col, Form, InputNumber, message, Radio, Row } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { fetchAccountStrategy, modifyAccountStrategy } from '../redux/securityService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -24,9 +24,16 @@ export default function AccountStrategy() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = { id: uStrategy.id, lockTimeStrategy: uStrategy.lockTimeStrategy, ...values };
+        const requestBody = {
+            url: '/system/modifyAccountStrategy.action',
+            data: {
+                id: uStrategy.id,
+                lockTimeStrategy: uStrategy.lockTimeStrategy,
+                ...values,
+            },
+        };
 
-        modifyAccountStrategy(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -38,7 +45,12 @@ export default function AccountStrategy() {
     };
 
     useEffect(() => {
-        fetchAccountStrategy().then(({ fetchStatus, strategy }) => {
+        const requestBody = {
+            url: '/system/fetchAccountStrategy.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, strategy }) => {
             setStrategy(strategy);
             setFetchStatus(fetchStatus);
         });

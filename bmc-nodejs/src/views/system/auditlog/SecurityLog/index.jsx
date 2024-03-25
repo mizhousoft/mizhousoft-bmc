@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 import ViewSecurityLog from './ViewSecurityLog';
-import { fetchSecurityLogs } from '../redux/auditLogService';
 
 const FormItem = Form.Item;
 const { RangePicker } = DatePicker;
@@ -28,18 +28,21 @@ export default function SecurityLog() {
     });
 
     const fetchList = (pageNumber, pageSize, searchFilter, tableFilter) => {
-        const body = {
-            pageNumber,
-            pageSize,
-            ...searchFilter,
-            ...tableFilter,
+        const requestBody = {
+            url: '/auditlog/fetchSecurityLogs.action',
+            data: {
+                pageNumber,
+                pageSize,
+                ...searchFilter,
+                ...tableFilter,
+            },
         };
 
         setSearchFilter(searchFilter);
         setTableFilter(tableFilter);
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchSecurityLogs(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });

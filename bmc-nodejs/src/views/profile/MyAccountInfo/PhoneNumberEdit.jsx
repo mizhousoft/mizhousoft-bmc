@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 
-import { modifyPhoneNumber } from '../profileService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -12,12 +12,16 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {};
+        const requestBody = {
+            url: '/setting/account/modifyPhoneNumber.action',
+            data: {},
+        };
+
         if (values.phoneNumber && values.phoneNumber.length >= 1) {
-            body.phoneNumber = values.phoneNumber?.trim();
+            requestBody.data.phoneNumber = values.phoneNumber?.trim();
         }
 
-        modifyPhoneNumber(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {

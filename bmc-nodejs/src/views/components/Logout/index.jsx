@@ -4,8 +4,8 @@ import { Modal } from 'antd';
 import LogoutImg from '@/assets/imgs/icon-logout.png';
 import { AButton } from '@/components/UIComponent';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
-import { logout } from '@/session/sessionService';
 import SessionStore from '@/session/SessionStore';
+import httpRequest from '@/utils/http-request';
 
 export default function Logout() {
     const onLogout = () => {
@@ -19,7 +19,12 @@ export default function Logout() {
                 top: (window.innerHeight - 250) / 2,
             },
             onOk() {
-                logout().then(({ fetchStatus }) => {
+                const requestBody = {
+                    url: '/logout.action',
+                    data: {},
+                };
+
+                httpRequest.post(requestBody).then(({ fetchStatus }) => {
                     SessionStore.logout();
 
                     if (fetchStatus.okey) {

@@ -3,7 +3,7 @@ import { Button, Col, Form, InputNumber, message, Row } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { fetchPasswordStrategy, modifyPasswordStrategy } from '../redux/securityService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -17,12 +17,15 @@ export default function PasswordStrategy() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {
-            id: uStrategy.id,
-            ...values,
+        const requestBody = {
+            url: '/system/modifyPasswordStrategy.action',
+            data: {
+                id: uStrategy.id,
+                ...values,
+            },
         };
 
-        modifyPasswordStrategy(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -34,7 +37,12 @@ export default function PasswordStrategy() {
     };
 
     useEffect(() => {
-        fetchPasswordStrategy().then(({ fetchStatus, strategy }) => {
+        const requestBody = {
+            url: '/system/fetchPasswordStrategy.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, strategy }) => {
             setStrategy(strategy);
             setFetchStatus(fetchStatus);
         });

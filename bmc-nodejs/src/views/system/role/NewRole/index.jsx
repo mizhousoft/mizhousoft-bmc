@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { addRole, newRole } from '../redux/roleService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -33,15 +33,18 @@ export default function NewRole() {
             return;
         }
 
-        const body = {
-            name: values.name?.trim(),
-            description: values.description?.trim(),
-            permIds: uCheckedKeys,
+        const requestBody = {
+            url: '/role/addRole.action',
+            data: {
+                name: values.name?.trim(),
+                description: values.description?.trim(),
+                permIds: uCheckedKeys,
+            },
         };
 
         setConfirmLoading(true);
 
-        addRole(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('新增角色成功。');
                 gotoList();
@@ -53,9 +56,12 @@ export default function NewRole() {
     };
 
     useEffect(() => {
-        const body = {};
+        const requestBody = {
+            url: '/role/newRole.action',
+            data: {},
+        };
 
-        newRole(body).then(({ fetchStatus, treeData }) => {
+        httpRequest.get(requestBody).then(({ fetchStatus, treeData }) => {
             setTreeData(treeData);
             setFetchStatus(fetchStatus);
         });

@@ -4,9 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import FontIcon from '@/components/FontIcon';
 import { AButton } from '@/components/UIComponent';
-import { BASENAME } from '@/config/application';
 import { addEventListener, removeEventListener } from '@/utils/eventBus';
-import { asyncFetch } from '@/utils/request';
+import httpRequest from '@/utils/http-request';
 
 let interval = 0;
 let fetchTime = 0;
@@ -23,9 +22,12 @@ export default function Notification() {
     };
 
     const asyncFetchData = () => {
-        asyncFetch({
-            url: `${BASENAME}/fetchNotifications.action`,
-        }).then(({ todos = [], pushTime, fetchStatus }) => {
+        const requestBody = {
+            url: '/fetchNotifications.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ todos = [], pushTime, fetchStatus }) => {
             setTodos(todos);
 
             fetchTime = undefined !== pushTime ? pushTime : new Date().getTime();

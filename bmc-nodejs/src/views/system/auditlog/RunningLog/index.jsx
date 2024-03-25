@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spin, Table, Tabs } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
-import { BASENAME } from '@/config/application';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { downloadFile } from '@/utils/request';
-import { fetchRunningLogFileNames, fetchRunningLogNames } from '../redux/auditLogService';
+import httpRequest from '@/utils/http-request';
 
 export default function RunningLog() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
@@ -14,11 +12,14 @@ export default function RunningLog() {
     const [uLogFiles, setLogFiles] = useState([]);
 
     const fetchRunningLogFiles = (logname) => {
-        const body = {
-            logname,
+        const requestBody = {
+            url: '/runninglog/fetchRunningLogFileNames.action',
+            data: {
+                logname,
+            },
         };
 
-        fetchRunningLogFileNames(body).then(({ fetchStatus, logFiles = [] }) => {
+        httpRequest.get(requestBody).then(({ fetchStatus, logFiles = [] }) => {
             setLogFiles(logFiles);
             setFetchStatus(fetchStatus);
         });
@@ -44,8 +45,8 @@ export default function RunningLog() {
             centered: true,
         });
 
-        downloadFile(
-            `${BASENAME}/runninglog/downloadRunningLogFile.action?logname=${logname}`,
+        httpRequest.download(
+            `/runninglog/downloadRunningLogFile.action?logname=${logname}`,
             logname,
             () => {
                 modal.destroy();
@@ -58,7 +59,12 @@ export default function RunningLog() {
     };
 
     useEffect(() => {
-        fetchRunningLogNames().then(({ fetchStatus, activeLogname, lognames = [], logFiles = [] }) => {
+        const requestBody = {
+            url: '/runninglog/fetchRunningLogNames.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, activeLogname, lognames = [], logFiles = [] }) => {
             setActiveLogname(activeLogname);
             setLognames(lognames);
             setLogFiles(logFiles);

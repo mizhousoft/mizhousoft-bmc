@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import axios from 'axios';
 
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
 import SessionStore from '@/session/SessionStore';
 
 const ERROR_CODE_MAP = new Map([
@@ -62,8 +62,9 @@ instance.interceptors.response.use(
 );
 
 function axiosRequest(options) {
-    const { url, data, form, headers = {} } = options;
-    let { method } = options;
+    const { data, form, headers = {} } = options;
+    let { url, method } = options;
+    url = BASENAME + url;
 
     if (!method) {
         method = 'get';
@@ -99,7 +100,7 @@ function axiosRequest(options) {
     }
 }
 
-function request(options) {
+function executeRequest(options) {
     return axiosRequest(options)
         .then((response) => {
             const { status, data, headers } = response;
@@ -146,48 +147,6 @@ function request(options) {
                 },
             };
         });
-}
-
-export function post(options) {
-    options.method = 'post';
-
-    return request(options);
-}
-
-export function get(options) {
-    options.method = 'get';
-
-    return request(options);
-}
-
-export function upload(options) {
-    options.method = 'upload';
-
-    return request(options);
-}
-
-export async function asyncFetch(options) {
-    const result = await get(options)
-        .then((resp) => resp)
-        .catch((error) => error);
-
-    return result;
-}
-
-export async function asyncPost(options) {
-    const result = await post(options)
-        .then((resp) => resp)
-        .catch((error) => error);
-
-    return result;
-}
-
-export async function asyncUpload(options) {
-    const result = await upload(options)
-        .then((resp) => resp)
-        .catch((error) => error);
-
-    return result;
 }
 
 function getFileContentType(filename) {
@@ -245,42 +204,74 @@ function getFileContentType(filename) {
     return contentTypes.find((item) => item.type === extension);
 }
 
-export function downloadFile(fileUrl, filename, downloadOk, downloadFail) {
-    const contentType = getFileContentType(filename);
+export default {
+    async get(options) {
+        options.method = 'get';
 
-    const headers = {};
-    if (fileUrl.substring(0, 4) !== 'http') {
-        const csrfToken = SessionStore.getCsrfToken();
-        if (undefined !== csrfToken) {
-            headers['X-Csrf-Token'] = csrfToken;
+        const result = await executeRequest(options)
+            .then((resp) => resp)
+            .catch((error) => error);
+
+        return result;
+    },
+
+    async post(options) {
+        options.method = 'post';
+
+        const result = await executeRequest(options)
+            .then((resp) => resp)
+            .catch((error) => error);
+
+        return result;
+    },
+
+    async upload(options) {
+        options.method = 'upload';
+
+        const result = await executeRequest(options)
+            .then((resp) => resp)
+            .catch((error) => error);
+
+        return result;
+    },
+
+    download(fileUrl, filename, downloadOk, downloadFail) {
+        const contentType = getFileContentType(filename);
+
+        const headers = {};
+        if (fileUrl.substring(0, 4) !== 'http') {
+            const csrfToken = SessionStore.getCsrfToken();
+            if (undefined !== csrfToken) {
+                headers['X-Csrf-Token'] = csrfToken;
+            }
         }
-    }
 
-    axios
-        .get(fileUrl, {
-            responseType: 'blob',
-            headers,
-        })
-        .then((response) => {
-            if (downloadOk) {
-                downloadOk();
-            }
+        axios
+            .get(fileUrl, {
+                responseType: 'blob',
+                headers,
+            })
+            .then((response) => {
+                if (downloadOk) {
+                    downloadOk();
+                }
 
-            const blob = new Blob([response.data], { type: contentType });
-            const linkNode = document.createElement('a');
-            linkNode.download = filename;
-            linkNode.style.display = 'none';
-            linkNode.href = URL.createObjectURL(blob);
+                const blob = new Blob([response.data], { type: contentType });
+                const linkNode = document.createElement('a');
+                linkNode.download = filename;
+                linkNode.style.display = 'none';
+                linkNode.href = URL.createObjectURL(blob);
 
-            document.body.appendChild(linkNode);
-            linkNode.click();
+                document.body.appendChild(linkNode);
+                linkNode.click();
 
-            URL.revokeObjectURL(linkNode.href);
-            document.body.removeChild(linkNode);
-        })
-        .catch((error) => {
-            if (downloadFail) {
-                downloadFail(error);
-            }
-        });
-}
+                URL.revokeObjectURL(linkNode.href);
+                document.body.removeChild(linkNode);
+            })
+            .catch((error) => {
+                if (downloadFail) {
+                    downloadFail(error);
+                }
+            });
+    },
+};

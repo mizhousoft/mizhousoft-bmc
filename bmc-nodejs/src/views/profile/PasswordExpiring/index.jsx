@@ -4,8 +4,7 @@ import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 import { PageException, PageLoading } from '@/components/UIComponent';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { logout } from '@/session/sessionService';
-import { fetchPasswordExpiringDays, modifyExpiringPassword } from '../profileService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -39,13 +38,16 @@ export default function PasswordExpiring() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {
-            password: values.password?.trim(),
-            newPassword: values.newPassword?.trim(),
-            confirmNewPassword: values.confirmPassword?.trim(),
+        const requestBody = {
+            url: '/setting/password/modifyExpiringPassword.action',
+            data: {
+                password: values.password?.trim(),
+                newPassword: values.newPassword?.trim(),
+                confirmNewPassword: values.confirmPassword?.trim(),
+            },
         };
 
-        modifyExpiringPassword(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -62,7 +64,12 @@ export default function PasswordExpiring() {
     };
 
     const onLogout = () => {
-        logout().then(({ fetchStatus }) => {
+        const requestBody = {
+            url: '/logout.action',
+            data: {},
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 window.location.href = CONTEXT_LOGIN_PATH;
             } else {
@@ -72,7 +79,12 @@ export default function PasswordExpiring() {
     };
 
     useEffect(() => {
-        fetchPasswordExpiringDays().then(({ fetchStatus, expiringDay }) => {
+        const requestBody = {
+            url: '/setting/password/fetchPasswordExpiringDays.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, expiringDay }) => {
             setExpiringDay(expiringDay);
             setFetchStatus(fetchStatus);
         });

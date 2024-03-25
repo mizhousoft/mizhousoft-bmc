@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { editRole, modifyRole } from '../redux/roleService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 const { TextArea } = Input;
@@ -35,16 +35,19 @@ export default function EditRole() {
             return;
         }
 
-        const body = {
-            id,
-            name: values.name?.trim(),
-            description: values.description?.trim(),
-            permIds: uCheckedKeys,
+        const requestBody = {
+            url: '/role/modifyRole.action',
+            data: {
+                id,
+                name: values.name?.trim(),
+                description: values.description?.trim(),
+                permIds: uCheckedKeys,
+            },
         };
 
         setConfirmLoading(true);
 
-        modifyRole(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('修改角色成功。');
                 gotoList();
@@ -56,11 +59,14 @@ export default function EditRole() {
     };
 
     useEffect(() => {
-        const body = {
-            id,
+        const requestBody = {
+            url: '/role/editRole.action',
+            data: {
+                id,
+            },
         };
 
-        editRole(body).then(({ fetchStatus, role, treeData, checkedKeys = [] }) => {
+        httpRequest.get(requestBody).then(({ fetchStatus, role, treeData, checkedKeys = [] }) => {
             setRole(role);
             setTreeData(treeData);
             setCheckedKeys(checkedKeys);

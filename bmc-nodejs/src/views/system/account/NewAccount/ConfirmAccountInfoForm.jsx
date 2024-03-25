@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, message, Table } from 'antd';
 
-import { addAccount } from '../redux/accountService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -11,18 +11,21 @@ export default function ConfirmAccountInfoForm({ prevStep, gotoList, formData })
     const submitForm = () => {
         const roleIds = formData.selectedRoles.map((role, key, roles) => role.id);
 
-        const form = {
-            name: formData.name?.trim(),
-            status: formData.status,
-            phoneNumber: formData.phoneNumber.length === 11 ? formData.phoneNumber?.trim() : undefined,
-            password: formData.password?.trim(),
-            confirmPassword: formData.confirmPassword?.trim(),
-            roleIds,
-        };
-
         setConfirmLoading(true);
 
-        addAccount(form).then(({ fetchStatus }) => {
+        const requestBody = {
+            url: '/account/addAccount.action',
+            data: {
+                name: formData.name?.trim(),
+                status: formData.status,
+                phoneNumber: formData.phoneNumber.length === 11 ? formData.phoneNumber?.trim() : undefined,
+                password: formData.password?.trim(),
+                confirmPassword: formData.confirmPassword?.trim(),
+                roleIds,
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {

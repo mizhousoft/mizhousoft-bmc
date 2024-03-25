@@ -3,7 +3,7 @@ import { Alert, Button, Form, InputNumber, message } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { fetchIdletimeout, modifyIdletimeout } from '../profileService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -15,7 +15,14 @@ export default function Idletimeout() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        modifyIdletimeout(values).then(({ fetchStatus }) => {
+        const requestBody = {
+            url: '/setting/idletimeout/modifyIdletimeout.action',
+            data: {
+                ...values,
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -27,7 +34,12 @@ export default function Idletimeout() {
     };
 
     useEffect(() => {
-        fetchIdletimeout().then(({ fetchStatus, idleTimeout }) => {
+        const requestBody = {
+            url: '/setting/idletimeout/fetchIdletimeout.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, idleTimeout }) => {
             setIdleTimeout(idleTimeout);
             setFetchStatus(fetchStatus);
         });

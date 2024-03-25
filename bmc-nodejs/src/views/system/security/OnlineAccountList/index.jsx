@@ -3,21 +3,24 @@ import { message, Popconfirm, Table } from 'antd';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/constants/common';
-import { fetchOnlineAccounts, logoffOnlineAccount } from '../redux/securityService';
+import httpRequest from '@/utils/http-request';
 
 export default function OnlineAccountList() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
 
     const fetchList = (pageNumber, pageSize) => {
-        const body = {
-            pageNumber,
-            pageSize,
-        };
-
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchOnlineAccounts(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+        const requestBody = {
+            url: '/system/fetchOnlineAccounts.action',
+            data: {
+                pageNumber,
+                pageSize,
+            },
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });
@@ -30,7 +33,14 @@ export default function OnlineAccountList() {
     const logoff = (record) => {
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        logoffOnlineAccount(record).then(({ fetchStatus }) => {
+        const requestBody = {
+            url: '/system/logoffOnlineAccount.action',
+            data: {
+                ...record,
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('退出帐号成功。');
                 refreshList();

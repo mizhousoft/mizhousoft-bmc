@@ -5,8 +5,8 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
-import { userLogin } from '@/session/sessionService';
 import SessionStore from '@/session/SessionStore';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -27,7 +27,14 @@ export default function Login() {
         // 清除本地缓存
         SessionStore.logout();
 
-        userLogin(values).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
+        const requestBody = {
+            url: '/login.action',
+            data: {
+                ...values,
+            },
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus, firstLogin, credentialsExpired, remindModifyPasswd }) => {
             if (fetchStatus.okey) {
                 if (firstLogin) {
                     navigate('/login/first');

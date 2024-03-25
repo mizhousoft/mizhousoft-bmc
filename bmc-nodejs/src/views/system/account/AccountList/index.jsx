@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router-dom';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE } from '@/constants/common';
+import httpRequest from '@/utils/http-request';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';
 import AuthPopconfirm from '@/views/components/AuthPopconfirm';
 import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../redux/accountSlice';
 import ResetAccountPasswd from '../ResetAccountPasswd';
-import { deleteAccount, disableAccount, enableAccount, fetchAccountInfoList, unlockAccount } from '../redux/accountService';
 
 export default function AccountList() {
     const dispatch = useDispatch();
@@ -25,15 +25,18 @@ export default function AccountList() {
     };
 
     const fetchList = (pageNumber, pageSize, filter) => {
-        const body = {
-            pageNumber,
-            pageSize,
-            status: filter.status,
-        };
-
         dispatch(fetchEvent({ filter }));
 
-        fetchAccountInfoList(body).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+        const requestBody = {
+            url: '/account/fetchAccountInfoList.action',
+            data: {
+                pageNumber,
+                pageSize,
+                status: filter.status,
+            },
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
             dispatch(
                 fetchResultEvent({
                     fetchStatus,
@@ -50,9 +53,14 @@ export default function AccountList() {
     const disableItem = (id) => {
         dispatch(actionEvent());
 
-        const body = { id };
+        const requestBody = {
+            url: '/account/disableAccount.action',
+            data: {
+                id,
+            },
+        };
 
-        disableAccount(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('禁用帐号成功。');
                 refreshList();
@@ -66,9 +74,14 @@ export default function AccountList() {
     const enableItem = (id) => {
         dispatch(actionEvent());
 
-        const body = { id };
+        const requestBody = {
+            url: '/account/enableAccount.action',
+            data: {
+                id,
+            },
+        };
 
-        enableAccount(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('启用帐号成功。');
                 refreshList();
@@ -82,9 +95,14 @@ export default function AccountList() {
     const unlockItem = (id) => {
         dispatch(actionEvent());
 
-        const body = { id };
+        const requestBody = {
+            url: '/account/unlockAccount.action',
+            data: {
+                id,
+            },
+        };
 
-        unlockAccount(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('解锁帐号成功。');
                 refreshList();
@@ -98,9 +116,14 @@ export default function AccountList() {
     const deleteItem = (id) => {
         dispatch(actionEvent());
 
-        const body = { id };
+        const requestBody = {
+            url: '/account/deleteAccount.action',
+            data: {
+                id,
+            },
+        };
 
-        deleteAccount(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('删除帐号成功。');
                 refreshList();

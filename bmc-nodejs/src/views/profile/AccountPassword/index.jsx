@@ -4,8 +4,8 @@ import { Alert, Button, Form, Input, message } from 'antd';
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
 import SessionStore from '@/session/SessionStore';
+import httpRequest from '@/utils/http-request';
 import PasswordNote from '@/views/components/PasswordNote';
-import { fetchPasswordStrategy, modifyAccountPassword } from '../profileService';
 
 const FormItem = Form.Item;
 
@@ -75,13 +75,16 @@ export default function AccountPassword() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {
-            password: values.password?.trim(),
-            newPassword: values.newPassword?.trim(),
-            confirmNewPassword: values.confirmPassword?.trim(),
+        const requestBody = {
+            url: '/setting/password/modifyPassword.action',
+            data: {
+                password: values.password?.trim(),
+                newPassword: values.newPassword?.trim(),
+                confirmNewPassword: values.confirmPassword?.trim(),
+            },
         };
 
-        modifyAccountPassword(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -94,7 +97,12 @@ export default function AccountPassword() {
     };
 
     useEffect(() => {
-        fetchPasswordStrategy().then(({ fetchStatus, passwordStrategy }) => {
+        const requestBody = {
+            url: '/setting/password/fetchPasswordStrategy.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, passwordStrategy }) => {
             setPasswordStrategy(passwordStrategy);
             setFetchStatus(fetchStatus);
         });

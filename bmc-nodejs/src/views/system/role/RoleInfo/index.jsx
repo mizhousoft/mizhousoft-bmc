@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
 import { LOADING_FETCH_STATUS } from '@/constants/common';
-import { fetchRoleInfo } from '../redux/roleService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -21,11 +21,14 @@ export default function RoleInfo() {
     };
 
     useEffect(() => {
-        const body = {
-            id,
+        const requestBody = {
+            url: '/role/fetchRoleInfo.action',
+            data: {
+                id,
+            },
         };
 
-        fetchRoleInfo(body).then(({ fetchStatus, role, treeData }) => {
+        httpRequest.get(requestBody).then(({ fetchStatus, role, treeData }) => {
             setRole(role);
             setTreeData(treeData);
             setFetchStatus(fetchStatus);

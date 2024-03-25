@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
-import { logout } from '@/session/sessionService';
-import { modifyExpiredPassword } from '../profileService';
+import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
@@ -35,13 +34,16 @@ export default function PasswordExpired() {
     const onFinish = (values) => {
         setConfirmLoading(true);
 
-        const body = {
-            password: values.password?.trim(),
-            newPassword: values.newPassword?.trim(),
-            confirmNewPassword: values.confirmPassword?.trim(),
+        const requestBody = {
+            url: '/setting/password/modifyExpiredPassword.action',
+            data: {
+                password: values.password?.trim(),
+                newPassword: values.newPassword?.trim(),
+                confirmNewPassword: values.confirmPassword?.trim(),
+            },
         };
 
-        modifyExpiredPassword(body).then(({ fetchStatus }) => {
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             setConfirmLoading(false);
 
             if (fetchStatus.okey) {
@@ -58,7 +60,12 @@ export default function PasswordExpired() {
     };
 
     const onLogout = () => {
-        logout().then(({ fetchStatus }) => {
+        const requestBody = {
+            url: '/logout.action',
+            data: {},
+        };
+
+        httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 window.location.href = CONTEXT_LOGIN_PATH;
             } else {
