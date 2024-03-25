@@ -109,15 +109,6 @@ CREATE TABLE IF NOT EXISTS `bmc_idletimeout` (
 
 
 -- -----------------------------------------------------
--- Table `bmc_object_identity`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bmc_object_identity` (
-  `name` VARCHAR(50) NOT NULL COMMENT '业务名称',
-  `value_x` BIGINT NULL COMMENT '自增ID值',
-  PRIMARY KEY (`name`))
-
-
--- -----------------------------------------------------
 -- Table `bmc_perm_resource`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `bmc_perm_resource` (
