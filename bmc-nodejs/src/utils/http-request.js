@@ -238,8 +238,11 @@ export default {
     download(fileUrl, filename, downloadOk, downloadFail) {
         const contentType = getFileContentType(filename);
 
+        let requestUrl = fileUrl;
         const headers = {};
         if (fileUrl.substring(0, 4) !== 'http') {
+            requestUrl = BASENAME + requestUrl;
+
             const csrfToken = SessionStore.getCsrfToken();
             if (undefined !== csrfToken) {
                 headers['X-Csrf-Token'] = csrfToken;
@@ -247,7 +250,7 @@ export default {
         }
 
         axios
-            .get(fileUrl, {
+            .get(requestUrl, {
                 responseType: 'blob',
                 headers,
             })
