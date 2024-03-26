@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FontIcon from '@/components/FontIcon';
 import { AButton } from '@/components/UIComponent';
-import { addEventListener, removeEventListener } from '@/utils/event-bus';
+import eventBus from '@/utils/event-bus';
 import httpRequest from '@/utils/http-request';
 
 let interval = 0;
@@ -53,11 +53,11 @@ export default function Notification() {
     useEffect(() => {
         interval = setInterval(fetchNotifications, 5000);
 
-        addEventListener('notification', listenEvent);
+        eventBus.addEventListener('notification', listenEvent);
 
         return () => {
             clearInterval(interval);
-            removeEventListener('notification', listenEvent);
+            eventBus.removeEventListener('notification', listenEvent);
         };
     }, []);
 
