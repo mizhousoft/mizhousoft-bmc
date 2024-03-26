@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import LogoutImg from '@/assets/imgs/icon-logout.png';
 import { AButton } from '@/components/UIComponent';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 
 export default function Logout() {

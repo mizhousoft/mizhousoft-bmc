@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'antd';
 
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AuthSwitch({ authId, defaultChecked, checkedChildren, unCheckedChildren, ...others }) {
     if (SessionStore.hasPermission(authId)) {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import NavigationMenu from '@/components/NavigationMenu';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AuthNavigationMenu({ topMenus, ...others }) {
     const filterAuthMenus = (menus) => {

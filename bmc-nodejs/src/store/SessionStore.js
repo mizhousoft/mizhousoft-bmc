@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
-import { GLOBAL_MENUS } from '@/config/globalMenu';
+import { GLOBAL_MENUS } from '@/config/global-menu';
 import DefaultUserStore from '@/store/DefaultUserStore';
 import httpRequest from '@/utils/http-request';
 

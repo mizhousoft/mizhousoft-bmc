@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AuthA({ authId, childrenVisible = false, disabled = false, children, ...others }) {
     if (disabled) {

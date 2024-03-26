@@ -140,35 +140,4 @@ export default {
 
         return s.join('');
     },
-
-    mergeTableRowSpan(list, attribute) {
-        list.forEach((item) => {
-            item.rowSpan = undefined;
-        });
-
-        for (let i = 0; i < list.length; ++i) {
-            for (let j = i + 1; j < list.length; ++j) {
-                const a = list[i];
-                const b = list[j];
-
-                if (a[attribute] === b[attribute]) {
-                    if (list[i].rowSpan) {
-                        list[i].rowSpan += 1;
-                    } else {
-                        list[i].rowSpan = 2;
-                    }
-
-                    list[j].rowSpan = 0;
-
-                    if (j === list.length - 1) {
-                        i = j;
-                        break;
-                    }
-                } else {
-                    i = j - 1;
-                    break;
-                }
-            }
-        }
-    },
 };

@@ -2,7 +2,7 @@ import { Modal } from 'antd';
 import axios from 'axios';
 
 import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 const ERROR_CODE_MAP = new Map([
     [401, '请先登录系统'],

@@ -3,7 +3,7 @@ import { Button, Col, Form, Input, message, Row, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
-import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 import AuthButton from '@/views/components/AuthButton';
 import AuthLink from '@/views/components/AuthLink';

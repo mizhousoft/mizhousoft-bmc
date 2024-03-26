@@ -6,7 +6,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import 'dayjs/locale/zh-cn';
 
-import router from '../routes';
+import router from '../router';
 
 import '@/assets/css/antd.css';
 import '@/assets/css/public.css';

@@ -3,7 +3,7 @@ import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
 import { PageException, PageLoading } from '@/components/UIComponent';
 import { CONTEXT_LOGIN_PATH } from '@/config/application';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;

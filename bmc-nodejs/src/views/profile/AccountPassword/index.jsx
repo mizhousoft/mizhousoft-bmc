@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button, Form, Input, message } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
-import SessionStore from '@/session/SessionStore';
+import { LOADING_FETCH_STATUS } from '@/config/common';
+import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 import PasswordNote from '@/views/components/PasswordNote';
 

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
 import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;

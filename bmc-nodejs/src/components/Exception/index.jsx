@@ -2,7 +2,7 @@ import React, { createElement } from 'react';
 import { Button } from 'antd';
 
 import { BASENAME } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 import './index.less';
 

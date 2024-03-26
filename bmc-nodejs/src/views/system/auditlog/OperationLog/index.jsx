@@ -3,7 +3,7 @@ import { Button, Col, DatePicker, Form, Input, Row, Table } from 'antd';
 import dayjs from 'dayjs';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
-import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/constants/common';
+import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 import ViewOperationLog from './ViewOperationLog';
 

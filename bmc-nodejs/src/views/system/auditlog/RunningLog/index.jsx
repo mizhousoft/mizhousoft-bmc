@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spin, Table, Tabs } from 'antd';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 
 export default function RunningLog() {

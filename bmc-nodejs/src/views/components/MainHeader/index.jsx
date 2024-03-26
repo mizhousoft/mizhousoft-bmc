@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, Layout, Row } from 'antd';
 
-import { GLOBAL_MENUS } from '@/config/globalMenu';
+import { GLOBAL_MENUS } from '@/config/global-menu';
 import AccountAvatar from '../AccountAvatar';
 import AuthNavigationMenu from '../AuthNavigationMenu';
 import Logo from '../Logo';

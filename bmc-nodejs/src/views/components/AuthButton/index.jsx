@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AuthButton({ authId, ...others }) {
     if (SessionStore.hasPermission(authId)) {

@@ -4,7 +4,7 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { PageLoading } from '@/components/UIComponent';
 import { BASENAME } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 import loginRoute from './loginRoute';
 import profileRoute from './profileRoute';
 import RequireAuth from './RequireAuth';

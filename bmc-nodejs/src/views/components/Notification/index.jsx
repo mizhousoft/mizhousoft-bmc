@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import FontIcon from '@/components/FontIcon';
 import { AButton } from '@/components/UIComponent';
-import { addEventListener, removeEventListener } from '@/utils/eventBus';
+import { addEventListener, removeEventListener } from '@/utils/event-bus';
 import httpRequest from '@/utils/http-request';
 
 let interval = 0;

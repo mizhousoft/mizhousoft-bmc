@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Sidebar from '@/components/Sidebar';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AuthSidebar({ siderMenus, path, ...others }) {
     const filterAuthMenus = (menus) => {

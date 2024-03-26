@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function NavigationMenu({ selectedTopMenuId, topMenus }) {
     const getTopMenuFirstPath = (topMenu) => {

@@ -3,7 +3,7 @@ import { Affix, Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
 import FontIcon from '@/components/FontIcon';
-import { findOpenMenuKeys, findSiderMenuId } from '@/utils/MenuUtils';
+import { findOpenMenuKeys, findSiderMenuId } from '@/utils/menu-utils';
 
 const { Sider } = Layout;
 

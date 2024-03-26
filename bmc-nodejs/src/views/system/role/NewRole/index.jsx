@@ -3,7 +3,7 @@ import { Button, Form, Input, message, Tree } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
-import { LOADING_FETCH_STATUS } from '@/constants/common';
+import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { message, Popconfirm, Table } from 'antd';
 
 import { getTableLocale, PageComponent } from '@/components/UIComponent';
-import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/constants/common';
+import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 
 export default function OnlineAccountList() {

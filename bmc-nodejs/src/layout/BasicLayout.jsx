@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { getTopMenuId, getTopSubMenus } from '@/config/globalMenu';
+import { getTopMenuId, getTopSubMenus } from '@/config/global-menu';
 import AuthSidebar from '@/views/components/AuthSidebar';
 import MainHeader from '@/views/components/MainHeader';
 

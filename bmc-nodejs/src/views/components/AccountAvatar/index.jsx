@@ -3,7 +3,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 import FontIcon from '@/components/FontIcon';
 import { LOGIN_PATH } from '@/config/application';
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function AccountAvatar({ isActive }) {
     const account = SessionStore.getAccount();

@@ -2,20 +2,26 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "@/assets/*": [
+                "./src/assets/*"
+            ],
+            "@/biz-components/*": [
+                "./src/biz-components/*"
+            ],
             "@/components/*": [
                 "./src/components/*"
             ],
             "@/config/*": [
                 "./src/config/*"
             ],
-            "@/constants/*": [
-                "./src/constants/*"
+            "@/layout/*": [
+                "./src/layout/*"
             ],
-            "@/session/*": [
-                "./src/session/*"
+            "@/redux/*": [
+                "./src/redux/*"
             ],
-            "@/assets/*": [
-                "./src/assets/*"
+            "@/store/*": [
+                "./src/store/*"
             ],
             "@/utils/*": [
                 "./src/utils/*"

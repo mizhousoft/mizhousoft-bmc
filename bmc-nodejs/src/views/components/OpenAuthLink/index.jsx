@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import SessionStore from '@/session/SessionStore';
+import SessionStore from '@/store/SessionStore';
 
 export default function OpenAuthLink({ authId, to, childrenVisible = false, children, ...others }) {
     if (SessionStore.hasPermission(authId)) {
