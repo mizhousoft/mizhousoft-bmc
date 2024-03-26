@@ -2,8 +2,8 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Outlet, useLocation } from 'react-router-dom';
 
+import MainHeader from '@/biz-components/MainHeader';
 import Sidebar from '@/components/Sidebar';
-import MainHeader from '@/views/components/MainHeader';
 
 const { Content } = Layout;
 

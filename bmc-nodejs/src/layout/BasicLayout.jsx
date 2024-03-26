@@ -2,9 +2,9 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Outlet, useLocation } from 'react-router-dom';
 
+import AuthSidebar from '@/biz-components/AuthSidebar';
+import MainHeader from '@/biz-components/MainHeader';
 import { getTopMenuId, getTopSubMenus } from '@/config/global-menu';
-import AuthSidebar from '@/views/components/AuthSidebar';
-import MainHeader from '@/views/components/MainHeader';
 
 const { Content } = Layout;
 

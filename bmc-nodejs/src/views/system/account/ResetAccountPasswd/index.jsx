@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 
+import AuthA from '@/biz-components/AuthA';
 import httpRequest from '@/utils/http-request';
-import AuthA from '@/views/components/AuthA';
 
 const FormItem = Form.Item;
 const formItemLayout = {

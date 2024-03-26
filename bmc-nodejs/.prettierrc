@@ -12,9 +12,8 @@
         "^(react|react-dom)$",
         "^([a-z]|@[a-z])",
         "",
-        "^(@/assets|@/components|@/config|@/constants|@/layout|@/session|@/store|@/utils|@/views/biz-components|@/views/components|@/views)(/.*)$",
-        "^(?!.*Service$)[./].*$",
-        "Service$",
+        "^(@/assets|@/biz-components|@/components|@/config|@/layout|@/redux|@/session|@/store|@/utils|@/views)(/.*)$",
+        "^[./].*$",
         ".css$",
         ".less$"
     ],

@@ -2,7 +2,7 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
-import EmptyHeader from '@/views/components/EmptyHeader';
+import EmptyHeader from '@/biz-components/EmptyHeader';
 
 const { Content } = Layout;
 
