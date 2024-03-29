@@ -37,7 +37,7 @@ export default function ProfileLayout({ siderMenuId }) {
         <Layout>
             <NavigationHeader activeKey='' menus={naviMenus} />
             <Layout className='mz-layout'>
-                <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={siderMenuId} path={location.pathname} />
+                <Sidebar siderMenus={SIDER_MENUS} activeKey={siderMenuId} path={location.pathname} />
                 <Content className='mz-layout-content'>
                     <Outlet />
                 </Content>
