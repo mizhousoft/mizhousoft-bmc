@@ -3,11 +3,12 @@ import { Col, message, Radio, Row, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import AuthButton from '@/biz-components/AuthButton';
-import AuthLink from '@/biz-components/AuthLink';
-import AuthPopconfirm from '@/biz-components/AuthPopconfirm';
-import { getTableLocale, PageComponent } from '@/components/UIComponent';
+import AuthButton from '@/components-biz/AuthButton';
+import AuthLink from '@/components-biz/AuthLink';
+import AuthPopconfirm from '@/components-biz/AuthPopconfirm';
+import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE } from '@/config/common';
+import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../../../../redux/accountSlice';
 import ResetAccountPasswd from '../ResetAccountPasswd';

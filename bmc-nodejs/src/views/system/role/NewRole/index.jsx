@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Tree } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
+import PageComponent from '@/components/PageComponent';
+import PageException from '@/components/PageException';
+import PageLoading from '@/components/PageLoading';
 import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 

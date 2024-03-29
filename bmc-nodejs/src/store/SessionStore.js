@@ -1,16 +1,14 @@
 import Cookies from 'js-cookie';
 
-import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
-import { GLOBAL_MENUS } from '@/config/global-menu';
+import { BASENAME } from '@/config/application';
 import DefaultUserStore from '@/store/DefaultUserStore';
-import httpRequest from '@/utils/http-request';
 
 let session;
 
 export default {
     isAuthenticated() {
         const account = this.getAccount();
-        if (account !== null) {
+        if (account !== null && account !== undefined) {
             return true;
         }
 
@@ -64,6 +62,15 @@ export default {
         return undefined;
     },
 
+    updateAccount(account) {
+        const csrfToken = this.getCsrfToken();
+
+        session = {
+            account,
+            csrfToken,
+        };
+    },
+
     getCsrfToken() {
         if (session !== undefined) {
             const { csrfToken } = session;
@@ -74,30 +81,6 @@ export default {
 
         const csrfToken = Cookies.get('csrf-token');
         return csrfToken;
-    },
-
-    initAccountInfo(callback) {
-        const requestBody = {
-            url: '/account/fetchMyAccountDetail.action',
-            data: {},
-        };
-
-        httpRequest.get(requestBody).then(({ fetchStatus, account, nowTime }) => {
-            if (fetchStatus.okey) {
-                const csrfToken = this.getCsrfToken();
-
-                session = {
-                    account,
-                    csrfToken,
-                };
-
-                if (callback) {
-                    callback();
-                }
-            } else {
-                window.location.href = CONTEXT_LOGIN_PATH;
-            }
-        });
     },
 
     hasPermission(authId) {
@@ -111,106 +94,5 @@ export default {
         }
 
         return false;
-    },
-
-    getHomePath() {
-        for (let i = 0; i < GLOBAL_MENUS.length; ++i) {
-            const topMenu = GLOBAL_MENUS[i];
-            if (!this.hasPermission(topMenu.id)) {
-                continue;
-            }
-
-            if (topMenu.path) {
-                return topMenu.path;
-            }
-
-            if (!topMenu.subMenus) {
-                continue;
-            }
-
-            for (let j = 0; j < topMenu.subMenus.length; ++j) {
-                const subMenu = topMenu.subMenus[j];
-                if (!this.hasPermission(subMenu.id)) {
-                    continue;
-                }
-
-                if (subMenu.path) {
-                    return subMenu.path;
-                }
-
-                if (!subMenu.subMenus) {
-                    continue;
-                }
-
-                for (let k = 0; k < subMenu.subMenus.length; ++k) {
-                    const childMenu = subMenu.subMenus[k];
-                    if (!this.hasPermission(childMenu.id)) {
-                        continue;
-                    }
-
-                    if (childMenu.path) {
-                        return childMenu.path;
-                    }
-                }
-            }
-        }
-
-        // 当没有任何权限，跳转到我的帐号信息页面
-        return '/profile/account';
-    },
-
-    getFirstAccessiblePath(menus) {
-        for (let i = 0; i < menus.length; ++i) {
-            const menu = menus[i];
-            if (!this.hasPermission(menu.id)) {
-                continue;
-            }
-
-            if (menu.path) {
-                return menu.path;
-            }
-
-            if (!menu.subMenus) {
-                continue;
-            }
-
-            for (let j = 0; j < menu.subMenus.length; ++j) {
-                const subMenu = menu.subMenus[j];
-                if (!this.hasPermission(subMenu.id)) {
-                    continue;
-                }
-
-                if (subMenu.path) {
-                    return subMenu.path;
-                }
-
-                if (!subMenu.subMenus) {
-                    continue;
-                }
-
-                for (let k = 0; k < subMenu.subMenus.length; ++k) {
-                    const childMenu = subMenu.subMenus[k];
-                    if (!this.hasPermission(childMenu.id)) {
-                        continue;
-                    }
-
-                    if (childMenu.path) {
-                        return childMenu.path;
-                    }
-                }
-            }
-        }
-
-        // 当没有任何权限，跳转到我的帐号信息页面
-        return null;
-    },
-
-    getFirstAccessibleUrl(menus) {
-        const path = this.getFirstAccessiblePath(menus);
-        if (path === null) {
-            return path;
-        }
-
-        return BASENAME + path;
     },
 };

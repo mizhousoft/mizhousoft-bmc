@@ -12,7 +12,7 @@
         "^(react|react-dom)$",
         "^([a-z]|@[a-z])",
         "",
-        "^(@/assets|@/biz-components|@/components|@/config|@/layout|@/redux|@/session|@/store|@/utils|@/views)(/.*)$",
+        "^(@/assets|@/components-biz|@/components|@/config|@/layout|@/redux|@/session|@/store|@/utils|@/views)(/.*)$",
         "^[./].*$",
         ".css$",
         ".less$"

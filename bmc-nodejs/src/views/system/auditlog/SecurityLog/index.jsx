@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, DatePicker, Form, Input, Row, Table } from 'antd';
 import dayjs from 'dayjs';
 
-import { getTableLocale, PageComponent } from '@/components/UIComponent';
+import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
+import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 import ViewSecurityLog from './ViewSecurityLog';
 

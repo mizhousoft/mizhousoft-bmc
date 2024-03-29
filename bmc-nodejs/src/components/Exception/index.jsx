@@ -1,14 +1,11 @@
-import React, { createElement } from 'react';
+import React from 'react';
 import { Button } from 'antd';
-
-import { BASENAME } from '@/config/application';
-import SessionStore from '@/store/SessionStore';
 
 import './index.less';
 
 import config from './typeConfig';
 
-export default function Exception({ img, type, title, desc, actions }) {
+export default function Exception({ img, type, title, desc, goBack, height }) {
     let statusCode = 404;
     if (type === 401) {
         statusCode = 401;
@@ -21,10 +18,9 @@ export default function Exception({ img, type, title, desc, actions }) {
     }
 
     const pageType = statusCode in config ? statusCode : '404';
-    const toUrl = BASENAME + SessionStore.getHomePath();
 
     return (
-        <div className='exception'>
+        <div className='mz-exception' style={{ height }}>
             <div className='imgBlock'>
                 <div className='imgEle' style={{ backgroundImage: `url(${img || config[pageType].img})` }} />
             </div>
@@ -32,15 +28,11 @@ export default function Exception({ img, type, title, desc, actions }) {
                 <h1>{title || config[pageType].title}</h1>
                 <div className='desc'>{desc || config[pageType].desc}</div>
                 <div className='actions'>
-                    {actions ||
-                        createElement(
-                            'a',
-                            {
-                                to: toUrl,
-                                href: toUrl,
-                            },
-                            <Button type='primary'>返回首页</Button>
-                        )}
+                    {undefined !== goBack && (
+                        <Button type='primary' onClick={goBack}>
+                            返回
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

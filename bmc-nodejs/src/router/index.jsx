@@ -2,54 +2,53 @@ import React, { Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import ErrorBoundary from '@/components/ErrorBoundary';
-import { PageLoading } from '@/components/UIComponent';
+import PageLoading from '@/components/PageLoading';
 import { BASENAME } from '@/config/application';
-import SessionStore from '@/store/SessionStore';
-import loginRoute from './loginRoute';
-import profileRoute from './profileRoute';
-import RequireAuth from './RequireAuth';
-import systemRoutes from './systemRoute';
+import menuUtils from '@/utils/menu-utils';
+import authcLoader from './authcLoader';
+import routes from './routes';
 
-const routes = [...loginRoute, ...systemRoutes, ...profileRoute];
+const routeList = routes;
 
-routes.forEach((route) => {
+const defaultPath = menuUtils.getHomePath();
+
+function recursive(route) {
+    const { element } = route;
+
+    route.errorElement = <ErrorBoundary />;
+    route.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
+
     if (route.children) {
         route.children.forEach((child) => {
-            const { element } = child;
-            child.errorElement = <ErrorBoundary />;
-
-            if (undefined === child.authz || child.authz) {
-                child.element = (
-                    <RequireAuth>
-                        <Suspense fallback={<PageLoading />}>{element}</Suspense>
-                    </RequireAuth>
-                );
-            } else {
-                child.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
-            }
+            recursive(child);
         });
-    } else if (route.component) {
-        const { element } = route;
-        route.errorElement = <ErrorBoundary />;
 
-        if (undefined === route.authz || route.authz) {
-            route.element = (
-                <RequireAuth>
-                    <Suspense fallback={<PageLoading />}>{element}</Suspense>
-                </RequireAuth>
-            );
-        } else {
-            route.element = <Suspense fallback={<PageLoading />}>{element}</Suspense>;
+        const indexRoute = route.children.find((item) => item.index);
+        if (undefined === indexRoute) {
+            route.children.push({
+                index: true,
+                element: <Navigate to={defaultPath} replace />,
+            });
         }
+    }
+}
+
+routeList.forEach((route) => {
+    if (route.authz) {
+        route.loader = authcLoader;
+    }
+
+    if (route.children) {
+        recursive(route);
     }
 });
 
-routes.push({
+routeList.push({
     path: '*',
-    element: <Navigate to={SessionStore.getHomePath()} replace />,
+    element: <Navigate to={defaultPath} replace />,
 });
 
-const router = createBrowserRouter(routes, {
+const router = createBrowserRouter(routeList, {
     basename: BASENAME,
 });
 

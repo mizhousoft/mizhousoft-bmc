@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { message, Popconfirm, Table } from 'antd';
 
-import { getTableLocale, PageComponent } from '@/components/UIComponent';
+import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS, SUCCEED_FETCH_STATUS } from '@/config/common';
+import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
 export default function OnlineAccountList() {

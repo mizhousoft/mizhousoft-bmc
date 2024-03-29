@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spin, Table, Tabs } from 'antd';
 
-import { PageComponent, PageException, PageLoading } from '@/components/UIComponent';
+import PageComponent from '@/components/PageComponent';
+import PageException from '@/components/PageException';
+import PageLoading from '@/components/PageLoading';
 import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 

@@ -2,60 +2,18 @@ import React from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
-import SessionStore from '@/store/SessionStore';
+export default function NavigationMenu({ activeKey, menus }) {
+    const selectedKeys = [activeKey];
 
-export default function NavigationMenu({ selectedTopMenuId, topMenus }) {
-    const getTopMenuFirstPath = (topMenu) => {
-        if (topMenu.path) {
-            return topMenu.path;
-        }
-        if (topMenu.subMenus) {
-            for (let j = 0; j < topMenu.subMenus.length; ++j) {
-                const subMenu = topMenu.subMenus[j];
-                if (!SessionStore.hasPermission(subMenu.id)) {
-                    continue;
-                }
+    const items = menus.map((menu) => ({
+        key: menu.id,
+        label: (
+            <Link to={menu.path} replace>
+                <span className={menu.iconClass} />
+                {menu.name}
+            </Link>
+        ),
+    }));
 
-                if (subMenu.path) {
-                    return subMenu.path;
-                }
-
-                if (!subMenu.subMenus) {
-                    continue;
-                }
-
-                for (let k = 0; k < subMenu.subMenus.length; ++k) {
-                    const childMenu = subMenu.subMenus[k];
-                    if (!SessionStore.hasPermission(childMenu.id)) {
-                        continue;
-                    }
-
-                    if (childMenu.path) {
-                        return childMenu.path;
-                    }
-                }
-            }
-        }
-
-        return null;
-    };
-
-    const selectedKeys = [selectedTopMenuId];
-
-    const menuItems = [];
-    topMenus.forEach((topMenu) => {
-        const path = getTopMenuFirstPath(topMenu);
-
-        menuItems.push({
-            key: topMenu.id,
-            label: (
-                <Link to={path} replace>
-                    <span className={topMenu.iconClass} />
-                    {topMenu.name}
-                </Link>
-            ),
-        });
-    });
-
-    return <Menu mode='horizontal' selectedKeys={selectedKeys} className='mz-navigation-menu' items={menuItems} />;
+    return <Menu mode='horizontal' selectedKeys={selectedKeys} items={items} className='mz-navigation-menu' />;
 }

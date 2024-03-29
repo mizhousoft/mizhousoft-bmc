@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
 import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
+import menuUtils from '@/utils/menu-utils';
 
 const FormItem = Form.Item;
 
@@ -14,6 +15,22 @@ export default function Login() {
     const navigate = useNavigate();
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [uError, setError] = useState('');
+
+    const fetchAccountDetail = () => {
+        const requestBody = {
+            url: '/account/fetchMyAccountDetail.action',
+            data: {},
+        };
+
+        httpRequest.get(requestBody).then(({ fetchStatus, account, nowTime }) => {
+            if (fetchStatus.okey) {
+                SessionStore.updateAccount(account);
+
+                const homePath = menuUtils.getHomePath();
+                window.location.href = BASENAME + homePath;
+            }
+        });
+    };
 
     const onFinish = (values) => {
         setError('');
@@ -43,10 +60,7 @@ export default function Login() {
                 } else if (remindModifyPasswd) {
                     navigate('/password/expiring');
                 } else {
-                    SessionStore.initAccountInfo(() => {
-                        const homePath = SessionStore.getHomePath();
-                        window.location.href = BASENAME + homePath;
-                    });
+                    fetchAccountDetail();
                 }
             } else {
                 setError(fetchStatus.message);

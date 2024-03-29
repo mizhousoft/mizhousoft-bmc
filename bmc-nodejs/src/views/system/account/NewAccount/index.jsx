@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Steps } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import { PageComponent } from '@/components/UIComponent';
+import PageComponent from '@/components/PageComponent';
 import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
 import InputAccountInfo from './InputAccountInfo';
 import SelectRoleForm from './SelectRoleForm';

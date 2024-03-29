@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Modal, Table } from 'antd';
 
-import { getTableLocale } from '@/components/UIComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
+import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
 export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onChange }) {

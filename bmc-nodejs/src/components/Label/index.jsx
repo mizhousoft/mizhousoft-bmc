@@ -36,10 +36,14 @@ function Label(props, ref) {
     }));
 
     const extendClass = isExtendMore ? 'expand-label' : '';
+    let titleClass = title ? 'title ' : '';
+    if (required) {
+        titleClass += 'required';
+    }
 
     return (
         <div className='mz-label' style={style}>
-            <span className={required ? 'title required' : 'title'}>{title}</span>
+            <span className={titleClass}>{title}</span>
             <div className={`collection ${extendClass}`}>
                 {items.map((item) => (
                     <LabelItem key={item.key} item={item} selected={item.value === selectedValue} clickItemEvent={clickItemEvent} />

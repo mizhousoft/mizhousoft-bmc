@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 
-import AuthA from '@/biz-components/AuthA';
+import AuthA from '@/components-biz/AuthA';
 import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;

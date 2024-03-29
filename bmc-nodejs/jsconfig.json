@@ -5,11 +5,11 @@
             "@/assets/*": [
                 "./src/assets/*"
             ],
-            "@/biz-components/*": [
-                "./src/biz-components/*"
-            ],
             "@/components/*": [
                 "./src/components/*"
+            ],
+            "@/components-biz/*": [
+                "./src/components-biz/*"
             ],
             "@/config/*": [
                 "./src/config/*"

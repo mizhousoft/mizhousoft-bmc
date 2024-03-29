@@ -2,8 +2,9 @@ import React from 'react';
 import { Layout } from 'antd';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import MainHeader from '@/biz-components/MainHeader';
-import Sidebar from '@/components/Sidebar';
+import NavigationHeader from '@/components-biz/NavigationHeader';
+import Sidebar from '@/components-biz/Sidebar';
+import menuUtils from '@/utils/menu-utils';
 
 const { Content } = Layout;
 
@@ -30,10 +31,11 @@ const SIDER_MENUS = [
 
 export default function ProfileLayout({ siderMenuId }) {
     const location = useLocation();
+    const naviMenus = menuUtils.getNavigationMenus();
 
     return (
         <Layout>
-            <MainHeader selectedTopMenuId='' />
+            <NavigationHeader activeKey='' menus={naviMenus} />
             <Layout className='mz-layout'>
                 <Sidebar siderMenus={SIDER_MENUS} selectedMenuId={siderMenuId} path={location.pathname} />
                 <Content className='mz-layout-content'>
