@@ -11,7 +11,7 @@ import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
 
-export default function AccountPassword() {
+export default function PasswordEdit() {
     const [form] = Form.useForm();
 
     const [confirmLoading, setConfirmLoading] = useState(false);

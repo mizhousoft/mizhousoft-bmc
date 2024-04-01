@@ -72,10 +72,10 @@
         "webpack-dev-server": "5.0.4"
     },
     "dependencies": {
-        "@ant-design/icons": "5.3.5",
+        "@ant-design/icons": "5.3.6",
         "@ant-design/plots": "2.1.15",
-        "@reduxjs/toolkit": "2.2.2",
-        "antd": "5.15.4",
+        "@reduxjs/toolkit": "2.2.3",
+        "antd": "5.16.0",
         "axios": "1.6.8",
         "dayjs": "1.11.10",
         "js-cookie": "3.0.5",

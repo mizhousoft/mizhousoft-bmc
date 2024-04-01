@@ -24,7 +24,7 @@ const columns = [
     },
 ];
 
-export default function MyAccountInfo() {
+export default function AccountProfile() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [uAccount, setAccount] = useState(undefined);
     const [uRoles, setRoles] = useState([]);

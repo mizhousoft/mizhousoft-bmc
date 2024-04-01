@@ -3,15 +3,15 @@ import React from 'react';
 import GenericLayout from '@/layout/GenericLayout';
 import ProfileLayout from '@/layout/ProfileLayout';
 import SiderLayout from '@/layout/SiderLayout';
-import Login from '@/views/Login';
+import Login from '@/views/account/Login';
 
-const FirstLogin = React.lazy(() => import('@/views/profile/FirstLogin'));
-const PasswordExpired = React.lazy(() => import('@/views/profile/PasswordExpired'));
-const PasswordExpiring = React.lazy(() => import('@/views/profile/PasswordExpiring'));
+const FirstLogin = React.lazy(() => import('@/views/account/FirstLogin'));
+const PasswordExpired = React.lazy(() => import('@/views/account/PasswordExpired'));
+const PasswordExpiring = React.lazy(() => import('@/views/account/PasswordExpiring'));
 
-const MyAccountInfo = React.lazy(() => import('@/views/profile/MyAccountInfo'));
-const AccountPassword = React.lazy(() => import('@/views/profile/AccountPassword'));
-const Idletimeout = React.lazy(() => import('@/views/profile/Idletimeout'));
+const AccountProfile = React.lazy(() => import('@/views/account/AccountProfile'));
+const PasswordEdit = React.lazy(() => import('@/views/account/PasswordEdit'));
+const Idletimeout = React.lazy(() => import('@/views/account/Idletimeout'));
 
 const AccountList = React.lazy(() => import('@/views/system/account/AccountList'));
 const NewAccount = React.lazy(() => import('@/views/system/account/NewAccount'));
@@ -74,7 +74,7 @@ const routes = [
         children: [
             {
                 index: true,
-                element: <MyAccountInfo />,
+                element: <AccountProfile />,
                 authz: true,
             },
         ],
@@ -85,7 +85,7 @@ const routes = [
         children: [
             {
                 index: true,
-                element: <AccountPassword />,
+                element: <PasswordEdit />,
                 authz: true,
             },
         ],
