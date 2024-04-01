@@ -1,7 +1,7 @@
 import { Modal } from 'antd';
 import axios from 'axios';
 
-import { BASENAME, CONTEXT_LOGIN_PATH } from '@/config/application';
+import { BASENAME, LOGIN_ABSOLUTE_PATH } from '@/config/application';
 import SessionStore from '@/store/SessionStore';
 
 const ERROR_CODE_MAP = new Map([
@@ -47,12 +47,12 @@ instance.interceptors.response.use(
                         exitModal = undefined;
 
                         SessionStore.logout();
-                        window.location.href = CONTEXT_LOGIN_PATH;
+                        window.location.href = LOGIN_ABSOLUTE_PATH;
                     },
                 });
             } else {
                 SessionStore.logout();
-                window.location.href = CONTEXT_LOGIN_PATH;
+                window.location.href = LOGIN_ABSOLUTE_PATH;
             }
 
             return Promise.reject(error);

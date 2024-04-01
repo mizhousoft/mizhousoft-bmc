@@ -2,7 +2,7 @@ import React from 'react';
 import { Modal } from 'antd';
 
 import LogoutImg from '@/assets/imgs/icon-logout.png';
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { LOGIN_ABSOLUTE_PATH } from '@/config/application';
 import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 
@@ -27,7 +27,7 @@ export default function Logout() {
                     SessionStore.logout();
 
                     if (fetchStatus.okey) {
-                        window.location.href = CONTEXT_LOGIN_PATH;
+                        window.location.href = LOGIN_ABSOLUTE_PATH;
                     }
                 });
             },

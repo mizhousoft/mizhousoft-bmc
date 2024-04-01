@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { LOGIN_ABSOLUTE_PATH } from '@/config/application';
 import httpRequest from '@/utils/http-request';
 
 const FormItem = Form.Item;
@@ -50,7 +50,7 @@ export default function PasswordExpired() {
                 message.success('修改密码成功，2秒后自动跳转到登录界面重新登录。');
 
                 const timeoutId = setTimeout(() => {
-                    window.location.href = CONTEXT_LOGIN_PATH;
+                    window.location.href = LOGIN_ABSOLUTE_PATH;
                 }, 2000);
                 timeoutRef.current = timeoutId;
             } else {
@@ -67,7 +67,7 @@ export default function PasswordExpired() {
 
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
-                window.location.href = CONTEXT_LOGIN_PATH;
+                window.location.href = LOGIN_ABSOLUTE_PATH;
             } else {
                 message.error(fetchStatus.message);
             }

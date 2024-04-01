@@ -3,7 +3,7 @@ import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
 import PageException from '@/components/PageException';
 import PageLoading from '@/components/PageLoading';
-import { CONTEXT_LOGIN_PATH } from '@/config/application';
+import { LOGIN_ABSOLUTE_PATH } from '@/config/application';
 import { LOADING_FETCH_STATUS } from '@/config/common';
 import httpRequest from '@/utils/http-request';
 
@@ -55,7 +55,7 @@ export default function PasswordExpiring() {
                 message.success('修改密码成功，2秒后自动跳转到登录界面重新登录。');
 
                 const timeoutId = setTimeout(() => {
-                    window.location.href = CONTEXT_LOGIN_PATH;
+                    window.location.href = LOGIN_ABSOLUTE_PATH;
                 }, 2000);
                 timeoutRef.current = timeoutId;
             } else {
@@ -72,7 +72,7 @@ export default function PasswordExpiring() {
 
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
-                window.location.href = CONTEXT_LOGIN_PATH;
+                window.location.href = LOGIN_ABSOLUTE_PATH;
             } else {
                 message.error(fetchStatus.message);
             }

@@ -4,7 +4,7 @@ import { Alert, Button, Card, Form, Input } from 'antd';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
-import { BASENAME, COMPANY, LOGIN_TITLE } from '@/config/application';
+import { APPLICATION_NAME, BASENAME, COMPANY } from '@/config/application';
 import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 import menuUtils from '@/utils/menu-utils';
@@ -79,7 +79,7 @@ export default function Login() {
                         password: ENV_TEST_PASSWORD,
                     }}
                 >
-                    <h2 style={{ textAlign: 'center', paddingBottom: '30px' }}>{LOGIN_TITLE}</h2>
+                    <h2 style={{ textAlign: 'center', paddingBottom: '30px' }}>{APPLICATION_NAME}登录</h2>
                     <FormItem name='account' rules={[{ required: true, message: '请输入帐号！' }]}>
                         <Input prefix={<UserOutlined />} size='large' placeholder='请输入帐号' autoComplete='new-password' maxLength={32} />
                     </FormItem>
