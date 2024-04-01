@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, Spin, Table, Tabs } from 'antd';
+import { Button, Modal, Spin, Table } from 'antd';
 
 import PageComponent from '@/components/PageComponent';
 import PageException from '@/components/PageException';
@@ -9,31 +9,7 @@ import httpRequest from '@/utils/http-request';
 
 export default function RunningLog() {
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uActiveLogname, setActiveLogname] = useState(undefined);
-    const [uLognames, setLognames] = useState([]);
     const [uLogFiles, setLogFiles] = useState([]);
-
-    const fetchRunningLogFiles = (logname) => {
-        const requestBody = {
-            url: '/runninglog/fetchRunningLogFileNames.action',
-            data: {
-                logname,
-            },
-        };
-
-        httpRequest.get(requestBody).then(({ fetchStatus, logFiles = [] }) => {
-            setLogFiles(logFiles);
-            setFetchStatus(fetchStatus);
-        });
-    };
-
-    const onChange = (value) => {
-        setActiveLogname(value);
-        setLogFiles([]);
-        setFetchStatus(LOADING_FETCH_STATUS);
-
-        fetchRunningLogFiles(value);
-    };
 
     const downloadFileAction = (logname) => {
         const modal = Modal.info({
@@ -66,9 +42,7 @@ export default function RunningLog() {
             data: {},
         };
 
-        httpRequest.get(requestBody).then(({ fetchStatus, activeLogname, lognames = [], logFiles = [] }) => {
-            setActiveLogname(activeLogname);
-            setLognames(lognames);
+        httpRequest.get(requestBody).then(({ fetchStatus, logFiles = [] }) => {
             setLogFiles(logFiles);
             setFetchStatus(fetchStatus);
         });
@@ -84,6 +58,11 @@ export default function RunningLog() {
             title: '文件大小',
             dataIndex: 'size',
             key: 'size',
+        },
+        {
+            title: '最后修改时间',
+            dataIndex: 'lastModified',
+            key: 'lastModified',
         },
         {
             title: '操作',
@@ -107,18 +86,9 @@ export default function RunningLog() {
         return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
     }
 
-    const tabItems = [];
-    uLognames.forEach((logname) => {
-        tabItems.push({
-            label: logname,
-            key: logname,
-            children: <Table columns={columns} dataSource={uLogFiles} rowKey={(record) => record.name} size='middle' pagination={false} />,
-        });
-    });
-
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
-            <Tabs hideAdd onChange={onChange} activeKey={uActiveLogname} items={tabItems} />
+            <Table columns={columns} dataSource={uLogFiles} rowKey={(record) => record.name} size='middle' pagination={false} />
         </PageComponent>
     );
 }

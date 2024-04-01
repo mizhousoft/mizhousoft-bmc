@@ -12,3 +12,7 @@ delete from bmc_role_permission where permName = 'bmc.auditlog.api';
 
 
 drop table bmc_object_identity;
+
+
+delete from bmc_perm_resource where permName = 'bmc.running.log' and path = '/runninglog/fetchRunningLogFileNames.action';
+

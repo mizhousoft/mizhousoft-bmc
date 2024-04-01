@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mizhousoft.bmc.auditlog.domain.LogFile;
 import com.mizhousoft.commons.lang.CharEncoding;
+import com.mizhousoft.commons.lang.LocalDateTimeUtils;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -46,9 +47,6 @@ public class LocalFileLogsFetchController
 
 	@Value("${logs.run.basedir}")
 	private String runBaseDir;
-
-	@Value("${logs.rolling.basedir}")
-	private String rollingBaseDir;
 
 	@Value("${logs.download.filters}")
 	private String filters;
@@ -79,25 +77,13 @@ public class LocalFileLogsFetchController
 		}
 
 		lognames = filterLogName(lognames);
-		map.put("lognames", lognames);
 
-		if (!lognames.isEmpty())
+		List<LogFile> logFiles = new ArrayList<>(10);
+		for (String logname : lognames)
 		{
-			map.put("activeLogname", lognames.get(0));
-
-			List<LogFile> logFiles = getLogFileNames(lognames.get(0));
-			map.put("logFiles", logFiles);
+			List<LogFile> files = getLogFileNames(logname);
+			logFiles.addAll(files);
 		}
-
-		return map;
-	}
-
-	@RequestMapping(value = "/runninglog/fetchRunningLogFileNames.action", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ModelMap fetchRunningLogFileNames(@RequestParam("logname") String logname)
-	{
-		ModelMap map = new ModelMap();
-
-		List<LogFile> logFiles = getLogFileNames(logname);
 		map.put("logFiles", logFiles);
 
 		return map;
@@ -117,10 +103,6 @@ public class LocalFileLogsFetchController
 		}
 
 		File file = new File(runBaseDir, logname);
-		if (!file.exists())
-		{
-			file = new File(rollingBaseDir, logname);
-		}
 
 		byte[] buffer = new byte[1024];
 
@@ -185,31 +167,9 @@ public class LocalFileLogsFetchController
 					File file = new File(dir, name);
 					String size = FileUtils.byteCountToDisplaySize(file.length());
 					logFile.setSize(size);
+					logFile.setLastModified(LocalDateTimeUtils.toLocalDateTime(file.lastModified() / 1000));
 
 					logFilenames.add(logFile);
-				}
-			}
-		}
-
-		if (!runBaseDir.equals(rollingBaseDir))
-		{
-			dir = new File(rollingBaseDir);
-			filenames = dir.list();
-			if (null != filenames)
-			{
-				for (String name : filenames)
-				{
-					if (name.contains(logname))
-					{
-						LogFile logFile = new LogFile();
-						logFile.setName(name);
-
-						File file = new File(dir, name);
-						String size = FileUtils.byteCountToDisplaySize(file.length());
-						logFile.setSize(size);
-
-						logFilenames.add(logFile);
-					}
 				}
 			}
 		}

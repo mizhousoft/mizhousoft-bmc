@@ -154,7 +154,6 @@ INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`
 VALUES ('BMC',1,'bmc.auditlog.security','bmc.auditlog.management','安全日志','Security Log',true,NULL,NULL);
 
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/fetchRunningLogNames.action');
-INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/fetchRunningLogFileNames.action');
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.running.log','/runninglog/downloadRunningLogFile.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.running.log','bmc.auditlog.management','本地日志','Running Log',true,NULL,NULL);

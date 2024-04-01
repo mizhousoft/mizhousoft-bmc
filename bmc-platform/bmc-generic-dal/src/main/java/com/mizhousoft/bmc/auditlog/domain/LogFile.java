@@ -1,5 +1,9 @@
 package com.mizhousoft.bmc.auditlog.domain;
 
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 日志文件
  *
@@ -12,6 +16,10 @@ public class LogFile implements Comparable<LogFile>
 
 	// 大小
 	private String size;
+
+	// 最后修改时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+	private LocalDateTime lastModified;
 
 	/**
 	 * 获取name
@@ -51,6 +59,26 @@ public class LogFile implements Comparable<LogFile>
 	public void setSize(String size)
 	{
 		this.size = size;
+	}
+
+	/**
+	 * 获取lastModified
+	 * 
+	 * @return
+	 */
+	public LocalDateTime getLastModified()
+	{
+		return lastModified;
+	}
+
+	/**
+	 * 设置lastModified
+	 * 
+	 * @param lastModified
+	 */
+	public void setLastModified(LocalDateTime lastModified)
+	{
+		this.lastModified = lastModified;
 	}
 
 	/**

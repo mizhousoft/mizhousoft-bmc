@@ -104,6 +104,32 @@ export default {
         return [];
     },
 
+    getVisibleMenus() {
+        const menus = [];
+
+        for (let i = 0; i < globalMenus.length; ++i) {
+            const topMenu = globalMenus[i];
+            if (!SessionStore.hasPermission(topMenu.id)) {
+                continue;
+            }
+
+            const children = this.getMenuChildren(topMenu.id);
+            if (children.length === 0) {
+                continue;
+            }
+
+            const menu = {
+                id: topMenu.id,
+                name: topMenu.name,
+                iconFont: topMenu.iconFont,
+                children,
+            };
+            menus.push(menu);
+        }
+
+        return menus;
+    },
+
     getHomePath() {
         for (let i = 0; i < globalMenus.length; ++i) {
             const topMenu = globalMenus[i];
