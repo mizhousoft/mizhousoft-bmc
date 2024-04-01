@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import FontIcon from '@/components/FontIcon';
 import menuUtils from '@/utils/menu-utils';
 
+import './index.css';
+
 const { Sider } = Layout;
 
 export default function Sidebar({ header, footer, siderMenus, path, activeKey, height = '100%' }) {

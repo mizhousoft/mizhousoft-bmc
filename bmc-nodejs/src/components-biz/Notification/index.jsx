@@ -6,6 +6,8 @@ import FontIcon from '@/components/FontIcon';
 import eventBus from '@/utils/event-bus';
 import httpRequest from '@/utils/http-request';
 
+import './index.css';
+
 let interval = 0;
 let fetchTime = 0;
 
