@@ -1,8 +1,8 @@
 import React from 'react';
 
 import GenericLayout from '@/layout/GenericLayout';
+import NaviSiderLayout from '@/layout/NaviSiderLayout';
 import ProfileLayout from '@/layout/ProfileLayout';
-import SiderLayout from '@/layout/SiderLayout';
 import Login from '@/views/account/Login';
 
 const FirstLogin = React.lazy(() => import('@/views/account/FirstLogin'));
@@ -103,7 +103,7 @@ const routes = [
     },
     {
         path: '/account',
-        element: <SiderLayout siderMenuId='bmc.account.list' />,
+        element: <NaviSiderLayout siderMenuId='bmc.account.list' />,
         children: [
             {
                 path: 'list',
@@ -124,7 +124,7 @@ const routes = [
     },
     {
         path: '/role',
-        element: <SiderLayout siderMenuId='bmc.role.list' />,
+        element: <NaviSiderLayout siderMenuId='bmc.role.list' />,
         children: [
             {
                 path: 'list',
@@ -150,7 +150,7 @@ const routes = [
     },
     {
         path: '/auditlog/operate',
-        element: <SiderLayout siderMenuId='bmc.auditlog.operation' />,
+        element: <NaviSiderLayout siderMenuId='bmc.auditlog.operation' />,
         children: [
             {
                 path: 'list',
@@ -161,7 +161,7 @@ const routes = [
     },
     {
         path: '/auditlog/security',
-        element: <SiderLayout siderMenuId='bmc.auditlog.security' />,
+        element: <NaviSiderLayout siderMenuId='bmc.auditlog.security' />,
         children: [
             {
                 path: 'list',
@@ -172,7 +172,7 @@ const routes = [
     },
     {
         path: '/running/log',
-        element: <SiderLayout siderMenuId='bmc.running.log' />,
+        element: <NaviSiderLayout siderMenuId='bmc.running.log' />,
         children: [
             {
                 path: 'list',
@@ -183,7 +183,7 @@ const routes = [
     },
     {
         path: '/saccount/strategy',
-        element: <SiderLayout siderMenuId='bmc.account.strategy' />,
+        element: <NaviSiderLayout siderMenuId='bmc.account.strategy' />,
         children: [
             {
                 index: true,
@@ -194,7 +194,7 @@ const routes = [
     },
     {
         path: '/password/strategy',
-        element: <SiderLayout siderMenuId='bmc.password.strategy' />,
+        element: <NaviSiderLayout siderMenuId='bmc.password.strategy' />,
         children: [
             {
                 index: true,
@@ -205,7 +205,7 @@ const routes = [
     },
     {
         path: '/online/account',
-        element: <SiderLayout siderMenuId='bmc.account.online' />,
+        element: <NaviSiderLayout siderMenuId='bmc.account.online' />,
         children: [
             {
                 index: true,

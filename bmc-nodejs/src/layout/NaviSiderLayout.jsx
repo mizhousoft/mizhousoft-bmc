@@ -8,7 +8,7 @@ import menuUtils from '@/utils/menu-utils';
 
 const { Content } = Layout;
 
-export default function SiderLayout({ siderMenuId }) {
+export default function NaviSiderLayout({ siderMenuId }) {
     const location = useLocation();
 
     const topMenuId = menuUtils.getTopMenuId(siderMenuId);

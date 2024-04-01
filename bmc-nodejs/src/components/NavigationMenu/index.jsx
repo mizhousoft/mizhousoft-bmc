@@ -2,6 +2,8 @@ import React from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
+import './index.css';
+
 export default function NavigationMenu({ activeKey, menus }) {
     const selectedKeys = [activeKey];
 

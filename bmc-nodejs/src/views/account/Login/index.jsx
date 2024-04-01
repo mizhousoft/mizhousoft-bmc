@@ -9,6 +9,8 @@ import SessionStore from '@/store/SessionStore';
 import httpRequest from '@/utils/http-request';
 import menuUtils from '@/utils/menu-utils';
 
+import './index.css';
+
 const FormItem = Form.Item;
 
 export default function Login() {
@@ -38,8 +40,7 @@ export default function Login() {
 
         // 清除浏览器自带的无效cookie
         Object.keys(Cookies.get()).forEach((cookieName) => {
-            const neededAttributes = {};
-            Cookies.remove(cookieName, neededAttributes);
+            Cookies.remove(cookieName, { path: '/', domain: '.usmartcloud.com' });
         });
         // 清除本地缓存
         SessionStore.logout();
