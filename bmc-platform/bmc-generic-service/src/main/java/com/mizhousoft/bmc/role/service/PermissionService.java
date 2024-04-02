@@ -29,6 +29,14 @@ public interface PermissionService
 	List<String> queryAuthzRequestPaths(String srvId);
 
 	/**
+	 * 查询仅仅要认证的权限ID
+	 * 
+	 * @param srvId
+	 * @return
+	 */
+	Set<String> queryAuthcPermIds(String srvId);
+
+	/**
 	 * 根据请求路径查询权限
 	 * 
 	 * @param srvId

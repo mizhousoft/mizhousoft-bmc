@@ -6,6 +6,9 @@ CREATE UNIQUE INDEX PERM_RESOURCE_IDX ON bmc_perm_resource (srvId, path);
 CREATE UNIQUE INDEX DICT_JSON_IDX ON bmc_dict_json (srv_id, key_x);
 
 -- Persional Account
+INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
+VALUES ('BMC',2,'bmc.account.profile',NULL,'个人设置','Accout Setting',false,NULL,NULL);
+
 INSERT INTO `bmc_perm_resource` (`srvId`,`permName`,`path`) VALUES ('BMC','bmc.my.accountdetail','/account/fetchMyAccountDetail.action');
 INSERT INTO `bmc_permission` (`srvId`,`type`,`name`,`parentName`,`displayNameCN`,`displayNameUS`,`isAuthz`,`descriptionCN`,`descriptionUS`) 
 VALUES ('BMC',1,'bmc.my.accountdetail',NULL,'我的帐号详情','My Accout Detail',false,NULL,NULL);

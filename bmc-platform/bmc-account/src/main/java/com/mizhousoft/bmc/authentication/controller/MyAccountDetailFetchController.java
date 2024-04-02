@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mizhousoft.bmc.account.service.AccountViewService;
 import com.mizhousoft.bmc.authentication.model.AccountViewData;
 import com.mizhousoft.bmc.authentication.service.ApplicationFirstLoadService;
+import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.boot.authentication.Authentication;
 import com.mizhousoft.boot.authentication.context.SecurityContextHolder;
+import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 /**
@@ -31,6 +33,12 @@ public class MyAccountDetailFetchController
 	@Autowired(required = false)
 	private ApplicationFirstLoadService applicationFirstLoadService;
 
+	@Autowired
+	private ApplicationAuthenticationService applicationAuthService;
+
+	@Autowired
+	private PermissionService permissionService;
+
 	@RequestMapping(value = "/account/fetchMyAccountDetail.action", method = RequestMethod.GET)
 	public ModelMap fetchMyAccountDetail()
 	{
@@ -42,7 +50,12 @@ public class MyAccountDetailFetchController
 
 		viewData.setName(authentication.getName());
 
+		String srvId = applicationAuthService.getServiceId();
+		Set<String> authcPermIds = permissionService.queryAuthcPermIds(srvId);
+
 		Set<String> perms = accountViewService.getPermByAccountId(id);
+		perms.addAll(authcPermIds);
+
 		viewData.setPermissions(perms);
 
 		map.addAttribute("account", viewData);

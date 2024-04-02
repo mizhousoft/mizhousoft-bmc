@@ -1,6 +1,7 @@
 package com.mizhousoft.bmc.role.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -40,7 +41,10 @@ public class PermissionServiceImpl implements PermissionService
 	private PermResourceService permResourceService;
 
 	// Map<SrvId, Map<Permission Name, Permission>>
-	private Map<String, Map<String, Permission>> srvPermMap = new HashMap<>(0);
+	private Map<String, Map<String, Permission>> srvPermMap = Collections.emptyMap();
+
+	// Map<SrvId, Set<String>>
+	private Map<String, Set<String>> authcPermIdMap = Collections.emptyMap();
 
 	/**
 	 * {@inheritDoc}
@@ -84,6 +88,21 @@ public class PermissionServiceImpl implements PermissionService
 		});
 
 		return authzPaths;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Set<String> queryAuthcPermIds(String srvId)
+	{
+		Set<String> authcPermIds = authcPermIdMap.get(srvId);
+		if (null == authcPermIds)
+		{
+			Collections.emptySet();
+		}
+
+		return authcPermIds;
 	}
 
 	/**
@@ -237,6 +256,9 @@ public class PermissionServiceImpl implements PermissionService
 		}
 
 		this.srvPermMap = srvPermMap;
+
+		this.authcPermIdMap = permissions.stream().filter(perm -> !perm.isAuthz())
+		        .collect(Collectors.groupingBy(Permission::getSrvId, Collectors.mapping(Permission::getName, Collectors.toSet())));
 
 		LOG.info("Load permission size is {}.", permissions.size());
 	}
