@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, Spin, Table } from 'antd';
 
 import PageComponent from '@/components/PageComponent';
-import PageException from '@/components/PageException';
-import PageLoading from '@/components/PageLoading';
 import { LOADING_FETCH_STATUS } from '@/config/common';
+import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
 export default function RunningLog() {
@@ -77,18 +76,19 @@ export default function RunningLog() {
         },
     ];
 
-    const breadcrumbs = ['本地日志'];
-
-    if (uFetchStatus.loading) {
-        return <PageLoading breadcrumbs={breadcrumbs} />;
-    }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
-    }
+    const locale = getTableLocale(uFetchStatus);
 
     return (
-        <PageComponent breadcrumbs={breadcrumbs}>
-            <Table columns={columns} dataSource={uLogFiles} rowKey={(record) => record.name} size='middle' pagination={false} />
+        <PageComponent breadcrumbs={['本地日志']}>
+            <Table
+                columns={columns}
+                loading={uFetchStatus.loading}
+                locale={locale}
+                dataSource={uLogFiles}
+                rowKey={(record) => record.name}
+                size='middle'
+                pagination={false}
+            />
         </PageComponent>
     );
 }
