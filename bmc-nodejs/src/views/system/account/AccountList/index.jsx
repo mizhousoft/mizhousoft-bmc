@@ -8,9 +8,9 @@ import AuthLink from '@/components-biz/AuthLink';
 import AuthPopconfirm from '@/components-biz/AuthPopconfirm';
 import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE } from '@/config/common';
+import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '@/redux/accountSlice';
 import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
-import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '../../../../redux/accountSlice';
 import ResetAccountPasswd from '../ResetAccountPasswd';
 
 export default function AccountList() {

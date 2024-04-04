@@ -40,7 +40,8 @@ export default function Login() {
 
         // 清除浏览器自带的无效cookie
         Object.keys(Cookies.get()).forEach((cookieName) => {
-            Cookies.remove(cookieName, { path: '/', domain: '.usmartcloud.com' });
+            const neededAttributes = {};
+            Cookies.remove(cookieName, neededAttributes);
         });
         // 清除本地缓存
         SessionStore.logout();
