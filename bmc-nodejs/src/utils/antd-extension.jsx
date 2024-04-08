@@ -56,7 +56,7 @@ export function mergeTableRowSpan(list, attribute) {
         item.rowSpan = undefined;
     });
 
-    for (let i = 1; i < list.length; ++i) {
+    for (let i = 0; i < list.length; ++i) {
         for (let j = i + 1; j < list.length; ++j) {
             const a = list[i];
             const b = list[j];
