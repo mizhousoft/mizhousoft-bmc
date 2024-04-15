@@ -28,7 +28,7 @@ export default function SideBarLayout({ siderMenuId }) {
             <div style={{ width: '200px', overflow: 'hidden', flex: '0 0 200px', maxWidth: '200px', minWidth: '200px' }} />
             <Sidebar header={header} siderMenus={siderMenus} activeKey={siderMenuId} path={location.pathname} className='mz-sidebar' />
             <Layout className='mz-layout'>
-                <NavigationHeader selectedTopMenuId={topMenuId} />
+                <NavigationHeader activeKey={topMenuId} />
                 <div className='mz-layout-shadow' />
                 <Content className='mz-layout-content'>
                     <Outlet />
