@@ -8,8 +8,14 @@
             "@/components/*": [
                 "./src/components/*"
             ],
+            "@/components-auth/*": [
+                "./src/components-auth/*"
+            ],
             "@/components-biz/*": [
                 "./src/components-biz/*"
+            ],
+            "@/components-chart/*": [
+                "./src/components-chart/*"
             ],
             "@/config/*": [
                 "./src/config/*"

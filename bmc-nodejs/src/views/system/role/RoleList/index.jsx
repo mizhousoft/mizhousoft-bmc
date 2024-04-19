@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Input, message, Row, Table } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import AuthButton from '@/components-biz/AuthButton';
-import AuthLink from '@/components-biz/AuthLink';
-import AuthPopconfirm from '@/components-biz/AuthPopconfirm';
+import AuthButton from '@/components-auth/AuthButton';
+import AuthLink from '@/components-auth/AuthLink';
+import AuthPopconfirm from '@/components-auth/AuthPopconfirm';
 import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
 import { getTableLocale } from '@/utils/antd-extension';

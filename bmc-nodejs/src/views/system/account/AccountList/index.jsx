@@ -3,9 +3,9 @@ import { Col, message, Radio, Row, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import AuthButton from '@/components-biz/AuthButton';
-import AuthLink from '@/components-biz/AuthLink';
-import AuthPopconfirm from '@/components-biz/AuthPopconfirm';
+import AuthButton from '@/components-auth/AuthButton';
+import AuthLink from '@/components-auth/AuthLink';
+import AuthPopconfirm from '@/components-auth/AuthPopconfirm';
 import PageComponent from '@/components/PageComponent';
 import { DEFAULT_DATA_PAGE } from '@/config/common';
 import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '@/redux/accountSlice';
