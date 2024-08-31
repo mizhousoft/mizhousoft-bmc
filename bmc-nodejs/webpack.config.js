@@ -76,7 +76,7 @@ module.exports = {
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
-                type: 'asset/inline',
+                type: 'asset/resource',
                 exclude: /node_modules/
             }
         ]
