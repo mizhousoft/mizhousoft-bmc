@@ -13,22 +13,25 @@ export default function PageComponent({
     lightBodyColor = true,
 }) {
     const bodyTheme = lightBodyColor ? 'light-theme' : '';
+    const leftSpan = extra ? 20 : 24;
 
     return (
         <>
             {breadcrumbs.length > 0 || headContent ? (
                 <div className='mz-page-head' style={headStyle}>
                     <Row>
-                        <Col span={20}>
+                        <Col span={leftSpan}>
                             <Breadcrumb>
                                 {breadcrumbs.map((value) => (
                                     <Breadcrumb.Item key={value}>{value}</Breadcrumb.Item>
                                 ))}
                             </Breadcrumb>
                         </Col>
-                        <Col span={4} className='extra'>
-                            {extra}
-                        </Col>
+                        {extra ? (
+                            <Col span={4} className='extra'>
+                                {extra}
+                            </Col>
+                        ) : null}
                     </Row>
                     {headContent}
                 </div>
