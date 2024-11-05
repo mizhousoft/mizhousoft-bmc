@@ -385,14 +385,6 @@
     background-color: transparent;
 }
 
-#table-drag-sorting tr.drop-over-downward td {
-    border-bottom: 2px dashed #1890ff;
-}
-
-#table-drag-sorting tr.drop-over-upward td {
-    border-top: 2px dashed #1890ff;
-}
-
 .ml-lg-1 {
     margin-left: 5px !important;
 }

@@ -5,7 +5,6 @@ module.exports = {
         'plugin:compat/recommended',
         'plugin:react/recommended',
         'plugin:import/typescript',
-        'plugin:markdown/recommended-legacy',
     ],
     env: {
         browser: true,
@@ -22,7 +21,7 @@ module.exports = {
         }
     },
     parser: '@typescript-eslint/parser',
-    plugins: ['react', '@babel', '@typescript-eslint', 'react-hooks', 'unicorn', 'markdown'],
+    plugins: ['react', '@babel', '@typescript-eslint', 'react-hooks', 'unicorn'],
     overrides: [{
         files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
         rules: {

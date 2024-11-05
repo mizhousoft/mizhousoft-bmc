@@ -1,64 +1,50 @@
 import React, { useImperativeHandle, useState } from 'react';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { Table } from 'antd';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
-const type = 'DragableBodyRow';
-
-function DragableBodyRow({ index, moveRow, className, style, ...restProps }) {
-    const ref = React.useRef(null);
-    const [{ isOver, dropClassName }, drop] = useDrop({
-        accept: type,
-        collect: (monitor) => {
-            const { index: dragIndex } = monitor.getItem() || {};
-            if (dragIndex === index) {
-                return {};
-            }
-            return {
-                isOver: monitor.isOver(),
-                dropClassName: dragIndex < index ? ' drop-over-downward' : ' drop-over-upward',
-            };
-        },
-        drop: (item) => {
-            moveRow(item.index, index);
-        },
+const DragableBodyRow = (props) => {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+        id: props['data-row-key'],
     });
-    const [, drag] = useDrag({
-        type,
-        item: {
-            index,
-        },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
-    drop(drag(ref));
-
-    return (
-        <tr
-            ref={ref}
-            className={`${className}${isOver ? dropClassName : ''}`}
-            style={{
-                cursor: 'move',
-                ...style,
-            }}
-            {...restProps}
-        />
-    );
-}
+    const style = {
+        ...props.style,
+        transform: CSS.Translate.toString(transform),
+        transition,
+        cursor: 'move',
+        ...(isDragging
+            ? {
+                  position: 'relative',
+                  zIndex: 9999,
+              }
+            : {}),
+    };
+    return <tr {...props} ref={setNodeRef} style={style} {...attributes} {...listeners} />;
+};
 
 function SortableTable(props, ref) {
     const { columns, title, dataSource } = props;
 
     const [uDataSource, setDataSource] = useState(dataSource);
 
-    const moveRow = (dragIndex, hoverIndex) => {
-        const newValues = [...uDataSource];
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 1,
+            },
+        })
+    );
 
-        const items = newValues.splice(dragIndex, 1);
-        newValues.splice(hoverIndex, 0, items[0]);
-
-        setDataSource(newValues);
+    const onDragEnd = ({ active, over }) => {
+        if (active.id !== over?.id) {
+            setDataSource((prev) => {
+                const activeIndex = prev.findIndex((i) => i.id === active.id);
+                const overIndex = prev.findIndex((i) => i.id === over?.id);
+                return arrayMove(prev, activeIndex, overIndex);
+            });
+        }
     };
 
     useImperativeHandle(ref, () => ({
@@ -66,26 +52,22 @@ function SortableTable(props, ref) {
     }));
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <Table
-                title={title}
-                id='table-drag-sorting'
-                size='middle'
-                columns={columns}
-                dataSource={uDataSource}
-                rowKey={(record) => `index-${record.id}`}
-                pagination={false}
-                components={{
-                    body: {
-                        row: DragableBodyRow,
-                    },
-                }}
-                onRow={(record, index) => ({
-                    index,
-                    moveRow,
-                })}
-            />
-        </DndProvider>
+        <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
+            <SortableContext items={uDataSource.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+                <Table
+                    title={title}
+                    columns={columns}
+                    dataSource={uDataSource}
+                    rowKey='id'
+                    pagination={false}
+                    components={{
+                        body: {
+                            row: DragableBodyRow,
+                        },
+                    }}
+                />
+            </SortableContext>
+        </DndContext>
     );
 }
 

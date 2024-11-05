@@ -13,8 +13,6 @@ const vendors = [
     'redux',
     '@reduxjs/toolkit',
     'dayjs',
-    'react-dnd',
-    'react-dnd-html5-backend',
 ]
 
 module.exports = {
