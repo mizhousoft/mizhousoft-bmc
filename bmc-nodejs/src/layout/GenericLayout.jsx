@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import GenericHeader from '@/components-biz/GenericHeader';
 

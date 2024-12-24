@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Badge, List, Popover, Tabs } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import FontIcon from '@/components/FontIcon';
 import eventBus from '@/utils/event-bus';

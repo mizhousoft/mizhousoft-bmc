@@ -1,4 +1,4 @@
-import { redirect } from 'react-router-dom';
+import { redirect } from 'react-router';
 
 import { LOGIN_PATH } from '@/config/application';
 import SessionStore from '@/store/SessionStore';

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Card, Form, Input } from 'antd';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import { APPLICATION_NAME, BASENAME, COMPANY } from '@/config/application';
 import SessionStore from '@/store/SessionStore';

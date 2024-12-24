@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 import NavigationHeader from '@/components-biz/NavigationHeader';
 import menuUtils from '@/utils/menu-utils';

@@ -4,22 +4,43 @@
 	http://jedwatson.github.io/classnames
 */
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
+/*!
+ * @antv/g-plugin-canvas-path-generator
+ * @description A G plugin of path generator with Canvas2D API
+ * @version 2.1.10
+ * @date 12/20/2024, 6:52:26 AM
+ * @author AntVis
+ * @docs https://g.antv.antgroup.com/
+ */
 
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
+/*!
+ * @antv/g-plugin-image-loader
+ * @description A G plugin for loading image
+ * @version 2.1.12
+ * @date 12/20/2024, 6:52:51 AM
+ * @author AntVis
+ * @docs https://g.antv.antgroup.com/
+ */
 
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
+/*!
+ * @antv/g-web-animations-api
+ * @description A simple implementation of Web Animations API.
+ * @version 2.1.15
+ * @date 12/20/2024, 6:53:21 AM
+ * @author AntVis
+ * @docs https://g.antv.antgroup.com/
+ */
 
 /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
+
+/**
+ * @license
+ * Lodash <https://lodash.com/>
+ * Copyright OpenJS Foundation and other contributors <https://openjsf.org/>
+ * Released under MIT license <https://lodash.com/license>
+ * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
 
 /**
  * @license React
@@ -34,16 +55,6 @@ and limitations under the License.
 /**
  * @license React
  * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-/**
- * @license React
- * react-jsx-runtime.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -73,44 +84,16 @@ and limitations under the License.
 
 /**
  * @license React
- * use-sync-external-store-with-selector.production.min.js
+ * use-sync-external-store-with-selector.production.js
  *
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
 
 /**
- * @license qrcode.react
- * Copyright (c) Paul O'Shannessy
- * SPDX-License-Identifier: ISC
- */
-
-/**
- * @remix-run/router v1.15.3
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-
-/**
- * React Router DOM v6.22.3
- *
- * Copyright (c) Remix Software Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE.md file in the root directory of this source tree.
- *
- * @license MIT
- */
-
-/**
- * React Router v6.22.3
+ * react-router v7.1.1
  *
  * Copyright (c) Remix Software Inc.
  *
@@ -537,6 +520,8 @@ and limitations under the License.
 /**![dollar](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9IiNjYWNhY2EiIHZpZXdCb3g9IjY0IDY0IDg5NiA4OTYiIGZvY3VzYWJsZT0iZmFsc2UiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUxMiA2NEMyNjQuNiA2NCA2NCAyNjQuNiA2NCA1MTJzMjAwLjYgNDQ4IDQ0OCA0NDggNDQ4LTIwMC42IDQ0OC00NDhTNzU5LjQgNjQgNTEyIDY0em0wIDgyMGMtMjA1LjQgMC0zNzItMTY2LjYtMzcyLTM3MnMxNjYuNi0zNzIgMzcyLTM3MiAzNzIgMTY2LjYgMzcyIDM3Mi0xNjYuNiAzNzItMzcyIDM3MnoiIGZpbGw9IiMxNjc3ZmYiIC8+PHBhdGggZD0iTTQyNi42IDQxMC4zYzAgMjUuNCAxNS43IDQ1LjEgNDkuNSA1Ny4zIDQuNyAxLjkgOS40IDMuNCAxNSA1di0xMjRjLTM3IDQuNy02NC41IDI1LjQtNjQuNSA2MS43em0xMTYuNSAxMzUuMmMtMi45LS42LTUuNy0xLjMtOC44LTIuMlY2NzdjNDIuNi0zLjggNzItMjcuMyA3Mi02Ni40IDAtMzAuNy0xNS45LTUwLjctNjMuMi02NS4xeiIgZmlsbD0iI2U2ZjRmZiIgLz48cGF0aCBkPSJNNTEyIDE0MGMtMjA1LjQgMC0zNzIgMTY2LjYtMzcyIDM3MnMxNjYuNiAzNzIgMzcyIDM3MiAzNzItMTY2LjYgMzcyLTM3Mi0xNjYuNi0zNzItMzcyLTM3MnptMjIuNCA1ODkuMmwuMiAzMS43YzAgNC41LTMuNiA4LjEtOCA4LjFoLTI4LjRjLTQuNCAwLTgtMy42LTgtOHYtMzEuNGMtODktNi41LTEzMC43LTU3LjEtMTM1LjItMTEyLjEtLjQtNC43IDMuMy04LjcgOC04LjdoNDYuMmMzLjkgMCA3LjMgMi44IDcuOSA2LjYgNS4xIDMxLjggMjkuOSA1NS40IDc0LjEgNjEuM1Y1MzRsLTI0LjctNi4zYy01Mi4zLTEyLjUtMTAyLjEtNDUuMS0xMDIuMS0xMTIuNyAwLTczIDU1LjQtMTEyLjEgMTI2LjItMTE5di0zM2MwLTQuNCAzLjYtOCA4LThoMjguMWM0LjQgMCA4IDMuNiA4IDh2MzIuN2M2OC41IDYuOSAxMTkuOCA0Ni45IDEyNS45IDEwOS4yYTguMSA4LjEgMCAwMS04IDguOGgtNDQuOWMtNCAwLTcuNC0yLjktNy45LTYuOS00LTI5LjItMjcuNS01My02NS41LTU4LjJ2MTM0LjNsMjUuNCA1LjljNjQuOCAxNiAxMDguOSA0NyAxMDkgMTE2LjQgMCA3NS4yLTU2IDExNy4xLTEzNC4zIDEyNHoiIGZpbGw9IiNlNmY0ZmYiIC8+PHBhdGggZD0iTTU1OS43IDQ4OC44bC0yNS40LTUuOVYzNDguNmMzOCA1LjIgNjEuNSAyOSA2NS41IDU4LjIuNSA0IDMuOSA2LjkgNy45IDYuOWg0NC45YzQuNyAwIDguNC00LjEgOC04LjgtNi4xLTYyLjMtNTcuNC0xMDIuMy0xMjUuOS0xMDkuMlYyNjNjMC00LjQtMy42LTgtOC04aC0yOC4xYy00LjQgMC04IDMuNi04IDh2MzNjLTcwLjggNi45LTEyNi4yIDQ2LTEyNi4yIDExOSAwIDY3LjYgNDkuOCAxMDAuMiAxMDIuMSAxMTIuN2wyNC43IDYuM3YxNDIuN2MtNDQuMi01LjktNjktMjkuNS03NC4xLTYxLjMtLjYtMy44LTQtNi42LTcuOS02LjZIMzYzYy00LjcgMC04LjQgNC04IDguNyA0LjUgNTUgNDYuMiAxMDUuNiAxMzUuMiAxMTIuMVY3NjFjMCA0LjQgMy42IDggOCA4aDI4LjRjNC40IDAgOC0zLjYgOC04LjFsLS4yLTMxLjdjNzguMy02LjkgMTM0LjMtNDguOCAxMzQuMy0xMjQtLjEtNjkuNC00NC4yLTEwMC40LTEwOS0xMTYuNHptLTY4LjYtMTYuMmMtNS42LTEuNi0xMC4zLTMuMS0xNS01LTMzLjgtMTIuMi00OS41LTMxLjktNDkuNS01Ny4zIDAtMzYuMyAyNy41LTU3IDY0LjUtNjEuN3YxMjR6TTUzNC4zIDY3N1Y1NDMuM2MzLjEuOSA1LjkgMS42IDguOCAyLjIgNDcuMyAxNC40IDYzLjIgMzQuNCA2My4yIDY1LjEgMCAzOS4xLTI5LjQgNjIuNi03MiA2Ni40eiIgZmlsbD0iIzE2NzdmZiIgLz48L3N2Zz4=) */
 
 /**![dollar](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9IiNjYWNhY2EiIHZpZXdCb3g9IjY0IDY0IDg5NiA4OTYiIGZvY3VzYWJsZT0iZmFsc2UiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTUxMiA2NEMyNjQuNiA2NCA2NCAyNjQuNiA2NCA1MTJzMjAwLjYgNDQ4IDQ0OCA0NDggNDQ4LTIwMC42IDQ0OC00NDhTNzU5LjQgNjQgNTEyIDY0em0wIDgyMGMtMjA1LjQgMC0zNzItMTY2LjYtMzcyLTM3MnMxNjYuNi0zNzIgMzcyLTM3MiAzNzIgMTY2LjYgMzcyIDM3Mi0xNjYuNiAzNzItMzcyIDM3MnptNDcuNy0zOTUuMmwtMjUuNC01LjlWMzQ4LjZjMzggNS4yIDYxLjUgMjkgNjUuNSA1OC4yLjUgNCAzLjkgNi45IDcuOSA2LjloNDQuOWM0LjcgMCA4LjQtNC4xIDgtOC44LTYuMS02Mi4zLTU3LjQtMTAyLjMtMTI1LjktMTA5LjJWMjYzYzAtNC40LTMuNi04LTgtOGgtMjguMWMtNC40IDAtOCAzLjYtOCA4djMzYy03MC44IDYuOS0xMjYuMiA0Ni0xMjYuMiAxMTkgMCA2Ny42IDQ5LjggMTAwLjIgMTAyLjEgMTEyLjdsMjQuNyA2LjN2MTQyLjdjLTQ0LjItNS45LTY5LTI5LjUtNzQuMS02MS4zLS42LTMuOC00LTYuNi03LjktNi42SDM2M2MtNC43IDAtOC40IDQtOCA4LjcgNC41IDU1IDQ2LjIgMTA1LjYgMTM1LjIgMTEyLjFWNzYxYzAgNC40IDMuNiA4IDggOGgyOC40YzQuNCAwIDgtMy42IDgtOC4xbC0uMi0zMS43Yzc4LjMtNi45IDEzNC4zLTQ4LjggMTM0LjMtMTI0LS4xLTY5LjQtNDQuMi0xMDAuNC0xMDktMTE2LjR6bS02OC42LTE2LjJjLTUuNi0xLjYtMTAuMy0zLjEtMTUtNS0zMy44LTEyLjItNDkuNS0zMS45LTQ5LjUtNTcuMyAwLTM2LjMgMjcuNS01NyA2NC41LTYxLjd2MTI0ek01MzQuMyA2NzdWNTQzLjNjMy4xLjkgNS45IDEuNiA4LjggMi4yIDQ3LjMgMTQuNCA2My4yIDM0LjQgNjMuMiA2NS4xIDAgMzkuMS0yOS40IDYyLjYtNzIgNjYuNHoiIC8+PC9zdmc+) */
+
+/**![dot-chart](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9IiNjYWNhY2EiIHZpZXdCb3g9IjY0IDY0IDg5NiA4OTYiIGZvY3VzYWJsZT0iZmFsc2UiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTg4OCA3OTJIMjAwVjE2OGMwLTQuNC0zLjYtOC04LThoLTU2Yy00LjQgMC04IDMuNi04IDh2Njg4YzAgNC40IDMuNiA4IDggOGg3NTJjNC40IDAgOC0zLjYgOC04di01NmMwLTQuNC0zLjYtOC04LTh6TTI4OCA2MDRhNjQgNjQgMCAxMDEyOCAwIDY0IDY0IDAgMTAtMTI4IDB6bTExOC0yMjRhNDggNDggMCAxMDk2IDAgNDggNDggMCAxMC05NiAwem0xNTggMjI4YTk2IDk2IDAgMTAxOTIgMCA5NiA5NiAwIDEwLTE5MiAwem0xNDgtMzE0YTU2IDU2IDAgMTAxMTIgMCA1NiA1NiAwIDEwLTExMiAweiIgLz48L3N2Zz4=) */
 
 /**![dot-net](data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTAiIGZpbGw9IiNjYWNhY2EiIGZpbGwtcnVsZT0iZXZlbm9kZCIgdmlld0JveD0iNjQgNjQgODk2IDg5NiIgZm9jdXNhYmxlPSJmYWxzZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsLW9wYWNpdHk9Ii44OCI+PHBhdGggZD0iTTEwMS4yOCA2NjJjLTEwLjY1IDAtMTkuNTMtMy4zLTI2LjYzLTkuODktNy4xLTYuNi0xMC42NS0xNC43LTEwLjY1LTI0LjMyIDAtOS44OSAzLjY1LTE4IDEwLjk2LTI0LjMxIDcuMy02LjMyIDE2LjQyLTkuNDggMjcuMzUtOS40OCAxMS4wNiAwIDIwLjEgMy4yIDI3LjE0IDkuNTggNy4wMyA2LjM5IDEwLjU1IDE0LjQ2IDEwLjU1IDI0LjIxIDAgMTAuMDMtMy41OCAxOC4yNC0xMC43NiAyNC42My03LjE3IDYuMzktMTYuNDkgOS41OC0yNy45NiA5LjU4TTQ1OCA2NTdoLTY2Ljk3bC0xMjEuNC0xODUuMzVjLTcuMTMtMTAuODQtMTIuMDYtMTktMTQuOC0yNC40OGgtLjgyYzEuMSAxMC40MiAxLjY1IDI2LjMzIDEuNjUgNDcuNzJWNjU3SDE5M1YzNjJoNzEuNDlsMTE2Ljg5IDE3OS42YTQyMy4yMyA0MjMuMjMgMCAwMTE0Ljc5IDI0LjA2aC44MmMtMS4xLTYuODYtMS42NC0yMC4zNy0xLjY0LTQwLjUzVjM2Mkg0NTh6TTcwMiA2NTdINTI1VjM2MmgxNzAuMnY1NC4xSDU5MS40OXY2NS42M0g2ODh2NTMuOWgtOTYuNTJ2NjcuNDdINzAyek05NjAgNDE2LjFoLTgzLjk1VjY1N2gtNjYuNVY0MTYuMUg3MjZWMzYyaDIzNHoiIC8+PC9nPjwvc3ZnPg==) */
 

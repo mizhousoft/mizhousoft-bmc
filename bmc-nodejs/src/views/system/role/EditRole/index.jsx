@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Tree } from 'antd';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router';
 
 import PageComponent from '@/components/PageComponent';
 import PageException from '@/components/PageException';

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Col, message, Radio, Row, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import AuthButton from '@/components-auth/AuthButton';
 import AuthLink from '@/components-auth/AuthLink';

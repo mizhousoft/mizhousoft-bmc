@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Col, Form, Input, message, Row, Table } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import AuthButton from '@/components-auth/AuthButton';
 import AuthLink from '@/components-auth/AuthLink';

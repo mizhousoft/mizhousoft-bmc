@@ -2,7 +2,7 @@ import React from 'react';
 import { ConfigProvider, message } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import dayjs from 'dayjs';
-import { RouterProvider } from 'react-router-dom';
+import { RouterProvider } from 'react-router';
 
 import 'dayjs/locale/zh-cn';
 

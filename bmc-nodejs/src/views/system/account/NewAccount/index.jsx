@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Steps } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import PageComponent from '@/components/PageComponent';
 import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';

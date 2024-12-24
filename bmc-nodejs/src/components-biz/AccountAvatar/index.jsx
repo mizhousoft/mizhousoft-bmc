@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router';
 
 import FontIcon from '@/components/FontIcon';
 import { LOGIN_PATH } from '@/config/application';

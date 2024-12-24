@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router';
 
 import LogoImg from '@/assets/imgs/icon-logo.png';
 import NavigationHeader from '@/components-biz/NavigationHeader';

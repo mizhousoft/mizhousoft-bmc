@@ -9,7 +9,7 @@ const vendors = [
     'react',
     'react-dom',
     'react-redux',
-    'react-router-dom',
+    'react-router',
     'redux',
     '@reduxjs/toolkit',
     'dayjs',

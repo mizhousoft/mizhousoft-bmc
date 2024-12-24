@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router';
 
 import ErrorBoundary from '@/components/ErrorBoundary';
 import PageLoading from '@/components/PageLoading';
