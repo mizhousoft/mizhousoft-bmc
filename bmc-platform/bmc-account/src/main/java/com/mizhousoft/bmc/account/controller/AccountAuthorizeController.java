@@ -2,7 +2,6 @@ package com.mizhousoft.bmc.account.controller;
 
 import java.util.List;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ import com.mizhousoft.bmc.role.request.RolePageRequest;
 import com.mizhousoft.bmc.role.service.RoleService;
 import com.mizhousoft.bmc.role.service.RoleViewService;
 import com.mizhousoft.commons.data.domain.Page;
+import com.mizhousoft.commons.lang.CollectionUtils;
 import com.mizhousoft.commons.web.ActionRespBuilder;
 import com.mizhousoft.commons.web.ActionResponse;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;

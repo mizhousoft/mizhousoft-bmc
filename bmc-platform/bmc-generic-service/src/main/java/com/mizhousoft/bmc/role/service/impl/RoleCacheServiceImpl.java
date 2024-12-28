@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.collections4.SetUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import com.mizhousoft.bmc.role.domain.RolePermission;
 import com.mizhousoft.bmc.role.service.PermissionService;
 import com.mizhousoft.bmc.role.service.RoleCacheService;
 import com.mizhousoft.bmc.role.service.RolePermissionService;
+import com.mizhousoft.commons.lang.SetUtils;
 
 import jakarta.annotation.PostConstruct;
 

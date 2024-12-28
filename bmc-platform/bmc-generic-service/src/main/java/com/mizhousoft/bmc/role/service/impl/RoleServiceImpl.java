@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,7 @@ import com.mizhousoft.commons.data.domain.Page;
 import com.mizhousoft.commons.data.domain.PageRequest;
 import com.mizhousoft.commons.data.util.PageBuilder;
 import com.mizhousoft.commons.data.util.PageUtils;
+import com.mizhousoft.commons.lang.CollectionUtils;
 
 /**
  * 角色服务实现

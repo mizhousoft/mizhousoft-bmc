@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,7 @@ import com.mizhousoft.bmc.account.util.AccountUtils;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
+import com.mizhousoft.commons.lang.CollectionUtils;
 
 /**
  * 帐号服务

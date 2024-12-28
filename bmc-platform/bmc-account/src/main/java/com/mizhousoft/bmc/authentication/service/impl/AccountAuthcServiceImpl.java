@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +49,7 @@ import com.mizhousoft.boot.authentication.service.TwoFactorAuthenticationService
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
 import com.mizhousoft.commons.crypto.generator.RandomGenerator;
+import com.mizhousoft.commons.lang.CollectionUtils;
 import com.mizhousoft.commons.web.i18n.util.I18nUtils;
 
 /**
@@ -327,7 +327,7 @@ public class AccountAuthcServiceImpl implements AccountAuthcService
 		int reminderModifyDay = passwordStrategy.getReminderModifyDay();
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountImpl.getAccountId(), 1);
-		if (CollectionUtils.isNotEmpty(historyPasswords))
+		if (!CollectionUtils.isEmpty(historyPasswords))
 		{
 			LocalDateTime modifyTime = historyPasswords.get(0).getModifyTime();
 

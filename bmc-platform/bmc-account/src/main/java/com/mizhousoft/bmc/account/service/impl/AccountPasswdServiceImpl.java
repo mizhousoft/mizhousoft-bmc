@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +23,7 @@ import com.mizhousoft.bmc.system.service.PasswordStrategyService;
 import com.mizhousoft.boot.authentication.service.ApplicationAuthenticationService;
 import com.mizhousoft.commons.crypto.CryptoException;
 import com.mizhousoft.commons.crypto.generator.PBEPasswdGenerator;
+import com.mizhousoft.commons.lang.CollectionUtils;
 import com.mizhousoft.commons.lang.LocalDateTimeUtils;
 
 /**
@@ -230,7 +230,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		PasswordStrategy passwordStrategy = passwordStrategyService.getPasswordStrategy(srvId);
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(accountId, 1);
-		if (CollectionUtils.isNotEmpty(historyPasswords))
+		if (!CollectionUtils.isEmpty(historyPasswords))
 		{
 			LocalDateTime modifyTime = historyPasswords.get(0).getModifyTime();
 			LocalDate modifyDate = modifyTime.plusDays(passwordStrategy.getValidDay()).toLocalDate();
@@ -258,7 +258,7 @@ public class AccountPasswdServiceImpl implements AccountPasswdService
 		int repeatSize = passwdStrategy.getHistoryRepeatSize();
 
 		List<HistoryPassword> historyPasswords = historyPasswordService.queryHistoryPasswords(id, repeatSize);
-		if (CollectionUtils.isNotEmpty(historyPasswords))
+		if (!CollectionUtils.isEmpty(historyPasswords))
 		{
 			// 校验修改密码时间间隔
 			HistoryPassword latestPassword = historyPasswords.get(0);
