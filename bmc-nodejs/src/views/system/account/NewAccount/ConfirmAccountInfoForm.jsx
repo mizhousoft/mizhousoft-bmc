@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, message, Table } from 'antd';
 
 import httpRequest from '@/utils/http-request';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Statistic } from 'antd';
 import { Link } from 'react-router';
 

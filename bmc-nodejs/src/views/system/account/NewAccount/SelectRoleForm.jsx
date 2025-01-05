@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Popconfirm, Table } from 'antd';
 
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';

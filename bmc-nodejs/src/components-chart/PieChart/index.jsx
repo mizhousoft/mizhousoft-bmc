@@ -1,4 +1,3 @@
-import React from 'react';
 import { Pie } from '@ant-design/plots';
 
 export default function PieChart({ data = [], angleField = 'percent', colorField = 'label', valueField = 'value', height = 270 }) {

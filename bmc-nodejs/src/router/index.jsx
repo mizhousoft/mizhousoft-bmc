@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 
 import ErrorBoundary from '@/components/ErrorBoundary';

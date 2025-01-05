@@ -1,4 +1,3 @@
-import React from 'react';
 import { Col, Layout, Row } from 'antd';
 
 import Logo from '@/components-biz/Logo';

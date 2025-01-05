@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Form, Modal } from 'antd';
 
 const FormItem = Form.Item;

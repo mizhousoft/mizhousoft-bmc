@@ -1,4 +1,3 @@
-import React from 'react';
 import { Spin } from 'antd';
 
 import PageComponent from '@/components/PageComponent';

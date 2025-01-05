@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Result } from 'antd';
 
 import Exception from '@/components/Exception';

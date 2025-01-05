@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Affix, Layout, Menu } from 'antd';
 import { Link } from 'react-router';
 
@@ -11,7 +11,7 @@ const { Sider } = Layout;
 
 export default function Sidebar({ header, footer, siderMenus, path, activeKey, height = '100%' }) {
     if (activeKey === null) {
-        activeKey = findSiderMenuId(path, siderMenus);
+        activeKey = menuUtils.findSiderMenuId(path, siderMenus);
     }
 
     const [selectedKeys, setSelectedKeys] = useState(() => (activeKey ? [activeKey] : []));

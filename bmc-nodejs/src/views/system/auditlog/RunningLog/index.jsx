@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Modal, Spin, Table } from 'antd';
+import { useEffect, useState } from 'react';
+import { Button, message, Modal, Spin, Table } from 'antd';
 
 import PageComponent from '@/components/PageComponent';
 import { LOADING_FETCH_STATUS } from '@/config/common';

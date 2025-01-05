@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, Button, Col, Form, Input, message, Row } from 'antd';
 
 import { LOGIN_ABSOLUTE_PATH } from '@/config/application';

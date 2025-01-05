@@ -1,4 +1,3 @@
-import React from 'react';
 import { Breadcrumb, Col, Row } from 'antd';
 
 export default function PageComponent({

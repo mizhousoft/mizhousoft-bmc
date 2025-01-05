@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, List, Popover, Tabs } from 'antd';
 import { useNavigate } from 'react-router';
 

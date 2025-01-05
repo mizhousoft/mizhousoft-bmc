@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { message, Popconfirm, Table } from 'antd';
 
 import PageComponent from '@/components/PageComponent';

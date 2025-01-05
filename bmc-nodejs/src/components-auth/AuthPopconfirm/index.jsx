@@ -1,4 +1,3 @@
-import React from 'react';
 import { Popconfirm } from 'antd';
 
 import SessionStore from '@/store/SessionStore';

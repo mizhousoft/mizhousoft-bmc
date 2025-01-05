@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Button, Form, Input, message } from 'antd';
 
 import PasswordNote from '@/components-biz/PasswordNote';

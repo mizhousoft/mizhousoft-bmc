@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link, Navigate } from 'react-router';
 
 import FontIcon from '@/components/FontIcon';

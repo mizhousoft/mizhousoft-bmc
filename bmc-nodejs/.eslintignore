@@ -1,8 +1,0 @@
-node_modules
-dist
-**/*.d.ts
-typings
-./public/
-./template/
-.vscode
-src/assets/iconfont

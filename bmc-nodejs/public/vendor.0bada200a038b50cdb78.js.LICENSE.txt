@@ -7,8 +7,8 @@
 /*!
  * @antv/g-plugin-canvas-path-generator
  * @description A G plugin of path generator with Canvas2D API
- * @version 2.1.10
- * @date 12/20/2024, 6:52:26 AM
+ * @version 2.1.14
+ * @date 1/2/2025, 2:55:27 AM
  * @author AntVis
  * @docs https://g.antv.antgroup.com/
  */
@@ -16,8 +16,8 @@
 /*!
  * @antv/g-plugin-image-loader
  * @description A G plugin for loading image
- * @version 2.1.12
- * @date 12/20/2024, 6:52:51 AM
+ * @version 2.1.16
+ * @date 1/2/2025, 2:55:54 AM
  * @author AntVis
  * @docs https://g.antv.antgroup.com/
  */
@@ -25,8 +25,8 @@
 /*!
  * @antv/g-web-animations-api
  * @description A simple implementation of Web Animations API.
- * @version 2.1.15
- * @date 12/20/2024, 6:53:21 AM
+ * @version 2.1.19
+ * @date 1/2/2025, 2:56:26 AM
  * @author AntVis
  * @docs https://g.antv.antgroup.com/
  */

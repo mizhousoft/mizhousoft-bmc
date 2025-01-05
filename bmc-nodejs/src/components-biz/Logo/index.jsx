@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { APPLICATION_SHORT_NAME } from '@/config/application';
 
 export default function Logo() {

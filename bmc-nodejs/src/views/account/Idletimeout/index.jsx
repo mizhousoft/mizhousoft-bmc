@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Button, Form, InputNumber, message } from 'antd';
 
 import PageComponent from '@/components/PageComponent';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal, Table } from 'antd';
 
 import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';

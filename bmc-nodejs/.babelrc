@@ -7,24 +7,11 @@
             }
         ],
         [
-            "@babel/preset-react"
+            "@babel/preset-react",
+            {
+                "runtime": "automatic"
+            }
         ]
     ],
-    "plugins": [
-        [
-            "@babel/plugin-transform-runtime"
-        ],
-        "@babel/plugin-transform-class-properties",
-        "@babel/plugin-transform-json-strings",
-        [
-            "@babel/plugin-proposal-decorators",
-            {
-                "legacy": true
-            }
-        ],
-        "@babel/plugin-proposal-function-sent",
-        "@babel/plugin-transform-export-namespace-from",
-        "@babel/plugin-transform-numeric-separator",
-        "@babel/plugin-proposal-throw-expressions"
-    ]
+    "plugins": []
 }

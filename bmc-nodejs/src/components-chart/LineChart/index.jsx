@@ -1,4 +1,3 @@
-import React from 'react';
 import { Line } from '@ant-design/plots';
 
 export default function LineChart({ data = [], xField = 'xValue', yField = 'yValue', colorField = 'label', height = 320, slider }) {

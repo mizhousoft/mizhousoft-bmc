@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal } from 'antd';
 
 import LogoutImg from '@/assets/imgs/icon-logout.png';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Empty, Result } from 'antd';
 
 import FontIcon from '@/components/FontIcon';

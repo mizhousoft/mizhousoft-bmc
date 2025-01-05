@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, Form, Input, Radio } from 'antd';
 
 const FormItem = Form.Item;
@@ -58,7 +57,7 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                         message: '帐号最小长度是5。',
                     },
                     {
-                        pattern: /^[\dA-Za-z]{1,20}$/,
+                        pattern: /^[\dA-Z]{1,20}$/i,
                         message: '帐号只能包含a-zA-Z0-9。',
                     },
                 ]}

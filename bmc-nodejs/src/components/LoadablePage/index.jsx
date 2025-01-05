@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PageComponent from '@/components/PageComponent';
 import PageException from '@/components/PageException';
 import PageLoading from '@/components/PageLoading';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Form, Input, message, Modal } from 'antd';
 
 import AuthA from '@/components-auth/AuthA';
