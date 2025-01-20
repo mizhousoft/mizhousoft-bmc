@@ -154,8 +154,6 @@
 
 .mz-note-list-head li {
     position: relative;
-    display: box;
-    display: flexbox;
     display: flex;
     align-items: center;
     color: #6b798e;

@@ -60,7 +60,33 @@ export function mergeTableRowSpan(list, attribute) {
             const a = list[i];
             const b = list[j];
 
-            if (a[attribute] === b[attribute]) {
+            let aAttrValue = '';
+            let bAttrValue = '';
+
+            if (typeof attribute === 'string' || attribute instanceof String) {
+                aAttrValue = a[attribute];
+                bAttrValue = b[attribute];
+            } else if (Array.isArray(attribute)) {
+                let v1 = a;
+                let v2 = b;
+
+                for (let k = 0; k < attribute.length; ++k) {
+                    v1 = v1[attribute[k]];
+                    v2 = v2[attribute[k]];
+                    if (undefined === v1 || undefined === v2) {
+                        break;
+                    }
+                }
+
+                if (undefined === v1 || undefined === v2) {
+                    break;
+                }
+
+                aAttrValue = v1;
+                bAttrValue = v2;
+            }
+
+            if (aAttrValue === bAttrValue) {
                 if (list[i].rowSpan) {
                     list[i].rowSpan += 1;
                 } else {
