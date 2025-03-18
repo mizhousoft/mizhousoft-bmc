@@ -8,7 +8,7 @@ import com.mizhousoft.commons.mapper.PageableMapper;
  *
  * @version
  */
-public interface RoleMapper extends PageableMapper<Role, Integer>
+public interface RoleMapper extends PageableMapper<Role, Role, Integer>
 {
 
 }

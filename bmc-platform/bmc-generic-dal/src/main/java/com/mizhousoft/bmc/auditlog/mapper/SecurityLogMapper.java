@@ -8,7 +8,7 @@ import com.mizhousoft.commons.mapper.PageableMapper;
  *
  * @version
  */
-public interface SecurityLogMapper extends PageableMapper<SecurityLog, Long>
+public interface SecurityLogMapper extends PageableMapper<SecurityLog, SecurityLog, Long>
 {
 
 }

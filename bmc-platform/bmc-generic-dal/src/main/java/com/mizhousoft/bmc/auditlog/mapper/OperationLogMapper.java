@@ -8,7 +8,7 @@ import com.mizhousoft.commons.mapper.PageableMapper;
  *
  * @version
  */
-public interface OperationLogMapper extends PageableMapper<OperationLog, Long>
+public interface OperationLogMapper extends PageableMapper<OperationLog, OperationLog, Long>
 {
 
 }
