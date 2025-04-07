@@ -35,7 +35,7 @@ module.exports = {
         'custom-property-pattern': null,
         'number-max-precision': 8,
         'alpha-value-notation': 'number',
-        'color-function-notation': 'legacy',
+        'color-function-notation': 'modern',
         'selector-class-pattern': null,
         'selector-id-pattern': null,
         'selector-not-notation': null,

@@ -134,8 +134,8 @@
 .mz-note-list-head {
     margin-bottom: 20px;
     padding: 20px 20px 14px;
-    background-color: rgb(249, 249, 249);
-    border: 1px solid rgba(59, 130, 254, 0.3);
+    background-color: rgb(249 249 249);
+    border: 1px solid rgb(59 130 254 / 0.3);
     border-radius: 4px;
 }
 
@@ -344,7 +344,7 @@
 }
 
 .mz-header-avatar a {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgb(255 255 255 / 0.55);
     font-weight: 500;
     font-size: 14px;
     vertical-align: middle;
@@ -375,7 +375,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(50, 50, 50, 0.2);
+    background-color: rgb(50 50 50 / 0.2);
     border-radius: 40px;
 }
 

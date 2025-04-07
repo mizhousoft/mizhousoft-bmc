@@ -16,7 +16,7 @@
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item a {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgb(255 255 255 / 0.7);
     font-size: 15px;
 }
 
@@ -25,7 +25,7 @@
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected {
-    border-bottom-color: rgba(42, 48, 60);
+    border-bottom-color: rgb(42 48 60);
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item.active {
