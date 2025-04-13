@@ -63,7 +63,7 @@ export function mergeTableRowSpan(list, attribute) {
             let aAttrValue = '';
             let bAttrValue = '';
 
-            if (typeof attribute === 'string' || attribute instanceof String) {
+            if (typeof attribute === 'string') {
                 aAttrValue = a[attribute];
                 bAttrValue = b[attribute];
             } else if (Array.isArray(attribute)) {

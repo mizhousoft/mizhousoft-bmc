@@ -34,7 +34,7 @@ export default {
             return '0';
         }
         if (bytes < 1024) {
-            return `${bytes}Bytes`;
+            return `${bytes}Byte`;
         }
         if (bytes < 1024 * 1024) {
             return `${parseFloat((bytes / 1024).toFixed(1))}KB`;

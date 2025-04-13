@@ -19,10 +19,10 @@
     "author": "",
     "license": "MIT",
     "devDependencies": {
-        "@antfu/eslint-config": "4.2.1",
+        "@antfu/eslint-config": "4.12.0",
         "@babel/preset-env": "7.26.9",
         "@babel/preset-react": "7.26.3",
-        "@eslint-react/eslint-plugin": "1.40.3",
+        "@eslint-react/eslint-plugin": "1.47.0",
         "@ianvs/prettier-plugin-sort-imports": "4.4.1",
         "autoprefixer": "10.4.21",
         "babel-loader": "10.0.0",
@@ -45,7 +45,7 @@
         "stylelint-config-rational-order": "0.1.2",
         "stylelint-config-standard": "38.0.0",
         "stylelint-prettier": "5.0.3",
-        "webpack": "5.98.0",
+        "webpack": "5.99.5",
         "webpack-cli": "6.0.1",
         "webpack-dev-server": "5.2.1"
     },

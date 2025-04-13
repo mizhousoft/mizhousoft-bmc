@@ -36,6 +36,7 @@ export default antfu(
             'regexp/no-super-linear-backtracking': 'off', // TODO: remove this
             'regexp/optimal-quantifier-concatenation': 'off',
             'react-hooks/exhaustive-deps': 'off',
+            'react-hooks-extra/no-direct-set-state-in-use-effect': 'off',
             'react/prefer-destructuring-assignment': 'off', // TODO: remove this
             'react-refresh/only-export-components': 'off', // TODO: remove this
             'react/no-clone-element': 'off',

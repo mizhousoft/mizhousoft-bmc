@@ -25,7 +25,7 @@
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item-selected {
-    border-bottom-color: rgb(42 48 60);
+    border-bottom-color: #2a303c;
 }
 
 .mz-navigation-menu.ant-menu-horizontal > .ant-menu-item.active {
