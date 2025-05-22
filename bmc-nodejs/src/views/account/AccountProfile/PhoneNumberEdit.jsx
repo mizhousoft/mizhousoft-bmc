@@ -44,7 +44,7 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
                     maskClosable={false}
                     footer={null}
                     open
-                    destroyOnClose
+                    destroyOnHidden
                     onCancel={() => setVisible(false)}
                     closable={false}
                     centered

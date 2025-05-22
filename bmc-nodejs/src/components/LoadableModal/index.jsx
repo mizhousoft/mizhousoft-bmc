@@ -10,7 +10,7 @@ export default function LoadableModal({
     title,
     open,
     width,
-    maskClosable = true,
+    maskClosable = false,
     loadingHeight = '200px',
     style,
     onCancel,
@@ -23,7 +23,7 @@ export default function LoadableModal({
                 title={title}
                 footer={null}
                 open={open}
-                destroyOnClose
+                destroyOnHidden
                 maskClosable={maskClosable}
                 width={width}
                 onCancel={onCancel}
@@ -44,7 +44,7 @@ export default function LoadableModal({
                 title={title}
                 footer={null}
                 open={open}
-                destroyOnClose
+                destroyOnHidden
                 maskClosable={maskClosable}
                 width={width}
                 onCancel={onCancel}
@@ -62,7 +62,7 @@ export default function LoadableModal({
             title={title}
             footer={null}
             open={open}
-            destroyOnClose
+            destroyOnHidden
             maskClosable={maskClosable}
             width={width}
             onCancel={onCancel}

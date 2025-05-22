@@ -18,7 +18,7 @@ export default function ViewSecurityLog({ securityLog }) {
                     onOk={() => setVisible(false)}
                     onCancel={() => setVisible(false)}
                     closable={false}
-                    destroyOnClose
+                    destroyOnHidden
                     centered
                     className='mz-modal'
                 >

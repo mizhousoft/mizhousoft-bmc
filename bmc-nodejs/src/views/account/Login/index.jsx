@@ -117,7 +117,7 @@ export default function Login() {
                 <div
                     style={{
                         marginTop: '40px',
-                        color: 'rgba(0, 0, 0, .45)',
+                        color: 'rgb(0 0 0 / .45)',
                         textAlign: 'center',
                         fontSize: '15px',
                     }}

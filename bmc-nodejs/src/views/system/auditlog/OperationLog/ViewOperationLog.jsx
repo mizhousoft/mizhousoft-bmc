@@ -18,7 +18,7 @@ export default function ViewOperatorLog({ operationLog }) {
                     onCancel={() => setVisible(false)}
                     width='600px'
                     closable={false}
-                    destroyOnClose
+                    destroyOnHidden
                     centered
                     className='mz-modal'
                 >
