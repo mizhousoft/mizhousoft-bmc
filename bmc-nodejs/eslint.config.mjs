@@ -54,7 +54,6 @@ export default antfu(
             'unused-imports/no-unused-vars': [2, {
                 args: 'none'
             }],
-            'react-hooks/rules-of-hooks': 'warn',
         },
     },
     compat.configs['flat/recommended'],

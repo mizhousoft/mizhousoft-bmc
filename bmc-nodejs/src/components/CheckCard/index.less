@@ -1,0 +1,100 @@
+.mz-checkcard-group {
+    display: inline-block;
+
+    .mz-checkcard-bordered {
+        border: 1px solid #d9d9d9;
+    }
+
+    .mz-checkcard {
+        position: relative;
+        display: inline-block;
+        width: 320px;
+        overflow: auto;
+        color: rgb(42 46 54 / 0.88);
+        font-size: 14px;
+        line-height: 1.57142857;
+        vertical-align: top;
+        background-color: #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-inline-end: 16px;
+        margin-block-end: 16px;
+
+        &::after {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            content: '';
+            inset-block-start: 2px;
+            inset-inline-end: 2px;
+            border-block-end: 10px solid transparent;
+            border-inline-start: 10px solid transparent;
+            border-start-end-radius: 6px;
+        }
+    }
+
+    .mz-checkcard-checked {
+        background-color: #e1f0ff;
+        border-color: #1677ff;
+
+        &::after {
+            border: 10px solid #1677ff;
+            opacity: 1;
+            border-block-end: 10px solid transparent;
+            border-inline-start: 10px solid transparent;
+            border-start-end-radius: 6px;
+        }
+    }
+
+    .mz-checkcard-content {
+        display: flex;
+        padding-inline: 12px;
+        padding-block: 16px;
+    }
+
+    .mz-checkcard-detail {
+        width: 100%;
+        overflow: hidden;
+
+        > div:not(:last-child) {
+            margin-block-end: 4px;
+        }
+    }
+
+    .mz-checkcard-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        line-height: 1.57142857;
+
+        .mz-checkcard-header-left {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .mz-checkcard-title-with-ellipsis {
+            display: inline-block;
+        }
+
+        .mz-checkcard-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            color: rgb(42 46 54 / 0.88);
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .mz-checkcard-description {
+            color: rgb(42 46 54 / 0.65);
+        }
+    }
+}
