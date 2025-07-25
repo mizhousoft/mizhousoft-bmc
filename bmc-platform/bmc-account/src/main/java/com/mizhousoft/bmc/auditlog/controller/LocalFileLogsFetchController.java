@@ -16,6 +16,7 @@ import java.util.Map.Entry;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.RollingFileAppender;
@@ -150,7 +151,7 @@ public class LocalFileLogsFetchController
 
 	private List<LogFile> getLogFileNames(String logname)
 	{
-		logname = StringUtils.removeEnd(logname, ".log");
+		logname = Strings.CS.removeEnd(logname, ".log");
 		List<LogFile> logFilenames = new ArrayList<>(10);
 
 		File dir = new File(runBaseDir);

@@ -2,7 +2,7 @@ package com.mizhousoft.bmc.authentication.service.impl;
 
 import java.time.LocalDateTime;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class TwoFactorAuthenticationServiceImpl implements TwoFactorAuthenticati
 			{
 				LocalDateTime date = LocalDateTime.now().minusDays(7);
 
-				if (lastAccessTime.isAfter(date) && StringUtils.equals(accountDetails.getLoginIpAddr(), lastAccessIpAddr))
+				if (lastAccessTime.isAfter(date) && Strings.CS.equals(accountDetails.getLoginIpAddr(), lastAccessIpAddr))
 				{
 					authcPassed = true;
 				}

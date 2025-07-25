@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +38,7 @@ public class FieldDictServiceImpl implements FieldDictService
 
 		String v = (value == null ? null : value.toString());
 
-		if (StringUtils.equals(v, fieldDict.getValue()))
+		if (Strings.CS.equals(v, fieldDict.getValue()))
 		{
 			return;
 		}

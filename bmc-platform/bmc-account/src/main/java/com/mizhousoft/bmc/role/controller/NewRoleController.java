@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,7 +128,7 @@ public class NewRoleController extends BaseAuditController
 		{
 			Permission perm = iter.next();
 
-			if (StringUtils.equals(perm.getParentName(), parentPerm.getName()))
+			if (Strings.CS.equals(perm.getParentName(), parentPerm.getName()))
 			{
 				TreeNode treeNode = new TreeNode();
 				treeNode.setKey(perm.getId() + "");
