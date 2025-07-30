@@ -73,7 +73,7 @@ export default function Login() {
 
     return (
         <div className='mz-login-container'>
-            <Card className='mz-login-card' bodyStyle={{ paddingBottom: '0px' }}>
+            <Card className='mz-login-card' styles={{ body: { paddingBottom: '0px' } }}>
                 <Form
                     onFinish={onFinish}
                     initialValues={{

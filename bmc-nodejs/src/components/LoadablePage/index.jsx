@@ -2,9 +2,18 @@ import PageComponent from '@/components/PageComponent';
 import PageException from '@/components/PageException';
 import PageLoading from '@/components/PageLoading';
 
-export default function LoadablePage({ fetchStatus, title, pageStyle = {}, pageClass = '', bodyStyle = {}, children, goBack }) {
+export default function LoadablePage({
+    fetchStatus,
+    title,
+    loadingHeight,
+    pageStyle = {},
+    pageClass = '',
+    bodyStyle = {},
+    children,
+    goBack,
+}) {
     if (fetchStatus.loading) {
-        return <PageLoading />;
+        return <PageLoading height={loadingHeight} />;
     }
 
     if (!fetchStatus.okey) {

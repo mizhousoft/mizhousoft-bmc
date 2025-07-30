@@ -123,7 +123,7 @@ export default function AccountAuthorize() {
                     <Table size='middle' columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.id} />
                 </FormItem>
                 <FormItem className='mz-button-group'>
-                    <Button type='primary' onClick={onFinish} confirmLoading={confirmLoading}>
+                    <Button type='primary' onClick={onFinish} loading={confirmLoading}>
                         确定
                     </Button>
                     <Button onClick={gotoList}>取消</Button>

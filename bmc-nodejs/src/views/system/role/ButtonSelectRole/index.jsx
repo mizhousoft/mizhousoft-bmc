@@ -121,7 +121,11 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
                 centered
                 destroyOnHidden
                 className='mz-modal'
-                bodyStyle={{ minHeight: '100px' }}
+                styles={{
+                    body: {
+                        minHeight: '100px',
+                    },
+                }}
             >
                 <Table
                     loading={uFetchStatus.loading}

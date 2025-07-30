@@ -21,7 +21,7 @@ function CheckCardItem({ item, checked = false, onClick }) {
     );
 }
 
-export default function CheckCard({ defaultValue, items = [], onChange }) {
+export default function CheckCard({ defaultValue, items = [], style = {}, onChange }) {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
 
     const clickItem = (value) => {
@@ -32,7 +32,7 @@ export default function CheckCard({ defaultValue, items = [], onChange }) {
 
     return (
         <>
-            <div className='mz-checkcard-group'>
+            <div className='mz-checkcard-group' style={{ ...style }}>
                 {items.map((item) => (
                     <CheckCardItem
                         key={item.value}
