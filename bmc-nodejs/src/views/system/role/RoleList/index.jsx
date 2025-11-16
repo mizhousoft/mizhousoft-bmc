@@ -25,34 +25,44 @@ export default function RoleList() {
         navigate('/role/new');
     };
 
-    const fetchList = (pageNumber, pageSize) => {
-        setFilter(uFilter);
-        setFetchStatus(LOADING_FETCH_STATUS);
-
+    const fetchList = (pageNumber, pageSize, filter) => {
         const requestBody = {
             url: '/role/fetchRoles.action',
             data: {
                 pageNumber,
                 pageSize,
-                name: uFilter.name?.trim(),
+                name: filter.name?.trim(),
             },
         };
 
         httpRequest.post(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            setFilter(filter);
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });
     };
 
     const refreshList = () => {
-        fetchList(dataSource.pageNumber, dataSource.pageSize);
+        setFetchStatus(LOADING_FETCH_STATUS);
+
+        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
+    };
+
+    const changeTablePage = (page, pageSize) => {
+        setFetchStatus(LOADING_FETCH_STATUS);
+
+        fetchList(page, pageSize, uFilter);
     };
 
     const search = () => {
         const fieldsValue = form.getFieldsValue();
-        uFilter.name = fieldsValue.name;
 
-        fetchList(1, dataSource.pageSize);
+        const filter = { ...uFilter };
+        filter.name = fieldsValue.name;
+
+        setFetchStatus(LOADING_FETCH_STATUS);
+
+        fetchList(1, dataSource.pageSize, filter);
     };
 
     const deleteItem = (id) => {
@@ -77,7 +87,7 @@ export default function RoleList() {
     };
 
     useEffect(() => {
-        refreshList();
+        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
     }, []);
 
     const columns = [
@@ -138,7 +148,7 @@ export default function RoleList() {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
-        onChange: (page, pageSize) => fetchList(page, pageSize),
+        onChange: (page, pageSize) => changeTablePage(page, pageSize),
     };
 
     const locale = getTableLocale(uFetchStatus);

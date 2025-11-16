@@ -30,8 +30,6 @@ export default function AccountProfile() {
     const [uRoles, setRoles] = useState([]);
 
     const fetchPageData = () => {
-        setFetchStatus(LOADING_FETCH_STATUS);
-
         const requestBody = {
             url: '/setting/account/fetchMyAccountInfo.action',
             data: {},

@@ -17,9 +17,9 @@ export default function AccountStrategy() {
     const [uStrategy, setStrategy] = useState(undefined);
 
     const changeLockTimeStrategy = (e) => {
-        uStrategy.lockTimeStrategy = e.target.value;
-
         const newStrategy = { ...uStrategy };
+        newStrategy.lockTimeStrategy = e.target.value;
+
         setStrategy(newStrategy);
     };
 

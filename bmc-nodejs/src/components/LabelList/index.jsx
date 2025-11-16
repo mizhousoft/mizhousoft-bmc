@@ -1,55 +1,36 @@
-import React, { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import './index.less';
 
-const LabelListContext = React.createContext({
-    selectedValue: undefined,
-    onClickLabel: undefined,
-});
+function ListItem({ item, active, onChange }) {
+    const selectedClass = active ? 'selected' : '';
 
-function ListItem({ value, title, number }) {
     return (
-        <LabelListContext.Consumer>
-            {({ selectedValue, onClickLabel }) => {
-                const selectedClass = selectedValue === value ? 'selected' : '';
-
-                return (
-                    <li className={`${selectedClass}`} onClick={(e) => onClickLabel(value)}>
-                        <span className='title'>{title}</span>
-                        <span className='number'>（{number}）</span>
-                    </li>
-                );
-            }}
-        </LabelListContext.Consumer>
+        <li className={`${selectedClass}`} onClick={(e) => onChange(item.value)}>
+            <span className='title'>{item.title}</span>
+            <span className='number'>（{item.number}）</span>
+        </li>
     );
 }
 
-function LabelList({ defaultValue, children, onChange }) {
-    const [selectedValue, setSelectedValue] = useState(defaultValue);
+function LabelList({ defaultValue, items = [], onChange }) {
+    const [selectedKey, setSelectedKey] = useState(defaultValue);
 
-    const clickLabelEvent = (value) => {
-        setSelectedValue(value);
+    const clickListItem = (value) => {
+        setSelectedKey(value);
 
         if (onChange) {
             onChange(value);
         }
     };
 
-    const value = useMemo(
-        () => ({
-            selectedValue,
-            onClickLabel: clickLabelEvent,
-        }),
-        [selectedValue]
-    );
-
     return (
         <ul className='mz-label-list'>
-            <LabelListContext.Provider value={value}>{children}</LabelListContext.Provider>
+            {items.map((item) => (
+                <ListItem key={item.value} item={item} active={selectedKey === item.value} onChange={clickListItem} />
+            ))}
         </ul>
     );
 }
-
-LabelList.Item = ListItem;
 
 export default LabelList;

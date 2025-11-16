@@ -11,8 +11,6 @@ export default function OnlineAccountList() {
     const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
 
     const fetchList = (pageNumber, pageSize) => {
-        setFetchStatus(LOADING_FETCH_STATUS);
-
         const requestBody = {
             url: '/system/fetchOnlineAccounts.action',
             data: {
