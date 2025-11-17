@@ -51,7 +51,7 @@
         "@dnd-kit/sortable": "10.0.0",
         "@dnd-kit/utilities": "3.2.2",
         "@reduxjs/toolkit": "2.10.1",
-        "antd": "5.28.1",
+        "antd": "5.29.0",
         "axios": "1.13.2",
         "dayjs": "1.11.19",
         "js-cookie": "3.0.5",
