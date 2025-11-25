@@ -26,7 +26,15 @@ export default function OnlineAccountList() {
     };
 
     const refreshList = () => {
+        setFetchStatus(LOADING_FETCH_STATUS);
+
         fetchList(dataSource.pageNumber, dataSource.pageSize);
+    };
+
+    const changeTablePage = (page, pageSize) => {
+        setFetchStatus(LOADING_FETCH_STATUS);
+
+        fetchList(page, pageSize);
     };
 
     const logoff = (record) => {
@@ -51,7 +59,7 @@ export default function OnlineAccountList() {
     };
 
     useEffect(() => {
-        refreshList();
+        fetchList(dataSource.pageNumber, dataSource.pageSize);
     }, []);
 
     const columns = [
@@ -105,7 +113,7 @@ export default function OnlineAccountList() {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
-        onChange: (page, pageSize) => fetchList(page, pageSize),
+        onChange: (page, pageSize) => changeTablePage(page, pageSize),
     };
 
     const locale = getTableLocale(uFetchStatus);

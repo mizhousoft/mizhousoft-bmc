@@ -2,17 +2,19 @@ import { Spin } from 'antd';
 
 import PageComponent from '@/components/PageComponent';
 
-function InnerLoading({ tip = '数据加载中', height = 'calc(100vh - 60px)' }) {
+function InnerLoading({ tip = '数据加载中', height = 'calc(100vh - 200px)' }) {
     return (
         <div className='mz-page-loading' style={{ height }}>
             <div className='spin'>
-                <Spin size='large' tip={tip} />
+                <Spin size='large' tip={tip}>
+                    <div></div>
+                </Spin>
             </div>
         </div>
     );
 }
 
-export default function PageLoading({ tip = '数据加载中', breadcrumbs = [], height = 'calc(100vh - 60px)' }) {
+export default function PageLoading({ tip = '数据加载中', breadcrumbs = [], height = 'calc(100vh - 200px)' }) {
     if (breadcrumbs.length > 0) {
         return (
             <PageComponent breadcrumbs={breadcrumbs}>

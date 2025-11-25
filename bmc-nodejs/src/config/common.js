@@ -31,3 +31,10 @@ export const SUCCEED_FETCH_STATUS = {
     statusCode: 200,
     message: undefined,
 };
+
+export const ERROR_FETCH_STATUS = {
+    loading: false,
+    okey: false,
+    statusCode: 501,
+    message: 'º”‘ÿ ˝æ› ß∞‹',
+};

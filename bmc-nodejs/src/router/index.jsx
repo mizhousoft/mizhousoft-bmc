@@ -27,7 +27,7 @@ function recursive(route) {
         if (undefined === indexRoute) {
             route.children.push({
                 index: true,
-                element: <Navigate to={defaultPath} replace />,
+                element: <Navigate to={defaultPath} />,
             });
         }
     }
@@ -45,7 +45,7 @@ routeList.forEach((route) => {
 
 routeList.push({
     path: '*',
-    element: <Navigate to={defaultPath} replace />,
+    element: <Navigate to={defaultPath} />,
 });
 
 const router = createBrowserRouter(routeList, {

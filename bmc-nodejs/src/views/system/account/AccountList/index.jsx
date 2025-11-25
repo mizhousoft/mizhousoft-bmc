@@ -1,50 +1,27 @@
 import { useEffect } from 'react';
 import { Col, message, Radio, Row, Table } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import AuthButton from '@/components-auth/AuthButton';
 import AuthLink from '@/components-auth/AuthLink';
 import AuthPopconfirm from '@/components-auth/AuthPopconfirm';
 import PageComponent from '@/components/PageComponent';
-import { DEFAULT_DATA_PAGE } from '@/config/common';
-import { actionEvent, actionResultEvent, fetchEvent, fetchResultEvent } from '@/redux/accountSlice';
 import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
+import useAccountStore from '@/views/system/account/AccountList/accountStore';
 import ResetAccountPasswd from '../ResetAccountPasswd';
 
 export default function AccountList() {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const uFetchStatus = useSelector((state) => state.accounts.fetchStatus);
-    const dataSource = useSelector((state) => state.accounts.dataSource);
-    const uFilter = useSelector((state) => state.accounts.filter);
+    const uFetchStatus = useAccountStore((state) => state.fetchStatus);
+    const dataSource = useAccountStore((state) => state.dataSource);
+    const uFilter = useAccountStore((state) => state.filter);
+    const setLoading = useAccountStore((state) => state.setLoading);
+    const fetchList = useAccountStore((state) => state.fetchList);
 
     const gotoNew = () => {
         navigate('/account/new');
-    };
-
-    const fetchList = (pageNumber, pageSize, filter) => {
-        dispatch(fetchEvent({ filter }));
-
-        const requestBody = {
-            url: '/account/fetchAccountInfoList.action',
-            data: {
-                pageNumber,
-                pageSize,
-                status: filter.status,
-            },
-        };
-
-        httpRequest.get(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
-            dispatch(
-                fetchResultEvent({
-                    fetchStatus,
-                    dataSource: dataPage,
-                })
-            );
-        });
     };
 
     const refreshList = () => {
@@ -52,7 +29,7 @@ export default function AccountList() {
     };
 
     const disableItem = (id) => {
-        dispatch(actionEvent());
+        setLoading();
 
         const requestBody = {
             url: '/account/disableAccount.action',
@@ -64,16 +41,16 @@ export default function AccountList() {
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('禁用帐号成功。');
-                refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch(actionResultEvent());
             }
+
+            refreshList();
         });
     };
 
     const enableItem = (id) => {
-        dispatch(actionEvent());
+        setLoading();
 
         const requestBody = {
             url: '/account/enableAccount.action',
@@ -85,16 +62,16 @@ export default function AccountList() {
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('启用帐号成功。');
-                refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch(actionResultEvent());
             }
+
+            refreshList();
         });
     };
 
     const unlockItem = (id) => {
-        dispatch(actionEvent());
+        setLoading();
 
         const requestBody = {
             url: '/account/unlockAccount.action',
@@ -106,16 +83,16 @@ export default function AccountList() {
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('解锁帐号成功。');
-                refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch(actionResultEvent());
             }
         });
+
+        refreshList();
     };
 
     const deleteItem = (id) => {
-        dispatch(actionEvent());
+        setLoading();
 
         const requestBody = {
             url: '/account/deleteAccount.action',
@@ -127,11 +104,11 @@ export default function AccountList() {
         httpRequest.post(requestBody).then(({ fetchStatus }) => {
             if (fetchStatus.okey) {
                 message.success('删除帐号成功。');
-                refreshList();
             } else {
                 message.error(fetchStatus.message);
-                dispatch(actionResultEvent());
             }
+
+            refreshList();
         });
     };
 

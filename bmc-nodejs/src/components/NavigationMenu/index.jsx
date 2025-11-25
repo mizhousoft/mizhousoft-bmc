@@ -9,7 +9,7 @@ export default function NavigationMenu({ activeKey, menus }) {
     const items = menus.map((menu) => ({
         key: menu.id,
         label: (
-            <Link to={menu.path} replace>
+            <Link to={menu.path}>
                 <span className={menu.iconClass} />
                 {menu.name}
             </Link>

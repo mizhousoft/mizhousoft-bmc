@@ -1,9 +1,9 @@
 import React from 'react';
 
-import GenericLayout from '@/layout/GenericLayout';
-import NaviSiderLayout from '@/layout/NaviSiderLayout';
-import ProfileLayout from '@/layout/ProfileLayout';
-import Login from '@/views/account/Login';
+const GenericLayout = React.lazy(() => import('@/layout/GenericLayout'));
+const NaviSiderLayout = React.lazy(() => import('@/layout/NaviSiderLayout'));
+const ProfileLayout = React.lazy(() => import('@/layout/ProfileLayout'));
+const Login = React.lazy(() => import('@/views/account/Login'));
 
 const FirstLogin = React.lazy(() => import('@/views/account/FirstLogin'));
 const PasswordExpired = React.lazy(() => import('@/views/account/PasswordExpired'));

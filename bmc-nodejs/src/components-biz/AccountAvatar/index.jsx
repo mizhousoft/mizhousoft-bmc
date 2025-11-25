@@ -12,7 +12,7 @@ export default function AccountAvatar({ isActive }) {
 
     return (
         <span className='mz-header-avatar'>
-            <Link to='/profile/account' className={isActive ? 'active' : ''} replace>
+            <Link to='/profile/account' className={isActive ? 'active' : ''}>
                 {account.name}
 
                 <FontIcon type='anticon-arrow_down' style={{ fontSize: '0.8em', verticalAlign: 'middle', marginLeft: '4px' }} />

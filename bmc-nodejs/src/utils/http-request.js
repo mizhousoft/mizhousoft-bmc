@@ -205,34 +205,22 @@ function getFileContentType(filename) {
 }
 
 export default {
-    async get(options) {
+    get(options) {
         options.method = 'get';
 
-        const result = await executeRequest(options)
-            .then((resp) => resp)
-            .catch((error) => error);
-
-        return result;
+        return executeRequest(options);
     },
 
-    async post(options) {
+    post(options) {
         options.method = 'post';
 
-        const result = await executeRequest(options)
-            .then((resp) => resp)
-            .catch((error) => error);
-
-        return result;
+        return executeRequest(options);
     },
 
-    async upload(options) {
+    upload(options) {
         options.method = 'upload';
 
-        const result = await executeRequest(options)
-            .then((resp) => resp)
-            .catch((error) => error);
-
-        return result;
+        return executeRequest(options);
     },
 
     download(fileUrl, filename, downloadOk, downloadFail) {

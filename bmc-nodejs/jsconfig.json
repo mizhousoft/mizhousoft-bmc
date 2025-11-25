@@ -23,9 +23,6 @@
             "@/layout/*": [
                 "./src/layout/*"
             ],
-            "@/redux/*": [
-                "./src/redux/*"
-            ],
             "@/store/*": [
                 "./src/store/*"
             ],

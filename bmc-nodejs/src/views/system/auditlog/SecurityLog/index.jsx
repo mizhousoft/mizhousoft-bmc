@@ -40,6 +40,8 @@ export default function SecurityLog() {
         };
 
         httpRequest.post(requestBody).then(({ fetchStatus, dataPage = DEFAULT_DATA_PAGE }) => {
+            setSearchFilter(searchFilter);
+            setTableFilter(tableFilter);
             setDataSource(dataPage);
             setFetchStatus(fetchStatus);
         });
@@ -59,7 +61,6 @@ export default function SecurityLog() {
             tableFilter.results = filters.results;
         }
 
-        setTableFilter(tableFilter);
         setFetchStatus(LOADING_FETCH_STATUS);
 
         fetchList(pagination.current, pagination.pageSize, uSearchFilter, tableFilter);
@@ -77,7 +78,6 @@ export default function SecurityLog() {
         searchFilter.beginTime = beginTime?.format('YYYY-MM-DD HH:mm');
         searchFilter.endTime = endTime?.format('YYYY-MM-DD HH:mm');
 
-        setSearchFilter(searchFilter);
         setFetchStatus(LOADING_FETCH_STATUS);
 
         fetchList(dataSource.pageNumber, dataSource.pageSize, searchFilter, uTableFilter);
@@ -104,8 +104,6 @@ export default function SecurityLog() {
             results: [],
         };
 
-        setSearchFilter(searchFilter);
-        setTableFilter(tableFilter);
         setFetchStatus(LOADING_FETCH_STATUS);
 
         fetchList(1, DEFAULT_DATA_PAGE.pageSize, searchFilter, tableFilter);

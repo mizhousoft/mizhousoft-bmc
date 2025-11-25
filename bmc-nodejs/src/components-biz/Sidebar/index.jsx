@@ -22,7 +22,7 @@ export default function Sidebar({ header, footer, siderMenus, path, activeKey, h
             return {
                 key: menu.id,
                 label: (
-                    <Link to={menu.path} replace>
+                    <Link to={menu.path}>
                         <FontIcon type={menu.iconFont} style={{ fontSize: '1.2em', verticalAlign: 'text-bottom' }} />
                         {menu.name}
                     </Link>
@@ -33,11 +33,7 @@ export default function Sidebar({ header, footer, siderMenus, path, activeKey, h
         return {
             key: menu.id,
             style: { paddingLeft: '54px' },
-            label: (
-                <Link to={menu.path} replace>
-                    {menu.name}
-                </Link>
-            ),
+            label: <Link to={menu.path}>{menu.name}</Link>,
         };
     };
 
