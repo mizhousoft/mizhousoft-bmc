@@ -36,5 +36,5 @@ export const ERROR_FETCH_STATUS = {
     loading: false,
     okey: false,
     statusCode: 501,
-    message: '¼ÓÔØÊı¾İÊ§°Ü',
+    message: 'åŠ è½½æ•°æ®å¤±è´¥',
 };

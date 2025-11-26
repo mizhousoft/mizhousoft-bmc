@@ -5,7 +5,7 @@ import { DEFAULT_DATA_PAGE, LOADING_FETCH_STATUS } from '@/config/common';
 import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
-export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onChange }) {
+export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath, onChange }) {
     const [visible, setVisible] = useState(false);
     const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState([]);
@@ -15,7 +15,7 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchAction, onCh
         setFetchStatus(LOADING_FETCH_STATUS);
 
         const requestBody = {
-            url: fetchAction,
+            url: fetchRequestPath,
             data: {
                 pageSize,
                 pageNumber,

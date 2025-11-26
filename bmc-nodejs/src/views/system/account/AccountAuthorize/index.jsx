@@ -117,7 +117,7 @@ export default function AccountAuthorize() {
                     <ButtonSelectRole
                         selectedRoles={uSelectedRoles}
                         onChange={(roles) => setSelectedRoles(roles)}
-                        fetchAction='/account/authorize/fetchRoles.action'
+                        fetchRequestPath='/account/authorize/fetchRoles.action'
                     />
 
                     <Table size='middle' columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.id} />

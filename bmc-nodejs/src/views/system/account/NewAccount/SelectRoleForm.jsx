@@ -52,7 +52,7 @@ export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData 
             <ButtonSelectRole
                 selectedRoles={uSelectedRoles}
                 onChange={(roles) => setSelectedRoles(roles)}
-                fetchAction='/account/new/fetchRoles.action'
+                fetchRequestPath='/account/new/fetchRoles.action'
             />
 
             <Table columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.name} size='middle' />
