@@ -46,7 +46,7 @@ export default function AccountProfile() {
         fetchPageData();
     }, []);
 
-    const breadcrumbs = ['帐号信息'];
+    const breadcrumbs = [{ title: '帐号信息' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

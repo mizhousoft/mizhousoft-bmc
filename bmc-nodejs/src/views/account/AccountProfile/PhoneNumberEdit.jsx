@@ -48,7 +48,6 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
                     onCancel={() => setVisible(false)}
                     closable={false}
                     centered
-                    className='mz-modal'
                 >
                     <Form
                         preserve={false}

@@ -213,7 +213,7 @@ export default function OperationLog() {
     }
 
     return (
-        <PageComponent breadcrumbs={['操作日志']} lightBodyColor={false}>
+        <PageComponent breadcrumbs={[{ title: '操作日志' }]} lightBodyColor={false}>
             <Form
                 form={form}
                 layout='horizontal'

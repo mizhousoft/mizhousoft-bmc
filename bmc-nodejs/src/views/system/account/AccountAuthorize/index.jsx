@@ -69,7 +69,7 @@ export default function AccountAuthorize() {
         });
     }, []);
 
-    const breadcrumbs = ['帐号', '授权帐号'];
+    const breadcrumbs = [{ title: '帐号' }, { title: '授权帐号' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

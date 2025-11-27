@@ -79,7 +79,7 @@ export default function RunningLog() {
     const locale = getTableLocale(uFetchStatus);
 
     return (
-        <PageComponent breadcrumbs={['本地日志']}>
+        <PageComponent breadcrumbs={[{ title: '本地日志' }]}>
             <Table
                 columns={columns}
                 loading={uFetchStatus.loading}

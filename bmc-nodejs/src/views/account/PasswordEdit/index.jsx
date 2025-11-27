@@ -110,7 +110,7 @@ export default function PasswordEdit() {
         });
     }, []);
 
-    const breadcrumbs = ['密码修改'];
+    const breadcrumbs = [{ title: '密码修改' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

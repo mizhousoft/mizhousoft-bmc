@@ -58,7 +58,7 @@ export default function AccountStrategy() {
         });
     }, []);
 
-    const breadcrumbs = ['帐号策略'];
+    const breadcrumbs = [{ title: '帐号策略' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

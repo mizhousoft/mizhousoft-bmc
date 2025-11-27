@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Form, Input, message, Tree } from 'antd';
-import { Link, useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import PageComponent from '@/components/PageComponent';
 import PageException from '@/components/PageException';
@@ -76,12 +76,7 @@ export default function EditRole() {
         });
     }, []);
 
-    const breadcrumbs = [
-        <Link key='list' to='/role/list'>
-            角色
-        </Link>,
-        '编辑角色',
-    ];
+    const breadcrumbs = [{ title: '角色', path: '/role/list' }, { title: '编辑角色' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

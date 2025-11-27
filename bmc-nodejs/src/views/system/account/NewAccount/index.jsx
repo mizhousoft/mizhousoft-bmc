@@ -38,7 +38,7 @@ export default function NewAccount() {
     };
 
     return (
-        <PageComponent breadcrumbs={['帐号', '增加帐号']}>
+        <PageComponent breadcrumbs={[{ title: '帐号' }, { title: '增加帐号' }]}>
             <Steps current={current} size='small' style={{ padding: '15px 10px 25px 10px' }}>
                 <Step title='输入帐号' />
                 <Step title='选择角色' />

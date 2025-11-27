@@ -120,7 +120,6 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
                 footer={null}
                 centered
                 destroyOnHidden
-                className='mz-modal'
                 styles={{
                     body: {
                         minHeight: '100px',

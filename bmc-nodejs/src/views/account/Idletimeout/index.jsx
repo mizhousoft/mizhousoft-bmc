@@ -47,7 +47,7 @@ export default function Idletimeout() {
         });
     }, []);
 
-    const breadcrumbs = ['闲时时间设置'];
+    const breadcrumbs = [{ title: '闲时时间设置' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

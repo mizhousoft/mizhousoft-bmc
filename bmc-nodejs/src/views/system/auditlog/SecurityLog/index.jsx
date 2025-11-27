@@ -204,7 +204,7 @@ export default function SecurityLog() {
     }
 
     return (
-        <PageComponent breadcrumbs={['安全日志']} lightBodyColor={false}>
+        <PageComponent breadcrumbs={[{ title: '安全日志' }]} lightBodyColor={false}>
             <Form
                 form={form}
                 layout='horizontal'

@@ -154,7 +154,7 @@ export default function RoleList() {
     const locale = getTableLocale(uFetchStatus);
 
     return (
-        <PageComponent breadcrumbs={['角色']}>
+        <PageComponent breadcrumbs={[{ title: '角色' }]}>
             <Form
                 form={form}
                 labelAlign='left'

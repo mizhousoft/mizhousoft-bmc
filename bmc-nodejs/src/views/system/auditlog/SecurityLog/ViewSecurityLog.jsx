@@ -20,7 +20,6 @@ export default function ViewSecurityLog({ securityLog }) {
                     closable={false}
                     destroyOnHidden
                     centered
-                    className='mz-modal'
                 >
                     <Form preserve={false} className='mz-view-form' labelAlign='left' labelCol={{ flex: '90px' }}>
                         <FormItem label='操作名称'>{securityLog.operation}</FormItem>

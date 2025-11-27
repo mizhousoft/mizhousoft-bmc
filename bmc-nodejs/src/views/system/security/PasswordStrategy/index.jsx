@@ -50,7 +50,7 @@ export default function PasswordStrategy() {
         });
     }, []);
 
-    const breadcrumbs = ['密码策略'];
+    const breadcrumbs = [{ title: '密码策略' }];
 
     if (uFetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;

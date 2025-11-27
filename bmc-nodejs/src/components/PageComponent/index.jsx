@@ -1,4 +1,9 @@
 import { Breadcrumb, Col, Row } from 'antd';
+import { Link } from 'react-router';
+
+function itemRender(currentItem, params, items, paths) {
+    return currentItem.path ? <Link to={currentItem?.path}>{currentItem.title}</Link> : <span>{currentItem.title}</span>;
+}
 
 export default function PageComponent({
     breadcrumbs = [],
@@ -20,11 +25,7 @@ export default function PageComponent({
                 <div className='mz-page-head' style={headStyle}>
                     <Row>
                         <Col span={leftSpan}>
-                            <Breadcrumb>
-                                {breadcrumbs.map((value) => (
-                                    <Breadcrumb.Item key={value}>{value}</Breadcrumb.Item>
-                                ))}
-                            </Breadcrumb>
+                            <Breadcrumb items={breadcrumbs} itemRender={itemRender} />
                         </Col>
                         {extra ? (
                             <Col span={4} className='extra'>

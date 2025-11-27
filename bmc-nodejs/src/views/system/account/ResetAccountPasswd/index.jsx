@@ -80,7 +80,6 @@ export default function ResetAccountPasswd({ accountId }) {
                     maskClosable={false}
                     footer={null}
                     onCancel={() => setVisible(false)}
-                    className='mz-modal'
                 >
                     <Form preserve={false} onFinish={onFinish} form={form} labelAlign='left'>
                         <FormItem
