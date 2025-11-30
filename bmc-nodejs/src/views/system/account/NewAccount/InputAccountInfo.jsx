@@ -1,7 +1,6 @@
 import { Button, Form, Input, Radio } from 'antd';
 
 const FormItem = Form.Item;
-const RadioGroup = Radio.Group;
 
 export default function InputAccountInfo({ gotoList, nextStep, formData }) {
     const [form] = Form.useForm();
@@ -128,10 +127,12 @@ export default function InputAccountInfo({ gotoList, nextStep, formData }) {
                     },
                 ]}
             >
-                <RadioGroup>
-                    <Radio value={2}>正常</Radio>
-                    <Radio value={3}>停用</Radio>
-                </RadioGroup>
+                <Radio.Group
+                    options={[
+                        { value: 2, label: '正常' },
+                        { value: 3, label: '停用' },
+                    ]}
+                />
             </FormItem>
             <FormItem className='mz-button-group'>
                 <Button type='primary' htmlType='submit'>

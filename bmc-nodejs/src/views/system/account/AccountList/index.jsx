@@ -240,12 +240,17 @@ export default function AccountList() {
         <PageComponent breadcrumbs={[{ title: '帐号' }]}>
             <Row className='mz-table-header'>
                 <Col span={12}>
-                    <Radio.Group defaultValue={`${uFilter.status}`} onChange={changeFilterStatus} optionType='button'>
-                        <Radio.Button value='0'>所有帐号</Radio.Button>
-                        <Radio.Button value='2'>启用帐号</Radio.Button>
-                        <Radio.Button value='3'>禁用帐号</Radio.Button>
-                        <Radio.Button value='4'>锁定帐号</Radio.Button>
-                    </Radio.Group>
+                    <Radio.Group
+                        defaultValue={`${uFilter.status}`}
+                        onChange={changeFilterStatus}
+                        optionType='button'
+                        options={[
+                            { value: '0', label: '所有帐号' },
+                            { value: '2', label: '启用帐号' },
+                            { value: '3', label: '禁用帐号' },
+                            { value: '4', label: '锁定帐号' },
+                        ]}
+                    />
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
                     <AuthButton authId='bmc.account.new' onClick={gotoNew} type='primary'>
