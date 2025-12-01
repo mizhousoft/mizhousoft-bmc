@@ -6,7 +6,7 @@ import PageException from '@/components/PageException';
 export default function LoadableDrawer({ fetchStatus, title, open, width, placement, onClose, children }) {
     if (fetchStatus.loading) {
         return (
-            <Drawer title={title} width={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
+            <Drawer title={title} size={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
                 <DrawerLoading />
             </Drawer>
         );
@@ -14,14 +14,14 @@ export default function LoadableDrawer({ fetchStatus, title, open, width, placem
 
     if (!fetchStatus.okey) {
         return (
-            <Drawer title={title} width={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
+            <Drawer title={title} size={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
                 <PageException fetchStatus={fetchStatus} goBack={onClose} />
             </Drawer>
         );
     }
 
     return (
-        <Drawer title={title} width={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
+        <Drawer title={title} size={width} placement={placement} destroyOnHidden onClose={onClose} open={open} className='mz-drawer'>
             {children}
         </Drawer>
     );

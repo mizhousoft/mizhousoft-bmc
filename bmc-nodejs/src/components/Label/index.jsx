@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState } from 'react';
+import { useImperativeHandle, useState } from 'react';
 
 import './index.less';
 
@@ -12,9 +12,7 @@ function LabelItem({ item, selected, clickItemEvent }) {
     );
 }
 
-function Label(props, ref) {
-    const { defaultValue, title, extendMoreHidden = false, items = [], onChange, style = {}, required = false } = props;
-
+export default function Label({ defaultValue, title, extendMoreHidden = false, items = [], onChange, style = {}, required = false, ref }) {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
     const [isExtendMore, setExtendMore] = useState(extendMoreHidden);
 
@@ -57,5 +55,3 @@ function Label(props, ref) {
         </div>
     );
 }
-
-export default React.forwardRef(Label);

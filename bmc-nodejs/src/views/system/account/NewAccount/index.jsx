@@ -7,8 +7,6 @@ import ConfirmAccountInfoForm from './ConfirmAccountInfoForm';
 import InputAccountInfo from './InputAccountInfo';
 import SelectRoleForm from './SelectRoleForm';
 
-const { Step } = Steps;
-
 export default function NewAccount() {
     const navigate = useNavigate();
 
@@ -39,11 +37,12 @@ export default function NewAccount() {
 
     return (
         <PageComponent breadcrumbs={[{ title: '帐号' }, { title: '增加帐号' }]}>
-            <Steps current={current} size='small' style={{ padding: '15px 10px 25px 10px' }}>
-                <Step title='输入帐号' />
-                <Step title='选择角色' />
-                <Step title='确认帐号' />
-            </Steps>
+            <Steps
+                current={current}
+                size='small'
+                style={{ padding: '15px 10px 25px 10px' }}
+                items={[{ title: '输入帐号' }, { title: '选择角色' }, { title: '确认帐号' }]}
+            />
             <div style={{ padding: '0px 25px' }}>
                 {current === 0 && <InputAccountInfo formData={formData} nextStep={nextStep} gotoList={gotoList} />}
                 {current === 1 && <SelectRoleForm formData={formData} prevStep={prevStep} nextStep={nextStep} gotoList={gotoList} />}

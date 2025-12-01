@@ -112,7 +112,7 @@ export default function Login() {
                             登录
                         </Button>
                     </FormItem>
-                    {uError !== '' && <Alert type='error' message={uError} showIcon style={{ textAlign: 'left', marginBottom: '20px' }} />}
+                    {uError !== '' && <Alert type='error' title={uError} showIcon style={{ textAlign: 'left', marginBottom: '20px' }} />}
                 </Form>
                 <div
                     style={{

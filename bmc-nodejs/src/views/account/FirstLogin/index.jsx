@@ -89,7 +89,7 @@ export default function FirstLogin() {
                     labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
-                    <Alert message={content} type='info' showIcon style={{ marginBottom: '20px' }} />
+                    <Alert title={content} type='info' showIcon style={{ marginBottom: '20px' }} />
 
                     <FormItem
                         name='password'

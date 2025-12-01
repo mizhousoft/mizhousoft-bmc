@@ -50,12 +50,12 @@
         "@dnd-kit/modifiers": "9.0.0",
         "@dnd-kit/sortable": "10.0.0",
         "@dnd-kit/utilities": "3.2.2",
-        "antd": "5.29.1",
+        "antd": "6.0.0",
         "axios": "1.13.2",
         "dayjs": "1.11.19",
         "js-cookie": "3.0.5",
-        "react": "18.3.1",
-        "react-dom": "18.3.1",
+        "react": "19.2.0",
+        "react-dom": "19.2.0",
         "react-router": "7.9.6",
         "zustand": "5.0.9"
     }

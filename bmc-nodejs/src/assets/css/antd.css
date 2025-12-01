@@ -32,8 +32,12 @@
     margin-right: 12px !important;
 }
 
+.ant-modal .ant-modal-container {
+    padding: 0 !important;
+}
+
 .ant-modal-header {
-    padding: 11px 24px !important;
+    padding: 13px 24px !important;
     background: #f7f8fa !important;
 }
 

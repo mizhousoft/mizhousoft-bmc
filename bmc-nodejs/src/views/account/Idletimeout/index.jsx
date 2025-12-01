@@ -60,7 +60,7 @@ export default function Idletimeout() {
         <PageComponent breadcrumbs={breadcrumbs}>
             <Form onFinish={onFinish} initialValues={{ timeout: uIdleTimeOut.timeout }} labelAlign='left' labelCol={{ flex: '120px' }}>
                 <Alert
-                    message='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
+                    title='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
                     type='info'
                     showIcon
                     style={{ marginBottom: '18px' }}

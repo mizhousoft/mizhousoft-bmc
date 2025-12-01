@@ -124,7 +124,7 @@ export default function PasswordEdit() {
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
             <Form onFinish={onFinish} form={form} labelAlign='left' labelCol={{ flex: '120px' }}>
-                <Alert message={content} type='info' showIcon style={{ marginBottom: '18px' }} />
+                <Alert title={content} type='info' showIcon style={{ marginBottom: '18px' }} />
 
                 <FormItem
                     name='password'

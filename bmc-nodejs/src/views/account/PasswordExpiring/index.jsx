@@ -113,7 +113,7 @@ export default function PasswordExpiring() {
                     labelCol={{ flex: '120px' }}
                     style={{ backgroundColor: 'white', padding: '25px' }}
                 >
-                    <Alert message={content} type='warning' showIcon style={{ marginBottom: '40px', fontSize: '15px' }} />
+                    <Alert title={content} type='warning' showIcon style={{ marginBottom: '40px', fontSize: '15px' }} />
 
                     <FormItem
                         name='password'
