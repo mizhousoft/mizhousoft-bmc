@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState } from 'react';
+import { useImperativeHandle, useState } from 'react';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { arrayMove, SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -24,9 +24,7 @@ const DragableBodyRow = (props) => {
     return <tr {...props} ref={setNodeRef} style={style} {...attributes} {...listeners} />;
 };
 
-function SortableTable(props, ref) {
-    const { columns, title, dataSource } = props;
-
+export default function SortableTable({ columns, title, dataSource, ref }) {
     const [uDataSource, setDataSource] = useState(dataSource);
 
     const sensors = useSensors(
@@ -70,5 +68,3 @@ function SortableTable(props, ref) {
         </DndContext>
     );
 }
-
-export default React.forwardRef(SortableTable);
