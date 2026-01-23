@@ -11,7 +11,6 @@ export default function Logout() {
 
     const onLogout = () => {
         Modal.confirm({
-            autoFocusButton: null,
             title: '退出帐号',
             content: <div>你确定要退出帐号吗？</div>,
             okText: '确认',

@@ -21,6 +21,10 @@ module.exports = {
         mainFiles: ["index"],
     },
     devtool: 'source-map',
+    lazyCompilation: {
+        imports: false,
+        entries: false,
+    },
     module: {
         rules: [
             {

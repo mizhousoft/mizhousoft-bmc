@@ -1,34 +1,34 @@
-import React from 'react';
+import { lazy } from 'react';
 
-const GenericLayout = React.lazy(() => import('@/layout/GenericLayout'));
-const NaviSiderLayout = React.lazy(() => import('@/layout/NaviSiderLayout'));
-const ProfileLayout = React.lazy(() => import('@/layout/ProfileLayout'));
-const Login = React.lazy(() => import('@/views/account/Login'));
+const GenericLayout = lazy(() => import('@/layout/GenericLayout'));
+const NaviSiderLayout = lazy(() => import('@/layout/NaviSiderLayout'));
+const ProfileLayout = lazy(() => import('@/layout/ProfileLayout'));
+const Login = lazy(() => import('@/views/account/Login'));
 
-const FirstLogin = React.lazy(() => import('@/views/account/FirstLogin'));
-const PasswordExpired = React.lazy(() => import('@/views/account/PasswordExpired'));
-const PasswordExpiring = React.lazy(() => import('@/views/account/PasswordExpiring'));
+const FirstLogin = lazy(() => import('@/views/account/FirstLogin'));
+const PasswordExpired = lazy(() => import('@/views/account/PasswordExpired'));
+const PasswordExpiring = lazy(() => import('@/views/account/PasswordExpiring'));
 
-const AccountProfile = React.lazy(() => import('@/views/account/AccountProfile'));
-const PasswordEdit = React.lazy(() => import('@/views/account/PasswordEdit'));
-const Idletimeout = React.lazy(() => import('@/views/account/Idletimeout'));
+const AccountProfile = lazy(() => import('@/views/account/AccountProfile'));
+const PasswordEdit = lazy(() => import('@/views/account/PasswordEdit'));
+const Idletimeout = lazy(() => import('@/views/account/Idletimeout'));
 
-const AccountList = React.lazy(() => import('@/views/system/account/AccountList'));
-const NewAccount = React.lazy(() => import('@/views/system/account/NewAccount'));
-const AccountAuthorize = React.lazy(() => import('@/views/system/account/AccountAuthorize'));
+const AccountList = lazy(() => import('@/views/system/account/AccountList'));
+const NewAccount = lazy(() => import('@/views/system/account/NewAccount'));
+const AccountAuthorize = lazy(() => import('@/views/system/account/AccountAuthorize'));
 
-const RoleList = React.lazy(() => import('@/views/system/role/RoleList'));
-const RoleInfo = React.lazy(() => import('@/views/system/role/RoleInfo'));
-const NewRole = React.lazy(() => import('@/views/system/role/NewRole'));
-const EditRole = React.lazy(() => import('@/views/system/role/EditRole'));
+const RoleList = lazy(() => import('@/views/system/role/RoleList'));
+const RoleInfo = lazy(() => import('@/views/system/role/RoleInfo'));
+const NewRole = lazy(() => import('@/views/system/role/NewRole'));
+const EditRole = lazy(() => import('@/views/system/role/EditRole'));
 
-const OperationLog = React.lazy(() => import('@/views/system/auditlog/OperationLog'));
-const SecurityLog = React.lazy(() => import('@/views/system/auditlog/SecurityLog'));
-const RunningLog = React.lazy(() => import('@/views/system/auditlog/RunningLog'));
+const OperationLog = lazy(() => import('@/views/system/auditlog/OperationLog'));
+const SecurityLog = lazy(() => import('@/views/system/auditlog/SecurityLog'));
+const RunningLog = lazy(() => import('@/views/system/auditlog/RunningLog'));
 
-const AccountStrategy = React.lazy(() => import('@/views/system/security/AccountStrategy'));
-const PasswordStrategy = React.lazy(() => import('@/views/system/security/PasswordStrategy'));
-const OnlineAccount = React.lazy(() => import('@/views/system/security/OnlineAccountList'));
+const AccountStrategy = lazy(() => import('@/views/system/security/AccountStrategy'));
+const PasswordStrategy = lazy(() => import('@/views/system/security/PasswordStrategy'));
+const OnlineAccount = lazy(() => import('@/views/system/security/OnlineAccountList'));
 
 const routes = [
     {
