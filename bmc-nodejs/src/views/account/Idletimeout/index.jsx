@@ -18,7 +18,7 @@ export default function Idletimeout() {
         setConfirmLoading(true);
 
         const requestBody = {
-            url: '/setting/idleTimeout/modifyidleTimeout.action',
+            url: '/setting/idletimeout/modifyIdletimeout.action',
             data: {
                 ...values,
             },
@@ -37,7 +37,7 @@ export default function Idletimeout() {
 
     useEffect(() => {
         const requestBody = {
-            url: '/setting/idleTimeout/fetchidleTimeout.action',
+            url: '/setting/idletimeout/fetchIdletimeout.action',
             data: {},
         };
 
