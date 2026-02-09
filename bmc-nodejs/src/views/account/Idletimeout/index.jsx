@@ -10,15 +10,15 @@ import httpRequest from '@/utils/http-request';
 const FormItem = Form.Item;
 
 export default function Idletimeout() {
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uIdleTimeOut, setIdleTimeout] = useState(undefined);
+    const [idleTimeout, setIdleTimeout] = useState(undefined);
 
     const onFinish = (values) => {
         setConfirmLoading(true);
 
         const requestBody = {
-            url: '/setting/idletimeout/modifyIdletimeout.action',
+            url: '/setting/idleTimeout/modifyidleTimeout.action',
             data: {
                 ...values,
             },
@@ -37,7 +37,7 @@ export default function Idletimeout() {
 
     useEffect(() => {
         const requestBody = {
-            url: '/setting/idletimeout/fetchIdletimeout.action',
+            url: '/setting/idleTimeout/fetchidleTimeout.action',
             data: {},
         };
 
@@ -49,16 +49,16 @@ export default function Idletimeout() {
 
     const breadcrumbs = [{ title: '闲时时间设置' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} />;
     }
 
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
-            <Form onFinish={onFinish} initialValues={{ timeout: uIdleTimeOut.timeout }} labelAlign='left' labelCol={{ flex: '120px' }}>
+            <Form onFinish={onFinish} initialValues={{ timeout: idleTimeout.timeout }} labelAlign='left' labelCol={{ flex: '120px' }}>
                 <Alert
                     title='当你长时间不使用系统，系统为保证你的帐号安全，将退出你的登录。'
                     type='info'

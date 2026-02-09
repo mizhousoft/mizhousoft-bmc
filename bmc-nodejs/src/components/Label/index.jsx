@@ -14,7 +14,7 @@ function LabelItem({ item, selected, clickItemEvent }) {
 
 export default function Label({ defaultValue, title, extendMoreHidden = false, items = [], onChange, style = {}, required = false, ref }) {
     const [selectedValue, setSelectedValue] = useState(defaultValue);
-    const [isExtendMore, setExtendMore] = useState(extendMoreHidden);
+    const [isExtendMore, setIsExtendMore] = useState(extendMoreHidden);
 
     const clickItemEvent = (value) => {
         setSelectedValue(value);
@@ -25,7 +25,7 @@ export default function Label({ defaultValue, title, extendMoreHidden = false, i
     };
 
     const extendMore = () => {
-        setExtendMore(true);
+        setIsExtendMore(true);
     };
 
     useImperativeHandle(ref, () => ({

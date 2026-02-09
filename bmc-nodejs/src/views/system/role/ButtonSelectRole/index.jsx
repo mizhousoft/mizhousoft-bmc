@@ -7,9 +7,9 @@ import httpRequest from '@/utils/http-request';
 
 export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath, onChange }) {
     const [visible, setVisible] = useState(false);
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState([]);
-    const [uSelectedRoles, setSelectedRoles] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([]);
 
     const fetchList = (pageNumber, pageSize) => {
         setFetchStatus(LOADING_FETCH_STATUS);
@@ -29,7 +29,7 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
     };
 
     const showModal = () => {
-        setSelectedRoles(selectedRoles);
+        setSelectedItems(selectedRoles);
         setVisible(true);
 
         fetchList(dataSource.pageNumber, dataSource.pageSize);
@@ -38,7 +38,7 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
     const onFinish = () => {
         setVisible(false);
 
-        onChange(uSelectedRoles);
+        onChange(selectedItems);
     };
 
     const columns = [
@@ -65,21 +65,21 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
         onChange: (page, pageSize) => fetchList(page, pageSize),
     };
 
-    const selectedRoleIds = uSelectedRoles.map((role, key, roles) => role.id);
+    const selectedRoleIds = selectedItems.map((role, key, roles) => role.id);
 
     const rowSelection = {
         onSelect: (record, selected, selectedRows) => {
-            let roles = [...uSelectedRoles];
+            let roles = [...selectedItems];
             if (selected) {
                 roles.push(record);
             } else {
                 roles = roles.filter((item) => item.id !== record.id);
             }
 
-            setSelectedRoles(roles);
+            setSelectedItems(roles);
         },
         onSelectAll: (selected, selectedRows, changeRows) => {
-            let roles = [...uSelectedRoles];
+            let roles = [...selectedItems];
 
             if (selected) {
                 changeRows.forEach((row) => {
@@ -97,12 +97,12 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
                 });
             }
 
-            setSelectedRoles(roles);
+            setSelectedItems(roles);
         },
         selectedRowKeys: selectedRoleIds,
     };
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     return (
         <>
@@ -127,7 +127,7 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
                 }}
             >
                 <Table
-                    loading={uFetchStatus.loading}
+                    loading={fetchStatus.loading}
                     columns={columns}
                     dataSource={dataSource.content}
                     pagination={pagination}

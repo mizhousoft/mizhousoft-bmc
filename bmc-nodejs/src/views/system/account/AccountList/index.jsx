@@ -14,9 +14,9 @@ import ResetAccountPasswd from '../ResetAccountPasswd';
 export default function AccountList() {
     const navigate = useNavigate();
 
-    const uFetchStatus = useAccountStore((state) => state.fetchStatus);
+    const fetchStatus = useAccountStore((state) => state.fetchStatus);
     const dataSource = useAccountStore((state) => state.dataSource);
-    const uFilter = useAccountStore((state) => state.filter);
+    const filter = useAccountStore((state) => state.filter);
     const setLoading = useAccountStore((state) => state.setLoading);
     const fetchList = useAccountStore((state) => state.fetchList);
 
@@ -25,7 +25,7 @@ export default function AccountList() {
     };
 
     const refreshList = () => {
-        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, filter);
     };
 
     const disableItem = (id) => {
@@ -231,17 +231,17 @@ export default function AccountList() {
         showSizeChanger: true,
         pageSizeOptions: ['10', '20', '30', '40', '50', '100'],
         showTotal: (total) => `总条数： ${total} `,
-        onChange: (page, pageSize) => fetchList(page, pageSize, uFilter),
+        onChange: (page, pageSize) => fetchList(page, pageSize, filter),
     };
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     return (
         <PageComponent breadcrumbs={[{ title: '帐号' }]}>
             <Row className='mz-table-header'>
                 <Col span={12}>
                     <Radio.Group
-                        defaultValue={`${uFilter.status}`}
+                        defaultValue={`${filter.status}`}
                         onChange={changeFilterStatus}
                         optionType='button'
                         options={[
@@ -259,7 +259,7 @@ export default function AccountList() {
                 </Col>
             </Row>
             <Table
-                loading={uFetchStatus.loading}
+                loading={fetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}

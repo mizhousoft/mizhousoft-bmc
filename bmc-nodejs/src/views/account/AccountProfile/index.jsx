@@ -25,9 +25,9 @@ const columns = [
 ];
 
 export default function AccountProfile() {
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uAccount, setAccount] = useState(undefined);
-    const [uRoles, setRoles] = useState([]);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [account, setAccount] = useState(undefined);
+    const [roles, setRoles] = useState([]);
 
     const fetchPageData = () => {
         const requestBody = {
@@ -48,28 +48,28 @@ export default function AccountProfile() {
 
     const breadcrumbs = [{ title: '帐号信息' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} />;
     }
 
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '90px' }}>
-                <FormItem label='帐号名'>{uAccount.name}</FormItem>
+                <FormItem label='帐号名'>{account.name}</FormItem>
                 <FormItem label='手机号'>
                     <Space>
-                        <span>{uAccount.phoneNumber}</span>
+                        <span>{account.phoneNumber}</span>
 
-                        <PhoneNumberEdit account={uAccount} fetchPageData={fetchPageData} />
+                        <PhoneNumberEdit account={account} fetchPageData={fetchPageData} />
                     </Space>
                 </FormItem>
 
                 <FormItem>
                     <div style={{ marginBottom: '13px' }}>所属角色：</div>
-                    <Table size='middle' columns={columns} dataSource={uRoles} rowKey={(record) => record.id} pagination={false} />
+                    <Table size='middle' columns={columns} dataSource={roles} rowKey={(record) => record.id} pagination={false} />
                 </FormItem>
             </Form>
         </PageComponent>

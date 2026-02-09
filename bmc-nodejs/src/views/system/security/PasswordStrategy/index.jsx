@@ -12,9 +12,9 @@ const FormItem = Form.Item;
 export default function PasswordStrategy() {
     const [form] = Form.useForm();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uStrategy, setStrategy] = useState(undefined);
+    const [strategy, setStrategy] = useState(undefined);
 
     const onFinish = (values) => {
         setConfirmLoading(true);
@@ -22,7 +22,7 @@ export default function PasswordStrategy() {
         const requestBody = {
             url: '/system/modifyPasswordStrategy.action',
             data: {
-                id: uStrategy.id,
+                id: strategy.id,
                 ...values,
             },
         };
@@ -52,11 +52,11 @@ export default function PasswordStrategy() {
 
     const breadcrumbs = [{ title: '密码策略' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} />;
     }
 
     return (
@@ -65,11 +65,11 @@ export default function PasswordStrategy() {
                 onFinish={onFinish}
                 form={form}
                 initialValues={{
-                    historyRepeatSize: uStrategy.historyRepeatSize,
-                    charAppearSize: uStrategy.charAppearSize,
-                    modifyTimeInterval: uStrategy.modifyTimeInterval,
-                    validDay: uStrategy.validDay,
-                    reminderModifyDay: uStrategy.reminderModifyDay,
+                    historyRepeatSize: strategy.historyRepeatSize,
+                    charAppearSize: strategy.charAppearSize,
+                    modifyTimeInterval: strategy.modifyTimeInterval,
+                    validDay: strategy.validDay,
+                    reminderModifyDay: strategy.reminderModifyDay,
                 }}
             >
                 <FormItem>

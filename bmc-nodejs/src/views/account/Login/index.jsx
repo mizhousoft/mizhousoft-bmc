@@ -16,7 +16,7 @@ const FormItem = Form.Item;
 export default function Login() {
     const navigate = useNavigate();
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uError, setError] = useState('');
+    const [error, setError] = useState('');
 
     const fetchAccountDetail = () => {
         const requestBody = {
@@ -112,7 +112,7 @@ export default function Login() {
                             登录
                         </Button>
                     </FormItem>
-                    {uError !== '' && <Alert type='error' title={uError} showIcon style={{ textAlign: 'left', marginBottom: '20px' }} />}
+                    {error !== '' && <Alert type='error' title={error} showIcon style={{ textAlign: 'left', marginBottom: '20px' }} />}
                 </Form>
                 <div
                     style={{

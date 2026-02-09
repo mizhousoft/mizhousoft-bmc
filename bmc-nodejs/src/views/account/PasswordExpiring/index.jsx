@@ -14,8 +14,8 @@ export default function PasswordExpiring() {
     const timeoutRef = useRef();
 
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uExpiringDay, setExpiringDay] = useState(undefined);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [expiringDay, setExpiringDay] = useState(undefined);
 
     const checkNewPassword = (rule, value) => {
         if (value) {
@@ -93,14 +93,14 @@ export default function PasswordExpiring() {
         return () => clearTimeout(timeoutRef.current);
     }, []);
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException fetchStatus={fetchStatus} />;
     }
 
-    const content = `你的密码还有 ${uExpiringDay} 天过期，为保证你的帐号安全，请你修改密码。修改密码成功，2秒后自动跳转到登录界面重新登录。`;
+    const content = `你的密码还有 ${expiringDay} 天过期，为保证你的帐号安全，请你修改密码。修改密码成功，2秒后自动跳转到登录界面重新登录。`;
 
     return (
         <Row style={{ marginTop: '120px' }}>

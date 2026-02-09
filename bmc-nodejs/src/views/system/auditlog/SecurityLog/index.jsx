@@ -14,16 +14,16 @@ const { RangePicker } = DatePicker;
 export default function SecurityLog() {
     const [form] = Form.useForm();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
-    const [uSearchFilter, setSearchFilter] = useState({
+    const [searchFilter, setSearchFilter] = useState({
         beginTime: undefined,
         endTime: undefined,
         operation: undefined,
         accountName: undefined,
         terminal: undefined,
     });
-    const [uTableFilter, setTableFilter] = useState({
+    const [tableFilter, setTableFilter] = useState({
         logLevels: [],
         results: [],
     });
@@ -63,7 +63,7 @@ export default function SecurityLog() {
 
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchList(pagination.current, pagination.pageSize, uSearchFilter, tableFilter);
+        fetchList(pagination.current, pagination.pageSize, searchFilter, tableFilter);
     };
 
     const search = () => {
@@ -80,7 +80,7 @@ export default function SecurityLog() {
 
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchList(dataSource.pageNumber, dataSource.pageSize, searchFilter, uTableFilter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, searchFilter, tableFilter);
     };
 
     const clearFilterForm = () => {
@@ -110,7 +110,7 @@ export default function SecurityLog() {
     };
 
     useEffect(() => {
-        fetchList(dataSource.pageNumber, dataSource.pageSize, uSearchFilter, uTableFilter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, searchFilter, tableFilter);
     }, []);
 
     const columns = [
@@ -137,7 +137,7 @@ export default function SecurityLog() {
                     value: 'Risk',
                 },
             ],
-            filteredValue: uTableFilter.logLevels.length > 0 ? uTableFilter.logLevels : [],
+            filteredValue: tableFilter.logLevels.length > 0 ? tableFilter.logLevels : [],
         },
         {
             title: '操作帐号',
@@ -172,7 +172,7 @@ export default function SecurityLog() {
                     value: '3',
                 },
             ],
-            filteredValue: uTableFilter.results.length > 0 ? uTableFilter.results : [],
+            filteredValue: tableFilter.results.length > 0 ? tableFilter.results : [],
         },
         {
             title: '详细信息',
@@ -195,12 +195,12 @@ export default function SecurityLog() {
         showTotal: (total) => `总条数： ${total} `,
     };
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     let timePeriod = [undefined, undefined];
-    if (uSearchFilter.beginTime !== undefined && uSearchFilter.endTime !== undefined) {
+    if (searchFilter.beginTime !== undefined && searchFilter.endTime !== undefined) {
         const dateFormat = 'YYYY-MM-DD HH:mm';
-        timePeriod = [dayjs(uSearchFilter.beginTime, dateFormat), dayjs(uSearchFilter.endTime, dateFormat)];
+        timePeriod = [dayjs(searchFilter.beginTime, dateFormat), dayjs(searchFilter.endTime, dateFormat)];
     }
 
     return (
@@ -211,9 +211,9 @@ export default function SecurityLog() {
                 labelAlign='left'
                 className='mz-form-light'
                 initialValues={{
-                    operation: uSearchFilter.operation,
-                    accountName: uSearchFilter.accountName,
-                    terminal: uSearchFilter.terminal,
+                    operation: searchFilter.operation,
+                    accountName: searchFilter.accountName,
+                    terminal: searchFilter.terminal,
                     timePeriod,
                 }}
                 labelCol={{ flex: '85px' }}
@@ -251,7 +251,7 @@ export default function SecurityLog() {
             </Form>
 
             <Table
-                loading={uFetchStatus.loading}
+                loading={fetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}

@@ -15,9 +15,9 @@ export default function RoleList() {
 
     const navigate = useNavigate();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState([]);
-    const [uFilter, setFilter] = useState({
+    const [filter, setFilter] = useState({
         name: undefined,
     });
 
@@ -45,24 +45,24 @@ export default function RoleList() {
     const refreshList = () => {
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, filter);
     };
 
     const changeTablePage = (page, pageSize) => {
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchList(page, pageSize, uFilter);
+        fetchList(page, pageSize, filter);
     };
 
     const search = () => {
         const fieldsValue = form.getFieldsValue();
 
-        const filter = { ...uFilter };
-        filter.name = fieldsValue.name;
+        const newFilter = { ...filter };
+        newFilter.name = fieldsValue.name;
 
         setFetchStatus(LOADING_FETCH_STATUS);
 
-        fetchList(1, dataSource.pageSize, filter);
+        fetchList(1, dataSource.pageSize, newFilter);
     };
 
     const deleteItem = (id) => {
@@ -87,7 +87,7 @@ export default function RoleList() {
     };
 
     useEffect(() => {
-        fetchList(dataSource.pageNumber, dataSource.pageSize, uFilter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, filter);
     }, []);
 
     const columns = [
@@ -151,7 +151,7 @@ export default function RoleList() {
         onChange: (page, pageSize) => changeTablePage(page, pageSize),
     };
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     return (
         <PageComponent breadcrumbs={[{ title: '角色' }]}>
@@ -159,7 +159,7 @@ export default function RoleList() {
                 form={form}
                 labelAlign='left'
                 initialValues={{
-                    name: uFilter.name,
+                    name: filter.name,
                 }}
             >
                 <Row className='mz-table-header'>
@@ -178,7 +178,7 @@ export default function RoleList() {
                 </Row>
             </Form>
             <Table
-                loading={uFetchStatus.loading}
+                loading={fetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}

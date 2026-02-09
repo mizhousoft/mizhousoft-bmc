@@ -4,16 +4,16 @@ import { Button, Popconfirm, Table } from 'antd';
 import ButtonSelectRole from '@/views/system/role/ButtonSelectRole';
 
 export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData }) {
-    const [uSelectedRoles, setSelectedRoles] = useState(formData.selectedRoles);
+    const [selectedItems, setSelectedItems] = useState(formData.selectedRoles);
 
     const next = () => {
-        const newFormData = { ...formData, selectedRoles: uSelectedRoles };
+        const newFormData = { ...formData, selectedRoles: selectedItems };
         nextStep(newFormData);
     };
 
     const deleteRole = (id, name) => {
-        const selectedRoles = uSelectedRoles.filter((item) => item.id !== id);
-        setSelectedRoles(selectedRoles);
+        const selectedRoles = selectedItems.filter((item) => item.id !== id);
+        setSelectedItems(selectedRoles);
     };
 
     const columns = [
@@ -50,12 +50,12 @@ export default function SelectRoleForm({ nextStep, prevStep, gotoList, formData 
     return (
         <div>
             <ButtonSelectRole
-                selectedRoles={uSelectedRoles}
-                onChange={(roles) => setSelectedRoles(roles)}
+                selectedRoles={selectedItems}
+                onChange={(roles) => setSelectedItems(roles)}
                 fetchRequestPath='/account/new/fetchRoles.action'
             />
 
-            <Table columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.name} size='middle' />
+            <Table columns={columns} dataSource={selectedItems} pagination={false} rowKey={(record) => record.name} size='middle' />
 
             <div className='mz-button-group' style={{ marginTop: '24px' }}>
                 <Button type='primary' onClick={() => next()}>

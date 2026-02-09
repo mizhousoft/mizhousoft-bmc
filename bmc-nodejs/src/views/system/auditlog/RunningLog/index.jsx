@@ -7,8 +7,8 @@ import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
 export default function RunningLog() {
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uLogFiles, setLogFiles] = useState([]);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [logFiles, setLogFiles] = useState([]);
 
     const downloadFileAction = (logname) => {
         const modal = Modal.info({
@@ -76,15 +76,15 @@ export default function RunningLog() {
         },
     ];
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     return (
         <PageComponent breadcrumbs={[{ title: '本地日志' }]}>
             <Table
                 columns={columns}
-                loading={uFetchStatus.loading}
+                loading={fetchStatus.loading}
                 locale={locale}
-                dataSource={uLogFiles}
+                dataSource={logFiles}
                 rowKey={(record) => record.name}
                 size='middle'
                 pagination={false}

@@ -12,12 +12,12 @@ const FormItem = Form.Item;
 export default function AccountStrategy() {
     const [form] = Form.useForm();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uStrategy, setStrategy] = useState(undefined);
+    const [strategy, setStrategy] = useState(undefined);
 
     const changeLockTimeStrategy = (e) => {
-        const newStrategy = { ...uStrategy };
+        const newStrategy = { ...strategy };
         newStrategy.lockTimeStrategy = e.target.value;
 
         setStrategy(newStrategy);
@@ -29,8 +29,8 @@ export default function AccountStrategy() {
         const requestBody = {
             url: '/system/modifyAccountStrategy.action',
             data: {
-                id: uStrategy.id,
-                lockTimeStrategy: uStrategy.lockTimeStrategy,
+                id: strategy.id,
+                lockTimeStrategy: strategy.lockTimeStrategy,
                 ...values,
             },
         };
@@ -60,14 +60,14 @@ export default function AccountStrategy() {
 
     const breadcrumbs = [{ title: '帐号策略' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} />;
     }
 
-    const PermanentLockChecked = uStrategy.lockTimeStrategy === 2;
+    const PermanentLockChecked = strategy.lockTimeStrategy === 2;
     const lockTimeChecked = !PermanentLockChecked;
 
     return (
@@ -76,11 +76,11 @@ export default function AccountStrategy() {
                 onFinish={onFinish}
                 form={form}
                 initialValues={{
-                    accountUnusedDay: uStrategy.accountUnusedDay,
-                    timeLimitPeriod: uStrategy.timeLimitPeriod,
-                    loginLimitNumber: uStrategy.loginLimitNumber,
+                    accountUnusedDay: strategy.accountUnusedDay,
+                    timeLimitPeriod: strategy.timeLimitPeriod,
+                    loginLimitNumber: strategy.loginLimitNumber,
                     lockTime: 1,
-                    accountLockTime: uStrategy.accountLockTime,
+                    accountLockTime: strategy.accountLockTime,
                     permanentLock: 2,
                 }}
             >

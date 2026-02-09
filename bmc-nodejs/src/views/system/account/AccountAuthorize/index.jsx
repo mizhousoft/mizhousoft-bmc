@@ -15,24 +15,24 @@ export default function AccountAuthorize() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uAccount, setAccount] = useState(undefined);
-    const [uSelectedRoles, setSelectedRoles] = useState([]);
+    const [account, setAccount] = useState(undefined);
+    const [selectedRoles, setSelectedRoles] = useState([]);
 
     const gotoList = () => {
         navigate('/account/list');
     };
 
     const deleteRole = (rid, name) => {
-        const roles = uSelectedRoles.filter((item) => item.id !== rid);
+        const roles = selectedRoles.filter((item) => item.id !== rid);
         setSelectedRoles(roles);
     };
 
     const onFinish = () => {
         setConfirmLoading(true);
 
-        const roleIds = uSelectedRoles.map((role, key, roles) => role.id);
+        const roleIds = selectedRoles.map((role, key, roles) => role.id);
 
         const requestBody = {
             url: '/account/authorizeAccount.action',
@@ -71,11 +71,11 @@ export default function AccountAuthorize() {
 
     const breadcrumbs = [{ title: '帐号' }, { title: '授权帐号' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} goBack={gotoList} />;
     }
 
     const columns = [
@@ -112,15 +112,15 @@ export default function AccountAuthorize() {
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '80px' }}>
-                <FormItem label='帐号名'>{uAccount.name}</FormItem>
+                <FormItem label='帐号名'>{account.name}</FormItem>
                 <FormItem>
                     <ButtonSelectRole
-                        selectedRoles={uSelectedRoles}
+                        selectedRoles={selectedRoles}
                         onChange={(roles) => setSelectedRoles(roles)}
                         fetchRequestPath='/account/authorize/fetchRoles.action'
                     />
 
-                    <Table size='middle' columns={columns} dataSource={uSelectedRoles} pagination={false} rowKey={(record) => record.id} />
+                    <Table size='middle' columns={columns} dataSource={selectedRoles} pagination={false} rowKey={(record) => record.id} />
                 </FormItem>
                 <FormItem className='mz-button-group'>
                     <Button type='primary' onClick={onFinish} loading={confirmLoading}>

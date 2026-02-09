@@ -15,8 +15,8 @@ export default function PasswordEdit() {
     const [form] = Form.useForm();
 
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uPasswordStrategy, setPasswordStrategy] = useState(undefined);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [passwordStrategy, setPasswordStrategy] = useState(undefined);
 
     const countCharNumber = (value, c) => {
         let count = 0;
@@ -45,7 +45,7 @@ export default function PasswordEdit() {
     const checkNewPassword = (rule, value) => {
         if (value) {
             const { name } = SessionStore.getAccount();
-            const { charAppearSize } = uPasswordStrategy;
+            const { charAppearSize } = passwordStrategy;
 
             if (value.includes(name)) {
                 return Promise.reject(new Error('密码不能包含帐号名。'));
@@ -112,14 +112,14 @@ export default function PasswordEdit() {
 
     const breadcrumbs = [{ title: '密码修改' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} />;
     }
 
-    const content = `在${uPasswordStrategy.modifyTimeInterval}分钟内，只能修改一次密码，不能连续修改密码。`;
+    const content = `在${passwordStrategy.modifyTimeInterval}分钟内，只能修改一次密码，不能连续修改密码。`;
 
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
@@ -189,10 +189,7 @@ export default function PasswordEdit() {
                     </Button>
                 </FormItem>
                 <FormItem>
-                    <PasswordNote
-                        charAppearSize={uPasswordStrategy.charAppearSize}
-                        historyRepeatSize={uPasswordStrategy.historyRepeatSize}
-                    />
+                    <PasswordNote charAppearSize={passwordStrategy.charAppearSize} historyRepeatSize={passwordStrategy.historyRepeatSize} />
                 </FormItem>
             </Form>
         </PageComponent>

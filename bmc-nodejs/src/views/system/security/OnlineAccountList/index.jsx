@@ -7,7 +7,7 @@ import { getTableLocale } from '@/utils/antd-extension';
 import httpRequest from '@/utils/http-request';
 
 export default function OnlineAccountList() {
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [dataSource, setDataSource] = useState(DEFAULT_DATA_PAGE);
 
     const fetchList = (pageNumber, pageSize) => {
@@ -116,12 +116,12 @@ export default function OnlineAccountList() {
         onChange: (page, pageSize) => changeTablePage(page, pageSize),
     };
 
-    const locale = getTableLocale(uFetchStatus);
+    const locale = getTableLocale(fetchStatus);
 
     return (
         <PageComponent breadcrumbs={[{ title: '在线帐号' }]}>
             <Table
-                loading={uFetchStatus.loading}
+                loading={fetchStatus.loading}
                 columns={columns}
                 dataSource={dataSource.content}
                 pagination={pagination}

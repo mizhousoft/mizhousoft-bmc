@@ -14,9 +14,9 @@ export default function RoleInfo() {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
-    const [uRole, setRole] = useState(undefined);
-    const [uTreeData, setTreeData] = useState(undefined);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [role, setRole] = useState(undefined);
+    const [treeData, setTreeData] = useState(undefined);
 
     const gotoList = () => {
         navigate('/role/list');
@@ -39,20 +39,20 @@ export default function RoleInfo() {
 
     const breadcrumbs = [{ title: '角色', path: '/role/list' }, { title: '查看角色' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} goBack={gotoList} />;
     }
 
-    const treeDataList = JSON.parse(uTreeData);
+    const treeDataList = JSON.parse(treeData);
 
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
             <Form labelAlign='left' labelCol={{ flex: '80px' }}>
-                <FormItem label='角色名'>{uRole.displayNameCN}</FormItem>
-                <FormItem label='描述'>{uRole.descriptionCN}</FormItem>
+                <FormItem label='角色名'>{role.displayNameCN}</FormItem>
+                <FormItem label='描述'>{role.descriptionCN}</FormItem>
                 <div>角色权限：</div>
                 <div className='mz_permission_tree'>
                     <Tree showLine defaultExpandAll blockNode treeData={treeDataList} />

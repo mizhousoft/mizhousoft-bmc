@@ -16,10 +16,10 @@ export default function NewRole() {
 
     const navigate = useNavigate();
 
-    const [uFetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
+    const [fetchStatus, setFetchStatus] = useState(LOADING_FETCH_STATUS);
     const [confirmLoading, setConfirmLoading] = useState(false);
-    const [uCheckedKeys, setCheckedKeys] = useState([]);
-    const [uTreeData, setTreeData] = useState(undefined);
+    const [checkedKeys, setCheckedKeys] = useState([]);
+    const [treeData, setTreeData] = useState(undefined);
 
     const gotoList = () => {
         navigate('/role/list');
@@ -30,7 +30,7 @@ export default function NewRole() {
     };
 
     const onFinish = (values) => {
-        if (uCheckedKeys.length === 0) {
+        if (checkedKeys.length === 0) {
             message.error('请选择角色权限');
             return;
         }
@@ -40,7 +40,7 @@ export default function NewRole() {
             data: {
                 name: values.name?.trim(),
                 description: values.description?.trim(),
-                permIds: uCheckedKeys,
+                permIds: checkedKeys,
             },
         };
 
@@ -71,14 +71,14 @@ export default function NewRole() {
 
     const breadcrumbs = [{ title: '角色', path: '/role/list' }, { title: '增加角色' }];
 
-    if (uFetchStatus.loading) {
+    if (fetchStatus.loading) {
         return <PageLoading breadcrumbs={breadcrumbs} />;
     }
-    if (!uFetchStatus.okey) {
-        return <PageException breadcrumbs={breadcrumbs} fetchStatus={uFetchStatus} goBack={gotoList} />;
+    if (!fetchStatus.okey) {
+        return <PageException breadcrumbs={breadcrumbs} fetchStatus={fetchStatus} goBack={gotoList} />;
     }
 
-    const treeDataArray = JSON.parse(uTreeData);
+    const treeDataArray = JSON.parse(treeData);
 
     return (
         <PageComponent breadcrumbs={breadcrumbs}>
