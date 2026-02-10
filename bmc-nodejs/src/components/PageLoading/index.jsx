@@ -6,7 +6,7 @@ function InnerLoading({ tip = '数据加载中', height = 'calc(100vh - 200px)' 
     return (
         <div className='mz-page-loading' style={{ height }}>
             <div className='spin'>
-                <Spin size='large' tip={tip}>
+                <Spin size='large' description={tip}>
                     <div></div>
                 </Spin>
             </div>

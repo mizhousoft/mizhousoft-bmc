@@ -114,7 +114,6 @@ export default function ButtonSelectRole({ selectedRoles = [], fetchRequestPath,
                 title='选择角色'
                 open={visible}
                 closable={false}
-                maskClosable={false}
                 onCancel={() => setVisible(false)}
                 width='50%'
                 footer={null}

@@ -72,15 +72,7 @@ export default function ResetAccountPasswd({ accountId }) {
             </AuthA>
 
             {visible && (
-                <Modal
-                    title='重置帐号密码'
-                    open
-                    centered
-                    closable={false}
-                    maskClosable={false}
-                    footer={null}
-                    onCancel={() => setVisible(false)}
-                >
+                <Modal title='重置帐号密码' open centered closable={false} footer={null} onCancel={() => setVisible(false)}>
                     <Form preserve={false} onFinish={onFinish} form={form} labelAlign='left'>
                         <FormItem
                             name='newPassword'

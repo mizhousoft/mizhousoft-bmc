@@ -4,7 +4,7 @@ export default function DrawerLoading({ tip = '数据加载中', height = 'calc(
     return (
         <div className='mz-drawer-loading' style={{ height }}>
             <div className='spin'>
-                <Spin size='large' tip={tip}>
+                <Spin size='large' description={tip}>
                     <div></div>
                 </Spin>
             </div>

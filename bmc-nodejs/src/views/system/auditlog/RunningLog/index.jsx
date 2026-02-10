@@ -13,7 +13,7 @@ export default function RunningLog() {
     const downloadFileAction = (logname) => {
         const modal = Modal.info({
             content: (
-                <Spin tip='正在下载中...'>
+                <Spin description='正在下载中...'>
                     <div />
                 </Spin>
             ),

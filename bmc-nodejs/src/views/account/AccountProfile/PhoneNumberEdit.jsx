@@ -39,16 +39,7 @@ export default function PhoneNumberEdit({ account, fetchPageData }) {
             <Button onClick={() => setVisible(true)}>修改</Button>
 
             {visible && (
-                <Modal
-                    title='修改手机号'
-                    maskClosable={false}
-                    footer={null}
-                    open
-                    destroyOnHidden
-                    onCancel={() => setVisible(false)}
-                    closable={false}
-                    centered
-                >
+                <Modal title='修改手机号' footer={null} open destroyOnHidden onCancel={() => setVisible(false)} closable={false} centered>
                     <Form
                         preserve={false}
                         onFinish={onFinish}

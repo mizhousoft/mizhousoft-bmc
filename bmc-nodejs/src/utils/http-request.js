@@ -36,7 +36,6 @@ instance.interceptors.response.use(
 
                 exitModal.update({
                     centered: true,
-                    maskClosable: false,
                     keyboard: false,
                     title: '帐号提示',
                     content: '帐号会话已失效，请重新登录',

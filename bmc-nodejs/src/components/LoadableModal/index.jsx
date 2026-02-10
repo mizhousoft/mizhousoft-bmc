@@ -4,18 +4,7 @@ import PageException from '@/components/PageException';
 
 import './index.css';
 
-export default function LoadableModal({
-    fetchStatus,
-    className,
-    title,
-    open,
-    width,
-    maskClosable = false,
-    loadingHeight = '200px',
-    style,
-    onCancel,
-    children,
-}) {
+export default function LoadableModal({ fetchStatus, className, title, open, width, loadingHeight = '200px', style, onCancel, children }) {
     if (fetchStatus.loading) {
         return (
             <Modal
@@ -24,7 +13,6 @@ export default function LoadableModal({
                 footer={null}
                 open={open}
                 destroyOnHidden
-                maskClosable={maskClosable}
                 width={width}
                 onCancel={onCancel}
                 style={style}
@@ -45,7 +33,6 @@ export default function LoadableModal({
                 footer={null}
                 open={open}
                 destroyOnHidden
-                maskClosable={maskClosable}
                 width={width}
                 onCancel={onCancel}
                 style={style}
@@ -63,7 +50,6 @@ export default function LoadableModal({
             footer={null}
             open={open}
             destroyOnHidden
-            maskClosable={maskClosable}
             width={width}
             onCancel={onCancel}
             style={style}
