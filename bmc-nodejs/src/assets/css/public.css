@@ -239,7 +239,7 @@
 
 .mz-page-loading > .spin {
     position: relative;
-    top: calc((100vh - 106px) / 3 - 30px);
+    top: calc((100vh - 106px) / 3);
     text-align: center;
 }
 

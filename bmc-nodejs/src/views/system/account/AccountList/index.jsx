@@ -113,11 +113,11 @@ export default function AccountList() {
     };
 
     const changeFilterStatus = (e) => {
-        const filter = {
+        const newFilter = {
             status: e.target.value,
         };
 
-        fetchList(dataSource.pageNumber, dataSource.pageSize, filter);
+        fetchList(dataSource.pageNumber, dataSource.pageSize, newFilter);
     };
 
     useEffect(() => {

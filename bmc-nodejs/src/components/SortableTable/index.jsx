@@ -25,7 +25,7 @@ const DragableBodyRow = (props) => {
 };
 
 export default function SortableTable({ columns, title, dataSource, ref }) {
-    const [uDataSource, setDataSource] = useState(dataSource);
+    const [dataList, setDataList] = useState(dataSource);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -37,7 +37,7 @@ export default function SortableTable({ columns, title, dataSource, ref }) {
 
     const onDragEnd = ({ active, over }) => {
         if (active.id !== over?.id) {
-            setDataSource((prev) => {
+            setDataList((prev) => {
                 const activeIndex = prev.findIndex((i) => i.id === active.id);
                 const overIndex = prev.findIndex((i) => i.id === over?.id);
                 return arrayMove(prev, activeIndex, overIndex);
@@ -46,16 +46,16 @@ export default function SortableTable({ columns, title, dataSource, ref }) {
     };
 
     useImperativeHandle(ref, () => ({
-        getDataSource: () => uDataSource,
+        getDataSource: () => dataList,
     }));
 
     return (
         <DndContext sensors={sensors} modifiers={[restrictToVerticalAxis]} onDragEnd={onDragEnd}>
-            <SortableContext items={uDataSource.map((i) => i.id)} strategy={verticalListSortingStrategy}>
+            <SortableContext items={dataList.map((i) => i.id)} strategy={verticalListSortingStrategy}>
                 <Table
                     title={title}
                     columns={columns}
-                    dataSource={uDataSource}
+                    dataSource={dataList}
                     rowKey='id'
                     pagination={false}
                     components={{
