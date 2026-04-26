@@ -1,6 +1,6 @@
 const path = require("path");
 const { rspack } = require('@rspack/core');
-const ReactRefreshPlugin = require('@rspack/plugin-react-refresh');
+const { ReactRefreshRspackPlugin } = require('@rspack/plugin-react-refresh');
 
 module.exports = {
     mode: 'development',
@@ -121,6 +121,6 @@ module.exports = {
             ENV_TEST_ADMIN: JSON.stringify('admin'),
             ENV_TEST_PASSWORD: JSON.stringify('Bmc@223456789'),
         }),
-        new ReactRefreshPlugin(),
+        new ReactRefreshRspackPlugin(),
     ]
 }

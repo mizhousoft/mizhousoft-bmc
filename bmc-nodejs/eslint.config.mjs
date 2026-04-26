@@ -23,6 +23,7 @@ export default antfu(
         typescript: false,
         react: true,
         rules: {
+            'react/jsx-key-before-spread': 'off',
             'node/prefer-global/process': 'off', // TODO: remove this
             'node/prefer-global/buffer': 'off', // TODO: remove this
             'jsdoc/empty-tags': 'off',
@@ -47,6 +48,12 @@ export default antfu(
                 args: 'none'
             }],
             'e18e/prefer-static-regex': 'off',
+            // 升级 @eslint-react/eslint-plugin@3 带来的 warning
+            'react/component-hook-factories': 'off',
+            'react/rules-of-hooks': 'off',
+            'react/set-state-in-effect': 'off',
+            'react/exhaustive-deps': 'off',
+            'react-naming-convention/id-name': 'off', // Do not turn on — it would break the original semantics.
         },
     },
     compat.configs['flat/recommended'],
